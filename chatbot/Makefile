@@ -8,6 +8,10 @@ SERVICE_NAME=chatbot
 .PHONY: all test build
 all: clean build
 
+install:
+	@echo "$(OK_COLOR)==> Installing packages for $(SERVICE_NAME)...$(NO_COLOR)"
+	@npm install
+
 build: test
 	@echo "$(OK_COLOR)==> Building $(SERVICE_NAME)...$(NO_COLOR)"
 	@npm run build
