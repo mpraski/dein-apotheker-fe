@@ -20,7 +20,7 @@ COPY static/Makefile .
 
 RUN make build
 
-FROM nginx:alpine
+FROM nginxinc/nginx-unprivileged:alpine
 
 COPY --from=builder-static /site/public /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
