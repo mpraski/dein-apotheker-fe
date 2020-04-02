@@ -1,0 +1,4 @@
+baseURL = "https://dein-apotheker.de/"
+languageCode = "de-DE"
+title = "Dein Apotheker"
+theme = "ananke"
