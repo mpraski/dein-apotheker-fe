@@ -1,8 +1,16 @@
-before_script:
-  - docker info
+stages:
+  - build
+  - deploy
 
-push:
+build:
+  stage: build
   script:
+    - git submodule update --init --recursive
     - docker build --tag $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker push $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:latest
+
+deploy:
+  stage: deploy
+  script:
+    - ssh -i $DO_KEY $DO_USER@$DO_HOST "cd /var/www && docker-compose pull && docker-compose restart"
