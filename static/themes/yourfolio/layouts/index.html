@@ -1,0 +1,11 @@
+{{- define "main" -}}
+<div class="main-container">
+  {{- partial "header" . -}}
+  <div class="container">
+    <div class="padder">
+      {{- partial "modules/text-groups" . -}}
+      {{- partial "modules/projects" . -}}
+    </div>
+  </div>
+</div>
+{{- end -}}
