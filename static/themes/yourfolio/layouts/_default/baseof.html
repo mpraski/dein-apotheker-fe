@@ -25,7 +25,9 @@
     {{- end -}}
     {{- block "header" . -}}{{- end -}}
     {{- block "main" . -}}{{- end -}}
-    {{- block "footer" . -}}{{- end -}}
+    {{- block "footer" . -}}
+      {{- partial "footer.html" . -}}
+    {{- end -}}
     {{- if (eq hugo.Environment "production") | or (eq .Site.Params.env "production") | and .Site.GoogleAnalytics -}}
       {{- template "_internal/google_analytics_async.html" . -}}
     {{- end -}}
