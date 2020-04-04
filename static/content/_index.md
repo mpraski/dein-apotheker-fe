@@ -1,5 +1,5 @@
 ---
-title: Home page
+title: Welcome
 date: 2017-11-01T18:28:28+02:00
 draft: false
 description: Dein Apotheker
