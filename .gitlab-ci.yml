@@ -12,4 +12,4 @@ build:
 deploy:
   stage: deploy
   script:
-    - ssh -i $DO_KEY $DO_USER@$DO_HOST "cd /var/www && sed docker-compose.yml -i -e "s/\(dein-apotheker-de:\)\(.*\)/\1$CI_COMMIT_SHA/" && docker-compose pull && docker-compose restart"
+    - ssh -i $DO_KEY $DO_USER@$DO_HOST "cd /var/www && sed docker-compose.yml -i -e 's/\(dein-apotheker-de:\)\(.*\)/\1$CI_COMMIT_SHA/' && docker-compose pull && docker-compose restart"
