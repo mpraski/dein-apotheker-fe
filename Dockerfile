@@ -14,9 +14,10 @@ RUN mkdir -p /site
 
 WORKDIR /site
 
-COPY static/posts ./posts
+COPY static/content ./content
+COPY static/static ./static
 COPY static/themes ./themes
-COPY static/config.toml .
+COPY static/config.yaml .
 COPY static/Makefile .
 
 RUN make build
