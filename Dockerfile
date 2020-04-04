@@ -1,16 +1,10 @@
 # -- BUILD STATIC --
-FROM alpine:latest as builder-static
+FROM peaceiris/hugo:latest as builder-static
 
 ENV VERSION 0.68.3
 
-RUN apk add --no-cache curl make
-
-RUN mkdir -p /hugo \
-    && cd /hugo \
-    && curl -L https://github.com/gohugoio/hugo/releases/download/v${VERSION}/hugo_extended_${VERSION}_linux-64bit.tar.gz | tar -xz \
-    && mv hugo /usr/local/bin/hugo
-
-RUN mkdir -p /site
+RUN apk add --no-cache curl make && \
+    mkdir -p /site
 
 WORKDIR /site
 
