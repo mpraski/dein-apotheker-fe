@@ -8,7 +8,7 @@ header:
   description: I am a bit like a pharmacist - <span class="blue-text">I don't make a diagnosis.</span> I'm not allowed to, and I probably wouldn't be very good at it either.
   image:
     url: img/bg.png
-    alt_text: The top of mountain image
+    alt_text: Pharmacy
     responsive_sources:
       "848": img/bg.png
       "565": img/bg.png
