@@ -15,4 +15,4 @@ deploy:
     - ssh -i $DO_KEY $DO_USER@$DO_HOST "
       cd /var/www && sed docker-compose.yml -i -e 's/\(dein-apotheker-de:\)\(.*\)/\1$CI_COMMIT_SHA/' 
       && docker-compose down -v --rmi all 
-      && docker-compose up"
+      && docker-compose up -d"
