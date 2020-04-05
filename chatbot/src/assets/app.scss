@@ -1,0 +1,43 @@
+$themes: (
+    light: (
+        backgroundColor: #fff,
+        textColor: #408bbd,
+        buttonTextColor: #408bbd,
+        buttonTextTransform: none,
+        buttonTextHoverColor: #61b0e7,
+        buttonColor: #fff,
+        buttonBorder: 2px solid #fff,
+    ),
+    dark: (
+        backgroundColor: #222,
+        textColor: #ddd,
+        buttonTextColor: #aaa,
+        buttonTextTransform: uppercase,
+        buttonTextHoverColor: #ddd,
+        buttonColor: #333,
+        buttonBorder: 1px solid #aaa,
+    ),
+);
+
+.bubble {
+    border-radius: 0.75rem;
+    border: 2px solid #eeeeee;
+
+    padding: 0.6rem 1.5rem;
+
+    text-align: left;
+    color: black;
+
+    user-select: none;
+    transition: 0.1s;
+    cursor: grab;
+
+    &:hover {
+        background-color: #eeeeee;
+    }
+
+    &:active {
+        border-color: darken(#eeeeee, 10%);
+        background-color: darken(#eeeeee, 10%);
+    }
+}
