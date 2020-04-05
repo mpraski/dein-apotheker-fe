@@ -24,6 +24,7 @@ export default class Prompt extends Vue {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  flex-wrap: wrap;
 
   min-width: 50%;
 }

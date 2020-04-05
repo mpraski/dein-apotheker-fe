@@ -3,6 +3,7 @@
     <Message v-once content="For which **symptom** are you looking for a drug?" alignment="left"></Message>
     <Message v-once content="Running nose" alignment="right"></Message>
     <Message v-once content="Do you have a running nose?" alignment="left"></Message>
+    <Message v-once :content="complexMarkdown" alignment="left"></Message>
     <Prompt></Prompt>
   </div>
 </template>
@@ -22,10 +23,7 @@ export default class ChatBot extends Vue {
   @Prop() private msg!: string;
 
   get complexMarkdown (): string {
-    return `Here's our logo (hover to see the title text):
-
-Inline-style: 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")`
+    return 'Soon we\'ll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help.'
   }
 }
 </script>

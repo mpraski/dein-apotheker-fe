@@ -25,6 +25,6 @@ export default class Answer extends Vue {
   display: inline-flex;
 
   margin-right: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 </style>
