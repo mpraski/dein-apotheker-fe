@@ -1,5 +1,5 @@
 <template>
-  <VueMarkdown v-once :source="content" class="answer-body"></VueMarkdown>
+  <VueMarkdown v-once :source="content" class="item-body"></VueMarkdown>
 </template>
 
 <script lang="ts">
@@ -11,20 +11,19 @@ import VueMarkdown from 'vue-markdown'
     VueMarkdown
   }
 })
-export default class Answer extends Vue {
+export default class Item extends Vue {
   @Prop() private content!: string;
 }
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/app.scss';
+@import "@/assets/app.scss";
 
-.answer-body {
+.item-body {
   @extend .bubble;
+  @include actionable;
 
-  display: inline-flex;
-
-  margin-right: 0.5rem;
+  margin-left: 0.5rem;
   margin-bottom: 0.5rem;
 }
 </style>

@@ -9,14 +9,12 @@
 </template>
 
 <style lang="scss">
-@import '/typeface-roboto/index.css';
-
 #app {
-  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  font-size: 1.2rem;
 }
 
 #nav {

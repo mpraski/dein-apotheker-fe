@@ -1,43 +1,58 @@
-$themes: (
-    light: (
-        backgroundColor: #fff,
-        textColor: #408bbd,
-        buttonTextColor: #408bbd,
-        buttonTextTransform: none,
-        buttonTextHoverColor: #61b0e7,
-        buttonColor: #fff,
-        buttonBorder: 2px solid #fff,
-    ),
-    dark: (
-        backgroundColor: #222,
-        textColor: #ddd,
-        buttonTextColor: #aaa,
-        buttonTextTransform: uppercase,
-        buttonTextHoverColor: #ddd,
-        buttonColor: #333,
-        buttonBorder: 1px solid #aaa,
-    ),
-);
+@import "variables.scss";
 
 .bubble {
-    border-radius: 0.75rem;
-    border: 2px solid #eeeeee;
+    border-radius: $borderRadius;
+    border-style: $borderStyle;
+    border-width: $borderWidth;
 
-    padding: 0.6rem 1.5rem;
+    padding: $paddingButton;
+
+    color: $buttonTextColor;
+    background-color: $buttonBackgroundColor;
+    border-color: $buttonBorderColor;
 
     text-align: left;
-    color: black;
-
     user-select: none;
     transition: 0.1s;
     cursor: grab;
+}
 
+.horizontal-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+@mixin actionable {
     &:hover {
-        background-color: #eeeeee;
+        background-color: $buttonBorderColor;
     }
 
     &:active {
-        border-color: darken(#eeeeee, 10%);
-        background-color: darken(#eeeeee, 10%);
+        border-color: darken($buttonBorderColor, 10%);
+        background-color: darken($buttonBorderColor, 10%);
+    }
+}
+
+@mixin selectable {
+    &.selected {
+        background-color: $accentColor;
+        border-color: $accentColor;
+        color: white;
+    }
+
+    &:hover {
+        &.selected {
+            background-color: lighten($accentColor, 5%);
+            border-color: lighten($accentColor, 5%);
+        }
+    }
+
+    &:active {
+        &.selected {
+            background-color: lighten($accentColor, 10%);
+            border-color: lighten($accentColor, 10%);
+        }
     }
 }

@@ -29,24 +29,10 @@ export default class Message extends Vue {
 .message-body {
   @extend .bubble;
 
-  margin-bottom: 1.5rem;
-  min-width: 50%;
   position: relative;
+  min-width: 50%;
 
-  &:hover {
-    &:after {
-      border-top: 10px solid #eeeeee;
-    }
-  }
-
-  &:active {
-    &:before {
-      border-top: 10px solid darken(#eeeeee, 10%);
-    }
-    &:after {
-      border-top: 10px solid darken(#eeeeee, 10%);
-    }
-  }
+  margin-bottom: 1.5rem;
 
   &:before {
     content: "";
@@ -55,7 +41,7 @@ export default class Message extends Vue {
     position: absolute;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid #eeeeee;
+    border-top: 10px solid $buttonBorderColor;
     border-bottom: 10px solid transparent;
     bottom: -21px;
   }
@@ -68,7 +54,7 @@ export default class Message extends Vue {
     position: absolute;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid #fff;
+    border-top: 10px solid $backgroundColor;
     border-bottom: 10px solid transparent;
     bottom: -18px;
   }
