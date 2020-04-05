@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import ItemSelectible from '@/components/answer/ItemSelectible.vue'
+import ItemSelectible from '@/components/input/ItemSelectible.vue'
 import CloseIcon from 'vue-material-design-icons/ChevronRight.vue'
 
 @Component({

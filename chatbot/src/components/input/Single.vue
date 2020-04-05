@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import Item from '@/components/answer/Item.vue'
+import Item from '@/components/input/Item.vue'
 
 @Component({
   components: {

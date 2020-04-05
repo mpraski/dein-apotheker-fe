@@ -11,8 +11,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import Message from '@/components/Message.vue'
-import Single from '@/components/answer/Single.vue'
-import Multiple from '@/components/answer/Multiple.vue'
+import Single from '@/components/input/Single.vue'
+import Multiple from '@/components/input/Multiple.vue'
 
 @Component({
   components: {
