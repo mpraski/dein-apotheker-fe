@@ -14,7 +14,10 @@
     text-align: left;
     user-select: none;
     transition: 0.1s;
-    cursor: grab;
+
+    .icon > .material-design-icon__svg {
+        bottom: 0;
+    }
 }
 
 .horizontal-list {
@@ -25,6 +28,8 @@
 }
 
 @mixin actionable {
+    cursor: grab;
+
     &:hover {
         background-color: $buttonBorderColor;
     }
@@ -32,6 +37,20 @@
     &:active {
         border-color: darken($buttonBorderColor, 10%);
         background-color: darken($buttonBorderColor, 10%);
+    }
+
+    &.disabled {
+        color: $textColorSecondary;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        &:active {
+            border-color: $buttonBorderColor;
+            background-color: transparent;
+        }
     }
 }
 

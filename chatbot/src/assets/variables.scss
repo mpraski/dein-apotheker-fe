@@ -1,15 +1,24 @@
 // COLOR
 $accentColor: #224afa; 
 $backgroundColor: #fff;
-$textColor: #2c3e50;
 $buttonTextColor: #2c3e50;
 $buttonBackgroundColor: transparent;
 $buttonBorderColor: #eeeeee;
+$textColor: #2c3e50;
+$textColorSecondary: darken($buttonBorderColor, 15%);
 
 // BORDER
 $borderWidth: 2px;
 $borderStyle: solid;
 $borderRadius: .75rem;
 
+// MARGIN
+$marginRegular: 1.5rem;
+$marginSmall: 0.5rem;
+
 // PADDING
 $paddingButton: 0.6rem 1.5rem;
+
+// TEXT SIZE
+$textSize: 1.125rem;
+$fontFamily: Roboto, Arial, sans-serif;

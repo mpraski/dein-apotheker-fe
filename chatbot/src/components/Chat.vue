@@ -35,8 +35,6 @@ export default class Chat extends Vue {
   margin-left: auto;
   margin-right: auto;
 
-  overflow-y: scroll;
-
   display: flex;
   flex-direction: column;
 }

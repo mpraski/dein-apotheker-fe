@@ -23,7 +23,7 @@ export default class Item extends Vue {
   @extend .bubble;
   @include actionable;
 
-  margin-left: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-left: $marginSmall;
+  margin-bottom: $marginSmall;
 }
 </style>

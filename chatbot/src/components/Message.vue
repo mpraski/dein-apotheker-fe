@@ -32,7 +32,7 @@ export default class Message extends Vue {
   position: relative;
   min-width: 50%;
 
-  margin-bottom: 1.5rem;
+  margin-bottom: $marginRegular;
 
   &:before {
     content: "";

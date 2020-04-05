@@ -42,13 +42,13 @@ export default class ItemSelectible extends Vue {
   @include actionable;
   @include selectable;
 
-  display: -webkit-box;
+  display: flex;
 
-  margin-left: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-left: $marginSmall;
+  margin-bottom: $marginSmall;
 
   .icon {
-    margin-right: 0.5rem;
+    margin-right: $marginSmall;
   }
 }
 </style>

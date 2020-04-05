@@ -5,9 +5,9 @@
       <ItemSelectible v-once content="No"></ItemSelectible>
       <ItemSelectible v-once content="Maybe" selected="true"></ItemSelectible>
     </div>
-    <div class="multiple-button">
+    <div class="multiple-button disabled">
       <span>Proceed</span>
-      <CloseIcon class="icon" />
+      <CloseIcon class="icon" fillColor="#2c3e50" />
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import ItemSelectible from '@/components/input/ItemSelectible.vue'
-import CloseIcon from 'vue-material-design-icons/ChevronRight.vue'
+import CloseIcon from 'vue-material-design-icons/ArrowRight.vue'
 
 @Component({
   components: {
@@ -47,14 +47,7 @@ export default class Multiple extends Vue {}
   margin-right: 4rem;
 
   .icon {
-    height: 1.25em;
-    width: 1.25em;
-  }
-
-  .icon > .material-design-icon__svg {
-    height: 1.25em;
-    width: 1.25em;
-    bottom: 0;
+    margin-left: $marginSmall;
   }
 }
 </style>
