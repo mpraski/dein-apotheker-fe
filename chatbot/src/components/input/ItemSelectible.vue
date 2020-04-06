@@ -1,17 +1,23 @@
 <template>
-  <div class="item-selectible-body" v-bind:class="{ selected: this.selected }">
+  <div
+    class="item-selectible-body"
+    v-bind:class="{ selected: this.selected }"
+    @click="onSelect"
+  >
     <keep-alive>
-        <component v-bind:is="getIcon" class="icon"></component>
+      <component v-bind:is="getIcon" class="icon"></component>
     </keep-alive>
-    <VueMarkdown v-once :source="content"></VueMarkdown>
+    <VueMarkdown v-once :source="option.content"></VueMarkdown>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import VueMarkdown from 'vue-markdown'
+
+import { ID, Option } from '@/domain/question'
 
 @Component({
   components: {
@@ -21,11 +27,15 @@ import VueMarkdown from 'vue-markdown'
   }
 })
 export default class ItemSelectible extends Vue {
-  @Prop()
-  private content!: string;
+  @Prop() private option!: Option;
 
   @Prop({ default: false })
   private selected!: boolean;
+
+  @Emit()
+  private onSelect (): ID {
+    return this.option.id
+  }
 
   get getIcon () {
     return this.selected ? CloseIcon : CheckIcon

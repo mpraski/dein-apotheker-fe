@@ -1,0 +1,66 @@
+<template>
+  <div class="action-body" v-bind:class="{ disabled: !enabled }" @click="onSelect">
+    <span>{{content}}</span>
+    <keep-alive v-if="icon">
+      <component v-bind:is="iconComp" class="icon"></component>
+    </keep-alive>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import CloseIcon from 'vue-material-design-icons/ArrowRight.vue'
+import Item from '@/components/input/Item.vue'
+
+@Component({
+  components: {
+    Item,
+    CloseIcon
+  }
+})
+export default class Action extends Vue {
+  @Prop({ default: undefined })
+  private icon?: 'arrow';
+
+  @Prop({ default: '' })
+  private content!: string;
+
+  @Prop({ default: true })
+  private enabled!: boolean;
+
+  @Prop()
+  private onSelect!: () => void;
+
+  private static iconMapping = {
+    arrow: CloseIcon
+  };
+
+  private get iconComp () {
+    if (this.icon) {
+      return Action.iconMapping[this.icon]
+    }
+    return null
+  }
+}
+</script>
+
+<style scoped lang="scss">
+@import "@/assets/app.scss";
+
+.action-body {
+  @extend .bubble;
+  @include actionable;
+  @include centered;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 1rem;
+
+  .icon {
+    margin-left: $marginSmall;
+  }
+}
+</style>

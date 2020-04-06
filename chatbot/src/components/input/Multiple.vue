@@ -1,29 +1,72 @@
 <template>
   <div>
     <div class="multiple-list">
-      <ItemSelectible v-once content="Yes"></ItemSelectible>
-      <ItemSelectible v-once content="No"></ItemSelectible>
-      <ItemSelectible v-once content="Maybe" selected="true"></ItemSelectible>
+      <ItemSelectible
+        v-for="option in options"
+        :key="option.id"
+        :option="option"
+        :selected="selected[option.id]"
+        @on-select="onSelect"
+      />
     </div>
-    <div class="multiple-button disabled">
-      <span>Proceed</span>
-      <CloseIcon class="icon" fillColor="#2c3e50" />
-    </div>
+    <Action content="Proceed" icon="arrow" :enabled="hasItems" :on-select="onProceed" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import ItemSelectible from '@/components/input/ItemSelectible.vue'
 import CloseIcon from 'vue-material-design-icons/ArrowRight.vue'
+
+import Action from '@/components/input/Action.vue'
+import ItemSelectible from '@/components/input/ItemSelectible.vue'
+
+import { ID, Option } from '@/domain/question'
 
 @Component({
   components: {
     ItemSelectible,
+    Action,
     CloseIcon
   }
 })
-export default class Multiple extends Vue {}
+export default class Multiple extends Vue {
+  @Prop({ default: () => [] })
+  private options!: ReadonlyArray<Option>;
+
+  @Prop()
+  private onSubmit!: (a: ReadonlyArray<Option>) => void;
+
+  private selected: { [id: string]: boolean };
+
+  private hasItems: boolean;
+
+  public constructor () {
+    super()
+    this.selected = {}
+    this.hasItems = false
+  }
+
+  private onSelect (id: ID) {
+    if (this.selected[id]) {
+      delete this.selected[id]
+    } else {
+      this.selected[id] = true
+    }
+
+    this.hasItems = Object.keys(this.selected).length > 0
+    this.$forceUpdate()
+  }
+
+  private onProceed () {
+    if (!this.hasItems) return
+
+    const items = Object.keys(this.selected).map(id =>
+      this.options.find(option => option.id === id)
+    ) as ReadonlyArray<Option>
+
+    this.onSubmit(items)
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -36,6 +79,7 @@ export default class Multiple extends Vue {}
 .multiple-button {
   @extend .bubble;
   @include actionable;
+  @include centered;
 
   display: flex;
   flex-direction: row;
@@ -43,8 +87,6 @@ export default class Multiple extends Vue {}
   align-items: center;
 
   margin-top: 1rem;
-  margin-left: 4rem;
-  margin-right: 4rem;
 
   .icon {
     margin-left: $marginSmall;
