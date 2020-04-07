@@ -18,13 +18,13 @@ export interface Comment {
     content: string;
 }
 
-export interface Scenario {
-    id: ID;
-    answers: Array<Answer>;
+export interface Record {
+    scenario: ID;
+    answer: Answer;
 }
 
 export type Answer = string | ID | ReadonlyArray<ID>;
 
-export type History = Array<Scenario>;
+export type History = Array<Record>;
 
 export type Message = Question | Comment;
