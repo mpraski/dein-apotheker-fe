@@ -28,10 +28,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import CloseIcon from 'vue-material-design-icons/ArrowRight.vue'
 
 import Action from '@/components/input/Action.vue'
-import ItemSelectible from '@/components/input/ItemSelectible.vue'
+import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
 
 import { ID, Option } from '@/domain/question'
-import { spread } from '@/utils/timing'
+import { defaultSpread } from '@/utils/timing'
 
 @Component({
   components: {
@@ -49,9 +49,9 @@ export default class Multiple extends Vue {
 
   private selected: { [id: string]: boolean };
 
-  private hasItems: boolean;
+  private hasItems!: boolean;
 
-  private actionVisible: boolean;
+  private actionVisible!: boolean;
 
   private timedOptions!: Array<Option>;
 
@@ -76,7 +76,7 @@ export default class Multiple extends Vue {
       this.actionVisible = true
     })
 
-    spread(300, 300, ...actions)
+    defaultSpread(...actions)
   }
 
   private onSelect (id: ID) {

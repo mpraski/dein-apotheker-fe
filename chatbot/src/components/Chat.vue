@@ -1,6 +1,6 @@
 <template>
   <div class="message-list">
-    <Action content="Add message" :on-select="addMessage" style="margin-bottom: 1.5rem"/>
+    <Action content="Add message" :on-select="addMessage" style="margin-bottom: 1.5rem" />
     <transition-group name="list-complete" tag="div" class="tgroup">
       <Message
         v-for="message in messages"
@@ -9,8 +9,8 @@
         :alignment="message[1]"
       />
     </transition-group>
-    <!-- <Single :options="options" :onSelect="onSelect" />-->
-    <Multiple :options="options" :onSubmit="onSubmit" />
+    <Single :options="options2" :onSelect="onSelect" />
+    <!--<Multiple :options="options" :onSubmit="onSubmit" />-->
     <!--<Prompt />-->
     <!--<Action content="Add message" :on-select="addMessage" />-->
   </div>
@@ -72,6 +72,15 @@ export default class Chat extends Vue {
     ]
   }
 
+  get options2 (): ReadonlyArray<Option> {
+    return [
+      {
+        id: 'understood',
+        content: 'Understood'
+      }
+    ]
+  }
+
   private onSelect (o: Option) {
     console.log(o)
   }
@@ -116,8 +125,7 @@ export default class Chat extends Vue {
     display: inline-block;
   }
 
-  .list-complete-enter, .list-complete-leave-to
-  /* .list-complete-leave-active below version 2.1.8 */ {
+  .list-complete-enter, .list-complete-leave-to {
     opacity: 0;
     transform: translateY(30px);
   }

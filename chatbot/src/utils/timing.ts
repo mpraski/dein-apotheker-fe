@@ -7,3 +7,5 @@ export function spread (
     setTimeout(fs[i], initial + i * delay)
   }
 }
+
+export const defaultSpread = (...fs: Array<() => void>) => spread(300, 300, ...fs)

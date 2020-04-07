@@ -1,21 +1,32 @@
 <template>
   <div class="single-list">
-    <transition-group name="list-complete" tag="div" class="tgroup">
+    <transition-group v-if="!isSingleItem" name="fade" tag="div" class="tgroup">
       <Item v-for="option in timedOptions" :key="option.id" :option="option" @on-select="onSelect" />
     </transition-group>
+    <transition name="fade">
+      <Action
+        v-if="isActionVisible"
+        icon="arrow"
+        :content="options[0].content"
+        :on-select="() => onSelect(options[0])"
+      />
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import Item from '@/components/input/Item.vue'
+
+import Item from '@/components/input/item/Item.vue'
+import Action from '@/components/input/Action.vue'
 
 import { Option } from '@/domain/question'
-import { spread } from '@/utils/timing'
+import { defaultSpread } from '@/utils/timing'
 
 @Component({
   components: {
-    Item
+    Item,
+    Action
   }
 })
 export default class Single extends Vue {
@@ -27,21 +38,33 @@ export default class Single extends Vue {
 
   private timedOptions!: Array<Option>;
 
+  private isActionVisible!: boolean;
+
+  private isSingleItem!: boolean;
+
   constructor () {
     super()
     this.timedOptions = []
+    this.isSingleItem = this.options.length === 1
+    this.isActionVisible = false
   }
 
-  mounted () {
+  private mounted () {
     const actions: Array<() => void> = []
 
-    for (let i = 0; i < this.options.length; i++) {
+    if (this.isSingleItem) {
       actions.push(() => {
-        this.timedOptions.push(this.options[i])
+        this.isActionVisible = true
       })
+    } else {
+      for (let i = 0; i < this.options.length; i++) {
+        actions.push(() => {
+          this.timedOptions.push(this.options[i])
+        })
+      }
     }
 
-    spread(300, 300, ...actions)
+    defaultSpread(...actions)
   }
 }
 </script>
@@ -68,5 +91,14 @@ export default class Single extends Vue {
 
 .list-complete-leave-active {
   position: absolute;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

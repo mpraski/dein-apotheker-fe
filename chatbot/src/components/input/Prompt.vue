@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import SendIcon from 'vue-material-design-icons/Send.vue'
-import Item from '@/components/input/Item.vue'
+import Item from '@/components/input/item/Item.vue'
 
 @Component({
   components: {
@@ -32,7 +32,6 @@ export default class Prompt extends Vue {
   private onSend () {
     if (this.content) {
       this.onSubmit()
-    } else {
     }
   }
 }

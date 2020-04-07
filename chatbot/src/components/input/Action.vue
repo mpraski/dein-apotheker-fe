@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import CloseIcon from 'vue-material-design-icons/ArrowRight.vue'
-import Item from '@/components/input/Item.vue'
+import Item from '@/components/input/item/Item.vue'
 
 @Component({
   components: {

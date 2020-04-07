@@ -1,4 +1,4 @@
-import { Message } from 'question'
+import { Message } from './question'
 
 export type Alignment = 'LEFT' | 'RIGHT';
 
