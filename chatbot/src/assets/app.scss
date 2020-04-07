@@ -5,22 +5,6 @@
     outline: none;
 }
 
-.list-complete-item {
-    transition: all 1s;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.list-complete-enter, .list-complete-leave-to
-  /* .list-complete-leave-active below version 2.1.8 */ {
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-.list-complete-leave-active {
-    position: absolute;
-}
-
 .bubble {
     border-radius: $borderRadius;
     border-style: $borderStyle;
@@ -34,7 +18,7 @@
 
     text-align: left;
     user-select: none;
-    transition: 0.1s;
+    transition: all 0.25s ease;
 
     .icon > .material-design-icon__svg {
         bottom: 0;

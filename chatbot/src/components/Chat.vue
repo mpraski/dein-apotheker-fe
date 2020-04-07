@@ -1,5 +1,6 @@
 <template>
   <div class="message-list">
+    <Action content="Add message" :on-select="addMessage" style="margin-bottom: 1.5rem"/>
     <transition-group name="list-complete" tag="div" class="tgroup">
       <Message
         v-for="message in messages"
@@ -8,10 +9,10 @@
         :alignment="message[1]"
       />
     </transition-group>
-    <Single :options="options" :onSelect="onSelect" />
+    <!-- <Single :options="options" :onSelect="onSelect" />-->
     <Multiple :options="options" :onSubmit="onSubmit" />
-    <Prompt />
-    <Action content="Add message" :on-select="addMessage" />
+    <!--<Prompt />-->
+    <!--<Action content="Add message" :on-select="addMessage" />-->
   </div>
 </template>
 
@@ -57,16 +58,16 @@ export default class Chat extends Vue {
   get options (): ReadonlyArray<Option> {
     return [
       {
-        id: 'lele',
-        content: 'lsds'
+        id: 'yes',
+        content: 'Yes'
       },
       {
-        id: 'lelel',
-        content: 'afsf'
+        id: 'no',
+        content: 'No'
       },
       {
-        id: 'lelell',
-        content: 'dggd'
+        id: 'maybe',
+        content: 'Maybe'
       }
     ]
   }
@@ -108,6 +109,21 @@ export default class Chat extends Vue {
   & > div.tgroup {
     display: flex;
     flex-direction: column;
+  }
+
+  .list-complete-item {
+    transition: all 1s;
+    display: inline-block;
+  }
+
+  .list-complete-enter, .list-complete-leave-to
+  /* .list-complete-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .list-complete-leave-active {
+    position: absolute;
   }
 }
 </style>

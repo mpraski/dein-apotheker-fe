@@ -1,11 +1,9 @@
 <template>
-  <div
-    class="item-selectible-body"
-    v-bind:class="{ selected: this.selected }"
-    @click="onSelect"
-  >
+  <div class="item-selectible-body" v-bind:class="{ selected: this.selected }" @click="onSelect">
     <keep-alive>
-      <component v-bind:is="getIcon" class="icon"></component>
+      <transition name="component-fade" mode="out-in">
+        <component v-bind:is="getIcon" class="icon"></component>
+      </transition>
     </keep-alive>
     <VueMarkdown v-once :source="option.content"></VueMarkdown>
   </div>
@@ -60,5 +58,15 @@ export default class ItemSelectible extends Vue {
   .icon {
     margin-right: $marginSmall;
   }
+}
+
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.component-fade-enter,
+.component-fade-leave-to {
+  opacity: 0;
 }
 </style>

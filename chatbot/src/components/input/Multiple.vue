@@ -1,15 +1,25 @@
 <template>
   <div>
     <div class="multiple-list">
-      <ItemSelectible
-        v-for="option in options"
-        :key="option.id"
-        :option="option"
-        :selected="selected[option.id]"
-        @on-select="onSelect"
-      />
+      <transition-group name="fade" tag="div" class="tgroup">
+        <ItemSelectible
+          v-for="option in timedOptions"
+          :key="option.id"
+          :option="option"
+          :selected="selected[option.id]"
+          @on-select="onSelect"
+        />
+      </transition-group>
     </div>
-    <Action content="Proceed" icon="arrow" :enabled="hasItems" :on-select="onProceed" />
+    <transition name="fade">
+      <Action
+        v-if="actionVisible"
+        content="Proceed"
+        icon="arrow"
+        :enabled="hasItems"
+        :on-select="onProceed"
+      />
+    </transition>
   </div>
 </template>
 
@@ -21,6 +31,7 @@ import Action from '@/components/input/Action.vue'
 import ItemSelectible from '@/components/input/ItemSelectible.vue'
 
 import { ID, Option } from '@/domain/question'
+import { spread } from '@/utils/timing'
 
 @Component({
   components: {
@@ -40,10 +51,32 @@ export default class Multiple extends Vue {
 
   private hasItems: boolean;
 
+  private actionVisible: boolean;
+
+  private timedOptions!: Array<Option>;
+
   public constructor () {
     super()
     this.selected = {}
     this.hasItems = false
+    this.actionVisible = false
+    this.timedOptions = []
+  }
+
+  private mounted () {
+    const actions: Array<() => void> = []
+
+    for (let i = 0; i < this.options.length; i++) {
+      actions.push(() => {
+        this.timedOptions.push(this.options[i])
+      })
+    }
+
+    actions.push(() => {
+      this.actionVisible = true
+    })
+
+    spread(300, 300, ...actions)
   }
 
   private onSelect (id: ID) {
@@ -73,7 +106,9 @@ export default class Multiple extends Vue {
 @import "@/assets/app.scss";
 
 .multiple-list {
-  @extend .horizontal-list;
+  & > div.tgroup {
+    @extend .horizontal-list;
+  }
 }
 
 .multiple-button {
@@ -91,5 +126,14 @@ export default class Multiple extends Vue {
   .icon {
     margin-left: $marginSmall;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
