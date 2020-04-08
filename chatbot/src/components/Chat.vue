@@ -1,28 +1,33 @@
 <template>
-  <div class="message-list">
-    <Action content="Add message" :on-select="addMessage" style="margin-bottom: 1.5rem" />
-    <transition-group name="list-complete" tag="div" class="tgroup">
-      <Message
-        v-for="message in messages"
-        v-bind:key="message[0]"
-        :content="message[0]"
-        :alignment="message[1]"
-      />
-    </transition-group>
-    <Single :options="options2" :onSelect="onSelect" />
-    <!--<Multiple :options="options" :onSubmit="onSubmit" />-->
-    <!--<Prompt />-->
-    <!--<Action content="Add message" :on-select="addMessage" />-->
+  <div>
+    <div class="fixed-height" ref="chatContainer">
+      <FadeInDelay group="true" class="message-list">
+        <Message
+          v-for="message in messages"
+          v-bind:key="message[0]"
+          :content="message[0]"
+          :alignment="message[1]"
+        />
+      </FadeInDelay>
+    </div>
+    <div class="message-list">
+      <!--<Single :options="options2" :onSelect="onSelect" />-->
+      <Multiple :options="options" :onSubmit="onSubmit" />
+      <!--<Prompt />-->
+      <!--<Action content="Add message" :on-select="addMessage" />-->
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+
 import Message from '@/components/Message.vue'
 import Single from '@/components/input/Single.vue'
 import Multiple from '@/components/input/Multiple.vue'
 import Prompt from '@/components/input/Prompt.vue'
 import Action from '@/components/input/Action.vue'
+import FadeInDelay from '@/components/transition/FadeInDelay.vue'
 
 import { Option } from '@/domain/question'
 
@@ -32,12 +37,17 @@ import { Option } from '@/domain/question'
     Single,
     Multiple,
     Prompt,
-    Action
+    Action,
+    FadeInDelay
   }
 })
 export default class Chat extends Vue {
   @Prop({ default: () => [] })
   private messages!: Array<[string, 'left' | 'right']>;
+
+  $refs!: {
+    chatContainer: HTMLElement;
+  };
 
   constructor () {
     super()
@@ -68,6 +78,18 @@ export default class Chat extends Vue {
       {
         id: 'maybe',
         content: 'Maybe'
+      },
+      {
+        id: 'maybe2',
+        content: 'Maybe'
+      },
+      {
+        id: 'maybe3',
+        content: 'Maybe'
+      },
+      {
+        id: 'maybe4',
+        content: 'Maybe'
       }
     ]
   }
@@ -81,12 +103,31 @@ export default class Chat extends Vue {
     ]
   }
 
+  private mounted () {
+    setInterval(this.addMessage, 1000)
+  }
+
+  private updated () {
+    this.$nextTick(this.scrollToEnd)
+  }
+
   private onSelect (o: Option) {
     console.log(o)
   }
 
   private onSubmit (os: ReadonlyArray<Option>) {
     console.log(os)
+  }
+
+  private scrollToEnd () {
+    const lastChild = this.$el.lastElementChild
+
+    if (lastChild) {
+      this.$refs.chatContainer.scrollBy({
+        top: lastChild.clientHeight,
+        behavior: 'smooth'
+      })
+    }
   }
 
   private addMessage () {
@@ -107,31 +148,15 @@ export default class Chat extends Vue {
 @import "@/assets/app.scss";
 
 .message-list {
+  @extend .vertical-list;
   max-width: $chatWidth;
 
   margin-left: auto;
   margin-right: auto;
+}
 
-  display: flex;
-  flex-direction: column;
-
-  & > div.tgroup {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .list-complete-item {
-    transition: all 1s;
-    display: inline-block;
-  }
-
-  .list-complete-enter, .list-complete-leave-to {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .list-complete-leave-active {
-    position: absolute;
-  }
+.fixed-height {
+  height: calc(100vh - 20rem);
+  overflow-y: auto;
 }
 </style>

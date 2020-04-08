@@ -1,17 +1,15 @@
 <template>
   <div>
-    <div class="multiple-list">
-      <transition-group name="fade" tag="div" class="tgroup">
-        <ItemSelectible
-          v-for="option in timedOptions"
-          :key="option.id"
-          :option="option"
-          :selected="selected[option.id]"
-          @on-select="onSelect"
-        />
-      </transition-group>
-    </div>
-    <transition name="fade">
+    <FadeIn group="true" class="multiple-list">
+      <ItemSelectible
+        v-for="option in timedOptions"
+        :key="option.id"
+        :option="option"
+        :selected="selected[option.id]"
+        @on-select="onSelect"
+      />
+    </FadeIn>
+    <FadeIn>
       <Action
         v-if="actionVisible"
         content="Proceed"
@@ -19,7 +17,7 @@
         :enabled="hasItems"
         :on-select="onProceed"
       />
-    </transition>
+    </FadeIn>
   </div>
 </template>
 
@@ -29,6 +27,7 @@ import CloseIcon from 'vue-material-design-icons/ArrowRight.vue'
 
 import Action from '@/components/input/Action.vue'
 import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
+import FadeIn from '@/components/transition/FadeIn.vue'
 
 import { ID, Option } from '@/domain/question'
 import { defaultSpread } from '@/utils/timing'
@@ -37,7 +36,8 @@ import { defaultSpread } from '@/utils/timing'
   components: {
     ItemSelectible,
     Action,
-    CloseIcon
+    CloseIcon,
+    FadeIn
   }
 })
 export default class Multiple extends Vue {
@@ -106,34 +106,6 @@ export default class Multiple extends Vue {
 @import "@/assets/app.scss";
 
 .multiple-list {
-  & > div.tgroup {
-    @extend .horizontal-list;
-  }
-}
-
-.multiple-button {
-  @extend .bubble;
-  @include actionable;
-  @include centered;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 1rem;
-
-  .icon {
-    margin-left: $marginSmall;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+  @extend .horizontal-list;
 }
 </style>

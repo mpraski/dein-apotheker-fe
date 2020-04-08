@@ -1,16 +1,16 @@
 <template>
-  <div class="single-list">
-    <transition-group v-if="!isSingleItem" name="fade" tag="div" class="tgroup">
+  <div>
+    <FadeIn group="true" class="single-list">
       <Item v-for="option in timedOptions" :key="option.id" :option="option" @on-select="onSelect" />
-    </transition-group>
-    <transition name="fade">
+    </FadeIn>
+    <FadeIn>
       <Action
         v-if="isActionVisible"
         icon="arrow"
         :content="options[0].content"
         :on-select="() => onSelect(options[0])"
       />
-    </transition>
+    </FadeIn>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 import Item from '@/components/input/item/Item.vue'
 import Action from '@/components/input/Action.vue'
+import FadeIn from '@/components/transition/FadeIn.vue'
 
 import { Option } from '@/domain/question'
 import { defaultSpread } from '@/utils/timing'
@@ -26,7 +27,8 @@ import { defaultSpread } from '@/utils/timing'
 @Component({
   components: {
     Item,
-    Action
+    Action,
+    FadeIn
   }
 })
 export default class Single extends Vue {
@@ -73,32 +75,6 @@ export default class Single extends Vue {
 @import "@/assets/app.scss";
 
 .single-list {
-  & > div.tgroup {
-    @extend .horizontal-list;
-  }
-}
-
-.list-complete-item {
-  transition: all 1s;
-  display: inline-block;
-}
-
-.list-complete-enter, .list-complete-leave-to
-  /* .list-complete-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-.list-complete-leave-active {
-  position: absolute;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+  @extend .horizontal-list;
 }
 </style>
