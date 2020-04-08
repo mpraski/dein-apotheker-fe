@@ -6,6 +6,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import VueMarkdown from 'vue-markdown'
 
+import { Alignment } from '@/domain/command'
+
 @Component({
   components: {
     VueMarkdown
@@ -13,11 +15,11 @@ import VueMarkdown from 'vue-markdown'
 })
 export default class Message extends Vue {
   @Prop() private content!: string;
-  @Prop() private alignment!: 'left' | 'right';
+  @Prop() private alignment!: Alignment;
 
   get getAlignment () {
     return {
-      [this.alignment]: true
+      [this.alignment.toLowerCase()]: true
     }
   }
 }
@@ -32,7 +34,11 @@ export default class Message extends Vue {
   position: relative;
   min-width: 50%;
 
-  margin-bottom: $marginRegular;
+  margin-bottom: $marginMedium;
+
+  @include respond-to(small) {
+    margin-bottom: $marginRegular;
+  }
 
   &:before {
     content: "";
@@ -47,7 +53,7 @@ export default class Message extends Vue {
   }
 
   &:after {
-    transition: 0.1s;
+    transition: $animationDuration;
     content: "";
     width: 0px;
     height: 0px;

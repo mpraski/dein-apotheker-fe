@@ -62,7 +62,7 @@ export default class ItemSelectible extends Vue {
 
 .component-fade-enter-active,
 .component-fade-leave-active {
-  transition: opacity 0.1s ease;
+  transition: opacity $animationDuration;
 }
 
 .component-fade-enter,

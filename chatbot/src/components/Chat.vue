@@ -1,49 +1,30 @@
 <template>
-  <div>
-    <div class="fixed-height" ref="chatContainer">
-      <FadeInDelay group="true" class="message-list">
-        <Message
-          v-for="message in messages"
-          v-bind:key="message[0]"
-          :content="message[0]"
-          :alignment="message[1]"
-        />
-      </FadeInDelay>
-    </div>
-    <div class="message-list">
-      <!--<Single :options="options2" :onSelect="onSelect" />-->
-      <Multiple :options="options" :onSubmit="onSubmit" />
-      <!--<Prompt />-->
-      <!--<Action content="Add message" :on-select="addMessage" />-->
-    </div>
+  <div class="item-container" ref="chatContainer">
+    <FadeInDelay group="true" class="item-list">
+      <ChatItem v-for="(command, index) in commands" v-bind:key="index" :command="command" />
+    </FadeInDelay>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-import Message from '@/components/Message.vue'
-import Single from '@/components/input/Single.vue'
-import Multiple from '@/components/input/Multiple.vue'
-import Prompt from '@/components/input/Prompt.vue'
-import Action from '@/components/input/Action.vue'
 import FadeInDelay from '@/components/transition/FadeInDelay.vue'
+import ChatItem from '@/components/ChatItem.vue'
 
-import { Option } from '@/domain/question'
+import { Command } from '@/domain/command'
 
 @Component({
   components: {
-    Message,
-    Single,
-    Multiple,
-    Prompt,
-    Action,
-    FadeInDelay
+    FadeInDelay,
+    ChatItem
   }
 })
 export default class Chat extends Vue {
   @Prop({ default: () => [] })
-  private messages!: Array<[string, 'left' | 'right']>;
+  private commands!: Array<Command>;
+
+  private commandsToAdd!: Array<Command>;
 
   $refs!: {
     chatContainer: HTMLElement;
@@ -51,54 +32,59 @@ export default class Chat extends Vue {
 
   constructor () {
     super()
-    this.messages = [
-      ['For which **symptom** are you looking for a drug?', 'left'],
-      ['Running nose', 'right'],
-      [
-        "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help.",
-        'left'
-      ]
-    ]
-  }
-
-  get complexMarkdown (): string {
-    return 'Soon we\'ll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help.'
-  }
-
-  get options (): ReadonlyArray<Option> {
-    return [
+    this.commandsToAdd = [
       {
-        id: 'yes',
-        content: 'Yes'
+        type: 'SHOW_MESSAGE',
+        message: {
+          content: 'For which **symptom** are you looking for a drug?'
+        },
+        alignment: 'LEFT'
       },
       {
-        id: 'no',
-        content: 'No'
+        type: 'SHOW_MESSAGE',
+        message: {
+          content: 'Running nose'
+        },
+        alignment: 'RIGHT'
       },
       {
-        id: 'maybe',
-        content: 'Maybe'
+        type: 'SHOW_MESSAGE',
+        message: {
+          content:
+            "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help."
+        },
+        alignment: 'LEFT'
       },
       {
-        id: 'maybe2',
-        content: 'Maybe'
+        type: 'SHOW_MESSAGE',
+        message: {
+          content: 'Understood'
+        },
+        alignment: 'RIGHT'
       },
       {
-        id: 'maybe3',
-        content: 'Maybe'
+        type: 'SHOW_MESSAGE',
+        message: {
+          content: 'Some other question'
+        },
+        alignment: 'LEFT'
       },
       {
-        id: 'maybe4',
-        content: 'Maybe'
-      }
-    ]
-  }
-
-  get options2 (): ReadonlyArray<Option> {
-    return [
-      {
-        id: 'understood',
-        content: 'Understood'
+        type: 'SHOW_MULTIPLE',
+        options: [
+          {
+            id: 'yes',
+            content: 'Yes'
+          },
+          {
+            id: 'no',
+            content: 'No'
+          },
+          {
+            id: 'maybe',
+            content: 'Maybe'
+          }
+        ]
       }
     ]
   }
@@ -109,14 +95,6 @@ export default class Chat extends Vue {
 
   private updated () {
     this.$nextTick(this.scrollToEnd)
-  }
-
-  private onSelect (o: Option) {
-    console.log(o)
-  }
-
-  private onSubmit (os: ReadonlyArray<Option>) {
-    console.log(os)
   }
 
   private scrollToEnd () {
@@ -131,15 +109,12 @@ export default class Chat extends Vue {
   }
 
   private addMessage () {
-    this.messages.push([
-      Math.random()
-        .toString(36)
-        .substring(2, 15) +
-        Math.random()
-          .toString(36)
-          .substring(2, 15),
-      Math.random() < 0.5 ? 'left' : 'right'
-    ])
+    if (this.commandsToAdd.length > 0) {
+      const item = this.commandsToAdd.shift
+      if (item) {
+        this.commands.push(item)
+      }
+    }
   }
 }
 </script>
@@ -147,16 +122,16 @@ export default class Chat extends Vue {
 <style scoped lang="scss">
 @import "@/assets/app.scss";
 
-.message-list {
+.item-container {
+  height: calc(100vh - 10rem);
+  overflow-y: auto;
+}
+
+.item-list {
   @extend .vertical-list;
   max-width: $chatWidth;
 
   margin-left: auto;
   margin-right: auto;
-}
-
-.fixed-height {
-  height: calc(100vh - 20rem);
-  overflow-y: auto;
 }
 </style>

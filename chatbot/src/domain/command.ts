@@ -1,4 +1,4 @@
-import { Message } from './question'
+import { Message, Option } from './question'
 
 export type Alignment = 'LEFT' | 'RIGHT';
 
@@ -8,12 +8,18 @@ export interface ShowMessage {
     alignment: Alignment;
 }
 
-export interface ShowInput {
-    type: 'SHOW_INPUT';
+export interface ShowSingle {
+    type: 'SHOW_SINGLE';
+    options: ReadonlyArray<Option>;
 }
 
-export interface HideInput {
-    type: 'HIDE_INPUT';
+export interface ShowMultiple {
+    type: 'SHOW_MULTIPLE';
+    options: ReadonlyArray<Option>;
 }
 
-export type Command = ShowMessage | ShowInput | HideInput;
+export interface ShowPrompt {
+    type: 'SHOW_PROMPT';
+}
+
+export type Command = ShowMessage | ShowSingle | ShowMultiple | ShowPrompt;

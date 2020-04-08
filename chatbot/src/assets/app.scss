@@ -56,7 +56,7 @@
 @mixin actionable {
     cursor: pointer;
 
-    transition: all 0.25s;
+    transition: all $animationDuration;
 
     &:hover {
         background-color: $buttonBorderColor;

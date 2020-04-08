@@ -35,7 +35,7 @@ export default class Single extends Vue {
   @Prop({ default: () => [] })
   private options!: ReadonlyArray<Option>;
 
-  @Prop()
+  @Prop({ default: () => () => 0 })
   private onSelect!: (a: Option) => void;
 
   private timedOptions!: Array<Option>;

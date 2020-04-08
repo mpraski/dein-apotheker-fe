@@ -22,7 +22,7 @@ export default class FadeIn extends Vue {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.25s;
+  transition: opacity $animationDuration;
 }
 
 .fade-enter,

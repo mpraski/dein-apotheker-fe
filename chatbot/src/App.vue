@@ -1,9 +1,5 @@
 <template>
   <main>
-    <nav>
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
-    </nav>
     <router-view />
   </main>
 </template>
@@ -17,6 +13,7 @@ main {
   -moz-osx-font-smoothing: grayscale;
   color: $textColor;
   font-size: 16px;
+  padding-top: $marginRegular;
 
   @include respond-to(small) {
     font-size: $textSize;

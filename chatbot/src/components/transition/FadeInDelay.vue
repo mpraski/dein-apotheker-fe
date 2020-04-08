@@ -22,8 +22,8 @@ export default class FadeInDelay extends Vue {
 
 .fade-delay-enter-active,
 .fade-delay-leave-active {
-  transition: opacity 0.25s;
-  transition-delay: 0.25s;
+  transition: opacity $animationDuration;
+  transition-delay: $animationDelay;
 }
 
 .fade-delay-enter,

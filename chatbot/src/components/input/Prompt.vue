@@ -65,7 +65,7 @@ export default class Prompt extends Vue {
     color: white;
     border-radius: 2rem;
 
-    transition: 0.1s;
+    transition: $animationDuration;
     cursor: pointer;
 
     &:hover {
