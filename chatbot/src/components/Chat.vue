@@ -110,7 +110,7 @@ export default class Chat extends Vue {
 
   private addMessage () {
     if (this.commandsToAdd.length > 0) {
-      const item = this.commandsToAdd.shift
+      const item = this.commandsToAdd.shift()
       if (item) {
         this.commands.push(item)
       }
