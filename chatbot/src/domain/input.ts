@@ -12,7 +12,7 @@ export interface InputMultiple {
 }
 
 export interface InputPrompt {
-    type: 'SHOW_PROMPT';
+    type: 'INPUT_PROMPT';
 }
 
 export type Input = InputSingle | InputMultiple | InputPrompt;
