@@ -1,6 +1,11 @@
 @import "variables.scss";
 @import "responsive.scss";
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
 *:focus {
     outline: none;
 }

@@ -57,7 +57,12 @@ export default class Action extends Vue {
   justify-content: center;
   align-items: center;
 
-  margin-top: 1rem;
+  margin-top: $marginMedium;
+  margin-bottom: $marginMedium;
+
+  @include respond-to(small) {
+    margin-bottom: $marginRegular;
+  }
 
   .icon {
     margin-left: $marginSmall;

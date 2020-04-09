@@ -1,23 +1,35 @@
 <template>
-  <div class="item-container" ref="chatContainer">
-    <FadeInDelay group="true" class="item-list">
-      <Choice v-for="(message, index) in messages" v-bind:key="index" :message="message" />
-    </FadeInDelay>
+  <div>
+    <div class="output-container" ref="chatContainer">
+      <FadeInDelay group="true" class="output-list">
+        <OutputSwitch v-for="(message, index) in messages" v-bind:key="index" :message="message" />
+      </FadeInDelay>
+    </div>
+    <div class="input-container">
+      <div class="input-list">
+        <InputSwitch :input="input" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
+import FadeIn from '@/components/transition/FadeIn.vue'
 import FadeInDelay from '@/components/transition/FadeInDelay.vue'
-import Choice from '@/components/output/Choice.vue'
+import OutputSwitch from '@/components/output/OutputSwitch.vue'
+import InputSwitch from '@/components/input/InputSwitch.vue'
 
 import { Message } from '@/domain/message'
+import { Input } from '@/domain/input'
 
 @Component({
   components: {
+    FadeIn,
     FadeInDelay,
-    Choice
+    OutputSwitch,
+    InputSwitch
   }
 })
 export default class Chat extends Vue {
@@ -25,6 +37,8 @@ export default class Chat extends Vue {
   private messages!: Array<Message>;
 
   private messagesToAdd!: Array<Message>;
+
+  private input!: Input;
 
   $refs!: {
     chatContainer: HTMLElement;
@@ -45,7 +59,8 @@ export default class Chat extends Vue {
       },
       {
         type: 'MESSAGE_TEXT',
-        content: "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help.",
+        content:
+          "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help.",
         alignment: 'LEFT'
       },
       {
@@ -59,23 +74,40 @@ export default class Chat extends Vue {
         alignment: 'LEFT'
       },
       {
-        type: 'INPUT_MULTIPLE',
-        options: [
-          {
-            id: 'yes',
-            content: 'Yes'
-          },
-          {
-            id: 'no',
-            content: 'No'
-          },
-          {
-            id: 'maybe',
-            content: 'Maybe'
-          }
-        ]
+        type: 'MESSAGE_TEXT',
+        content: 'Some other question',
+        alignment: 'LEFT'
+      },
+      {
+        type: 'MESSAGE_TEXT',
+        content: 'Some other question',
+        alignment: 'LEFT'
+      },
+      {
+        type: 'MESSAGE_TEXT',
+        content: 'Some other question',
+        alignment: 'LEFT'
+      },
+      {
+        type: 'MESSAGE_TEXT',
+        content: 'Some other question',
+        alignment: 'LEFT'
       }
     ]
+
+    this.input = {
+      type: 'INPUT_PROMPT',
+      options: [
+        {
+          id: 'yes',
+          content: 'Yes'
+        },
+        {
+          id: 'no',
+          content: 'No'
+        }
+      ]
+    }
   }
 
   private mounted () {
@@ -87,14 +119,10 @@ export default class Chat extends Vue {
   }
 
   private scrollToEnd () {
-    const lastChild = this.$el.lastElementChild
-
-    if (lastChild) {
-      this.$refs.chatContainer.scrollBy({
-        top: lastChild.clientHeight,
-        behavior: 'smooth'
-      })
-    }
+    this.$refs.chatContainer.scrollBy({
+      top: 1000,
+      behavior: 'smooth'
+    })
   }
 
   private addMessage () {
@@ -111,16 +139,33 @@ export default class Chat extends Vue {
 <style scoped lang="scss">
 @import "@/assets/app.scss";
 
-.item-container {
-  height: calc(100vh - 10rem);
-  overflow-y: auto;
+.output-container {
+  height: 75vh;
+  overflow-y: hidden;
 }
 
-.item-list {
+.output-list {
   @extend .vertical-list;
   max-width: $chatWidth;
 
   margin-left: auto;
   margin-right: auto;
+
+  padding: 0 .5rem;
+  padding-top: $marginRegular;
+}
+
+.input-container {
+  height: 25vh;
+}
+
+.input-list {
+  @extend .vertical-list;
+  max-width: $chatWidth;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 0 .5rem;
 }
 </style>

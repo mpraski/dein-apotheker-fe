@@ -1,23 +1,20 @@
 <template>
   <div>
-    <FadeIn group="true" class="multiple-list">
+    <div class="multiple-list">
       <ItemSelectible
-        v-for="option in timedOptions"
+        v-for="option in options"
         :key="option.id"
         :option="option"
         :selected="selected[option.id]"
         @on-select="onSelect"
       />
-    </FadeIn>
-    <FadeIn>
-      <Action
-        v-if="actionVisible"
-        content="Proceed"
-        icon="arrow"
-        :enabled="hasItems"
-        :on-select="onProceed"
-      />
-    </FadeIn>
+    </div>
+    <Action
+      content="Proceed"
+      icon="arrow"
+      :enabled="hasItems"
+      :on-select="onProceed"
+    />
   </div>
 </template>
 
@@ -30,7 +27,6 @@ import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
 import FadeIn from '@/components/transition/FadeIn.vue'
 
 import { ID, Option } from '@/domain/question'
-import { defaultSpread } from '@/utils/timing'
 
 @Component({
   components: {
@@ -51,32 +47,10 @@ export default class Multiple extends Vue {
 
   private hasItems!: boolean;
 
-  private actionVisible!: boolean;
-
-  private timedOptions!: Array<Option>;
-
   public constructor () {
     super()
     this.selected = {}
     this.hasItems = false
-    this.actionVisible = false
-    this.timedOptions = []
-  }
-
-  private mounted () {
-    const actions: Array<() => void> = []
-
-    for (let i = 0; i < this.options.length; i++) {
-      actions.push(() => {
-        this.timedOptions.push(this.options[i])
-      })
-    }
-
-    actions.push(() => {
-      this.actionVisible = true
-    })
-
-    defaultSpread(...actions)
   }
 
   private onSelect (id: ID) {

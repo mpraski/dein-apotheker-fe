@@ -48,8 +48,6 @@ export default class Prompt extends Vue {
   flex-direction: row;
   justify-content: center;
 
-  margin-top: 1rem;
-
   .input {
     flex-grow: 1;
   }

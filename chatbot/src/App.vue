@@ -13,7 +13,6 @@ main {
   -moz-osx-font-smoothing: grayscale;
   color: $textColor;
   font-size: 16px;
-  padding-top: $marginRegular;
 
   @include respond-to(small) {
     font-size: $textSize;
