@@ -99,15 +99,23 @@ export default class Chat extends Vue {
     ]
 
     this.input = {
-      type: 'INPUT_PROMPT',
+      type: 'INPUT_MULTIPLE',
       options: [
         {
-          id: 'yes',
-          content: 'Yes'
+          id: 'running_nose',
+          content: 'Running nose'
         },
         {
-          id: 'no',
-          content: 'No'
+          id: 'fever',
+          content: 'Fever'
+        },
+        {
+          id: 'headache',
+          content: 'Headache'
+        },
+        {
+          id: 'dry_cough',
+          content: 'Dry cough'
         }
       ]
     }
