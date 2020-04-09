@@ -1,20 +1,16 @@
 <template>
-  <VueMarkdown v-once :source="content" class="message-body" v-bind:class="getAlignment"></VueMarkdown>
+  <div class="message-body" v-bind:class="getAlignment">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import VueMarkdown from 'vue-markdown'
 
-import { Alignment } from '@/domain/command'
+import { Alignment } from '@/domain/message'
 
-@Component({
-  components: {
-    VueMarkdown
-  }
-})
-export default class Message extends Vue {
-  @Prop() private content!: string;
+@Component({})
+export default class Bubble extends Vue {
   @Prop() private alignment!: Alignment;
 
   get getAlignment () {

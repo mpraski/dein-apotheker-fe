@@ -14,10 +14,6 @@ export interface Question {
     options?: ReadonlyArray<Option>;
 }
 
-export interface Comment {
-    content: string;
-}
-
 export interface Record {
     scenario: ID;
     answer: Answer;
@@ -26,5 +22,3 @@ export interface Record {
 export type Answer = string | ID | ReadonlyArray<ID>;
 
 export type History = Array<Record>;
-
-export type Message = Question | Comment;

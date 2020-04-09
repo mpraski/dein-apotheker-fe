@@ -1,7 +1,7 @@
 <template>
   <div class="item-container" ref="chatContainer">
     <FadeInDelay group="true" class="item-list">
-      <ChatItem v-for="(command, index) in commands" v-bind:key="index" :command="command" />
+      <Choice v-for="(message, index) in messages" v-bind:key="index" :message="message" />
     </FadeInDelay>
   </div>
 </template>
@@ -10,21 +10,21 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 import FadeInDelay from '@/components/transition/FadeInDelay.vue'
-import ChatItem from '@/components/ChatItem.vue'
+import Choice from '@/components/output/Choice.vue'
 
-import { Command } from '@/domain/command'
+import { Message } from '@/domain/message'
 
 @Component({
   components: {
     FadeInDelay,
-    ChatItem
+    Choice
   }
 })
 export default class Chat extends Vue {
   @Prop({ default: () => [] })
-  private commands!: Array<Command>;
+  private messages!: Array<Message>;
 
-  private commandsToAdd!: Array<Command>;
+  private messagesToAdd!: Array<Message>;
 
   $refs!: {
     chatContainer: HTMLElement;
@@ -32,45 +32,34 @@ export default class Chat extends Vue {
 
   constructor () {
     super()
-    this.commandsToAdd = [
+    this.messagesToAdd = [
       {
-        type: 'SHOW_MESSAGE',
-        message: {
-          content: 'For which **symptom** are you looking for a drug?'
-        },
+        type: 'MESSAGE_TEXT',
+        content: 'For which **symptom** are you looking for a drug?',
         alignment: 'LEFT'
       },
       {
-        type: 'SHOW_MESSAGE',
-        message: {
-          content: 'Running nose'
-        },
+        type: 'MESSAGE_TEXT',
+        content: 'Running nose',
         alignment: 'RIGHT'
       },
       {
-        type: 'SHOW_MESSAGE',
-        message: {
-          content:
-            "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help."
-        },
+        type: 'MESSAGE_TEXT',
+        content: "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help.",
         alignment: 'LEFT'
       },
       {
-        type: 'SHOW_MESSAGE',
-        message: {
-          content: 'Understood'
-        },
+        type: 'MESSAGE_TEXT',
+        content: 'Understood',
         alignment: 'RIGHT'
       },
       {
-        type: 'SHOW_MESSAGE',
-        message: {
-          content: 'Some other question'
-        },
+        type: 'MESSAGE_TEXT',
+        content: 'Some other question',
         alignment: 'LEFT'
       },
       {
-        type: 'SHOW_MULTIPLE',
+        type: 'INPUT_MULTIPLE',
         options: [
           {
             id: 'yes',
@@ -109,10 +98,10 @@ export default class Chat extends Vue {
   }
 
   private addMessage () {
-    if (this.commandsToAdd.length > 0) {
-      const item = this.commandsToAdd.shift()
+    if (this.messagesToAdd.length > 0) {
+      const item = this.messagesToAdd.shift()
       if (item) {
-        this.commands.push(item)
+        this.messages.push(item)
       }
     }
   }
