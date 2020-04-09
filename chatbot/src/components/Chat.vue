@@ -7,7 +7,7 @@
     </div>
     <div class="input-container">
       <div class="input-list">
-        <InputSwitch :input="input" />
+        <InputSwitch :input="input" :visible="inputVisible"/>
       </div>
     </div>
   </div>
@@ -40,12 +40,15 @@ export default class Chat extends Vue {
 
   private input!: Input;
 
+  private inputVisible!: boolean;
+
   $refs!: {
     chatContainer: HTMLElement;
   };
 
   constructor () {
     super()
+    this.inputVisible = false
     this.messagesToAdd = [
       {
         type: 'MESSAGE_TEXT',
@@ -131,6 +134,8 @@ export default class Chat extends Vue {
       if (item) {
         this.messages.push(item)
       }
+    } else {
+      this.inputVisible = true
     }
   }
 }
