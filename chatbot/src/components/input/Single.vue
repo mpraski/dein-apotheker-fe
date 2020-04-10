@@ -15,15 +15,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 import Item from '@/components/input/item/Item.vue'
 import Action from '@/components/input/Action.vue'
-import FadeIn from '@/components/transition/FadeIn.vue'
 
 import { Option } from '@/domain/question'
 
 @Component({
   components: {
     Item,
-    Action,
-    FadeIn
+    Action
   }
 })
 export default class Single extends Vue {

@@ -9,6 +9,7 @@ export interface MessageText {
 export interface MessageImage {
     type: 'MESSAGE_IMAGE';
     image: string;
+    alt: string;
     alignment: Alignment;
 }
 

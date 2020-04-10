@@ -1,8 +1,8 @@
 <template>
-  <transition-group v-if="group" name="fade" tag="div">
+  <transition-group v-if="group" :name="name" tag="div">
     <slot></slot>
   </transition-group>
-  <transition v-else name="fade" tag="div">
+  <transition v-else :name="name" tag="div">
     <slot></slot>
   </transition>
 </template>
@@ -14,6 +14,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class FadeIn extends Vue {
   @Prop({ default: false })
   private group!: boolean;
+
+  @Prop({ default: false })
+  private delay!: boolean;
+
+  private get name (): string {
+    return this.delay ? 'fade-delay' : 'fade'
+  }
 }
 </script>
 
@@ -27,6 +34,17 @@ export default class FadeIn extends Vue {
 
 .fade-enter,
 .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-delay-enter-active,
+.fade-delay-leave-active {
+  transition: opacity $animationDuration;
+  transition-delay: $animationDelay;
+}
+
+.fade-delay-enter,
+.fade-delay-leave-to {
   opacity: 0;
 }
 </style>

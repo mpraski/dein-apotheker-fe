@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="output-container" ref="chatContainer">
-      <FadeInDelay group="true" class="output-list">
+      <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch v-for="(message, index) in messages" v-bind:key="index" :message="message" />
-      </FadeInDelay>
+      </FadeIn>
     </div>
     <div class="input-container">
-      <div class="input-list">
-        <InputSwitch :input="input" :visible="inputVisible"/>
-      </div>
+      <FadeIn class="input-list">
+        <InputSwitch :input="input" v-if="inputVisible"/>
+      </FadeIn>
     </div>
   </div>
 </template>
@@ -17,7 +17,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 import FadeIn from '@/components/transition/FadeIn.vue'
-import FadeInDelay from '@/components/transition/FadeInDelay.vue'
 import OutputSwitch from '@/components/output/OutputSwitch.vue'
 import InputSwitch from '@/components/input/InputSwitch.vue'
 
@@ -27,7 +26,6 @@ import { Input } from '@/domain/input'
 @Component({
   components: {
     FadeIn,
-    FadeInDelay,
     OutputSwitch,
     InputSwitch
   }
@@ -95,6 +93,12 @@ export default class Chat extends Vue {
         type: 'MESSAGE_TEXT',
         content: 'Some other question',
         alignment: 'LEFT'
+      },
+      {
+        type: 'MESSAGE_IMAGE',
+        image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+        alt: 'Have a cat picture',
+        alignment: 'LEFT'
       }
     ]
 
@@ -153,7 +157,7 @@ export default class Chat extends Vue {
 @import "@/assets/app.scss";
 
 .output-container {
-  height: 75vh;
+  height: 67vh;
   overflow-y: hidden;
 }
 
@@ -165,11 +169,10 @@ export default class Chat extends Vue {
   margin-right: auto;
 
   padding: 0 .5rem;
-  padding-top: $marginRegular;
 }
 
 .input-container {
-  height: 25vh;
+  height: 33vh;
 }
 
 .input-list {
