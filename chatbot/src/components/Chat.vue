@@ -15,13 +15,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { State, Getter } from 'vuex-class'
 
 import FadeIn from '@/components/transition/FadeIn.vue'
 import OutputSwitch from '@/components/output/OutputSwitch.vue'
 import InputSwitch from '@/components/input/InputSwitch.vue'
 
-import { Message } from '@/domain/message'
-import { Input } from '@/domain/input'
+import { MessageState, Message } from '@/store/message/types'
+import { InputState, Input } from '@/store/input/types'
+
+const namespace = 'input'
 
 @Component({
   components: {
@@ -31,6 +34,15 @@ import { Input } from '@/domain/input'
   }
 })
 export default class Chat extends Vue {
+  @State('message')
+  stateMessages!: MessageState;
+
+  @State('input')
+  stateInput!: InputState;
+
+  @Getter('showInput', { namespace })
+  showInput!: boolean;
+
   @Prop({ default: () => [] })
   private messages!: Array<Message>;
 
@@ -77,7 +89,7 @@ export default class Chat extends Vue {
       {
         type: 'MESSAGE_TEXT',
         content: 'Some other question',
-        alignment: 'LEFT'
+        alignment: 'RIGHT'
       },
       {
         type: 'MESSAGE_TEXT',
@@ -87,12 +99,17 @@ export default class Chat extends Vue {
       {
         type: 'MESSAGE_TEXT',
         content: 'Some other question',
-        alignment: 'LEFT'
+        alignment: 'RIGHT'
       },
       {
         type: 'MESSAGE_TEXT',
         content: 'Some other question',
         alignment: 'LEFT'
+      },
+      {
+        type: 'MESSAGE_TEXT',
+        content: 'Some other question',
+        alignment: 'RIGHT'
       },
       {
         type: 'MESSAGE_IMAGE',
