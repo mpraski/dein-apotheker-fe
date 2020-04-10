@@ -1,39 +1,36 @@
 <template>
-  <div class="item-selectible-body" v-bind:class="{ selected: this.selected }" @click="onSelect">
+  <div class="item-selectible-body" v-bind:class="{ selected: this.selected }">
     <keep-alive>
-      <transition name="component-fade" mode="out-in">
+      <FadeIn>
         <component v-bind:is="getIcon" class="icon"></component>
-      </transition>
+      </FadeIn>
     </keep-alive>
-    <VueMarkdown v-once :source="option.content"></VueMarkdown>
+    <VueMarkdown v-once :source="content"></VueMarkdown>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import VueMarkdown from 'vue-markdown'
 
-import { ID, Option } from '@/domain/question'
+import FadeIn from '@/components/transition/FadeIn.vue'
 
 @Component({
   components: {
     VueMarkdown,
     CheckIcon,
-    CloseIcon
+    CloseIcon,
+    FadeIn
   }
 })
 export default class ItemSelectible extends Vue {
-  @Prop() private option!: Option;
+  @Prop({ default: '' })
+  private content!: string;
 
   @Prop({ default: false })
   private selected!: boolean;
-
-  @Emit()
-  private onSelect (): ID {
-    return this.option.id
-  }
 
   get getIcon () {
     return this.selected ? CloseIcon : CheckIcon
@@ -58,15 +55,5 @@ export default class ItemSelectible extends Vue {
   .icon {
     margin-right: $marginSmall;
   }
-}
-
-.component-fade-enter-active,
-.component-fade-leave-active {
-  transition: opacity $animationDuration;
-}
-
-.component-fade-enter,
-.component-fade-leave-to {
-  opacity: 0;
 }
 </style>

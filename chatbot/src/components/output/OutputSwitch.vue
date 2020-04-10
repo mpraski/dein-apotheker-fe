@@ -19,7 +19,7 @@ import Content from '@/components/output/Content.vue'
 import Photo from '@/components/output/Photo.vue'
 import Unknown from '@/components/output/Unknown.vue'
 
-import { Message } from '@/domain/message'
+import { Message } from '@/store/message/types'
 
 @Component({
   components: {

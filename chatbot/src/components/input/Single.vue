@@ -1,6 +1,11 @@
 <template>
   <div v-if="!isSingleItem" class="single-list">
-    <Item v-for="option in options" :key="option.id" :option="option" @on-select="onSelect" />
+    <Item
+      v-for="option in options"
+      :key="option.id"
+      :content="option.content"
+      @click.native="onSelect"
+    />
   </div>
   <Action
     v-else
@@ -16,7 +21,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import Item from '@/components/input/item/Item.vue'
 import Action from '@/components/input/Action.vue'
 
-import { Option } from '@/domain/question'
+import { Option } from '@/store/input/types'
 
 @Component({
   components: {

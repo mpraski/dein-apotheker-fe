@@ -4,9 +4,9 @@
       <ItemSelectible
         v-for="option in options"
         :key="option.id"
-        :option="option"
+        :content="option.content"
         :selected="selected[option.id]"
-        @on-select="onSelect"
+        @click.native="onSelect(option.id)"
       />
     </div>
     <Action
@@ -26,7 +26,7 @@ import Action from '@/components/input/Action.vue'
 import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
 import FadeIn from '@/components/transition/FadeIn.vue'
 
-import { ID, Option } from '@/domain/question'
+import { ID, Option } from '@/store/input/types'
 
 @Component({
   components: {

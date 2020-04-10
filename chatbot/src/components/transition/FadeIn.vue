@@ -1,8 +1,8 @@
 <template>
-  <transition-group v-if="group" :name="name" tag="div">
+  <transition-group v-if="group" mode="out-in" :name="name" tag="div">
     <slot></slot>
   </transition-group>
-  <transition v-else :name="name" tag="div">
+  <transition v-else mode="out-in" :name="name" tag="div">
     <slot></slot>
   </transition>
 </template>

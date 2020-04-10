@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-import { Alignment } from '@/domain/message'
+import { Alignment } from '@/store/message/types'
 
 @Component({})
 export default class Bubble extends Vue {

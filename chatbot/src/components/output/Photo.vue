@@ -10,7 +10,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 import FadeIn from '@/components/transition/FadeIn.vue'
 
-import { Alignment } from '@/domain/message'
+import { Alignment } from '@/store/message/types'
 
 @Component({
   components: {

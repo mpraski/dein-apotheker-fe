@@ -1,12 +1,10 @@
 <template>
-  <VueMarkdown v-once :source="option.content" @click.native="onSelect" class="item-body"></VueMarkdown>
+  <VueMarkdown v-once :source="content" class="item-body"></VueMarkdown>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import VueMarkdown from 'vue-markdown'
-
-import { Option } from '@/domain/question'
 
 @Component({
   components: {
@@ -14,12 +12,8 @@ import { Option } from '@/domain/question'
   }
 })
 export default class Item extends Vue {
-  @Prop() private option!: Option;
-
-  @Emit()
-  private onSelect (): Option {
-    return this.option
-  }
+  @Prop({ default: '' })
+  private content!: string;
 }
 </script>
 

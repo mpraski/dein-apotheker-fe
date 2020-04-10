@@ -11,7 +11,7 @@ import Single from '@/components/input/Single.vue'
 import Multiple from '@/components/input/Multiple.vue'
 import Prompt from '@/components/input/Prompt.vue'
 
-import { Input } from '@/domain/input'
+import { Input } from '@/store/input/types'
 
 @Component({
   components: {
