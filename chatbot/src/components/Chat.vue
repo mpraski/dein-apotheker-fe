@@ -7,7 +7,7 @@
     </div>
     <div class="input-container">
       <FadeIn class="input-list">
-        <InputSwitch :input="input" v-if="inputVisible"/>
+        <InputSwitch v-if="inputVisible" :input="input" :on-answer="provideAnswer" />
       </FadeIn>
     </div>
   </div>
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { State, Getter } from 'vuex-class'
+import { State, Action, Getter } from 'vuex-class'
 
 import FadeIn from '@/components/transition/FadeIn.vue'
 import OutputSwitch from '@/components/output/OutputSwitch.vue'
@@ -23,8 +23,7 @@ import InputSwitch from '@/components/input/InputSwitch.vue'
 
 import { MessageState, Message } from '@/store/message/types'
 import { InputState, Input } from '@/store/input/types'
-
-const namespace = 'input'
+import { Answer } from '@/store/answer/types'
 
 @Component({
   components: {
@@ -40,8 +39,11 @@ export default class Chat extends Vue {
   @State('input')
   stateInput!: InputState;
 
-  @Getter('showInput', { namespace })
+  @Getter('showInput', { namespace: 'input' })
   showInput!: boolean;
+
+  @Action('provideAnswer', { namespace: 'answer' })
+  provideAnswer!: (a: Answer) => void;
 
   @Prop({ default: () => [] })
   private messages!: Array<Message>;
@@ -113,7 +115,8 @@ export default class Chat extends Vue {
       },
       {
         type: 'MESSAGE_IMAGE',
-        image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+        image:
+          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
         alt: 'Have a cat picture',
         alignment: 'LEFT'
       }
@@ -185,7 +188,7 @@ export default class Chat extends Vue {
   margin-left: auto;
   margin-right: auto;
 
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
 }
 
 .input-container {
@@ -199,6 +202,6 @@ export default class Chat extends Vue {
   margin-left: auto;
   margin-right: auto;
 
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
 }
 </style>

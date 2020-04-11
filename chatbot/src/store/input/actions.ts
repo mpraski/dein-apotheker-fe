@@ -7,10 +7,8 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.showInput] ({ commit }): any {
-    commit(Mutations.showInput, {
-      type: 'INPUT_PROMPT'
-    } as Input)
+  [Actions.showInput] ({ commit }, payload: Input): any {
+    commit(Mutations.showInput, payload)
   },
 
   [Actions.hideInput] ({ commit }): any {

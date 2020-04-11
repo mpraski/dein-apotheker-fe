@@ -1,7 +1,15 @@
 <template>
-  <Single v-if="input.type === 'INPUT_SINGLE'" :options="input.options" />
-  <Multiple v-else-if=" input.type === 'INPUT_MULTIPLE'" :options="input.options" />
-  <Prompt v-else-if="input.type === 'INPUT_PROMPT'" />
+  <Single
+    v-if="input.type === 'INPUT_SINGLE'"
+    :options="input.options"
+    :on-select="onSingleSelect"
+  />
+  <Multiple
+    v-else-if=" input.type === 'INPUT_MULTIPLE'"
+    :options="input.options"
+    :on-submit="onMultipleSelect"
+  />
+  <Prompt v-else-if="input.type === 'INPUT_PROMPT'" :on-submit="onPromptSubmit" />
 </template>
 
 <script lang="ts">
@@ -11,7 +19,8 @@ import Single from '@/components/input/Single.vue'
 import Multiple from '@/components/input/Multiple.vue'
 import Prompt from '@/components/input/Prompt.vue'
 
-import { Input } from '@/store/input/types'
+import { Input, Option } from '@/store/input/types'
+import { Answer } from '@/store/answer/types'
 
 @Component({
   components: {
@@ -22,5 +31,21 @@ import { Input } from '@/store/input/types'
 })
 export default class InputSwitch extends Vue {
   @Prop() private input!: Input;
+
+  @Prop({ default: () => () => 0 })
+  private onAnswer!: (a: Answer) => void;
+
+  private onSingleSelect (a: Option) {
+    this.onAnswer(a.id)
+  }
+
+  private onMultipleSelect (a: ReadonlyArray<Option>) {
+    const ids = a.map(o => o.id) as Array<string>
+    this.onAnswer(ids)
+  }
+
+  private onPromptSubmit (a: string) {
+    this.onAnswer(a)
+  }
 }
 </script>

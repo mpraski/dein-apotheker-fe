@@ -26,7 +26,7 @@ import Action from '@/components/input/Action.vue'
 import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
 import FadeIn from '@/components/transition/FadeIn.vue'
 
-import { ID, Option } from '@/store/input/types'
+import { Option } from '@/store/input/types'
 
 @Component({
   components: {
@@ -53,7 +53,7 @@ export default class Multiple extends Vue {
     this.hasItems = false
   }
 
-  private onSelect (id: ID) {
+  private onSelect (id: string) {
     if (this.selected[id]) {
       delete this.selected[id]
     } else {

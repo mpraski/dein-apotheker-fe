@@ -1,7 +1,5 @@
-export type ID = string;
-
 export interface Option {
-    id: ID;
+    id: string;
     content: string;
 }
 

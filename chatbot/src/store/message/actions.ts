@@ -7,11 +7,7 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.receiveMessage] ({ commit }): any {
-    commit(Mutations.receiveMessage, {
-      type: 'MESSAGE_TEXT',
-      alignment: 'LEFT',
-      content: 'lelele'
-    } as Message)
+  [Actions.receiveMessage] ({ commit }, payload: Message): any {
+    commit(Mutations.receiveMessage, payload)
   }
 }
