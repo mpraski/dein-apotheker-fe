@@ -1,15 +1,5 @@
 import { join } from '@fireflysemantics/join'
-
-interface Response<T> {
-    error?: string;
-    content?: T;
-}
-
-interface Request<T> {
-    method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
-    headers?: HeadersInit;
-    body?: T;
-}
+import { Request, Response, Token, TokenInfo, Optional } from './types'
 
 export async function http<T> (
   url: string,
@@ -33,18 +23,56 @@ export async function http<T> (
 }
 
 export class Client {
-  constructor (private baseURL: string) { }
+  constructor (
+        private baseURL: string,
+        private tokenInfo: TokenInfo
+  ) { }
 
-  public async do<T, R = any> (
-    path: string,
-    request: Request<R>
-  ): Promise<T> {
-    const url = join(this.baseURL, path)
+    private token: Optional<Token> = undefined;
 
-    return http<T>(url, {
-      method: request.method,
-      headers: request.headers,
-      body: JSON.stringify(request.body)
-    })
-  }
+    public async do<T = any, R = any> (
+      path: string,
+      request: Request<R>
+    ): Promise<T> {
+      const url = join(this.baseURL, path)
+      const method = request.method
+      const headers = Client.withHeaders(request.headers)
+      const token = await this.getToken()
+
+      headers.append('Token', token)
+
+      return http<T>(url, {
+        method: method,
+        headers: headers,
+        body: JSON.stringify(headers)
+      })
+    }
+
+    private async getToken (): Promise<Token> {
+      if (this.token) {
+        return this.token
+      }
+
+      this.token = this.tokenInfo.tokenStorage()
+      if (this.token) {
+        return this.token
+      }
+
+      try {
+        this.token = await http<Token>(this.tokenInfo.tokenURL, { method: 'GET' })
+      } catch (e) {
+        throw Error('failed to fetch token: ' + (e as Error).message)
+      }
+
+      return this.token
+    }
+
+    private static withHeaders (init?: HeadersInit): Headers {
+      const headers = new Headers(init)
+
+      headers.append('Accept', 'application/json')
+      headers.append('Content-Type', 'application/json')
+
+      return headers
+    }
 }

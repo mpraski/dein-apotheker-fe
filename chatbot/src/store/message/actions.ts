@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex'
-import { MessageState, Message, Actions, Mutations } from './types'
+import { MessageState, Message, Alignment, Actions, Mutations } from './types'
 import { RootState, ValueOf } from '@/store/types'
 
 type ActionDefinition = {
@@ -7,7 +7,7 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.receiveMessage] ({ commit }, payload: Message): any {
+  [Actions.receiveMessage] ({ commit }, payload: [Message, Alignment]): any {
     commit(Mutations.receiveMessage, payload)
   }
 }
