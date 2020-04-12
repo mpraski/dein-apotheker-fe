@@ -23,18 +23,21 @@ export async function http<T> (
 }
 
 export class Client {
-  constructor (
+    private token: Optional<Token>
+
+    constructor (
         private baseURL: string,
         private tokenInfo: TokenInfo
-  ) { }
-
-    private token: Optional<Token> = undefined;
+    ) {
+      this.token = undefined
+    }
 
     public async do<T = any, R = any> (
       path: string,
       request: Request<R>
     ): Promise<T> {
       const url = join(this.baseURL, path)
+      const body = request.body
       const method = request.method
       const headers = Client.withHeaders(request.headers)
       const token = await this.getToken()
@@ -44,7 +47,7 @@ export class Client {
       return http<T>(url, {
         method: method,
         headers: headers,
-        body: JSON.stringify(headers)
+        body: JSON.stringify(body)
       })
     }
 
@@ -53,16 +56,18 @@ export class Client {
         return this.token
       }
 
-      this.token = this.tokenInfo.tokenStorage()
+      this.token = this.tokenInfo.get()
       if (this.token) {
         return this.token
       }
 
       try {
-        this.token = await http<Token>(this.tokenInfo.tokenURL, { method: 'GET' })
+        this.token = await http<Token>(this.tokenInfo.URL, { method: 'GET' })
       } catch (e) {
         throw Error('failed to fetch token: ' + (e as Error).message)
       }
+
+      this.tokenInfo.store(this.token)
 
       return this.token
     }

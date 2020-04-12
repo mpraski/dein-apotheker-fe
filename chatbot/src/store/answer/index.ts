@@ -11,6 +11,8 @@ export const state: AnswerState = {
   history: []
 }
 
+export const answerNamespace = 'answer'
+
 const namespaced = true
 
 export const answer: Module<AnswerState, RootState> = {

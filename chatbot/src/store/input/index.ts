@@ -10,6 +10,8 @@ export const state: InputState = {
   input: undefined
 }
 
+export const inputNamespace = 'input'
+
 const namespaced = true
 
 export const input: Module<InputState, RootState> = {

@@ -1,8 +1,9 @@
-import { Client } from './client'
-import { AnswerResponse } from './types'
+import { Client } from '@/client'
 import { Answer } from '@/store/answer/types'
+import { AnswerResponse } from './types'
 
 export class Gateway {
+  /* eslint-disable no-useless-constructor */
   constructor (private client: Client) { }
 
   public async sendAnswer (answer: Answer): Promise<AnswerResponse> {

@@ -7,6 +7,8 @@ import { RootState } from '@/store/types'
 
 export const state: MessageState = []
 
+export const messageNamespace = 'message'
+
 const namespaced = true
 
 export const message: Module<MessageState, RootState> = {
