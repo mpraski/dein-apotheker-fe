@@ -36,12 +36,11 @@ export default class InputSwitch extends Vue {
   private onAnswer!: (a: Answer) => void;
 
   private onSingleSelect (a: Option) {
-    this.onAnswer(a.id)
+    this.onAnswer(a)
   }
 
-  private onMultipleSelect (a: ReadonlyArray<Option>) {
-    const ids = a.map(o => o.id) as Array<string>
-    this.onAnswer(ids)
+  private onMultipleSelect (a: Array<Option>) {
+    this.onAnswer(a)
   }
 
   private onPromptSubmit (a: string) {

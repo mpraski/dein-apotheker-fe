@@ -4,7 +4,7 @@
       v-for="option in options"
       :key="option.id"
       :content="option.content"
-      @click.native="onSelect"
+      @click.native="onSelect(option)"
     />
   </div>
   <Action

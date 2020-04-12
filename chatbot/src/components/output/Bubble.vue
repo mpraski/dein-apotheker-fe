@@ -31,8 +31,16 @@ export default class Bubble extends Vue {
   min-width: 50%;
   margin-bottom: $marginMedium;
 
+  &:first-child {
+    margin-top: $marginMedium;
+  }
+
   @include respond-to(small) {
     margin-bottom: $marginRegular;
+
+    &:first-child {
+      margin-top: $marginRegular;
+    }
   }
 }
 </style>

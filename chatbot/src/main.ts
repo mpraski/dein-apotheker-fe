@@ -25,8 +25,8 @@ const store = createStore(
       get: () => store.state.token,
       store: (t: Token) => store.dispatch(Actions.provideToken, t)
     }))
-  ),
-  vuexSession.plugin
+  )
+  // vuexSession.plugin
 )
 
 new Vue({

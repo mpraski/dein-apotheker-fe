@@ -1,4 +1,6 @@
-export type Answer = string | Array<string>;
+import { Option } from '@/store/input/types'
+
+export type Answer = string | Option | Array<Option>;
 
 export type Scenario = string;
 

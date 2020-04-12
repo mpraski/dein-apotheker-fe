@@ -6,7 +6,7 @@ export class Queue<T> {
     private timerID: number;
     private queuedCommits: Array<message>;
 
-    private static readonly defaultInterval: number = 1000;
+    private static readonly defaultInterval: number = 500;
 
     constructor (
         private store: Store<T>,
@@ -18,6 +18,8 @@ export class Queue<T> {
 
     public commit (type: string, payload?: any, options?: CommitOptions) {
       this.queuedCommits.push([type, payload, options])
+      this.stop()
+      this.timerID = setInterval(this.deliver.bind(this), this.interval)
     }
 
     public stop () {

@@ -21,7 +21,7 @@ export default class Prompt extends Vue {
   private content!: string;
 
   @Prop({ default: () => () => 0 })
-  private onSubmit!: () => void;
+  private onSubmit!: (c: string) => void;
 
   private get isDisabled (): boolean {
     return this.content === ''
@@ -29,7 +29,7 @@ export default class Prompt extends Vue {
 
   private onSend () {
     if (this.content) {
-      this.onSubmit()
+      this.onSubmit(this.content)
     }
   }
 }

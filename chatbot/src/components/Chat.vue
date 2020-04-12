@@ -11,9 +11,11 @@
       </FadeIn>
     </div>
     <div class="input-container">
-      <FadeIn class="input-list">
-        <InputSwitch v-if="inputVisible" :input="input" :on-answer="provideAnswer" />
-      </FadeIn>
+      <div class="input-list">
+        <FadeIn>
+          <InputSwitch v-if="showInput" :input="stateInput.input" :on-answer="provideAnswer" />
+        </FadeIn>
+      </div>
     </div>
   </div>
 </template>
@@ -26,9 +28,12 @@ import FadeIn from '@/components/transition/FadeIn.vue'
 import OutputSwitch from '@/components/output/OutputSwitch.vue'
 import InputSwitch from '@/components/input/InputSwitch.vue'
 
+import { messageNamespace } from '@/store/message'
 import { MessageState, Message } from '@/store/message/types'
-import { InputState, Input } from '@/store/input/types'
-import { Answer } from '@/store/answer/types'
+import { inputNamespace } from '@/store/input'
+import { InputState, Input, Mutations as InputMutations } from '@/store/input/types'
+import { answerNamespace } from '@/store/answer'
+import { Answer, Mutations as AnswerMutations } from '@/store/answer/types'
 
 @Component({
   components: {
@@ -38,136 +43,23 @@ import { Answer } from '@/store/answer/types'
   }
 })
 export default class Chat extends Vue {
-  @State('message')
-  stateMessages!: MessageState;
+  @State(messageNamespace)
+  messages!: MessageState;
 
-  @State('input')
+  @State(inputNamespace)
   stateInput!: InputState;
 
-  @Getter('showInput', { namespace: 'input' })
+  @Getter(InputMutations.showInput, { namespace: inputNamespace })
   showInput!: boolean;
 
-  @Action('provideAnswer', { namespace: 'answer' })
+  @Action(AnswerMutations.provideAnswer, { namespace: answerNamespace })
   provideAnswer!: (a: Answer) => void;
 
-  @Prop({ default: () => [] })
-  private messages!: MessageState;
-
-  private messagesToAdd!: MessageState;
-
-  private input!: Input;
-
-  private inputVisible!: boolean;
+  private static readonly scrollAmount: number = 1000;
 
   $refs!: {
     chatContainer: HTMLElement;
   };
-
-  constructor () {
-    super()
-    this.inputVisible = false
-    this.messagesToAdd = [
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'For which **symptom** are you looking for a drug?'
-        },
-        'LEFT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'Running nose'
-        },
-        'RIGHT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content:
-            "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help."
-        },
-        'LEFT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'Understood'
-        },
-        'RIGHT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'Some other question?'
-        },
-        'LEFT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'Some other answer'
-        },
-        'RIGHT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'Some other question?'
-        },
-        'LEFT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'Some other answer'
-        },
-        'RIGHT'
-      ],
-      [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'Some other question?'
-        },
-        'LEFT'
-      ],
-      [
-        {
-          type: 'MESSAGE_IMAGE',
-          image:
-            'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-          alt: 'Have a cat picture'
-        },
-        'LEFT'
-      ]
-    ]
-
-    this.input = {
-      type: 'INPUT_MULTIPLE',
-      options: [
-        {
-          id: 'running_nose',
-          content: 'Running nose'
-        },
-        {
-          id: 'fever',
-          content: 'Fever'
-        },
-        {
-          id: 'headache',
-          content: 'Headache'
-        },
-        {
-          id: 'dry_cough',
-          content: 'Dry cough'
-        }
-      ]
-    }
-  }
-
-  private mounted () {
-    setInterval(this.addMessage, 1000)
-  }
 
   private updated () {
     this.$nextTick(this.scrollToEnd)
@@ -175,20 +67,9 @@ export default class Chat extends Vue {
 
   private scrollToEnd () {
     this.$refs.chatContainer.scrollBy({
-      top: 1000,
+      top: Chat.scrollAmount,
       behavior: 'smooth'
     })
-  }
-
-  private addMessage () {
-    if (this.messagesToAdd.length > 0) {
-      const item = this.messagesToAdd.shift()
-      if (item) {
-        this.messages.push(item)
-      }
-    } else {
-      this.inputVisible = true
-    }
   }
 }
 </script>

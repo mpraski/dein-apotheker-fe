@@ -32,7 +32,7 @@ export default class Multiple extends Vue {
   private options!: ReadonlyArray<Option>;
 
   @Prop({ default: () => () => 0 })
-  private onSubmit!: (a: ReadonlyArray<Option>) => void;
+  private onSubmit!: (a: Array<Option>) => void;
 
   private selected: { [id: string]: boolean };
 
@@ -60,7 +60,7 @@ export default class Multiple extends Vue {
 
     const items = Object.keys(this.selected).map(id =>
       this.options.find(option => option.id === id)
-    ) as ReadonlyArray<Option>
+    ) as Array<Option>
 
     this.onSubmit(items)
   }
