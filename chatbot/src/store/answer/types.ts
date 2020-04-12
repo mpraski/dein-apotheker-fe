@@ -20,3 +20,28 @@ export enum Actions {
     provideAnswer = 'provideAnswer',
     changeScenario = 'changeScenario',
 }
+
+// Utilities
+export const extractAnswer = (a: Answer): Array<string> => {
+  if (Array.isArray(a)) {
+    return a.map(a => a.id)
+  }
+
+  if (a instanceof Object) {
+    return [a.id]
+  } else {
+    return [a]
+  }
+}
+
+export const formatAnswer = (a: Answer): string => {
+  if (Array.isArray(a)) {
+    return a.map(a => a.content).join()
+  }
+
+  if (a instanceof Object) {
+    return a.content
+  } else {
+    return a
+  }
+}

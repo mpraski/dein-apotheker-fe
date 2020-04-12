@@ -1,6 +1,5 @@
 import { Client } from '@/client'
-import { Option } from '@/store/input/types'
-import { Answer } from '@/store/answer/types'
+import { Answer, extractAnswer } from '@/store/answer/types'
 import { AnswerResponse } from './types'
 
 export class Gateway {
@@ -9,7 +8,7 @@ export class Gateway {
 
   public async sendAnswer (a: Answer): Promise<AnswerResponse> {
     const scenario = 'scenario_demo'
-    const answer = this.answerID(a)[0]
+    const answer = extractAnswer(a)[0]
 
     // mock the flow
     switch (answer) {
@@ -159,21 +158,5 @@ export class Gateway {
       method: 'POST',
       body: answer
     }) */
-  }
-
-  private answerID (a: Answer): Array<string> {
-    if (Array.isArray(a)) {
-      if (a.length === 1) {
-        return [a[0].id]
-      }
-
-      return a.map(a => a.id)
-    }
-
-    if (a instanceof Object) {
-      return [a.id]
-    } else {
-      return [a]
-    }
   }
 }

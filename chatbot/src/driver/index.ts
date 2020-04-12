@@ -1,10 +1,10 @@
 import { Gateway } from '@/gateway'
 import { Store, Plugin, CommitOptions, DispatchOptions } from 'vuex'
-import { RootState, Mutations as RootMutatins } from '@/store/types'
+import { RootState } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
 import { Message, Mutations as MessageMutations } from '@/store/message/types'
 import { messageNamespace } from '@/store/message'
-import { Answer, Mutations as AnswerMutations } from '@/store/answer/types'
+import { Answer, Mutations as AnswerMutations, formatAnswer } from '@/store/answer/types'
 import { inputNamespace } from '@/store/input'
 import { Mutations as InputMutations } from '@/store/input/types'
 import { Queue } from './queue'
@@ -50,7 +50,7 @@ export class Driver {
       this.initiateChat()
     }
 
-    this.store.subscribe((mutation, state) => {
+    this.store.subscribe((mutation, _state) => {
       switch (mutation.type) {
         case this.namespaced(answerNamespace, AnswerMutations.provideAnswer): {
           this.sendAnswer(mutation.payload as Answer)
@@ -61,7 +61,39 @@ export class Driver {
   }
 
   private initiateChat () {
-    const mockAnswer = {
+    this.showResponse(this.mockAnswer)
+  }
+
+  private sendAnswer (answer: Answer) {
+    this.commitDirect(inputNamespace, InputMutations.hideInput)
+
+    this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [
+      {
+        type: 'MESSAGE_TEXT',
+        content: formatAnswer(answer)
+      } as Message,
+      'RIGHT'
+    ])
+
+    this.gateway.sendAnswer(answer)
+      .then(response => {
+        this.showResponse(response)
+      })
+      .catch(error => console.error(error))
+  }
+
+  private showResponse (a: AnswerResponse) {
+    const { messages, scenario, input } = a
+
+    this.dispatchDirect(answerNamespace, AnswerMutations.changeScenario, scenario)
+    for (const message of messages) {
+      this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
+    }
+    this.commit(inputNamespace, InputMutations.showInput, input)
+  }
+
+  private get mockAnswer (): AnswerResponse {
+    return {
       messages: [
         {
           type: 'MESSAGE_TEXT',
@@ -79,53 +111,5 @@ export class Driver {
       },
       scenario: 'scenario_demo'
     } as AnswerResponse
-
-    this.dispatchDirect(answerNamespace, AnswerMutations.changeScenario, mockAnswer.scenario)
-    for (const message of mockAnswer.messages) {
-      this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
-    }
-    this.commit(inputNamespace, InputMutations.showInput, mockAnswer.input)
-  }
-
-  private sendAnswer (answer: Answer) {
-    this.commitDirect(inputNamespace, InputMutations.hideInput)
-
-    console.log(answer, this.formatAnswer(answer))
-
-    this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [
-      {
-        type: 'MESSAGE_TEXT',
-        content: this.formatAnswer(answer)
-      } as Message,
-      'RIGHT'
-    ])
-
-    this.gateway.sendAnswer(answer)
-      .then(response => {
-        const { messages, scenario, input } = response
-
-        this.dispatchDirect(answerNamespace, AnswerMutations.changeScenario, scenario)
-        for (const message of messages) {
-          this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
-        }
-        this.commit(inputNamespace, InputMutations.showInput, input)
-      })
-      .catch(error => console.error(error))
-  }
-
-  private formatAnswer (a: Answer): string {
-    if (Array.isArray(a)) {
-      if (a.length === 1) {
-        return a[0].content
-      }
-
-      return a.map(a => a.content).join()
-    }
-
-    if (a instanceof Object) {
-      return a.content
-    } else {
-      return a
-    }
   }
 }

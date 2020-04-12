@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 
 import FadeIn from '@/components/transition/FadeIn.vue'
@@ -29,9 +29,9 @@ import OutputSwitch from '@/components/output/OutputSwitch.vue'
 import InputSwitch from '@/components/input/InputSwitch.vue'
 
 import { messageNamespace } from '@/store/message'
-import { MessageState, Message } from '@/store/message/types'
+import { MessageState } from '@/store/message/types'
 import { inputNamespace } from '@/store/input'
-import { InputState, Input, Mutations as InputMutations } from '@/store/input/types'
+import { InputState, Mutations as InputMutations } from '@/store/input/types'
 import { answerNamespace } from '@/store/answer'
 import { Answer, Mutations as AnswerMutations } from '@/store/answer/types'
 
@@ -62,7 +62,7 @@ export default class Chat extends Vue {
   };
 
   private updated () {
-    this.$nextTick(this.scrollToEnd)
+    this.$nextTick(this.scrollToEnd.bind(this))
   }
 
   private scrollToEnd () {
