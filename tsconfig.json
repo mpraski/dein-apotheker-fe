@@ -1,0 +1,11 @@
+// You need such tsconfig.json
+{
+    "compilerOptions": {
+        "baseUrl": "./chatbot",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    }
+}
