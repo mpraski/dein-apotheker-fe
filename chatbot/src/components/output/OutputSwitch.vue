@@ -1,10 +1,10 @@
 <template>
-  <Bubble v-if="message.type === 'MESSAGE_TEXT'" :alignment="message.alignment">
+  <Bubble v-if="message.type === 'MESSAGE_TEXT'" :alignment="alignment">
     <Content :content="message.content" />
   </Bubble>
   <Photo
     v-else-if="message.type === 'MESSAGE_IMAGE'"
-    :alignment="message.alignment"
+    :alignment="alignment"
     :image="message.image"
     :alt="message.alt"
   />
@@ -19,7 +19,7 @@ import Content from '@/components/output/Content.vue'
 import Photo from '@/components/output/Photo.vue'
 import Unknown from '@/components/output/Unknown.vue'
 
-import { Message } from '@/store/message/types'
+import { Message, Alignment } from '@/store/message/types'
 
 @Component({
   components: {
@@ -31,5 +31,6 @@ import { Message } from '@/store/message/types'
 })
 export default class OutputSwitch extends Vue {
   @Prop() private message!: Message;
+  @Prop() private alignment!: Alignment;
 }
 </script>

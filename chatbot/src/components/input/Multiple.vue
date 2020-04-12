@@ -9,38 +9,29 @@
         @click.native="onSelect(option.id)"
       />
     </div>
-    <Action
-      content="Proceed"
-      icon="arrow"
-      :enabled="hasItems"
-      :on-select="onProceed"
-    />
+    <Action content="Proceed" icon="arrow" :enabled="hasItems" :on-select="onProceed" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import CloseIcon from 'vue-material-design-icons/ArrowRight.vue'
 
-import Action from '@/components/input/Action.vue'
 import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
-import FadeIn from '@/components/transition/FadeIn.vue'
+import Action from '@/components/input/Action.vue'
 
 import { Option } from '@/store/input/types'
 
 @Component({
   components: {
     ItemSelectible,
-    Action,
-    CloseIcon,
-    FadeIn
+    Action
   }
 })
 export default class Multiple extends Vue {
   @Prop({ default: () => [] })
   private options!: ReadonlyArray<Option>;
 
-  @Prop()
+  @Prop({ default: () => () => 0 })
   private onSubmit!: (a: ReadonlyArray<Option>) => void;
 
   private selected: { [id: string]: boolean };

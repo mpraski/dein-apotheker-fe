@@ -18,7 +18,7 @@ export class Driver {
       this.subscribe()
     }
 
-    public static getPlugin (gateway: Gateway): Plugin<RootState> {
+    public static plugin (gateway: Gateway): Plugin<RootState> {
       return (store: Store<RootState>) => {
         /* eslint-disable no-new */
         new Driver(gateway, store)

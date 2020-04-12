@@ -10,19 +10,17 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import SendIcon from 'vue-material-design-icons/Send.vue'
-import Item from '@/components/input/item/Item.vue'
 
 @Component({
   components: {
-    SendIcon,
-    Item
+    SendIcon
   }
 })
 export default class Prompt extends Vue {
   @Prop({ default: '' })
   private content!: string;
 
-  @Prop()
+  @Prop({ default: () => () => 0 })
   private onSubmit!: () => void;
 
   private get isDisabled (): boolean {

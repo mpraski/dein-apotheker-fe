@@ -1,21 +1,34 @@
 import Vue from 'vue'
-import Vuex, { StoreOptions } from 'vuex'
+import Vuex, { Store, StoreOptions, Plugin } from 'vuex'
 import { RootState } from './types'
+import { getters } from './getters'
+import { actions } from './actions'
+import { mutations } from './mutations'
 import { message } from './message'
 import { input } from './input'
 import { answer } from './answer'
 
 Vue.use(Vuex)
 
-const store: StoreOptions<RootState> = {
-  state: {
-    version: '1.0.0'
-  },
-  modules: {
+export const createStore = (...plugins: Array<Plugin<RootState>>): Store<RootState> => {
+  const state = {
+    token: undefined
+  } as RootState
+
+  const modules = {
     message,
     input,
     answer
   }
-}
 
-export default new Vuex.Store<RootState>(store)
+  const store: StoreOptions<RootState> = {
+    state,
+    getters,
+    actions,
+    mutations,
+    modules,
+    plugins
+  }
+
+  return new Vuex.Store<RootState>(store)
+}

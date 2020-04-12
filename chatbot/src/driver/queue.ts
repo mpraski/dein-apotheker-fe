@@ -13,7 +13,7 @@ export class Queue<T> {
         private interval: number = Queue.defaultInterval
     ) {
       this.queuedCommits = []
-      this.timerID = setInterval(this.deliver, this.interval)
+      this.timerID = setInterval(this.deliver.bind(this), this.interval)
     }
 
     public commit (type: string, payload?: any, options?: CommitOptions) {

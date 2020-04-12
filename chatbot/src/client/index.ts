@@ -1,5 +1,6 @@
 import { join } from '@fireflysemantics/join'
-import { Request, Response, Token, TokenInfo, Optional } from './types'
+import { Token } from '@/store/types'
+import { Request, Response, TokenInfo, Optional } from './types'
 
 export async function http<T> (
   url: string,

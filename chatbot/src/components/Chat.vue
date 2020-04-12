@@ -2,7 +2,12 @@
   <div>
     <div class="output-container" ref="chatContainer">
       <FadeIn group="true" delay="true" class="output-list">
-        <OutputSwitch v-for="(message, index) in messages" v-bind:key="index" :message="message" />
+        <OutputSwitch
+          v-for="([m, a], index) in messages"
+          v-bind:key="index"
+          :message="m"
+          :alignment="a"
+        />
       </FadeIn>
     </div>
     <div class="input-container">
@@ -46,9 +51,9 @@ export default class Chat extends Vue {
   provideAnswer!: (a: Answer) => void;
 
   @Prop({ default: () => [] })
-  private messages!: Array<Message>;
+  private messages!: MessageState;
 
-  private messagesToAdd!: Array<Message>;
+  private messagesToAdd!: MessageState;
 
   private input!: Input;
 
@@ -62,64 +67,79 @@ export default class Chat extends Vue {
     super()
     this.inputVisible = false
     this.messagesToAdd = [
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'For which **symptom** are you looking for a drug?',
-        alignment: 'LEFT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Running nose',
-        alignment: 'RIGHT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content:
-          "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help.",
-        alignment: 'LEFT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Understood',
-        alignment: 'RIGHT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Some other question',
-        alignment: 'LEFT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Some other question',
-        alignment: 'RIGHT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Some other question',
-        alignment: 'LEFT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Some other question',
-        alignment: 'RIGHT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Some other question',
-        alignment: 'LEFT'
-      },
-      {
-        type: 'MESSAGE_TEXT',
-        content: 'Some other question',
-        alignment: 'RIGHT'
-      },
-      {
-        type: 'MESSAGE_IMAGE',
-        image:
-          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        alt: 'Have a cat picture',
-        alignment: 'LEFT'
-      }
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'For which **symptom** are you looking for a drug?'
+        },
+        'LEFT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'Running nose'
+        },
+        'RIGHT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content:
+            "Soon we'll be able to help you also in situation like that. Right now we are sorry. We deal with one of your most important values - your health. We know that and therefore it is important to know our limits. Please ask your practitioner or pharmacist for help."
+        },
+        'LEFT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'Understood'
+        },
+        'RIGHT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'Some other question?'
+        },
+        'LEFT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'Some other answer'
+        },
+        'RIGHT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'Some other question?'
+        },
+        'LEFT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'Some other answer'
+        },
+        'RIGHT'
+      ],
+      [
+        {
+          type: 'MESSAGE_TEXT',
+          content: 'Some other question?'
+        },
+        'LEFT'
+      ],
+      [
+        {
+          type: 'MESSAGE_IMAGE',
+          image:
+            'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+          alt: 'Have a cat picture'
+        },
+        'LEFT'
+      ]
     ]
 
     this.input = {
