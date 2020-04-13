@@ -15,7 +15,7 @@ export const actions: ActionDefinition = {
     commit(Mutations.addQuestion, question)
   },
 
-  [Actions.rewind] ({ commit }, record: Record): any {
-    commit(Mutations.addQuestion, record)
+  [Actions.rewind] ({ commit }, question: string): any {
+    commit(Mutations.rewind, question)
   }
 }

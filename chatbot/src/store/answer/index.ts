@@ -6,6 +6,7 @@ import { AnswerState } from './types'
 import { RootState } from '@/store/types'
 
 export const state: AnswerState = {
+  rewindMessages: 0,
   records: [],
   questions: []
 }

@@ -13,13 +13,15 @@ export interface MessageImage {
 
 export type Message = MessageText | MessageImage;
 
-export type MessageState = Array<[Message, Alignment]>;
+export type MessageState = Array<[Message, Alignment, string]>;
 
 // Keys
 export enum Mutations {
     receiveMessage = 'receiveMessage',
+    rewind = 'rewind'
 }
 
 export enum Actions {
     receiveMessage = 'receiveMessage',
+    rewind = 'rewind'
 }

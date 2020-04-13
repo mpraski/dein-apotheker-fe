@@ -8,13 +8,13 @@
   >
     <slot></slot>
     <FadeIn v-if="myResponse">
-      <CloseIcon v-if="hover" class="icon" />
+      <CloseIcon v-if="hover" @click="onDelete" class="icon" />
     </FadeIn>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import FadeIn from '@/components/transition/FadeIn.vue'
 
@@ -35,6 +35,9 @@ export default class Bubble extends Vue {
     super()
     this.hover = false
   }
+
+  @Emit()
+  private onDelete () { return 0 }
 
   private get getAlignment () {
     return {
@@ -92,7 +95,7 @@ export default class Bubble extends Vue {
     transition: all $fastAnimationDuration;
 
     &:hover {
-      transform: scale(1.75);
+      transform: scale(1.5);
     }
   }
 }

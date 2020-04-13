@@ -1,5 +1,5 @@
 import { GetterTree } from 'vuex'
-import { AnswerState, Getters, Scenario } from './types'
+import { AnswerState, Getters, Question } from './types'
 import { RootState, ValueOf } from '@/store/types'
 
 type GetterDefinition = {
@@ -7,11 +7,7 @@ type GetterDefinition = {
 }
 
 export const getters: GetterDefinition = {
-  [Getters.currentQuestionID] (state): string | undefined {
-    return state.questions[state.questions.length - 1].ID
-  },
-
-  [Getters.currentScenario] (state): Scenario | undefined {
-    return state.questions[state.questions.length - 1].scenario
+  [Getters.currentQuestion] (state): Question | undefined {
+    return state.questions[state.questions.length - 1]
   }
 }

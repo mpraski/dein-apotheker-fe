@@ -3,21 +3,21 @@ import { Message } from '@/store/message/types'
 
 export type Answer = string | Option | Array<Option>;
 
-export type Scenario = string;
-
 export interface Question {
   ID: string;
+  scenario: string;
   input: Input;
-  scenario: Scenario;
   messages: ReadonlyArray<Message>;
 }
 
 export interface Record {
-  QuestionID: string;
+  questionID: string;
+  scenario: string;
   answer: Answer;
 }
 
 export interface AnswerState {
+  rewindMessages: number;
   records: Array<Record>;
   questions: Array<Question>;
 }
@@ -36,8 +36,7 @@ export enum Actions {
 }
 
 export enum Getters {
-  currentQuestionID = 'currentQuestionID',
-  currentScenario = 'currentScenario'
+  currentQuestion = 'currentQuestion'
 }
 
 // Utilities

@@ -1,6 +1,6 @@
 <template>
-  <Bubble v-if="message.type === 'MESSAGE_TEXT'" :alignment="alignment">
-    <Content :content="message.content" />
+  <Bubble v-if="message.type === 'MESSAGE_TEXT'" :alignment="alignment" @on-delete="onDelete">
+    <Content :content="message.content"/>
   </Bubble>
   <Photo
     v-else-if="message.type === 'MESSAGE_IMAGE'"
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 
 import Bubble from '@/components/output/Bubble.vue'
 import Content from '@/components/output/Content.vue'
@@ -32,5 +32,11 @@ import { Message, Alignment } from '@/store/message/types'
 export default class OutputSwitch extends Vue {
   @Prop() private message!: Message;
   @Prop() private alignment!: Alignment;
+  @Prop() private question!: string;
+
+  @Emit()
+  private onDelete (): string {
+    return this.question
+  }
 }
 </script>

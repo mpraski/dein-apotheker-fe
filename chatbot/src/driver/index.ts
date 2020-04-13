@@ -4,7 +4,7 @@ import { RootState } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
 import { Message, Mutations as MessageMutations } from '@/store/message/types'
 import { messageNamespace } from '@/store/message'
-import { Answer, Record, Question, Mutations as AnswerMutations, formatAnswer } from '@/store/answer/types'
+import { Record, Question, Mutations as AnswerMutations, Getters as AnswerGetters, formatAnswer } from '@/store/answer/types'
 import { inputNamespace } from '@/store/input'
 import { Mutations as InputMutations } from '@/store/input/types'
 import { Queue } from './queue'
@@ -44,11 +44,16 @@ export class Driver {
       this.initiateChat()
     }
 
-    this.store.subscribe((mutation, _state) => {
+    this.store.subscribe((mutation, state) => {
       switch (mutation.type) {
         case this.namespaced(answerNamespace, AnswerMutations.addRecord): {
-          const { answer } = mutation.payload as Record
-          this.sendAnswer(answer)
+          this.sendAnswer(mutation.payload as Record)
+          break
+        }
+        case this.namespaced(answerNamespace, AnswerMutations.rewind): {
+          this.commitDirect(messageNamespace, MessageMutations.rewind, (state as any).answer.rewindMessages)
+          this.commitDirect(inputNamespace, InputMutations.hideInput)
+          this.commit(inputNamespace, InputMutations.showInput, this.store.getters[this.namespaced(answerNamespace, AnswerGetters.currentQuestion)].input)
           break
         }
       }
@@ -59,18 +64,20 @@ export class Driver {
     this.showResponse(this.mockQuestion)
   }
 
-  private sendAnswer (answer: Answer) {
-    this.commitDirect(inputNamespace, InputMutations.hideInput)
+  private sendAnswer (record: Record) {
+    const { answer, questionID } = record
 
+    this.commitDirect(inputNamespace, InputMutations.hideInput)
     this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [
       {
         type: 'MESSAGE_TEXT',
         content: formatAnswer(answer)
       } as Message,
-      'RIGHT'
+      'RIGHT',
+      questionID
     ])
 
-    this.gateway.sendAnswer(answer)
+    this.gateway.sendAnswer(record)
       .then(response => {
         this.showResponse(response)
       })
@@ -82,7 +89,7 @@ export class Driver {
 
     this.commitDirect(answerNamespace, AnswerMutations.addQuestion, q)
     for (const message of messages) {
-      this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
+      this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT', q.ID])
     }
     this.commit(inputNamespace, InputMutations.showInput, input)
   }

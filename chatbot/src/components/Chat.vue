@@ -3,10 +3,12 @@
     <div class="output-container" ref="chatContainer">
       <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch
-          v-for="([m, a], index) in messages"
-          v-bind:key="index"
+          v-for="([m, a, q], index) in messages"
+          :key="index"
           :message="m"
           :alignment="a"
+          :question="q"
+          @on-delete="rewind"
         />
       </FadeIn>
     </div>
@@ -37,7 +39,8 @@ import {
   Answer,
   Record,
   Actions as AnswerActions,
-  Getters as AnswerGetters
+  Getters as AnswerGetters,
+  Question
 } from '@/store/answer/types'
 
 @Component({
@@ -57,11 +60,14 @@ export default class Chat extends Vue {
   @Getter(InputMutations.showInput, { namespace: inputNamespace })
   showInput!: boolean;
 
-  @Getter(AnswerGetters.currentQuestionID, { namespace: answerNamespace })
-  currentQuestionID?: string;
+  @Getter(AnswerGetters.currentQuestion, { namespace: answerNamespace })
+  currentQuestion?: Question;
 
   @Action(AnswerActions.addRecord, { namespace: answerNamespace })
   addRecord!: (r: Record) => void;
+
+  @Action(AnswerActions.rewind, { namespace: answerNamespace })
+  rewind!: (question: string) => void;
 
   private static readonly scrollAmount: number = 1000;
 
@@ -81,10 +87,11 @@ export default class Chat extends Vue {
   }
 
   private onAnswer (a: Answer) {
-    const id = this.currentQuestionID
-    if (id) {
+    const q = this.currentQuestion
+    if (q) {
       this.addRecord({
-        QuestionID: id,
+        questionID: q.ID,
+        scenario: q.scenario,
         answer: a
       })
     }

@@ -1,13 +1,13 @@
 import { Client } from '@/client'
-import { Answer, extractAnswer, Question } from '@/store/answer/types'
+import { Record, extractAnswer, Question } from '@/store/answer/types'
 
 export class Gateway {
   /* eslint-disable no-useless-constructor */
   constructor (private client: Client) { }
 
-  public async sendAnswer (a: Answer): Promise<Question> {
+  public async sendAnswer (record: Record): Promise<Question> {
     const scenario = 'scenario_demo'
-    const answer = extractAnswer(a)[0]
+    const answer = extractAnswer(record.answer)[0]
 
     // mock the flow
     switch (answer) {
