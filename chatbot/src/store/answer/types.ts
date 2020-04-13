@@ -36,7 +36,8 @@ export enum Actions {
 }
 
 export enum Getters {
-  lastQuestionID = 'lastQuestionID',
+  currentQuestionID = 'currentQuestionID',
+  currentScenario = 'currentScenario'
 }
 
 // Utilities

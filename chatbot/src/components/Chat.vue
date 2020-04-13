@@ -57,8 +57,8 @@ export default class Chat extends Vue {
   @Getter(InputMutations.showInput, { namespace: inputNamespace })
   showInput!: boolean;
 
-  @Getter(AnswerGetters.lastQuestionID, { namespace: answerNamespace })
-  lastQuestionID!: string;
+  @Getter(AnswerGetters.currentQuestionID, { namespace: answerNamespace })
+  currentQuestionID?: string;
 
   @Action(AnswerActions.addRecord, { namespace: answerNamespace })
   addRecord!: (r: Record) => void;
@@ -81,10 +81,13 @@ export default class Chat extends Vue {
   }
 
   private onAnswer (a: Answer) {
-    this.addRecord({
-      QuestionID: this.lastQuestionID,
-      answer: a
-    })
+    const id = this.currentQuestionID
+    if (id) {
+      this.addRecord({
+        QuestionID: id,
+        answer: a
+      })
+    }
   }
 }
 </script>

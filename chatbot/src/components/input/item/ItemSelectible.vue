@@ -32,7 +32,7 @@ export default class ItemSelectible extends Vue {
   @Prop({ default: false })
   private selected!: boolean;
 
-  get getIcon () {
+  private get getIcon () {
     return this.selected ? CloseIcon : CheckIcon
   }
 }

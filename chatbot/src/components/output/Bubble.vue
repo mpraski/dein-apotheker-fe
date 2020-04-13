@@ -36,7 +36,7 @@ export default class Bubble extends Vue {
     this.hover = false
   }
 
-  get getAlignment () {
+  private get getAlignment () {
     return {
       [this.alignment.toLowerCase()]: true
     }
