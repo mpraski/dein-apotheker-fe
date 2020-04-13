@@ -13,7 +13,7 @@ export interface MessageImage {
 
 export type Message = MessageText | MessageImage;
 
-export type MessageState = Array<[Message, Alignment, string]>;
+export type MessageState = Array<[Message, Alignment]>;
 
 // Keys
 export enum Mutations {

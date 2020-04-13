@@ -7,13 +7,11 @@ type MutationDefinition = {
 }
 
 export const mutations: MutationDefinition = {
-  [Mutations.receiveMessage] (messages, message: [Message, Alignment, string]) {
+  [Mutations.receiveMessage] (messages, message: [Message, Alignment]) {
     messages.push(message)
   },
 
   [Mutations.rewind] (messages, amount: number) {
-    for (let i = 0; i < amount; i++) {
-      messages.pop()
-    }
+    messages.splice(-amount)
   }
 }

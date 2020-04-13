@@ -3,12 +3,11 @@
     <div class="output-container" ref="chatContainer">
       <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch
-          v-for="([m, a, q], index) in messages"
+          v-for="([m, a], index) in messages"
           :key="index"
           :message="m"
           :alignment="a"
-          :question="q"
-          @on-delete="rewind"
+          @on-delete="rewind(index)"
         />
       </FadeIn>
     </div>
@@ -67,7 +66,7 @@ export default class Chat extends Vue {
   addRecord!: (r: Record) => void;
 
   @Action(AnswerActions.rewind, { namespace: answerNamespace })
-  rewind!: (question: string) => void;
+  rewind!: (index: number) => void;
 
   private static readonly scrollAmount: number = 1000;
 

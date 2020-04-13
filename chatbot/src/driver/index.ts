@@ -65,7 +65,7 @@ export class Driver {
   }
 
   private sendAnswer (record: Record) {
-    const { answer, questionID } = record
+    const { answer } = record
 
     this.commitDirect(inputNamespace, InputMutations.hideInput)
     this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [
@@ -73,8 +73,7 @@ export class Driver {
         type: 'MESSAGE_TEXT',
         content: formatAnswer(answer)
       } as Message,
-      'RIGHT',
-      questionID
+      'RIGHT'
     ])
 
     this.gateway.sendAnswer(record)
@@ -89,7 +88,7 @@ export class Driver {
 
     this.commitDirect(answerNamespace, AnswerMutations.addQuestion, q)
     for (const message of messages) {
-      this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT', q.ID])
+      this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
     }
     this.commit(inputNamespace, InputMutations.showInput, input)
   }

@@ -32,11 +32,8 @@ import { Message, Alignment } from '@/store/message/types'
 export default class OutputSwitch extends Vue {
   @Prop() private message!: Message;
   @Prop() private alignment!: Alignment;
-  @Prop() private question!: string;
 
   @Emit()
-  private onDelete (): string {
-    return this.question
-  }
+  private onDelete () { return 0 }
 }
 </script>
