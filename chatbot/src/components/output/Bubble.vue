@@ -1,22 +1,59 @@
 <template>
-  <div class="message-body" v-bind:class="getAlignment">
+  <div
+    class="message-body"
+    v-bind:class="getAlignment"
+    :style="bodyStyle"
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
+  >
     <slot></slot>
+    <FadeIn v-if="myResponse">
+      <CloseIcon v-if="hover" class="icon" />
+    </FadeIn>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
+import FadeIn from '@/components/transition/FadeIn.vue'
 
 import { Alignment } from '@/store/message/types'
 
-@Component({})
+@Component({
+  components: {
+    CloseIcon,
+    FadeIn
+  }
+})
 export default class Bubble extends Vue {
   @Prop() private alignment!: Alignment;
+
+  private hover!: boolean;
+
+  constructor () {
+    super()
+    this.hover = false
+  }
 
   get getAlignment () {
     return {
       [this.alignment.toLowerCase()]: true
     }
+  }
+
+  private get myResponse (): boolean {
+    return this.alignment === 'RIGHT'
+  }
+
+  private get bodyStyle (): object {
+    if (this.myResponse) {
+      return {
+        paddingRight: '0.5rem'
+      }
+    }
+
+    return {}
   }
 }
 </script>
@@ -28,7 +65,10 @@ export default class Bubble extends Vue {
   @extend .bubble;
   @include authorable;
 
-  min-width: 50%;
+  display: flex;
+  flex-direction: row;
+
+  min-width: 40%;
   margin-bottom: $marginMedium;
 
   &:first-child {
@@ -40,6 +80,19 @@ export default class Bubble extends Vue {
 
     &:first-child {
       margin-top: $marginRegular;
+    }
+  }
+
+  .icon {
+    margin-left: auto;
+    border-radius: 2rem;
+
+    cursor: pointer;
+
+    transition: all $fastAnimationDuration;
+
+    &:hover {
+      transform: scale(1.75);
     }
   }
 }

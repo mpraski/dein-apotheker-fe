@@ -6,9 +6,8 @@ import { AnswerState } from './types'
 import { RootState } from '@/store/types'
 
 export const state: AnswerState = {
-  currentAnswer: undefined,
-  currentScenario: undefined,
-  history: []
+  records: [],
+  questions: []
 }
 
 export const answerNamespace = 'answer'

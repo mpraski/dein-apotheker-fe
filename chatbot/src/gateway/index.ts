@@ -1,12 +1,11 @@
 import { Client } from '@/client'
-import { Answer, extractAnswer } from '@/store/answer/types'
-import { AnswerResponse } from './types'
+import { Answer, extractAnswer, Question } from '@/store/answer/types'
 
 export class Gateway {
   /* eslint-disable no-useless-constructor */
   constructor (private client: Client) { }
 
-  public async sendAnswer (a: Answer): Promise<AnswerResponse> {
+  public async sendAnswer (a: Answer): Promise<Question> {
     const scenario = 'scenario_demo'
     const answer = extractAnswer(a)[0]
 
@@ -14,6 +13,7 @@ export class Gateway {
     switch (answer) {
       case 'running_nose':
         return {
+          ID: 'have_running_nose',
           messages: [
             {
               type: 'MESSAGE_TEXT',
@@ -34,9 +34,10 @@ export class Gateway {
             ]
           },
           scenario
-        } as AnswerResponse
+        } as Question
       case 'yes_1':
         return {
+          ID: 'is_medicine',
           messages: [
             {
               type: 'MESSAGE_TEXT',
@@ -57,9 +58,10 @@ export class Gateway {
             ]
           },
           scenario
-        } as AnswerResponse
+        } as Question
       case 'no_1':
         return {
+          ID: 'symptom',
           messages: [
             {
               type: 'MESSAGE_TEXT',
@@ -80,9 +82,10 @@ export class Gateway {
             ]
           },
           scenario
-        } as AnswerResponse
+        } as Question
       case 'no_2':
         return {
+          ID: 'warning_one',
           messages: [
             {
               type: 'MESSAGE_TEXT',
@@ -99,10 +102,11 @@ export class Gateway {
             ]
           },
           scenario
-        } as AnswerResponse
+        } as Question
       case 'yes_2':
       case 'understood_1':
         return {
+          ID: 'symptom_duration',
           messages: [
             {
               type: 'MESSAGE_TEXT',
@@ -123,10 +127,11 @@ export class Gateway {
             ]
           },
           scenario
-        } as AnswerResponse
+        } as Question
       case 'less_week':
       case 'more_week':
         return {
+          ID: 'cat_picture',
           messages: [
             {
               type: 'MESSAGE_TEXT',
@@ -143,20 +148,16 @@ export class Gateway {
             type: 'INPUT_PROMPT'
           },
           scenario
-        } as AnswerResponse
+        } as Question
     }
 
     return {
+      ID: 'lel',
       messages: [],
       input: {
         type: 'INPUT_PROMPT'
       },
       scenario
     }
-
-    /* return this.client.do('/answer', {
-      method: 'POST',
-      body: answer
-    }) */
   }
 }

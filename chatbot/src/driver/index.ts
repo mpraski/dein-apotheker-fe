@@ -1,14 +1,13 @@
 import { Gateway } from '@/gateway'
-import { Store, Plugin, CommitOptions, DispatchOptions } from 'vuex'
+import { Store, Plugin, CommitOptions } from 'vuex'
 import { RootState } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
 import { Message, Mutations as MessageMutations } from '@/store/message/types'
 import { messageNamespace } from '@/store/message'
-import { Answer, Mutations as AnswerMutations, formatAnswer } from '@/store/answer/types'
+import { Answer, Record, Question, Mutations as AnswerMutations, formatAnswer } from '@/store/answer/types'
 import { inputNamespace } from '@/store/input'
 import { Mutations as InputMutations } from '@/store/input/types'
 import { Queue } from './queue'
-import { AnswerResponse } from '@/gateway/types'
 
 export class Driver {
   private queue: Queue<RootState>;
@@ -37,12 +36,7 @@ export class Driver {
   }
 
   private commitDirect (ns: string, type: string, payload?: any, options?: CommitOptions) {
-    console.log(this.namespaced(ns, type))
     this.store.commit(this.namespaced(ns, type), payload, options)
-  }
-
-  private dispatchDirect (ns: string, type: string, payload?: any, options?: DispatchOptions) {
-    this.store.dispatch(this.namespaced(ns, type), payload, options)
   }
 
   private subscribe () {
@@ -52,8 +46,9 @@ export class Driver {
 
     this.store.subscribe((mutation, _state) => {
       switch (mutation.type) {
-        case this.namespaced(answerNamespace, AnswerMutations.provideAnswer): {
-          this.sendAnswer(mutation.payload as Answer)
+        case this.namespaced(answerNamespace, AnswerMutations.addRecord): {
+          const { answer } = mutation.payload as Record
+          this.sendAnswer(answer)
           break
         }
       }
@@ -61,7 +56,7 @@ export class Driver {
   }
 
   private initiateChat () {
-    this.showResponse(this.mockAnswer)
+    this.showResponse(this.mockQuestion)
   }
 
   private sendAnswer (answer: Answer) {
@@ -82,18 +77,19 @@ export class Driver {
       .catch(error => console.error(error))
   }
 
-  private showResponse (a: AnswerResponse) {
-    const { messages, scenario, input } = a
+  private showResponse (q: Question) {
+    const { messages, input } = q
 
-    this.dispatchDirect(answerNamespace, AnswerMutations.changeScenario, scenario)
+    this.commitDirect(answerNamespace, AnswerMutations.addQuestion, q)
     for (const message of messages) {
       this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
     }
     this.commit(inputNamespace, InputMutations.showInput, input)
   }
 
-  private get mockAnswer (): AnswerResponse {
+  private get mockQuestion (): Question {
     return {
+      ID: 'symptom',
       messages: [
         {
           type: 'MESSAGE_TEXT',
@@ -110,6 +106,6 @@ export class Driver {
         ]
       },
       scenario: 'scenario_demo'
-    } as AnswerResponse
+    } as Question
   }
 }

@@ -1,5 +1,13 @@
 import { GetterTree } from 'vuex'
-import { AnswerState } from './types'
-import { RootState } from '@/store/types'
+import { AnswerState, Getters } from './types'
+import { RootState, ValueOf } from '@/store/types'
 
-export const getters: GetterTree<AnswerState, RootState> = {}
+type GetterDefinition = {
+    [K in Getters]: ValueOf<GetterTree<AnswerState, RootState>>;
+}
+
+export const getters: GetterDefinition = {
+  [Getters.lastQuestionID] (state): string {
+    return state.questions[state.questions.length - 1].ID!
+  }
+}

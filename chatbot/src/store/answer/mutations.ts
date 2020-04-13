@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { AnswerState, Answer, Scenario, Mutations } from './types'
+import { AnswerState, Record, Question, Mutations } from './types'
 import { ValueOf } from '@/store/types'
 
 type MutationDefinition = {
@@ -7,13 +7,24 @@ type MutationDefinition = {
 }
 
 export const mutations: MutationDefinition = {
-  [Mutations.provideAnswer] (state, answer: Answer) {
-    state.currentAnswer = answer
-    if (state.currentScenario) {
-      state.history.push([answer, state.currentScenario])
-    }
+  [Mutations.addRecord] (state, record: Record) {
+    state.records.push(record)
   },
-  [Mutations.changeScenario] (state, scenario: Scenario) {
-    state.currentScenario = scenario
+
+  [Mutations.addQuestion] (state, question: Question) {
+    state.questions.push(question)
+  },
+
+  [Mutations.rewind] (state, record: Record) {
+    const predicateRecord = (r: Record): boolean => {
+      return r.QuestionID === record.QuestionID && r.answer === record.answer
+    }
+
+    const questionPredicate = (a: Question): boolean => {
+      return a.ID === record.QuestionID
+    }
+
+    const recordIdx = state.records.findIndex(predicateRecord)
+    const questionIdx = state.questions.findIndex(questionPredicate)
   }
 }

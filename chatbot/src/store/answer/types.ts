@@ -1,24 +1,42 @@
-import { Option } from '@/store/input/types'
+import { Input, Option } from '@/store/input/types'
+import { Message } from '@/store/message/types'
 
 export type Answer = string | Option | Array<Option>;
 
 export type Scenario = string;
 
+export interface Question {
+  ID: string;
+  input: Input;
+  scenario: Scenario;
+  messages: ReadonlyArray<Message>;
+}
+
+export interface Record {
+  QuestionID: string;
+  answer: Answer;
+}
+
 export interface AnswerState {
-    currentAnswer?: Answer;
-    currentScenario?: Scenario;
-    history: Array<[Answer, Scenario]>;
+  records: Array<Record>;
+  questions: Array<Question>;
 }
 
 // Keys
 export enum Mutations {
-    provideAnswer = 'provideAnswer',
-    changeScenario = 'changeScenario',
+  addRecord = 'addRecord',
+  addQuestion = 'addQuestion',
+  rewind = 'rewind'
 }
 
 export enum Actions {
-    provideAnswer = 'provideAnswer',
-    changeScenario = 'changeScenario',
+  addRecord = 'addRecord',
+  addQuestion = 'addQuestion',
+  rewind = 'rewind'
+}
+
+export enum Getters {
+  lastQuestionID = 'lastQuestionID',
 }
 
 // Utilities

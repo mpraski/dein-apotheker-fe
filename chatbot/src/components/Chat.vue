@@ -13,7 +13,7 @@
     <div class="input-container">
       <div class="input-list">
         <FadeIn>
-          <InputSwitch v-if="showInput" :input="stateInput.input" :on-answer="provideAnswer" />
+          <InputSwitch v-if="showInput" :input="stateInput.input" :on-answer="onAnswer" />
         </FadeIn>
       </div>
     </div>
@@ -33,7 +33,12 @@ import { MessageState } from '@/store/message/types'
 import { inputNamespace } from '@/store/input'
 import { InputState, Mutations as InputMutations } from '@/store/input/types'
 import { answerNamespace } from '@/store/answer'
-import { Answer, Mutations as AnswerMutations } from '@/store/answer/types'
+import {
+  Answer,
+  Record,
+  Actions as AnswerActions,
+  Getters as AnswerGetters
+} from '@/store/answer/types'
 
 @Component({
   components: {
@@ -52,8 +57,11 @@ export default class Chat extends Vue {
   @Getter(InputMutations.showInput, { namespace: inputNamespace })
   showInput!: boolean;
 
-  @Action(AnswerMutations.provideAnswer, { namespace: answerNamespace })
-  provideAnswer!: (a: Answer) => void;
+  @Getter(AnswerGetters.lastQuestionID, { namespace: answerNamespace })
+  lastQuestionID!: string;
+
+  @Action(AnswerActions.addRecord, { namespace: answerNamespace })
+  addRecord!: (r: Record) => void;
 
   private static readonly scrollAmount: number = 1000;
 
@@ -69,6 +77,13 @@ export default class Chat extends Vue {
     this.$refs.chatContainer.scrollBy({
       top: Chat.scrollAmount,
       behavior: 'smooth'
+    })
+  }
+
+  private onAnswer (a: Answer) {
+    this.addRecord({
+      QuestionID: this.lastQuestionID,
+      answer: a
     })
   }
 }

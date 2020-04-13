@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex'
-import { AnswerState, Answer, Scenario, Actions, Mutations } from './types'
+import { AnswerState, Record, Question, Actions, Mutations } from './types'
 import { RootState, ValueOf } from '@/store/types'
 
 type ActionDefinition = {
@@ -7,11 +7,15 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.provideAnswer] ({ commit }, payload: Answer): any {
-    commit(Mutations.provideAnswer, payload)
+  [Actions.addRecord] ({ commit }, record: Record): any {
+    commit(Mutations.addRecord, record)
   },
 
-  [Actions.changeScenario] ({ commit }, scenario: Scenario): any {
-    commit(Mutations.changeScenario, scenario)
+  [Actions.addQuestion] ({ commit }, question: Question): any {
+    commit(Mutations.addQuestion, question)
+  },
+
+  [Actions.rewind] ({ commit }, record: Record): any {
+    commit(Mutations.addQuestion, record)
   }
 }
