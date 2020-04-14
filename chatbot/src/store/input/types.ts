@@ -36,5 +36,6 @@ export enum Actions {
 }
 
 export enum Getters {
+    input = 'input',
     showInput = 'showInput',
 }

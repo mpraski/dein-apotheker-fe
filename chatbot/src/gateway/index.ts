@@ -78,6 +78,10 @@ export class Gateway {
               {
                 id: 'running_nose',
                 content: 'Running nose'
+              },
+              {
+                id: 'fever',
+                content: 'Fever'
               }
             ]
           },

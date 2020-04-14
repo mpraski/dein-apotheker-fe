@@ -11,8 +11,16 @@ main {
   font-family: $fontFamily;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $secondaryBackgroundColor;
   color: $textColor;
   font-size: 16px;
+  width: 100%;
+  height: 100%;
+
+  & > .home {
+    height: 100%;
+    overflow: hidden;
+  }
 
   @include respond-to(small) {
     font-size: $textSize;

@@ -59,7 +59,7 @@ export default class Photo extends Vue {
   display: flex;
   flex-direction: column;
 
-  width: calc(50% + 3rem);
+  min-width: 50%;
   margin-bottom: $marginMedium;
   padding: 0;
 

@@ -1,5 +1,5 @@
 import { GetterTree } from 'vuex'
-import { InputState, Getters } from './types'
+import { InputState, Input, Getters } from './types'
 import { RootState, ValueOf } from '@/store/types'
 
 type GetterDefinition = {
@@ -7,6 +7,10 @@ type GetterDefinition = {
 }
 
 export const getters: GetterDefinition = {
+  [Getters.input] (state): Input {
+    return state.input!
+  },
+
   [Getters.showInput] (state): boolean {
     return state.show
   }

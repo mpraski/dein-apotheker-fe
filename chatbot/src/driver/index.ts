@@ -108,6 +108,10 @@ export class Driver {
           {
             id: 'running_nose',
             content: 'Running nose'
+          },
+          {
+            id: 'fever',
+            content: 'Fever'
           }
         ]
       },

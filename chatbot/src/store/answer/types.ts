@@ -54,7 +54,7 @@ export const extractAnswer = (a: Answer): Array<string> => {
 
 export const formatAnswer = (a: Answer): string => {
   if (Array.isArray(a)) {
-    return a.map(a => a.content).join()
+    return a.map(a => a.content).join(' + ')
   }
 
   if (a instanceof Object) {

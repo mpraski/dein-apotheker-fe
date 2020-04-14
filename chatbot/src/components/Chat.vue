@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chat-container">
     <div class="output-container" ref="chatContainer">
       <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch
@@ -14,7 +14,7 @@
     <div class="input-container">
       <div class="input-list">
         <FadeIn>
-          <InputSwitch v-if="showInput" :input="stateInput.input" :on-answer="onAnswer" />
+          <InputSwitch v-if="showInput" :input="input" :on-answer="onAnswer" />
         </FadeIn>
       </div>
     </div>
@@ -32,7 +32,7 @@ import InputSwitch from '@/components/input/InputSwitch.vue'
 import { messageNamespace } from '@/store/message'
 import { MessageState } from '@/store/message/types'
 import { inputNamespace } from '@/store/input'
-import { InputState, Mutations as InputMutations } from '@/store/input/types'
+import { Input, InputState, Mutations as InputMutations, Getters as InputGetters } from '@/store/input/types'
 import { answerNamespace } from '@/store/answer'
 import {
   Answer,
@@ -53,10 +53,10 @@ export default class Chat extends Vue {
   @State(messageNamespace)
   messages!: MessageState;
 
-  @State(inputNamespace)
-  stateInput!: InputState;
+  @Getter(InputGetters.input, { namespace: inputNamespace })
+  input!: Input;
 
-  @Getter(InputMutations.showInput, { namespace: inputNamespace })
+  @Getter(InputGetters.showInput, { namespace: inputNamespace })
   showInput!: boolean;
 
   @Getter(AnswerGetters.currentQuestion, { namespace: answerNamespace })
@@ -101,32 +101,60 @@ export default class Chat extends Vue {
 <style scoped lang="scss">
 @import "@/assets/app.scss";
 
+.chat-container {
+  @extend .bubble;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $chatWidth;
+  height: 100%;
+  border: none;
+
+  box-shadow: 0 16px 24px 2px rgba(0,0,0,0.02), 0 6px 30px 5px rgba(0,0,0,0.02), 0 8px 10px -5px rgba(0,0,0,0.10);
+
+  @include respond-to(small) {
+    margin-top: $marginRegular;
+    margin-bottom: $marginRegular;
+
+    height: calc(100% - 3rem);
+
+    border-radius: $borderRadius;
+    border-style: $borderStyle;
+    border-width: 0;
+
+    border-color: white;
+  }
+}
+
 .output-container {
-  height: 67vh;
+  height: 70%;
   overflow-y: hidden;
 }
 
 .output-list {
   @extend .vertical-list;
-  max-width: $chatWidth;
 
   margin-left: auto;
   margin-right: auto;
 
-  padding: 0 0.5rem;
+  padding: 0 $marginRegular;
 }
 
 .input-container {
-  height: 33vh;
+  height: 30%;
+
+  border-top: 1px solid $secondaryBackgroundColor;
+  padding-top: $marginMedium;
 }
 
 .input-list {
   @extend .vertical-list;
-  max-width: $chatWidth;
 
   margin-left: auto;
   margin-right: auto;
 
-  padding: 0 0.5rem;
+  padding: 0 $marginRegular;
 }
 </style>

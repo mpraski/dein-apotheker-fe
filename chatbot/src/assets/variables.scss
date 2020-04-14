@@ -1,8 +1,9 @@
 // COLOR
 $accentColor: #FFD428; 
 $backgroundColor: #fff;
+$secondaryBackgroundColor: #f5f5f5;
 $buttonTextColor: #2c3e50;
-$buttonBackgroundColor: transparent;
+$buttonBackgroundColor: white;
 $buttonBorderColor: #eeeeee;
 $textColor: #2c3e50;
 $textColorSecondary: darken($buttonBorderColor, 15%);
@@ -25,7 +26,7 @@ $textSize: 1.125rem;
 $fontFamily: Roboto, Arial, sans-serif;
 
 // GENERAL
-$chatWidth: 40rem;
+$chatWidth: 45rem;
 
 // ANIMATION
 $animationDuration: 0.2s;

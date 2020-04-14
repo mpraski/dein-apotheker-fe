@@ -1,8 +1,14 @@
 <template>
   <div class="prompt-body">
-    <input v-model="content" type="text" placeholder="Your answer" class="input" />
+    <input
+      v-model="content"
+      v-on:keyup.enter="onSend"
+      type="text"
+      placeholder="Your answer"
+      class="input"
+    />
     <div v-on:click="onSend" v-bind:class="{ disabled: isDisabled }" class="send">
-      <SendIcon class="icon"/>
+      <SendIcon class="icon" />
     </div>
   </div>
 </template>
