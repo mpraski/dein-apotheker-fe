@@ -22,25 +22,30 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue } from "vue-property-decorator";
+import { State, Action, Getter } from "vuex-class";
 
-import FadeIn from '@/components/transition/FadeIn.vue'
-import OutputSwitch from '@/components/output/OutputSwitch.vue'
-import InputSwitch from '@/components/input/InputSwitch.vue'
+import FadeIn from "@/components/transition/FadeIn.vue";
+import OutputSwitch from "@/components/output/OutputSwitch.vue";
+import InputSwitch from "@/components/input/InputSwitch.vue";
 
-import { messageNamespace } from '@/store/message'
-import { MessageState } from '@/store/message/types'
-import { inputNamespace } from '@/store/input'
-import { Input, InputState, Mutations as InputMutations, Getters as InputGetters } from '@/store/input/types'
-import { answerNamespace } from '@/store/answer'
+import { messageNamespace } from "@/store/message";
+import { MessageState } from "@/store/message/types";
+import { inputNamespace } from "@/store/input";
+import {
+  Input,
+  InputState,
+  Mutations as InputMutations,
+  Getters as InputGetters
+} from "@/store/input/types";
+import { answerNamespace } from "@/store/answer";
 import {
   Answer,
   Record,
   Actions as AnswerActions,
   Getters as AnswerGetters,
   Question
-} from '@/store/answer/types'
+} from "@/store/answer/types";
 
 @Component({
   components: {
@@ -74,25 +79,25 @@ export default class Chat extends Vue {
     chatContainer: HTMLElement;
   };
 
-  private updated () {
-    this.$nextTick(this.scrollToEnd.bind(this))
+  private updated() {
+    this.$nextTick(this.scrollToEnd.bind(this));
   }
 
-  private scrollToEnd () {
+  private scrollToEnd() {
     this.$refs.chatContainer.scrollBy({
       top: Chat.scrollAmount,
-      behavior: 'smooth'
-    })
+      behavior: "smooth"
+    });
   }
 
-  private onAnswer (a: Answer) {
-    const q = this.currentQuestion
+  private onAnswer(a: Answer) {
+    const q = this.currentQuestion;
     if (q) {
       this.addRecord({
         questionID: q.ID,
         scenario: q.scenario,
         answer: a
-      })
+      });
     }
   }
 }
@@ -112,7 +117,8 @@ export default class Chat extends Vue {
   height: 100%;
   border: none;
 
-  box-shadow: 0 16px 24px 2px rgba(0,0,0,0.02), 0 6px 30px 5px rgba(0,0,0,0.02), 0 8px 10px -5px rgba(0,0,0,0.10);
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.02),
+    0 6px 30px 5px rgba(0, 0, 0, 0.02), 0 8px 10px -5px rgba(0, 0, 0, 0.1);
 
   @include respond-to(small) {
     margin-top: $marginRegular;
@@ -145,7 +151,7 @@ export default class Chat extends Vue {
 .input-container {
   height: 30%;
 
-  border-top: 1px solid $secondaryBackgroundColor;
+  border-top: 2px solid $secondaryBackgroundColor;
   padding-top: $marginMedium;
 }
 
