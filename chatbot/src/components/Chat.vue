@@ -18,6 +18,7 @@
         </FadeIn>
       </div>
     </div>
+    <Resizer @on-resize="scrollToEnd" />
   </div>
 </template>
 
@@ -26,6 +27,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { State, Action, Getter } from "vuex-class";
 
 import FadeIn from "@/components/transition/FadeIn.vue";
+import Resizer from "@/components/transition/Resizer.vue";
 import OutputSwitch from "@/components/output/OutputSwitch.vue";
 import InputSwitch from "@/components/input/InputSwitch.vue";
 
@@ -50,6 +52,7 @@ import {
 @Component({
   components: {
     FadeIn,
+    Resizer,
     OutputSwitch,
     InputSwitch
   }

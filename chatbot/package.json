@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@fireflysemantics/join": "^1.0.3",
+    "@types/lodash": "^4.14.149",
     "@types/vue-markdown": "^2.2.1",
     "core-js": "^3.6.4",
+    "lodash": "^4.17.15",
     "register-service-worker": "^1.6.2",
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
