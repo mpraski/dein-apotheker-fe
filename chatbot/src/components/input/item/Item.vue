@@ -1,5 +1,5 @@
 <template>
-  <VueMarkdown v-once :source="content" class="item-body"></VueMarkdown>
+  <VueMarkdown v-once :source="content" class="item-body" />
 </template>
 
 <script lang="ts">

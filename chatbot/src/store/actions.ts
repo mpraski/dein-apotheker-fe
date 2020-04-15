@@ -6,7 +6,7 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.provideToken] ({ commit }, payload: Token): any {
+  [Actions.provideToken] ({ commit }, payload: Token) {
     commit(Mutations.provideToken, payload)
   }
 }

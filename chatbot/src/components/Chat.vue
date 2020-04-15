@@ -36,8 +36,6 @@ import { MessageState } from '@/store/message/types'
 import { inputNamespace } from '@/store/input'
 import {
   Input,
-  InputState,
-  Mutations as InputMutations,
   Getters as InputGetters
 } from '@/store/input/types'
 import { answerNamespace } from '@/store/answer'

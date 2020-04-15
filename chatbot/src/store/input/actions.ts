@@ -7,11 +7,11 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.showInput] ({ commit }, payload: Input): any {
+  [Actions.showInput] ({ commit }, payload: Input) {
     commit(Mutations.showInput, payload)
   },
 
-  [Actions.hideInput] ({ commit }): any {
+  [Actions.hideInput] ({ commit }) {
     commit(Mutations.hideInput)
   }
 }

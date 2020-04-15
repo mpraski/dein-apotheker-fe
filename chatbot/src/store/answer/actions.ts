@@ -7,15 +7,15 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.addRecord] ({ commit }, record: Record): any {
+  [Actions.addRecord] ({ commit }, record: Record) {
     commit(Mutations.addRecord, record)
   },
 
-  [Actions.addQuestion] ({ commit }, question: Question): any {
+  [Actions.addQuestion] ({ commit }, question: Question) {
     commit(Mutations.addQuestion, question)
   },
 
-  [Actions.rewind] ({ commit }, index: number): any {
+  [Actions.rewind] ({ commit }, index: number) {
     commit(Mutations.rewind, index)
   }
 }

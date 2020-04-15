@@ -5,7 +5,7 @@
         <component v-bind:is="getIcon" class="icon"></component>
       </FadeIn>
     </keep-alive>
-    <VueMarkdown v-once :source="content"></VueMarkdown>
+    <VueMarkdown v-once :source="content" />
   </div>
 </template>
 
