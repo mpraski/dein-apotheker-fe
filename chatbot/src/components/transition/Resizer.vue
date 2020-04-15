@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from "vue-property-decorator";
-import { debounce } from "lodash";
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
+import { debounce } from 'lodash'
 
 @Component({})
 export default class Resizer extends Vue {
@@ -13,22 +13,22 @@ export default class Resizer extends Vue {
 
   private debouncedResize: () => void;
 
-  constructor() {
-    super();
-    this.debouncedResize = debounce(this.onResize, this.interval);
+  constructor () {
+    super()
+    this.debouncedResize = debounce(this.onResize, this.interval)
   }
 
-  private created() {
-    window.addEventListener("resize", this.debouncedResize);
+  private created () {
+    window.addEventListener('resize', this.debouncedResize)
   }
 
-  private destroyed() {
-    window.removeEventListener("resize", this.debouncedResize);
+  private destroyed () {
+    window.removeEventListener('resize', this.debouncedResize)
   }
 
   @Emit()
-  private onResize() {
-    return 0;
+  private onResize () {
+    return 0
   }
 }
 </script>

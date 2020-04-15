@@ -23,31 +23,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { State, Action, Getter } from "vuex-class";
+import { Component, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
 
-import FadeIn from "@/components/transition/FadeIn.vue";
-import Resizer from "@/components/transition/Resizer.vue";
-import OutputSwitch from "@/components/output/OutputSwitch.vue";
-import InputSwitch from "@/components/input/InputSwitch.vue";
+import FadeIn from '@/components/transition/FadeIn.vue'
+import Resizer from '@/components/transition/Resizer.vue'
+import OutputSwitch from '@/components/output/OutputSwitch.vue'
+import InputSwitch from '@/components/input/InputSwitch.vue'
 
-import { messageNamespace } from "@/store/message";
-import { MessageState } from "@/store/message/types";
-import { inputNamespace } from "@/store/input";
+import { messageNamespace } from '@/store/message'
+import { MessageState } from '@/store/message/types'
+import { inputNamespace } from '@/store/input'
 import {
   Input,
   InputState,
   Mutations as InputMutations,
   Getters as InputGetters
-} from "@/store/input/types";
-import { answerNamespace } from "@/store/answer";
+} from '@/store/input/types'
+import { answerNamespace } from '@/store/answer'
 import {
   Answer,
   Record,
   Actions as AnswerActions,
   Getters as AnswerGetters,
   Question
-} from "@/store/answer/types";
+} from '@/store/answer/types'
 
 @Component({
   components: {
@@ -82,25 +82,25 @@ export default class Chat extends Vue {
     chatContainer: HTMLElement;
   };
 
-  private updated() {
-    this.$nextTick(this.scrollToEnd.bind(this));
+  private updated () {
+    this.$nextTick(this.scrollToEnd.bind(this))
   }
 
-  private scrollToEnd() {
+  private scrollToEnd () {
     this.$refs.chatContainer.scrollBy({
       top: Chat.scrollAmount,
-      behavior: "smooth"
-    });
+      behavior: 'smooth'
+    })
   }
 
-  private onAnswer(a: Answer) {
-    const q = this.currentQuestion;
+  private onAnswer (a: Answer) {
+    const q = this.currentQuestion
     if (q) {
       this.addRecord({
         questionID: q.ID,
         scenario: q.scenario,
         answer: a
-      });
+      })
     }
   }
 }
