@@ -19,6 +19,7 @@ const vuexSession = new VuexPersistence<RootState>({
 })
 
 const store = createStore(
+  vuexSession.plugin,
   Driver.plugin(
     new Gateway(new Client(process.env.VUE_APP_API_ROOT, {
       URL: process.env.VUE_APP_TOKEN_URL,
@@ -26,7 +27,6 @@ const store = createStore(
       store: (t: Token) => store.dispatch(Actions.provideToken, t)
     }))
   )
-  // vuexSession.plugin
 )
 
 new Vue({

@@ -18,7 +18,7 @@
         </FadeIn>
       </div>
     </div>
-    <Resizer @on-resize="scrollToEnd" />
+    <Resizer @on-resize="scrollToEnd('smooth')" />
   </div>
 </template>
 
@@ -77,14 +77,18 @@ export default class Chat extends Vue {
     chatContainer: HTMLElement;
   };
 
-  private updated () {
-    this.$nextTick(this.scrollToEnd.bind(this))
+  private mounted () {
+    this.scrollToEnd('auto')
   }
 
-  private scrollToEnd () {
+  private updated () {
+    this.$nextTick(() => this.scrollToEnd('smooth'))
+  }
+
+  private scrollToEnd (behaviour: 'smooth' | 'auto') {
     this.$refs.chatContainer.scrollBy({
       top: Chat.scrollAmount,
-      behavior: 'smooth'
+      behavior: behaviour
     })
   }
 
@@ -114,8 +118,8 @@ export default class Chat extends Vue {
   height: 100%;
   border: none;
 
-  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.02),
-    0 6px 30px 5px rgba(0, 0, 0, 0.02), 0 8px 10px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.01),
+    0 6px 30px 5px rgba(0, 0, 0, 0.01), 0 8px 10px -5px rgba(0, 0, 0, 0.1);
 
   @include respond-to(small) {
     margin-top: $marginRegular;

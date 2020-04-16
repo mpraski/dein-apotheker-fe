@@ -1,6 +1,6 @@
 import { Gateway } from '@/gateway'
 import { Store, Plugin, CommitOptions } from 'vuex'
-import { RootState } from '@/store/types'
+import { RootState, Mutations as RootMutations } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
 import { Message, Mutations as MessageMutations } from '@/store/message/types'
 import { messageNamespace } from '@/store/message'
@@ -63,6 +63,7 @@ export class Driver {
   }
 
   private initiateChat () {
+    this.store.commit(RootMutations.provideToken, 'token')
     this.recordContext(this.mockContext)
     this.recordQuestion(this.mockQuestion)
   }
@@ -83,8 +84,8 @@ export class Driver {
         this.recordContext(context)
         return data
       })
-      .then(response => {
-        this.recordQuestion(response)
+      .then(question => {
+        this.recordQuestion(question)
       })
       .catch(error => console.error(error))
   }
@@ -137,8 +138,7 @@ export class Driver {
             content: 'Fever'
           }
         ]
-      },
-      scenario: 'scenario_demo'
-    } as Question
+      }
+    }
   }
 }

@@ -2,7 +2,7 @@ import { MutationTree } from 'vuex'
 import { Token, RootState, Mutations, ValueOf } from './types'
 
 type MutationDefinition = {
-    [K in Mutations]: ValueOf<MutationTree<RootState>>;
+  [K in Mutations]: ValueOf<MutationTree<RootState>>;
 }
 
 export const mutations: MutationDefinition = {
