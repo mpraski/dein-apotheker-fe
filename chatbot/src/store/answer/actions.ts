@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex'
-import { AnswerState, Record, Question, Actions, Mutations } from './types'
+import { AnswerState, Question, Actions, Mutations, Answer, Context } from './types'
 import { RootState, ValueOf } from '@/store/types'
 
 type ActionDefinition = {
@@ -7,12 +7,16 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.addRecord] ({ commit }, record: Record) {
-    commit(Mutations.addRecord, record)
+  [Actions.addAnswer] ({ commit }, answer: Answer) {
+    commit(Mutations.addAnswer, answer)
   },
 
   [Actions.addQuestion] ({ commit }, question: Question) {
     commit(Mutations.addQuestion, question)
+  },
+
+  [Actions.addContext] ({ commit }, context: Context) {
+    commit(Mutations.addContext, context)
   },
 
   [Actions.rewind] ({ commit }, index: number) {

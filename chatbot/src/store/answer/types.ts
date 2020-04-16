@@ -1,65 +1,77 @@
 import { Input, Option } from '@/store/input/types'
 import { Message } from '@/store/message/types'
 
-export type Answer = string | Option | Array<Option>;
+export type AnswerValue = string | Option | Array<Option>;
+
+export interface Context {
+  scenarios: Array<string>;
+  data: object;
+}
 
 export interface Question {
   ID: string;
-  scenario: string;
   input: Input;
   messages: ReadonlyArray<Message>;
 }
 
-export interface Record {
-  questionID: string;
-  scenario: string;
-  answer: Answer;
+export interface Answer {
+  ID: string;
+  value: AnswerValue;
 }
 
 export interface AnswerState {
   rewindMessages: number;
-  records: Array<Record>;
+  answers: Array<Answer>;
   questions: Array<Question>;
+  contexts: Array<Context>;
 }
 
 // Keys
 export enum Mutations {
-  addRecord = 'addRecord',
+  addAnswer = 'addAnswer',
   addQuestion = 'addQuestion',
+  addContext = 'addContext',
   rewind = 'rewind'
 }
 
 export enum Actions {
-  addRecord = 'addRecord',
+  addAnswer = 'addAnswer',
   addQuestion = 'addQuestion',
+  addContext = 'addContext',
   rewind = 'rewind'
 }
 
 export enum Getters {
-  currentQuestion = 'currentQuestion'
+  currentQuestion = 'currentQuestion',
+  currentContext = 'currentContext'
 }
 
 // Utilities
 export const extractAnswer = (a: Answer): Array<string> => {
-  if (Array.isArray(a)) {
-    return a.map(a => a.id)
+  const { value } = a
+
+  if (Array.isArray(value)) {
+    return value.map(v => v.id)
   }
 
-  if (a instanceof Object) {
-    return [a.id]
+  if (value instanceof Object) {
+    return [value.id]
   } else {
-    return [a]
+    return [value]
   }
 }
 
 export const formatAnswer = (a: Answer): string => {
-  if (Array.isArray(a)) {
-    return a.map(a => a.content).join(' + ')
+  const delimiter = ' + '
+  const { value } = a
+
+  if (Array.isArray(value)) {
+    return value.map(v => v.content).join(delimiter)
   }
 
-  if (a instanceof Object) {
-    return a.content
+  if (value instanceof Object) {
+    return value.content
   } else {
-    return a
+    return value
   }
 }

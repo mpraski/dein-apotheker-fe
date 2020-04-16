@@ -20,7 +20,7 @@ import Multiple from '@/components/input/Multiple.vue'
 import Prompt from '@/components/input/Prompt.vue'
 
 import { Input, Option } from '@/store/input/types'
-import { Answer } from '@/store/answer/types'
+import { Answer, AnswerValue } from '@/store/answer/types'
 
 @Component({
   components: {
@@ -33,7 +33,7 @@ export default class InputSwitch extends Vue {
   @Prop() private input!: Input;
 
   @Prop({ default: () => () => 0 })
-  private onAnswer!: (a: Answer) => void;
+  private onAnswer!: (v: AnswerValue) => void;
 
   private onSingleSelect (a: Option) {
     this.onAnswer(a)

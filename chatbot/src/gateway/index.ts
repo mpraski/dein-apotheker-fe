@@ -1,18 +1,19 @@
 import { Client } from '@/client'
-import { Record, extractAnswer, Question } from '@/store/answer/types'
+import { extractAnswer, Question, Context } from '@/store/answer/types'
+import { API, AnswerRequest, Contextual, AnswerResponse } from './types'
 
-export class Gateway {
+export class Gateway implements API {
   /* eslint-disable no-useless-constructor */
   constructor (private client: Client) { }
 
-  public async sendAnswer (record: Record): Promise<Question> {
-    const scenario = 'scenario_demo'
-    const answer = extractAnswer(record.answer)[0]
+  public async answer (ctx: Context, req: AnswerRequest): Promise<Contextual<AnswerResponse>> {
+    const answer = extractAnswer(req)[0]
+    let response: AnswerResponse
 
     // mock the flow
     switch (answer) {
       case 'running_nose':
-        return {
+        response = {
           ID: 'have_running_nose',
           messages: [
             {
@@ -32,11 +33,11 @@ export class Gateway {
                 content: 'No, it was a typing error'
               }
             ]
-          },
-          scenario
-        } as Question
+          }
+        }
+        break
       case 'yes_1':
-        return {
+        response = {
           ID: 'is_medicine',
           messages: [
             {
@@ -56,11 +57,11 @@ export class Gateway {
                 content: 'No'
               }
             ]
-          },
-          scenario
-        } as Question
+          }
+        }
+        break
       case 'no_1':
-        return {
+        response = {
           ID: 'symptom',
           messages: [
             {
@@ -84,11 +85,11 @@ export class Gateway {
                 content: 'Fever'
               }
             ]
-          },
-          scenario
-        } as Question
+          }
+        }
+        break
       case 'no_2':
-        return {
+        response = {
           ID: 'warning_one',
           messages: [
             {
@@ -104,12 +105,12 @@ export class Gateway {
                 content: 'I understand'
               }
             ]
-          },
-          scenario
-        } as Question
+          }
+        }
+        break
       case 'yes_2':
       case 'understood_1':
-        return {
+        response = {
           ID: 'symptom_duration',
           messages: [
             {
@@ -129,12 +130,12 @@ export class Gateway {
                 content: 'More than a week'
               }
             ]
-          },
-          scenario
-        } as Question
+          }
+        }
+        break
       case 'less_week':
       case 'more_week':
-        return {
+        response = {
           ID: 'cat_picture',
           messages: [
             {
@@ -150,18 +151,22 @@ export class Gateway {
           ],
           input: {
             type: 'INPUT_PROMPT'
-          },
-          scenario
-        } as Question
+          }
+        }
+        break
+      default:
+        response = {
+          ID: 'lel',
+          messages: [],
+          input: {
+            type: 'INPUT_PROMPT'
+          }
+        }
     }
 
     return {
-      ID: 'lel',
-      messages: [],
-      input: {
-        type: 'INPUT_PROMPT'
-      },
-      scenario
+      context: ctx,
+      data: response
     }
   }
 }

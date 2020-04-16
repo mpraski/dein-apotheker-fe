@@ -7,8 +7,9 @@ import { RootState } from '@/store/types'
 
 export const state: AnswerState = {
   rewindMessages: 0,
-  records: [],
-  questions: []
+  answers: [],
+  questions: [],
+  contexts: []
 }
 
 export const answerNamespace = 'answer'

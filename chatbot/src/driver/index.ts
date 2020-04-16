@@ -4,9 +4,9 @@ import { RootState } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
 import { Message, Mutations as MessageMutations } from '@/store/message/types'
 import { messageNamespace } from '@/store/message'
-import { Record, Question, Mutations as AnswerMutations, Getters as AnswerGetters, formatAnswer } from '@/store/answer/types'
+import { Question, Mutations as AnswerMutations, Getters as AnswerGetters, formatAnswer, Answer, Context } from '@/store/answer/types'
 import { inputNamespace } from '@/store/input'
-import { Mutations as InputMutations } from '@/store/input/types'
+import { Mutations as InputMutations, Input } from '@/store/input/types'
 import { Queue } from './queue'
 
 export class Driver {
@@ -46,14 +46,16 @@ export class Driver {
 
     this.store.subscribe((mutation, state) => {
       switch (mutation.type) {
-        case this.namespaced(answerNamespace, AnswerMutations.addRecord): {
-          this.sendAnswer(mutation.payload as Record)
+        case this.namespaced(answerNamespace, AnswerMutations.addAnswer): {
+          const answer = mutation.payload as Answer
+          const context = this.store.getters[this.namespaced(answerNamespace, AnswerGetters.currentContext)] as Context
+          this.sendAnswer(context, answer)
           break
         }
         case this.namespaced(answerNamespace, AnswerMutations.rewind): {
-          this.commitDirect(messageNamespace, MessageMutations.rewind, (state as any).answer.rewindMessages)
-          this.commitDirect(inputNamespace, InputMutations.hideInput)
-          this.commit(inputNamespace, InputMutations.showInput, this.store.getters[this.namespaced(answerNamespace, AnswerGetters.currentQuestion)].input)
+          const count = (state as any).answer.rewindMessages as number
+          const input = this.store.getters[this.namespaced(answerNamespace, AnswerGetters.currentQuestion)].input
+          this.rewind(count, input)
           break
         }
       }
@@ -61,12 +63,11 @@ export class Driver {
   }
 
   private initiateChat () {
-    this.showResponse(this.mockQuestion)
+    this.recordContext(this.mockContext)
+    this.recordQuestion(this.mockQuestion)
   }
 
-  private sendAnswer (record: Record) {
-    const { answer } = record
-
+  private sendAnswer (ctx: Context, answer: Answer) {
     this.commitDirect(inputNamespace, InputMutations.hideInput)
     this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [
       {
@@ -76,21 +77,43 @@ export class Driver {
       'RIGHT'
     ])
 
-    this.gateway.sendAnswer(record)
+    this.gateway.answer(ctx, answer)
       .then(response => {
-        this.showResponse(response)
+        const { context, data } = response
+        this.recordContext(context)
+        return data
+      })
+      .then(response => {
+        this.recordQuestion(response)
       })
       .catch(error => console.error(error))
   }
 
-  private showResponse (q: Question) {
-    const { messages, input } = q
+  private rewind (count: number, input: Input) {
+    this.commitDirect(messageNamespace, MessageMutations.rewind, count)
+    this.commitDirect(inputNamespace, InputMutations.hideInput)
+    this.commit(inputNamespace, InputMutations.showInput, input)
+  }
 
-    this.commitDirect(answerNamespace, AnswerMutations.addQuestion, q)
+  private recordContext (ctx: Context) {
+    this.commitDirect(answerNamespace, AnswerMutations.addContext, ctx)
+  }
+
+  private recordQuestion (question: Question) {
+    const { messages, input } = question
+
+    this.commitDirect(answerNamespace, AnswerMutations.addQuestion, question)
     for (const message of messages) {
       this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
     }
     this.commit(inputNamespace, InputMutations.showInput, input)
+  }
+
+  private get mockContext (): Context {
+    return {
+      scenarios: [],
+      data: {}
+    }
   }
 
   private get mockQuestion (): Question {

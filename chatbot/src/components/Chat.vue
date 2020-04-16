@@ -34,17 +34,14 @@ import InputSwitch from '@/components/input/InputSwitch.vue'
 import { messageNamespace } from '@/store/message'
 import { MessageState } from '@/store/message/types'
 import { inputNamespace } from '@/store/input'
-import {
-  Input,
-  Getters as InputGetters
-} from '@/store/input/types'
+import { Input, Getters as InputGetters } from '@/store/input/types'
 import { answerNamespace } from '@/store/answer'
 import {
   Answer,
-  Record,
   Actions as AnswerActions,
   Getters as AnswerGetters,
-  Question
+  Question,
+  AnswerValue
 } from '@/store/answer/types'
 
 @Component({
@@ -68,8 +65,8 @@ export default class Chat extends Vue {
   @Getter(AnswerGetters.currentQuestion, { namespace: answerNamespace })
   currentQuestion?: Question;
 
-  @Action(AnswerActions.addRecord, { namespace: answerNamespace })
-  addRecord!: (r: Record) => void;
+  @Action(AnswerActions.addAnswer, { namespace: answerNamespace })
+  addAnswer!: (a: Answer) => void;
 
   @Action(AnswerActions.rewind, { namespace: answerNamespace })
   rewind!: (index: number) => void;
@@ -91,13 +88,12 @@ export default class Chat extends Vue {
     })
   }
 
-  private onAnswer (a: Answer) {
-    const q = this.currentQuestion
-    if (q) {
-      this.addRecord({
-        questionID: q.ID,
-        scenario: q.scenario,
-        answer: a
+  private onAnswer (value: AnswerValue) {
+    const question = this.currentQuestion
+    if (question) {
+      this.addAnswer({
+        ID: question.ID,
+        value: value
       })
     }
   }
