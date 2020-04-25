@@ -5,7 +5,7 @@ stages:
 build:
   stage: build
   script:
-    - echo $CI_REGISTRY_PASSWORD | docker login --username $CI_REGISTRY_USER --password-stdin
+    - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY:5000 --username $CI_REGISTRY_USER --password-stdin
     - docker build --tag $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker push $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:latest
