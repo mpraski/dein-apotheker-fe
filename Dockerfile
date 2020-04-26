@@ -31,7 +31,7 @@ COPY chatbot/Makefile .
 COPY chatbot/package.json .
 COPY chatbot/tsconfig.json .
 COPY chatbot/.env .
-COPY chatbot/.env.prod .
+COPY chatbot/.env.production .
 
 RUN make install && make build
 
