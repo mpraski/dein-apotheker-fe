@@ -30,6 +30,8 @@ COPY chatbot/babel.config.js .
 COPY chatbot/Makefile .
 COPY chatbot/package.json .
 COPY chatbot/tsconfig.json .
+COPY chatbot/.env .
+COPY chatbot/.env.prod .
 
 RUN make install && make build
 
