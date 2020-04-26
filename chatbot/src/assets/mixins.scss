@@ -3,7 +3,11 @@
     border-style: $borderStyle;
     border-width: $borderWidth;
 
-    padding: $paddingButton;
+    padding: $paddingButtonSmall;
+
+    @include respond-to(small) {
+        padding: $paddingButton;
+    }
 
     color: $buttonTextColor;
     background-color: $buttonBackgroundColor;
