@@ -1,15 +1,15 @@
 <template>
   <Single
-    v-if="input.type === 'INPUT_SINGLE'"
+    v-if="input.type === 'single'"
     :options="input.options"
     :on-select="onSingleSelect"
   />
   <Multiple
-    v-else-if=" input.type === 'INPUT_MULTIPLE'"
+    v-else-if=" input.type === 'multiple'"
     :options="input.options"
     :on-submit="onMultipleSelect"
   />
-  <Prompt v-else-if="input.type === 'INPUT_PROMPT'" :on-submit="onPromptSubmit" />
+  <Prompt v-else-if="input.type === 'prompt'" :on-submit="onPromptSubmit" />
 </template>
 
 <script lang="ts">

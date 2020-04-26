@@ -1,12 +1,12 @@
 <template>
-  <Bubble v-if="message.type === 'MESSAGE_TEXT'" :alignment="alignment" @on-delete="onDelete">
+  <Bubble v-if="message.type === 'text'" :alignment="alignment" @on-delete="onDelete">
     <Content :content="message.content"/>
   </Bubble>
   <Photo
-    v-else-if="message.type === 'MESSAGE_IMAGE'"
+    v-else-if="message.type === 'image'"
     :alignment="alignment"
     :image="message.image"
-    :alt="message.alt"
+    :content="message.content"
   />
   <Unknown v-else />
 </template>

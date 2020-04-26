@@ -1,14 +1,14 @@
 export type Alignment = 'LEFT' | 'RIGHT';
 
 export interface MessageText {
-    type: 'MESSAGE_TEXT';
+    type: 'text';
     content: string;
 }
 
 export interface MessageImage {
-    type: 'MESSAGE_IMAGE';
+    type: 'image';
     image: string;
-    alt: string;
+    content: string;
 }
 
 export type Message = MessageText | MessageImage;

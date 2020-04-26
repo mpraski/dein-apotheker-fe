@@ -41,7 +41,8 @@ import {
   Actions as AnswerActions,
   Getters as AnswerGetters,
   Question,
-  AnswerValue
+  AnswerValue,
+  AnswerType
 } from '@/store/answer/types'
 
 @Component({
@@ -97,6 +98,7 @@ export default class Chat extends Vue {
     if (question) {
       this.addAnswer({
         ID: question.ID,
+        type: question.input.type,
         value: value
       })
     }

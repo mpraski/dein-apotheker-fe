@@ -4,17 +4,17 @@ export interface Option {
 }
 
 export interface InputSingle {
-    type: 'INPUT_SINGLE';
+    type: 'single';
     options: ReadonlyArray<Option>;
 }
 
 export interface InputMultiple {
-    type: 'INPUT_MULTIPLE';
+    type: 'multiple';
     options: ReadonlyArray<Option>;
 }
 
 export interface InputPrompt {
-    type: 'INPUT_PROMPT';
+    type: 'prompt';
 }
 
 export type Input = InputSingle | InputMultiple | InputPrompt;

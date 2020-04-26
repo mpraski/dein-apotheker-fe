@@ -1,6 +1,6 @@
 import { Gateway } from '@/gateway'
 import { Store, Plugin, CommitOptions } from 'vuex'
-import { RootState, Mutations as RootMutations } from '@/store/types'
+import { RootState, Mutations as RootMutations, Token } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
 import { Message, Mutations as MessageMutations } from '@/store/message/types'
 import { messageNamespace } from '@/store/message'
@@ -32,16 +32,18 @@ export class Driver {
   }
 
   private commit (ns: string, type: string, payload?: any, options?: CommitOptions) {
-    this.queue.commit(this.namespaced(ns, type), payload, options)
+    const dest = ns === '' ? type : this.namespaced(ns, type)
+    this.queue.commit(dest, payload, options)
   }
 
   private commitDirect (ns: string, type: string, payload?: any, options?: CommitOptions) {
-    this.store.commit(this.namespaced(ns, type), payload, options)
+    const dest = ns === '' ? type : this.namespaced(ns, type)
+    this.store.commit(dest, payload, options)
   }
 
   private subscribe () {
-    if (!this.store.state.token) {
-      this.initiateChat()
+    if (this.needsToken) {
+      this.fetchToken()
     }
 
     this.store.subscribe((mutation, state) => {
@@ -58,21 +60,43 @@ export class Driver {
           this.rewind(count, input)
           break
         }
+        case RootMutations.provideToken: {
+          this.initiateChat(mutation.payload as Token)
+          break
+        }
       }
     })
   }
 
-  private initiateChat () {
-    this.store.commit(RootMutations.provideToken, 'token')
-    this.recordContext(this.mockContext)
-    this.recordQuestion(this.mockQuestion)
+  private fetchToken () {
+    this.gateway.token()
+      .then(token => this.commitDirect('', RootMutations.provideToken, token))
+      .catch(error => console.error(error))
+  }
+
+  private initiateChat (token: Token) {
+    this.gateway.setToken(token)
+    this.gateway.start({
+      scenarios: [],
+      question: '',
+      data: {}
+    })
+      .then(response => {
+        const { context, data } = response
+        this.recordContext(context)
+        return data
+      })
+      .then(question => {
+        this.recordQuestion(question)
+      })
+      .catch(error => console.error(error))
   }
 
   private sendAnswer (ctx: Context, answer: Answer) {
     this.commitDirect(inputNamespace, InputMutations.hideInput)
     this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [
       {
-        type: 'MESSAGE_TEXT',
+        type: 'text',
         content: formatAnswer(answer)
       } as Message,
       'RIGHT'
@@ -110,35 +134,7 @@ export class Driver {
     this.commit(inputNamespace, InputMutations.showInput, input)
   }
 
-  private get mockContext (): Context {
-    return {
-      scenarios: [],
-      data: {}
-    }
-  }
-
-  private get mockQuestion (): Question {
-    return {
-      ID: 'symptom',
-      messages: [
-        {
-          type: 'MESSAGE_TEXT',
-          content: 'For which **symptom** are you looking for a drug?'
-        }
-      ],
-      input: {
-        type: 'INPUT_MULTIPLE',
-        options: [
-          {
-            id: 'running_nose',
-            content: 'Running nose'
-          },
-          {
-            id: 'fever',
-            content: 'Fever'
-          }
-        ]
-      }
-    }
+  private get needsToken (): boolean {
+    return !this.store.state.token
   }
 }

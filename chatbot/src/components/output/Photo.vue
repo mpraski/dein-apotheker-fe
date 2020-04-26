@@ -1,7 +1,7 @@
 <template>
   <div class="photo-body" v-bind:class="getAlignment" :style="style">
     <div class="image" :style="styleImage"/>
-    <span>{{alt}}</span>
+    <span>{{content}}</span>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default class Photo extends Vue {
   private image!: string;
 
   @Prop({ default: '' })
-  private alt!: string;
+  private content!: string;
 
   @Prop({ default: 18 })
   private height!: number;

@@ -3,8 +3,11 @@ import { Message } from '@/store/message/types'
 
 export type AnswerValue = string | Option | Array<Option>;
 
+export type AnswerType = 'single' | 'multiple' | 'prompt';
+
 export interface Context {
   scenarios: Array<string>;
+  question: string;
   data: object;
 }
 
@@ -16,6 +19,7 @@ export interface Question {
 
 export interface Answer {
   ID: string;
+  type: AnswerType;
   value: AnswerValue;
 }
 
@@ -47,7 +51,7 @@ export enum Getters {
 }
 
 // Utilities
-export const extractAnswer = (a: Answer): Array<string> => {
+export const extractAnswer = (a: Answer): string | ReadonlyArray<string> => {
   const { value } = a
 
   if (Array.isArray(value)) {
@@ -55,9 +59,9 @@ export const extractAnswer = (a: Answer): Array<string> => {
   }
 
   if (value instanceof Object) {
-    return [value.id]
+    return value.id
   } else {
-    return [value]
+    return value
   }
 }
 

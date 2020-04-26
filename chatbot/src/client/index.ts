@@ -24,61 +24,42 @@ export async function http<T> (
 }
 
 export class Client {
-    private token: Optional<Token>
+  public token: Optional<Token>
 
-    constructor (
-        private baseURL: string,
-        private tokenInfo: TokenInfo
-    ) {
-      this.token = undefined
-    }
+  constructor (
+    private baseURL: string
+  ) {
+    this.token = undefined
+  }
 
-    public async do<T = any, R = any> (
-      path: string,
-      request: Request<R>
-    ): Promise<T> {
-      const url = join(this.baseURL, path)
-      const body = request.body
-      const method = request.method
-      const headers = Client.withHeaders(request.headers)
-      const token = await this.getToken()
+  public async do<T = any, R = any> (
+    path: string,
+    request: Request<R>
+  ): Promise<T> {
+    const url = join(this.baseURL, path)
+    const body = request.body
+    const method = request.method
+    const headers = Client.withHeaders(request.headers)
+    const token = this.token
 
+    if (token) {
       headers.append('Token', token)
-
-      return http<T>(url, {
-        method: method,
-        headers: headers,
-        body: JSON.stringify(body)
-      })
     }
 
-    private async getToken (): Promise<Token> {
-      if (this.token) {
-        return this.token
-      }
+    return http<T>(url, {
+      method: method,
+      headers: headers,
+      body: JSON.stringify(body)
+    })
+  }
 
-      this.token = this.tokenInfo.get()
-      if (this.token) {
-        return this.token
-      }
+  private static withHeaders (init?: HeadersInit): Headers {
+    const headers = new Headers(init)
 
-      try {
-        this.token = await http<Token>(this.tokenInfo.URL, { method: 'GET' })
-      } catch (e) {
-        throw Error('failed to fetch token: ' + (e as Error).message)
-      }
+    headers.append('Accept', 'application/json')
+    headers.append('Content-Type', 'application/json')
+    headers.append('Origin', 'localhost')
 
-      this.tokenInfo.store(this.token)
-
-      return this.token
-    }
-
-    private static withHeaders (init?: HeadersInit): Headers {
-      const headers = new Headers(init)
-
-      headers.append('Accept', 'application/json')
-      headers.append('Content-Type', 'application/json')
-
-      return headers
-    }
+    return headers
+  }
 }
