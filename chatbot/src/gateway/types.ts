@@ -23,8 +23,8 @@ export interface AnswerRequest {
 export type AnswerResponse = Question;
 
 export const withContext = <T>(c: Context, t: T): Contextual<T> => {
-    return {
-        context: c,
-        data: t
-    }
+  return {
+    context: c,
+    data: t
+  }
 }
