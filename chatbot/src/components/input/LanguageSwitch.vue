@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
 @Component({})
 export default class LanguageSwitch extends Vue {
@@ -20,12 +20,11 @@ export default class LanguageSwitch extends Vue {
   @Prop() private selected!: string;
 
   @Emit()
-  private onSelect(s: string) {
-    return s;
+  private onSelect (s: string) {
+    return s
   }
 }
 </script>
-
 
 <style scoped lang="scss">
 @import "@/assets/app.scss";

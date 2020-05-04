@@ -9,7 +9,7 @@ export const state: InputState = {
   show: false,
   input: undefined,
   language: undefined,
-  languages: [],
+  languages: []
 }
 
 export const inputNamespace = 'input'

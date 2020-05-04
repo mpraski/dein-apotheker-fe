@@ -19,7 +19,7 @@ const vuexSession = new VuexPersistence<RootState>({
 })
 
 const store = createStore(
-  //vuexSession.plugin,
+  // vuexSession.plugin,
   Driver.plugin(
     new Gateway(new Client(process.env.VUE_APP_API_ROOT))
   )

@@ -12,7 +12,8 @@ export async function http<T> (
   try {
     r = await response.json() as Response<T>
   } catch (ex) {
-    throw "failed to decode response: " + ex.toString()
+    /* eslint-disable no-throw-literal */
+    throw 'failed to decode response: ' + ex.toString()
   }
 
   if (r.error) {
@@ -23,6 +24,7 @@ export async function http<T> (
     return r.content
   }
 
+  /* eslint-disable no-throw-literal */
   throw 'didn\'t expect to reach this'
 }
 
