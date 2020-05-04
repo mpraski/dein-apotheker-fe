@@ -22,6 +22,8 @@ export type Input = InputSingle | InputMultiple | InputPrompt;
 export interface InputState {
     show: boolean;
     input?: Input;
+    language?: string;
+    languages?: ReadonlyArray<string>;
 }
 
 // Keys

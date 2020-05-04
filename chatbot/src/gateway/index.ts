@@ -1,6 +1,6 @@
 import { Client } from '@/client'
 import { extractAnswer, Context, Answer } from '@/store/answer/types'
-import { API, AnswerRequest, Contextual, AnswerResponse, withContext } from './types'
+import { API, Contextual, AnswerResponse, withContext } from './types'
 import { Token } from '@/store/types'
 
 export class Gateway implements API {
@@ -20,7 +20,7 @@ export class Gateway implements API {
       body: withContext(ctx, {
         type: answer.type,
         value: extractAnswer(answer)
-      } as AnswerRequest)
+      })
     })
   }
 

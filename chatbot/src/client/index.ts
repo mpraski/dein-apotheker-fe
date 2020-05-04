@@ -7,20 +7,23 @@ export async function http<T> (
   additional?: RequestInit
 ): Promise<T> {
   const response = await fetch(url, additional)
-  if (!response.ok) {
-    throw new Error(response.statusText)
+
+  let r: Response<T>
+  try {
+    r = await response.json() as Response<T>
+  } catch (ex) {
+    throw "failed to decode response: " + ex.toString()
   }
 
-  const r = await response.json() as Response<T>
   if (r.error) {
-    throw new Error(r.error)
+    throw r.error
   }
 
   if (r.content) {
     return r.content
   }
 
-  throw new Error('didn\'t expect to reach this')
+  throw 'didn\'t expect to reach this'
 }
 
 export class Client {
@@ -58,7 +61,6 @@ export class Client {
 
     headers.append('Accept', 'application/json')
     headers.append('Content-Type', 'application/json')
-    headers.append('Origin', 'localhost')
 
     return headers
   }

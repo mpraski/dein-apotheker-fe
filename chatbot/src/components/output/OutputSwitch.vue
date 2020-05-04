@@ -8,7 +8,9 @@
     :image="message.image"
     :content="message.content"
   />
-  <Unknown v-else />
+  <Bubble v-else>
+    <Unknown />
+  </Bubble>
 </template>
 
 <script lang="ts">

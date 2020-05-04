@@ -7,7 +7,9 @@ import { RootState } from '@/store/types'
 
 export const state: InputState = {
   show: false,
-  input: undefined
+  input: undefined,
+  language: undefined,
+  languages: [],
 }
 
 export const inputNamespace = 'input'

@@ -79,7 +79,11 @@ export default class Photo extends Vue {
   }
 
   span {
-    padding: $paddingButton;
+    padding: $paddingButtonSmall;
+
+    @include respond-to(small) {
+        padding: $paddingButton;
+    }
   }
 }
 </style>
