@@ -1,19 +1,21 @@
 <template>
   <div class="photo-body" v-bind:class="getAlignment" :style="style">
     <div class="image" :style="styleImage"/>
-    <span>{{content}}</span>
+    <Content :content="content" class="photo-content"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
+import Content from '@/components/output/Content.vue'
 import FadeIn from '@/components/transition/FadeIn.vue'
 
 import { Alignment } from '@/store/message/types'
 
 @Component({
   components: {
+    Content,
     FadeIn
   }
 })
@@ -59,12 +61,13 @@ export default class Photo extends Vue {
   display: flex;
   flex-direction: column;
 
-  min-width: 50%;
+  max-width: 100%;
   margin-bottom: $marginMedium;
   padding: 0;
 
   @include respond-to(small) {
     margin-bottom: $marginRegular;
+    max-width: 70%;
   }
 
   .image {
@@ -75,10 +78,10 @@ export default class Photo extends Vue {
 
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
   }
 
-  span {
+  .photo-content {
     padding: $paddingButtonSmall;
 
     @include respond-to(small) {

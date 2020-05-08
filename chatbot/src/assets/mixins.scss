@@ -4,9 +4,11 @@
     border-width: $borderWidth;
 
     padding: $paddingButtonSmall;
+    max-width: 100%;
 
     @include respond-to(small) {
         padding: $paddingButton;
+        max-width: 70%;
     }
 
     color: $buttonTextColor;
