@@ -120,9 +120,6 @@ export default class Chat extends Vue {
   height: 100%;
   border: none;
 
-  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.01),
-    0 6px 30px 5px rgba(0, 0, 0, 0.01), 0 8px 10px -5px rgba(0, 0, 0, 0.1);
-
   @include respond-to(small) {
     margin-top: $marginRegular;
     margin-bottom: $marginRegular;
@@ -133,7 +130,7 @@ export default class Chat extends Vue {
     border-style: $borderStyle;
     border-width: 0;
 
-    border-color: white;
+    border: 2px solid $secondaryBackgroundColor;
   }
 }
 
