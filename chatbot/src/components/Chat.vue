@@ -72,7 +72,7 @@ export default class Chat extends Vue {
   @Action(AnswerActions.rewind, { namespace: answerNamespace })
   rewind!: (index: number) => void;
 
-  private static readonly scrollAmount: number = 1000;
+  private static readonly scrollAmount: number = 9999;
 
   $refs!: {
     chatContainer: HTMLElement;
@@ -136,7 +136,7 @@ export default class Chat extends Vue {
 
 .output-container {
   height: 70%;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .output-list {

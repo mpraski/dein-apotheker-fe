@@ -24,7 +24,7 @@ body {
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #6d6d6d;
+    background: lighten(#6d6d6d, 20%);
 }
 
 input[type="email"],
