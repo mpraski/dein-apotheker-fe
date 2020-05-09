@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <div class="output-container" ref="chatContainer">
+    <SimpleBar data-simplebar-auto-hide="true" class="output-container" ref="chatContainer">
       <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch
           v-for="([m, a], index) in messages"
@@ -10,7 +10,7 @@
           @on-delete="rewind(index)"
         />
       </FadeIn>
-    </div>
+    </SimpleBar>
     <div class="input-container">
       <div class="input-list">
         <FadeIn>
@@ -25,6 +25,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
+
+import SimpleBar from 'simplebar-vue'
+import 'simplebar/dist/simplebar.min.css'
 
 import FadeIn from '@/components/transition/FadeIn.vue'
 import Resizer from '@/components/transition/Resizer.vue'
@@ -50,7 +53,8 @@ import {
     FadeIn,
     Resizer,
     OutputSwitch,
-    InputSwitch
+    InputSwitch,
+    SimpleBar
   }
 })
 export default class Chat extends Vue {
@@ -75,7 +79,7 @@ export default class Chat extends Vue {
   private static readonly scrollAmount: number = 9999;
 
   $refs!: {
-    chatContainer: HTMLElement;
+    chatContainer: Vue;
   };
 
   private mounted () {
@@ -87,7 +91,8 @@ export default class Chat extends Vue {
   }
 
   private scrollToEnd (behaviour: 'smooth' | 'auto') {
-    this.$refs.chatContainer.scrollBy({
+    const scrollElem = (this.$refs.chatContainer as any).scrollElement
+    scrollElem.scrollBy({
       top: Chat.scrollAmount,
       behavior: behaviour
     })
