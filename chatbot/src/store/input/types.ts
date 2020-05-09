@@ -17,7 +17,11 @@ export interface InputPrompt {
     type: 'prompt';
 }
 
-export type Input = InputSingle | InputMultiple | InputPrompt;
+export interface InputEnd {
+    type: 'end';
+}
+
+export type Input = InputSingle | InputMultiple | InputPrompt | InputEnd;
 
 export interface InputState {
     show: boolean;

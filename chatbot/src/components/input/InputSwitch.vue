@@ -10,6 +10,7 @@
     :on-submit="onMultipleSelect"
   />
   <Prompt v-else-if="input.type === 'prompt'" :on-submit="onPromptSubmit" />
+  <End v-else-if="input.type === 'end'" />
 </template>
 
 <script lang="ts">
@@ -18,6 +19,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import Single from '@/components/input/Single.vue'
 import Multiple from '@/components/input/Multiple.vue'
 import Prompt from '@/components/input/Prompt.vue'
+import End from '@/components/input/End.vue'
 
 import { Input, Option } from '@/store/input/types'
 import { Answer, AnswerValue } from '@/store/answer/types'
@@ -26,7 +28,8 @@ import { Answer, AnswerValue } from '@/store/answer/types'
   components: {
     Single,
     Multiple,
-    Prompt
+    Prompt,
+    End
   }
 })
 export default class InputSwitch extends Vue {

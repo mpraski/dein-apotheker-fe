@@ -3,7 +3,7 @@ import { Message } from '@/store/message/types'
 
 export type AnswerValue = string | Option | Array<Option>;
 
-export type AnswerType = 'single' | 'multiple' | 'prompt';
+export type AnswerType = 'single' | 'multiple' | 'prompt' | 'end';
 
 export interface Context {
   scenarios: Array<string>;
