@@ -1,21 +1,21 @@
 <template>
   <div class="photo-body" v-bind:class="getAlignment" :style="style">
     <div class="image" :style="styleImage"/>
-    <Content :content="content" class="photo-content"/>
+    <div v-bind:class="styleContent">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-import Content from '@/components/output/Content.vue'
 import FadeIn from '@/components/transition/FadeIn.vue'
 
 import { Alignment } from '@/store/message/types'
 
 @Component({
   components: {
-    Content,
     FadeIn
   }
 })
@@ -25,15 +25,19 @@ export default class Photo extends Vue {
   @Prop({ default: '' })
   private image!: string;
 
-  @Prop({ default: '' })
-  private content!: string;
+  @Prop({ default: false })
+  private full!: boolean;
 
-  @Prop({ default: 18 })
+  @Prop({ default: false })
+  private padded!: boolean;
+
+  @Prop({ default: 24 })
   private height!: number;
 
   private get getAlignment () {
     return {
-      [this.alignment.toLowerCase()]: true
+      [this.alignment.toLowerCase()]: true,
+      full: this.full
     }
   }
 
@@ -46,6 +50,12 @@ export default class Photo extends Vue {
   private get styleImage (): object {
     return {
       backgroundImage: `url("${this.image}")`
+    }
+  }
+
+  private get styleContent (): object {
+    return {
+      padded: this.padded
     }
   }
 }
@@ -70,6 +80,10 @@ export default class Photo extends Vue {
     max-width: 70%;
   }
 
+  &.full {
+    width: 100%;
+  }
+
   .image {
     flex-grow: 1;
 
@@ -81,7 +95,7 @@ export default class Photo extends Vue {
     background-size: contain;
   }
 
-  .photo-content {
+  .padded {
     padding: $paddingButtonSmall;
 
     @include respond-to(small) {
