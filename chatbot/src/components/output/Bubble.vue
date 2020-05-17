@@ -88,7 +88,6 @@ export default class Bubble extends Vue {
 
   .icon {
     margin-left: auto;
-    border-radius: 2rem;
 
     cursor: pointer;
 

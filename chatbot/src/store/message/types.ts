@@ -11,14 +11,13 @@ export interface MessageImage {
     content: string;
 }
 
-export interface MessageBuy {
-    type: 'buy';
+export interface MessageProduct {
+    type: 'product';
     image: string;
     name: string;
-    price: string;
 }
 
-export type Message = MessageText | MessageImage | MessageBuy;
+export type Message = MessageText | MessageImage | MessageProduct;
 
 export type MessageState = Array<[Message, Alignment]>;
 

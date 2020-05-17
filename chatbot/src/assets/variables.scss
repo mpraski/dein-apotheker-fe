@@ -6,6 +6,7 @@ $buttonTextColor: #2c3e50;
 $buttonBackgroundColor: white;
 $buttonBorderColor: #eeeeee;
 $textColor: #2c3e50;
+$textColorInfo: lighten($textColor, 15%);
 $textColorSecondary: darken($buttonBorderColor, 15%);
 
 // BORDER

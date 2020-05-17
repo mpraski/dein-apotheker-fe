@@ -10,12 +10,12 @@
     <Content :content="message.content"/>
   </Photo>
   <Photo
-    v-else-if="message.type === 'buy'"
+    v-else-if="message.type === 'product'"
     :alignment="alignment"
     :image="message.image"
     :padded="true"
     :full="true">
-    <Buy :name="message.name" :price="message.price"/>
+    <Product :name="message.name"/>
   </Photo>
   <Bubble v-else>
     <Unknown />
@@ -28,7 +28,7 @@ import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import Bubble from '@/components/output/Bubble.vue'
 import Content from '@/components/output/Content.vue'
 import Photo from '@/components/output/Photo.vue'
-import Buy from '@/components/output/Buy.vue'
+import Product from '@/components/output/Product.vue'
 import Unknown from '@/components/output/Unknown.vue'
 
 import { Message, Alignment } from '@/store/message/types'
@@ -38,7 +38,7 @@ import { Message, Alignment } from '@/store/message/types'
     Bubble,
     Content,
     Photo,
-    Buy,
+    Product,
     Unknown
   }
 })
