@@ -2,7 +2,7 @@
   <div class="product-body">
     <div class="header">
       <span class="name">{{name}}</span>
-      <div>
+      <div class="info-body" @click="onInfo">
         <span class="info">More</span>
         <InfoIcon class="icon" />
       </div>
@@ -34,6 +34,11 @@ export default class Product extends Vue {
   private onBuy () {
     return 0
   }
+
+  @Emit()
+  private onInfo () {
+    return 0
+  }
 }
 </script>
 
@@ -51,39 +56,22 @@ export default class Product extends Vue {
       font-weight: bold;
     }
 
-    div {
+    .info-body {
       @extend .horizontal-list;
       align-items: center;
+      cursor: pointer;
 
       .info {
         color: $textColorInfo;
       }
 
       .icon {
-        margin-left: $marginSmall;
-        height: 1.5rem;
-        width: 1.5rem;
-        cursor: pointer;
-        color: $textColorInfo;
-        transition: all $fastAnimationDuration;
-
-        &:hover {
-          transform: scale(1.5);
-        }
-
-        & > .material-design-icon__svg {
-          height: 1.5rem;
-          width: 1.5rem;
-          bottom: 0;
-        }
+        @include big-icon;
+        margin-left: $marginSmallest;
       }
     }
 
     margin-bottom: $marginSmall;
-  }
-
-  .subheader {
-    margin-bottom: $marginMedium;
   }
 
   .buy {

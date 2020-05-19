@@ -1,5 +1,8 @@
 <template>
   <div class="chat-container">
+    <div class="bar-container">
+      Dein Apotheker
+    </div>
     <SimpleBar data-simplebar-auto-hide="true" class="output-container" ref="chatContainer">
       <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch
@@ -139,8 +142,13 @@ export default class Chat extends Vue {
   }
 }
 
+.bar-container {
+  padding: $marginMedium;
+  border-bottom: 2px solid $secondaryBackgroundColor;
+}
+
 .output-container {
-  height: 70%;
+  height: 100%;
   overflow-y: auto;
 }
 
@@ -154,10 +162,10 @@ export default class Chat extends Vue {
 }
 
 .input-container {
-  height: 30%;
-
   border-top: 2px solid $secondaryBackgroundColor;
   padding-top: $marginMedium;
+  padding-bottom: $marginMedium;
+  min-height: 7rem;
 }
 
 .input-list {

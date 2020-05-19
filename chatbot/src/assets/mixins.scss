@@ -89,7 +89,7 @@
 @mixin centered {
     margin-left: auto;
     margin-right: auto;
-    
+
     @include respond-to(medium) {
         margin-left: 4rem;
         margin-right: 4rem;
@@ -144,5 +144,18 @@
         &:after {
             left: 1.5em;
         }
+    }
+}
+
+@mixin big-icon {
+    cursor: pointer;
+    height: 1.5rem;
+    width: 1.5rem;
+    color: $textColorInfo;
+
+    & > .material-design-icon__svg {
+        height: 1.5rem;
+        width: 1.5rem;
+        bottom: 0;
     }
 }
