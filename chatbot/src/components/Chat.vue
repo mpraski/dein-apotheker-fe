@@ -1,8 +1,6 @@
 <template>
   <div class="chat-container">
-    <div class="bar-container">
-      Dein Apotheker
-    </div>
+    <TopBar />
     <SimpleBar data-simplebar-auto-hide="true" class="output-container" ref="chatContainer">
       <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch
@@ -36,6 +34,7 @@ import FadeIn from '@/components/transition/FadeIn.vue'
 import Resizer from '@/components/transition/Resizer.vue'
 import OutputSwitch from '@/components/output/OutputSwitch.vue'
 import InputSwitch from '@/components/input/InputSwitch.vue'
+import TopBar from '@/components/output/TopBar.vue'
 
 import { messageNamespace } from '@/store/message'
 import { MessageState } from '@/store/message/types'
@@ -57,7 +56,8 @@ import {
     Resizer,
     OutputSwitch,
     InputSwitch,
-    SimpleBar
+    SimpleBar,
+    TopBar
   }
 })
 export default class Chat extends Vue {
@@ -138,13 +138,8 @@ export default class Chat extends Vue {
     border-style: $borderStyle;
     border-width: 0;
 
-    border: 2px solid $secondaryBackgroundColor;
+    border: $borderWidth $borderStyle $buttonBorderColor;
   }
-}
-
-.bar-container {
-  padding: $marginMedium;
-  border-bottom: 2px solid $secondaryBackgroundColor;
 }
 
 .output-container {
@@ -162,7 +157,7 @@ export default class Chat extends Vue {
 }
 
 .input-container {
-  border-top: 2px solid $secondaryBackgroundColor;
+  border-top: $borderWidth $borderStyle $buttonBorderColor;
   padding-top: $marginMedium;
   padding-bottom: $marginMedium;
   min-height: 7rem;
