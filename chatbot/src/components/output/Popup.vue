@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
+import { Component, Prop, Emit, Vue } from "vue-property-decorator";
+import CloseIcon from "vue-material-design-icons/Close.vue";
 
 @Component({
   components: {
@@ -27,12 +27,12 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
   }
 })
 export default class Popup extends Vue {
-  @Prop({ default: '' }) private title!: string;
+  @Prop({ default: "" }) private title!: string;
   @Prop({ default: false }) private visible!: boolean;
 
   @Emit()
-  private onClose () {
-    return 0
+  private onClose() {
+    return 0;
   }
 }
 </script>
@@ -49,29 +49,38 @@ export default class Popup extends Vue {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity 0.3s ease;
+  transition: opacity $animationDuration;
 
   .wrapper {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: bottom;
+
+    @include respond-to(medium) {
+      display: block;
+    }
 
     .holder {
       @extend .vertical-list;
-      margin: 0px $marginMedium;
+      margin: 0 auto;
       padding: $marginMedium;
       background-color: $backgroundColor;
-      border-radius: $borderRadius;
+      border-top-left-radius: $borderRadius;
+      border-top-right-radius: $borderRadius;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
       transition: all $animationDuration;
+      min-height: 60vh;
+      bottom: 0;
 
       @include respond-to(medium) {
         width: 75%;
-        margin: 0 auto;
+        margin-top: 25vh;
+        border-bottom-left-radius: $borderRadius;
+        border-bottom-right-radius: $borderRadius;
+        min-height: auto;
       }
 
       @include respond-to(large) {
         width: 50%;
-        margin: 0 auto;
       }
 
       .header {

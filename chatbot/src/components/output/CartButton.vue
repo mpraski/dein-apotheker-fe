@@ -41,7 +41,7 @@ export default class CartButton extends Vue {
     position: absolute;
     top: 0.75rem;
     left: 0.75rem;
-    z-index: 2;
+    z-index: 1;
   }
 
   .badge {
