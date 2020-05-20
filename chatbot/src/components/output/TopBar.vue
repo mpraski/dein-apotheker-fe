@@ -8,15 +8,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { Action } from "vuex-class";
+import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 
-import { popupNamespace } from "@/store/popup";
+import { popupNamespace } from '@/store/popup'
 
-import { Actions as PopupActions, PopupKey } from "@/store/popup/types";
+import { Actions as PopupActions, PopupKey } from '@/store/popup/types'
 
-import Bar from "@/components/output/Bar.vue";
-import CartButton from "@/components/output/CartButton.vue";
+import Bar from '@/components/output/Bar.vue'
+import CartButton from '@/components/output/CartButton.vue'
 
 @Component({
   components: {

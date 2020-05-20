@@ -25,20 +25,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from "vue-property-decorator";
-import { Action } from "vuex-class";
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 
-import { popupNamespace } from "@/store/popup";
+import { popupNamespace } from '@/store/popup'
 
-import { Actions as PopupActions, PopupKey } from "@/store/popup/types";
+import { Actions as PopupActions, PopupKey } from '@/store/popup/types'
 
-import Bubble from "@/components/output/Bubble.vue";
-import Content from "@/components/output/Content.vue";
-import Photo from "@/components/output/Photo.vue";
-import Product from "@/components/output/Product.vue";
-import Unknown from "@/components/output/Unknown.vue";
+import Bubble from '@/components/output/Bubble.vue'
+import Content from '@/components/output/Content.vue'
+import Photo from '@/components/output/Photo.vue'
+import Product from '@/components/output/Product.vue'
+import Unknown from '@/components/output/Unknown.vue'
 
-import { Message, Alignment } from "@/store/message/types";
+import { Message, Alignment } from '@/store/message/types'
 
 @Component({
   components: {
@@ -57,8 +57,8 @@ export default class OutputSwitch extends Vue {
   showPopup!: (a: [PopupKey, any]) => void;
 
   @Emit()
-  private onDelete() {
-    return 0;
+  private onDelete () {
+    return 0
   }
 }
 </script>

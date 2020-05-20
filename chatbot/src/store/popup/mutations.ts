@@ -7,10 +7,10 @@ type MutationDefinition = {
 }
 
 export const mutations: MutationDefinition = {
-  [Mutations.showPopup](state, payload: [PopupKey, any]) {
+  [Mutations.showPopup] (state, payload: [PopupKey, any]) {
     state[payload[0]] = payload[1]
   },
-  [Mutations.hidePopup](state, payload: PopupKey) {
+  [Mutations.hidePopup] (state, payload: PopupKey) {
     state[payload] = undefined
   }
 }

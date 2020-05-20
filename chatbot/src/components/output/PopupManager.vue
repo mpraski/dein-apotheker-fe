@@ -16,19 +16,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { State, Action, Getter } from "vuex-class";
+import { Component, Vue } from 'vue-property-decorator'
+import { State, Action, Getter } from 'vuex-class'
 
-import { popupNamespace } from "@/store/popup";
+import { popupNamespace } from '@/store/popup'
 
 import {
   PopupState,
   Actions as PopupActions,
   PopupKey
-} from "@/store/popup/types";
+} from '@/store/popup/types'
 
-import ProductInfo from "@/components/output/ProductInfo.vue";
-import Popup from "@/components/output/Popup.vue";
+import ProductInfo from '@/components/output/ProductInfo.vue'
+import Popup from '@/components/output/Popup.vue'
 
 @Component({
   components: {

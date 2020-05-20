@@ -1,4 +1,4 @@
-import { MessageProduct } from '../message/types';
+import { MessageProduct } from '../message/types'
 
 type Partial<T> = {
     [P in keyof T]?: T[P];

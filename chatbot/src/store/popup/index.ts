@@ -7,7 +7,7 @@ import { RootState } from '@/store/types'
 
 export const state: PopupState = {
   product: undefined,
-  cart: undefined,
+  cart: undefined
 }
 
 export const popupNamespace = 'popup'
