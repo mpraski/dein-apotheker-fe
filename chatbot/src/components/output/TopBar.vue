@@ -29,6 +29,3 @@ export default class TopBar extends Vue {
   showPopup!: (a: [PopupKey, any]) => void;
 }
 </script>
-
-<style scoped lang="scss">
-</style>

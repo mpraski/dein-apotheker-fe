@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from "vue-property-decorator";
-import CloseIcon from "vue-material-design-icons/Close.vue";
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
 
 @Component({
   components: {
@@ -27,12 +27,12 @@ import CloseIcon from "vue-material-design-icons/Close.vue";
   }
 })
 export default class Popup extends Vue {
-  @Prop({ default: "" }) private title!: string;
+  @Prop({ default: '' }) private title!: string;
   @Prop({ default: false }) private visible!: boolean;
 
   @Emit()
-  private onClose() {
-    return 0;
+  private onClose () {
+    return 0
   }
 }
 </script>

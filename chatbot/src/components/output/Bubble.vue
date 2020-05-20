@@ -37,7 +37,9 @@ export default class Bubble extends Vue {
   }
 
   @Emit()
-  private onDelete () { return 0 }
+  private onDelete () {
+    return 0
+  }
 
   private get getAlignment () {
     return {
@@ -87,10 +89,8 @@ export default class Bubble extends Vue {
   }
 
   .icon {
-    margin-left: auto;
-
     cursor: pointer;
-
+    margin-left: auto;
     transition: all $fastAnimationDuration;
 
     &:hover {
