@@ -15,6 +15,8 @@ export interface MessageProduct {
     type: 'product';
     image: string;
     name: string;
+    directions: string;
+    explanation: string;
 }
 
 export type Message = MessageText | MessageImage | MessageProduct;

@@ -7,6 +7,7 @@ import { mutations } from './mutations'
 import { message } from './message'
 import { input } from './input'
 import { answer } from './answer'
+import { popup } from './popup'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ export const createStore = (...plugins: Array<Plugin<RootState>>): Store<RootSta
   const modules = {
     message,
     input,
-    answer
+    answer,
+    popup
   }
 
   const store: StoreOptions<RootState> = {

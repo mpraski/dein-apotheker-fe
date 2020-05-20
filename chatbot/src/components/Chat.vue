@@ -20,27 +20,29 @@
       </div>
     </div>
     <Resizer @on-resize="scrollToEnd('smooth')" />
+    <PopupManager />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue } from "vue-property-decorator";
+import { State, Action, Getter } from "vuex-class";
 
-import SimpleBar from 'simplebar-vue'
-import 'simplebar/dist/simplebar.min.css'
+import SimpleBar from "simplebar-vue";
+import "simplebar/dist/simplebar.min.css";
 
-import FadeIn from '@/components/transition/FadeIn.vue'
-import Resizer from '@/components/transition/Resizer.vue'
-import OutputSwitch from '@/components/output/OutputSwitch.vue'
-import InputSwitch from '@/components/input/InputSwitch.vue'
-import TopBar from '@/components/output/TopBar.vue'
+import FadeIn from "@/components/transition/FadeIn.vue";
+import Resizer from "@/components/transition/Resizer.vue";
+import OutputSwitch from "@/components/output/OutputSwitch.vue";
+import InputSwitch from "@/components/input/InputSwitch.vue";
+import PopupManager from "@/components/output/PopupManager.vue";
+import TopBar from "@/components/output/TopBar.vue";
 
-import { messageNamespace } from '@/store/message'
-import { MessageState } from '@/store/message/types'
-import { inputNamespace } from '@/store/input'
-import { Input, Getters as InputGetters } from '@/store/input/types'
-import { answerNamespace } from '@/store/answer'
+import { messageNamespace } from "@/store/message";
+import { MessageState } from "@/store/message/types";
+import { inputNamespace } from "@/store/input";
+import { Input, Getters as InputGetters } from "@/store/input/types";
+import { answerNamespace } from "@/store/answer";
 import {
   Answer,
   Actions as AnswerActions,
@@ -48,7 +50,7 @@ import {
   Question,
   AnswerValue,
   AnswerType
-} from '@/store/answer/types'
+} from "@/store/answer/types";
 
 @Component({
   components: {
@@ -57,7 +59,8 @@ import {
     OutputSwitch,
     InputSwitch,
     SimpleBar,
-    TopBar
+    TopBar,
+    PopupManager
   }
 })
 export default class Chat extends Vue {
@@ -85,30 +88,30 @@ export default class Chat extends Vue {
     chatContainer: Vue;
   };
 
-  private mounted () {
-    this.scrollToEnd('auto')
+  private mounted() {
+    this.scrollToEnd("auto");
   }
 
-  private updated () {
-    this.$nextTick(() => this.scrollToEnd('smooth'))
+  private updated() {
+    this.$nextTick(() => this.scrollToEnd("smooth"));
   }
 
-  private scrollToEnd (behaviour: 'smooth' | 'auto') {
-    const scrollElem = (this.$refs.chatContainer as any).scrollElement
+  private scrollToEnd(behaviour: "smooth" | "auto") {
+    const scrollElem = (this.$refs.chatContainer as any).scrollElement;
     scrollElem.scrollBy({
       top: Chat.scrollAmount,
       behavior: behaviour
-    })
+    });
   }
 
-  private onAnswer (value: AnswerValue) {
-    const question = this.currentQuestion
+  private onAnswer(value: AnswerValue) {
+    const question = this.currentQuestion;
     if (question) {
       this.addAnswer({
         ID: question.ID,
         type: question.input.type,
         value: value
-      })
+      });
     }
   }
 }

@@ -2,28 +2,31 @@
   <Bar>
     <template v-slot:left>Dein Apotheker</template>
     <template v-slot:right>
-      <CartButton @click.native="cartVisible = true" items="3"/>
-      <Popup :visible="cartVisible" title="Your items" @on-close="cartVisible = false">items</Popup>
+      <CartButton @click.native="showPopup(['cart', {}])" items="3" />
     </template>
   </Bar>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
+import { Action } from "vuex-class";
 
-import Bar from '@/components/output/Bar.vue'
-import CartButton from '@/components/output/CartButton.vue'
-import Popup from '@/components/output/Popup.vue'
+import { popupNamespace } from "@/store/popup";
+
+import { Actions as PopupActions, PopupKey } from "@/store/popup/types";
+
+import Bar from "@/components/output/Bar.vue";
+import CartButton from "@/components/output/CartButton.vue";
 
 @Component({
   components: {
     Bar,
-    CartButton,
-    Popup
+    CartButton
   }
 })
 export default class TopBar extends Vue {
-  private cartVisible = false;
+  @Action(PopupActions.showPopup, { namespace: popupNamespace })
+  showPopup!: (a: [PopupKey, any]) => void;
 }
 </script>
 
