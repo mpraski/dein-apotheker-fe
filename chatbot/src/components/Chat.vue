@@ -1,7 +1,7 @@
 <template>
   <div class="chat-container">
     <TopBar />
-    <SimpleBar data-simplebar-auto-hide="true" class="output-container" ref="chatContainer">
+    <SimpleBar data-simplebar-auto-hide="true" class="output-container" ref="outputContainer">
       <FadeIn group="true" delay="true" class="output-list">
         <OutputSwitch
           v-for="([m, a], index) in messages"
@@ -12,12 +12,15 @@
         />
       </FadeIn>
     </SimpleBar>
-    <div class="input-container">
-      <div class="input-list">
-        <FadeIn>
-          <InputSwitch v-if="showInput" :input="input" :on-answer="onAnswer" />
-        </FadeIn>
-      </div>
+    <div class="input-container" ref="inputContainer" v-bind:style="inputStyle">
+      <FadeIn>
+        <InputSwitch
+          v-if="showInput"
+          :input="input"
+          :on-answer="onAnswer"
+          @on-height-changed="onInputHeight"
+        />
+      </FadeIn>
     </div>
     <Resizer @on-resize="scrollToEnd('smooth')" />
     <PopupManager />
@@ -48,8 +51,7 @@ import {
   Actions as AnswerActions,
   Getters as AnswerGetters,
   Question,
-  AnswerValue,
-  AnswerType
+  AnswerValue
 } from '@/store/answer/types'
 
 @Component({
@@ -84,8 +86,11 @@ export default class Chat extends Vue {
 
   private static readonly scrollAmount: number = 9999;
 
+  private inputHeight = 'auto';
+
   $refs!: {
-    chatContainer: Vue;
+    outputContainer: HTMLDivElement;
+    inputContainer: HTMLDivElement;
   };
 
   private mounted () {
@@ -97,11 +102,15 @@ export default class Chat extends Vue {
   }
 
   private scrollToEnd (behaviour: 'smooth' | 'auto') {
-    const scrollElem = (this.$refs.chatContainer as any).scrollElement
+    const scrollElem = (this.$refs.outputContainer as any).scrollElement
     scrollElem.scrollBy({
       top: Chat.scrollAmount,
       behavior: behaviour
     })
+  }
+
+  private onInputHeight (height: number) {
+    this.inputHeight = `${height}px`
   }
 
   private onAnswer (value: AnswerValue) {
@@ -112,6 +121,18 @@ export default class Chat extends Vue {
         type: question.input.type,
         value: value
       })
+    }
+  }
+
+  private remToPX (rem: number) {
+    return (
+      rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
+    )
+  }
+
+  private get inputStyle (): object {
+    return {
+      minHeight: this.inputHeight
     }
   }
 }
@@ -127,15 +148,20 @@ export default class Chat extends Vue {
   padding: 0;
   margin-left: auto;
   margin-right: auto;
-  max-width: $chatWidth;
   height: 100%;
   border: none;
 
+  @include respond-to(medium) {
+    height: 75vh;
+  }
+
   @include respond-to(small) {
+    max-width: $chatWidth;
+
     margin-top: $marginRegular;
     margin-bottom: $marginRegular;
 
-    height: calc(100% - 3rem);
+    height: 85vh;
 
     border-radius: $borderRadius;
     border-style: $borderStyle;
@@ -160,18 +186,11 @@ export default class Chat extends Vue {
 }
 
 .input-container {
-  border-top: $borderWidth $borderStyle $buttonBorderColor;
-  padding-top: $marginMedium;
-  padding-bottom: $marginMedium;
-  min-height: 7rem;
-}
-
-.input-list {
   @extend .vertical-list;
 
-  margin-left: auto;
-  margin-right: auto;
+  border-top: $borderWidth $borderStyle $buttonBorderColor;
+  padding: $marginMedium;
 
-  padding: 0 $marginRegular;
+  transition: min-height $animationDuration ease-in;
 }
 </style>
