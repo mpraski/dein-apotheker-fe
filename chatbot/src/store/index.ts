@@ -8,6 +8,7 @@ import { message } from './message'
 import { input } from './input'
 import { answer } from './answer'
 import { popup } from './popup'
+import { cart } from './cart'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ export const createStore = (...plugins: Array<Plugin<RootState>>): Store<RootSta
     message,
     input,
     answer,
-    popup
+    popup,
+    cart
   }
 
   const store: StoreOptions<RootState> = {

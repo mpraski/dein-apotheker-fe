@@ -7,13 +7,13 @@ export type CartState = Array<[Product, number]>;
 
 // Keys
 export enum Mutations {
-    addToCart = 'addToCart',
-    removeFromCart = 'hidePopup'
+    add = 'add',
+    remove = 'remove'
 }
 
 export enum Actions {
-    addToCart = 'addToCart',
-    removeFromCart = 'hidePopup'
+    add = 'add',
+    remove = 'remove'
 }
 
 export enum Getters {

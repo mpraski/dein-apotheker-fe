@@ -12,7 +12,9 @@
     :visible="popups.cart"
     title="Your items"
     @on-close="hidePopup('cart')"
-  ></Popup>
+  >
+    <Cart />
+  </Popup>
 </template>
 
 <script lang="ts">
@@ -29,18 +31,20 @@ import {
 
 import ProductInfo from '@/components/output/ProductInfo.vue'
 import Popup from '@/components/output/Popup.vue'
+import Cart from '@/components/output/Cart.vue'
 
 @Component({
   components: {
     ProductInfo,
-    Popup
+    Popup,
+    Cart
   }
 })
 export default class PopupManager extends Vue {
   @State(popupNamespace)
-  popups!: PopupState;
+  private popups!: PopupState;
 
   @Action(PopupActions.hidePopup, { namespace: popupNamespace })
-  hidePopup!: (a: PopupKey) => void;
+  private hidePopup!: (a: PopupKey) => void;
 }
 </script>

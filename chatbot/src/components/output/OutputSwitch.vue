@@ -17,7 +17,7 @@
     :padded="true"
     :full="true"
   >
-    <Product :name="message.name" @on-info="showPopup(['product', message])" />
+    <Product :name="message.name" @on-buy="add" @on-info="showPopup(['product', message])" />
   </Photo>
   <Bubble v-else>
     <Unknown />
@@ -29,8 +29,10 @@ import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
 
 import { popupNamespace } from '@/store/popup'
+import { cartNamespace } from '@/store/cart'
 
 import { Actions as PopupActions, PopupKey } from '@/store/popup/types'
+import { Actions as CartActions, Product as Item } from '@/store/cart/types'
 
 import Bubble from '@/components/output/Bubble.vue'
 import Content from '@/components/output/Content.vue'
@@ -54,11 +56,25 @@ export default class OutputSwitch extends Vue {
   @Prop() private alignment!: Alignment;
 
   @Action(PopupActions.showPopup, { namespace: popupNamespace })
-  showPopup!: (a: [PopupKey, any]) => void;
+  private showPopup!: (a: [PopupKey, any]) => void;
+
+  @Action(CartActions.add, { namespace: cartNamespace })
+  private addToCart!: (a: Item) => void;
 
   @Emit()
   private onDelete () {
     return 0
+  }
+
+  private add () {
+    const m = this.message
+
+    if (m.type === 'product') {
+      this.addToCart({
+        id: m.name,
+        name: m.name
+      })
+    }
   }
 }
 </script>
