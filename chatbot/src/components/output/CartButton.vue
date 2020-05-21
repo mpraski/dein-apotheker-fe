@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { debounce } from 'lodash/function'
 
 import CartIcon from 'vue-material-design-icons/Cart.vue'
 import FadeIn from '@/components/transition/FadeIn.vue'
