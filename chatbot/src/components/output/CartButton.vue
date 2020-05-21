@@ -2,8 +2,8 @@
   <div class="cart-button">
     <div class="badge" v-if="badgeVisible">{{items}}</div>
     <CartIcon class="icon" />
-    <FadeIn v-if="showPopover">
-      <span class="popover">Item added!</span>
+    <FadeIn>
+      <span v-if="showPopover" class="popover">Item added!</span>
     </FadeIn>
   </div>
 </template>

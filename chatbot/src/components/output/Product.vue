@@ -67,7 +67,7 @@ export default class Product extends Vue {
 
       .icon {
         @include big-icon;
-        margin-left: $marginSmallest;
+        margin-left: $marginMinute;
       }
     }
 
