@@ -3,6 +3,10 @@ export interface Option {
     content: string;
 }
 
+export interface InputBegin {
+    type: 'begin';
+}
+
 export interface InputSingle {
     type: 'single';
     options: ReadonlyArray<Option>;
@@ -21,7 +25,7 @@ export interface InputEnd {
     type: 'end';
 }
 
-export type Input = InputSingle | InputMultiple | InputPrompt | InputEnd;
+export type Input = InputBegin | InputSingle | InputMultiple | InputPrompt | InputEnd;
 
 export interface InputState {
     show: boolean;

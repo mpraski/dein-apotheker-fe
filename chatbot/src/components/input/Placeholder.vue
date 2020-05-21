@@ -1,12 +1,12 @@
 <template>
-  <div class="end-body">
-    Thank you for the chat
+  <div class="placeholder-body">
+    {{text}}
     <EmoticonOutline class="icon" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
 
@@ -15,13 +15,16 @@ import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
     EmoticonOutline
   }
 })
-export default class End extends Vue {}
+export default class Placeholder extends Vue {
+  @Prop({ default: '' })
+  private text!: string;
+}
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/app.scss";
 
-.end-body {
+.placeholder-body {
   @extend .bubble;
   @include centered;
 

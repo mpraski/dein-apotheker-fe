@@ -7,7 +7,8 @@
       :on-submit="onMultipleSelect"
     />
     <Prompt v-else-if="input.type === 'prompt'" :on-submit="onPromptSubmit" />
-    <End v-else-if="input.type === 'end'" />
+    <Placeholder v-else-if="input.type === 'begin'" text="Please hang on" />
+    <Placeholder v-else-if="input.type === 'end'" text="Thank you for the chat" />
     <Resizer @on-resize="queueHeightChange" />
   </div>
 </template>
@@ -18,7 +19,7 @@ import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
 import Single from '@/components/input/Single.vue'
 import Multiple from '@/components/input/Multiple.vue'
 import Prompt from '@/components/input/Prompt.vue'
-import End from '@/components/input/End.vue'
+import Placeholder from '@/components/input/Placeholder.vue'
 import Resizer from '@/components/transition/Resizer.vue'
 
 import { Input, Option } from '@/store/input/types'
@@ -29,7 +30,7 @@ import { AnswerValue } from '@/store/answer/types'
     Single,
     Multiple,
     Prompt,
-    End,
+    Placeholder,
     Resizer
   }
 })
