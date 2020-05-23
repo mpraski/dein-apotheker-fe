@@ -1,6 +1,6 @@
 <template>
   <div class="action-body" v-bind:class="{ disabled: !enabled }" @click="onSelect">
-    <span>{{content}}</span>
+    <p>{{content}}</p>
     <keep-alive v-if="icon">
       <component v-bind:is="iconComp" class="icon"></component>
     </keep-alive>
@@ -56,6 +56,8 @@ export default class Action extends Vue {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  margin-bottom: $marginSmall;
 
   .icon {
     margin-left: $marginSmall;

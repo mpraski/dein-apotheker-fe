@@ -1,5 +1,5 @@
 <template>
-  <VueMarkdown v-once :source="content" class="item-body" />
+  <VueMarkdown v-once :source="content" class="item-body right" />
 </template>
 
 <script lang="ts">
@@ -23,6 +23,9 @@ export default class Item extends Vue {
 .item-body {
   @extend .bubble;
   @include actionable;
+  //@include authorable;
+
+  max-width: 100%;
 
   margin-left: $marginSmall;
   margin-bottom: $marginSmall;

@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import SendIcon from 'vue-material-design-icons/Send.vue'
+import { Component, Prop, Vue } from "vue-property-decorator";
+import SendIcon from "vue-material-design-icons/Send.vue";
 
 @Component({
   components: {
@@ -23,19 +23,19 @@ import SendIcon from 'vue-material-design-icons/Send.vue'
   }
 })
 export default class Prompt extends Vue {
-  @Prop({ default: '' })
+  @Prop({ default: "" })
   private content!: string;
 
   @Prop({ default: () => () => 0 })
   private onSubmit!: (c: string) => void;
 
-  private get isDisabled (): boolean {
-    return this.content === ''
+  private get isDisabled(): boolean {
+    return this.content === "";
   }
 
-  private onSend () {
+  private onSend() {
     if (this.content) {
-      this.onSubmit(this.content)
+      this.onSubmit(this.content);
     }
   }
 }
@@ -51,6 +51,8 @@ export default class Prompt extends Vue {
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  margin-bottom: $marginSmall;
 
   .input {
     flex-grow: 1;

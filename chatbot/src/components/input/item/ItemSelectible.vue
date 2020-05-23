@@ -49,6 +49,8 @@ export default class ItemSelectible extends Vue {
 
   display: flex;
 
+  max-width: 100%;
+
   margin-left: $marginSmall;
   margin-bottom: $marginSmall;
 

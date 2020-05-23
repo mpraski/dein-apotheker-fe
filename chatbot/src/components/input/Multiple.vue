@@ -20,12 +20,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
-import Action from '@/components/input/Action.vue'
+import ItemSelectible from "@/components/input/item/ItemSelectible.vue";
+import Action from "@/components/input/Action.vue";
 
-import { Option } from '@/store/input/types'
+import { Option } from "@/store/input/types";
 
 @Component({
   components: {
@@ -44,31 +44,31 @@ export default class Multiple extends Vue {
 
   private hasItems!: boolean;
 
-  public constructor () {
-    super()
-    this.selected = {}
-    this.hasItems = false
+  public constructor() {
+    super();
+    this.selected = {};
+    this.hasItems = false;
   }
 
-  private onSelect (id: string) {
+  private onSelect(id: string) {
     if (this.selected[id]) {
-      delete this.selected[id]
+      delete this.selected[id];
     } else {
-      this.selected[id] = true
+      this.selected[id] = true;
     }
 
-    this.hasItems = Object.keys(this.selected).length > 0
-    this.$forceUpdate()
+    this.hasItems = Object.keys(this.selected).length > 0;
+    this.$forceUpdate();
   }
 
-  private onProceed () {
-    if (!this.hasItems) return
+  private onProceed() {
+    if (!this.hasItems) return;
 
     const items = Object.keys(this.selected).map(id =>
       this.options.find(option => option.id === id)
-    ) as Array<Option>
+    ) as Array<Option>;
 
-    this.onSubmit(items)
+    this.onSubmit(items);
   }
 }
 </script>
@@ -78,6 +78,7 @@ export default class Multiple extends Vue {
 
 .multiple-list {
   @extend .horizontal-list;
+  justify-content: center;
 }
 
 .proceed {

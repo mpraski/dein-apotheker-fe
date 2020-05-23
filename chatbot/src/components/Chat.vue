@@ -28,31 +28,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { Component, Vue } from "vue-property-decorator";
+import { State, Action, Getter } from "vuex-class";
 
-import SimpleBar from 'simplebar-vue'
-import 'simplebar/dist/simplebar.min.css'
+import SimpleBar from "simplebar-vue";
+import "simplebar/dist/simplebar.min.css";
 
-import FadeIn from '@/components/transition/FadeIn.vue'
-import Resizer from '@/components/transition/Resizer.vue'
-import OutputSwitch from '@/components/output/OutputSwitch.vue'
-import InputSwitch from '@/components/input/InputSwitch.vue'
-import PopupManager from '@/components/output/PopupManager.vue'
-import TopBar from '@/components/output/TopBar.vue'
+import FadeIn from "@/components/transition/FadeIn.vue";
+import Resizer from "@/components/transition/Resizer.vue";
+import OutputSwitch from "@/components/output/OutputSwitch.vue";
+import InputSwitch from "@/components/input/InputSwitch.vue";
+import PopupManager from "@/components/output/PopupManager.vue";
+import TopBar from "@/components/output/TopBar.vue";
 
-import { messageNamespace } from '@/store/message'
-import { MessageState } from '@/store/message/types'
-import { inputNamespace } from '@/store/input'
-import { Input, Getters as InputGetters } from '@/store/input/types'
-import { answerNamespace } from '@/store/answer'
+import { messageNamespace } from "@/store/message";
+import { MessageState } from "@/store/message/types";
+import { inputNamespace } from "@/store/input";
+import { Input, Getters as InputGetters } from "@/store/input/types";
+import { answerNamespace } from "@/store/answer";
 import {
   Answer,
   Actions as AnswerActions,
   Getters as AnswerGetters,
   Question,
   AnswerValue
-} from '@/store/answer/types'
+} from "@/store/answer/types";
 
 @Component({
   components: {
@@ -86,54 +86,54 @@ export default class Chat extends Vue {
 
   private static readonly scrollAmount: number = 9999;
 
-  private inputHeight = 'auto';
+  private inputHeight = "auto";
 
   $refs!: {
     outputContainer: HTMLDivElement;
     inputContainer: HTMLDivElement;
   };
 
-  private mounted () {
-    this.scrollToEnd('auto')
+  private mounted() {
+    this.scrollToEnd("auto");
   }
 
-  private updated () {
-    this.$nextTick(() => this.scrollToEnd('smooth'))
+  private updated() {
+    this.$nextTick(() => this.scrollToEnd("smooth"));
   }
 
-  private scrollToEnd (behaviour: 'smooth' | 'auto') {
-    const scrollElem = (this.$refs.outputContainer as any).scrollElement
+  private scrollToEnd(behaviour: "smooth" | "auto") {
+    const scrollElem = (this.$refs.outputContainer as any).scrollElement;
     scrollElem.scrollBy({
       top: Chat.scrollAmount,
       behavior: behaviour
-    })
+    });
   }
 
-  private onInputHeight (height: number) {
-    this.inputHeight = `${height}px`
+  private onInputHeight(height: number) {
+    this.inputHeight = `${height}px`;
 
     // Beetiful sheetcoed
-    const fun = this.scrollToEnd.bind(this, 'smooth')
+    const fun = this.scrollToEnd.bind(this, "auto");
     for (const t of [100, 200, 300, 400, 500]) {
-      setTimeout(fun, t)
+      setTimeout(fun, t);
     }
   }
 
-  private onAnswer (value: AnswerValue) {
-    const question = this.currentQuestion
+  private onAnswer(value: AnswerValue) {
+    const question = this.currentQuestion;
     if (question) {
       this.addAnswer({
         ID: question.ID,
         type: question.input.type,
         value: value
-      })
+      });
     }
   }
 
-  private get inputStyle (): object {
+  private get inputStyle(): object {
     return {
       minHeight: this.inputHeight
-    }
+    };
   }
 }
 </script>
@@ -188,9 +188,17 @@ export default class Chat extends Vue {
 .input-container {
   @extend .vertical-list;
 
+  background-color: $secondaryBackgroundColor;
+  border-radius: 0;
   border-top: $borderWidth $borderStyle $buttonBorderColor;
-  padding: $marginMedium;
+  padding: $marginMedium $marginMedium ($marginMedium - $marginSmall)
+    $marginMedium;
 
   transition: min-height $animationDuration ease-in;
+
+  @include respond-to(small) {
+    border-bottom-left-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+  }
 }
 </style>
