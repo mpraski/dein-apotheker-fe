@@ -1,6 +1,6 @@
 <template>
   <div class="photo-body" v-bind:class="getAlignment" :style="style">
-    <div class="image" :style="styleImage"/>
+    <div class="image" :style="styleImage" />
     <div v-bind:class="styleContent">
       <slot></slot>
     </div>
@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-import FadeIn from '@/components/transition/FadeIn.vue'
+import FadeIn from "@/components/transition/FadeIn.vue";
 
-import { Alignment } from '@/store/message/types'
+import { Alignment } from "@/store/message/types";
 
 @Component({
   components: {
@@ -22,7 +22,7 @@ import { Alignment } from '@/store/message/types'
 export default class Photo extends Vue {
   @Prop() private alignment!: Alignment;
 
-  @Prop({ default: '' })
+  @Prop({ default: "" })
   private image!: string;
 
   @Prop({ default: false })
@@ -34,29 +34,29 @@ export default class Photo extends Vue {
   @Prop({ default: 24 })
   private height!: number;
 
-  private get getAlignment () {
+  private get getAlignment() {
     return {
       [this.alignment.toLowerCase()]: true,
       full: this.full
-    }
+    };
   }
 
-  private get style (): object {
+  private get style(): object {
     return {
       height: `${this.height}rem`
-    }
+    };
   }
 
-  private get styleImage (): object {
+  private get styleImage(): object {
     return {
       backgroundImage: `url("${this.image}")`
-    }
+    };
   }
 
-  private get styleContent (): object {
+  private get styleContent(): object {
     return {
       padded: this.padded
-    }
+    };
   }
 }
 </script>
@@ -65,7 +65,7 @@ export default class Photo extends Vue {
 @import "@/assets/app.scss";
 
 .photo-body {
-  @extend .bubble;
+  @include bubble;
   @include authorable;
 
   display: flex;
@@ -73,7 +73,7 @@ export default class Photo extends Vue {
 
   max-width: 100%;
   margin-bottom: $marginMedium;
-  padding: 0;
+  padding: 0 !important;
 
   @include respond-to(small) {
     margin-bottom: $marginRegular;
@@ -99,7 +99,7 @@ export default class Photo extends Vue {
     padding: $paddingButtonSmall;
 
     @include respond-to(small) {
-        padding: $paddingButton;
+      padding: $paddingButton;
     }
   }
 }

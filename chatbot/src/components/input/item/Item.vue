@@ -21,9 +21,8 @@ export default class Item extends Vue {
 @import "@/assets/app.scss";
 
 .item-body {
-  @extend .bubble;
+  @include bubble;
   @include actionable;
-  //@include authorable;
 
   max-width: 100%;
 

@@ -41,6 +41,7 @@ FROM nginxinc/nginx-unprivileged:alpine
 COPY --from=builder-static /site/public /usr/share/nginx/html/static
 COPY --from=builder-chatbot /site/dist /usr/share/nginx/html/chatbot
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.htpasswd /etc/nginx/conf.d/default.htpasswd
 
 EXPOSE 80 443
 

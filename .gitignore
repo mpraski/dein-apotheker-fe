@@ -1,2 +1,3 @@
 builds
 .gitlab-ci.env
+nginx.htpasswd

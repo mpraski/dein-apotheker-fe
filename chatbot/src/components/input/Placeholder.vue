@@ -34,7 +34,7 @@ export default class Placeholder extends Vue {
 @import "@/assets/app.scss";
 
 .placeholder-body {
-  @extend .bubble;
+  @include bubble;
   @include centered;
 
   display: flex;

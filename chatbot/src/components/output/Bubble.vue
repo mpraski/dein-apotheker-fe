@@ -67,7 +67,7 @@ export default class Bubble extends Vue {
 @import "@/assets/app.scss";
 
 .message-body {
-  @extend .bubble;
+  @include bubble;
   @include authorable;
 
   display: flex;

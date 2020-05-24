@@ -45,7 +45,7 @@ export default class Prompt extends Vue {
 @import "@/assets/app.scss";
 
 .prompt-body {
-  @extend .bubble;
+  @include bubble;
   @include centered;
 
   display: flex;

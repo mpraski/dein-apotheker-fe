@@ -1,4 +1,4 @@
-.bubble {
+@mixin bubble($border: $buttonBorderColor, $background: $buttonBackgroundColor) {
     border-radius: $borderRadius;
     border-style: $borderStyle;
     border-width: $borderWidth;
@@ -12,8 +12,13 @@
     }
 
     color: $buttonTextColor;
-    background-color: $buttonBackgroundColor;
-    border-color: $buttonBorderColor;
+    background-color: $background;
+    border-color: $border;
+
+    &.right {
+        background-color: $buttonBackgroundColor;
+        border-color: $buttonBorderColor;
+    }
 
     text-align: left;
     user-select: none;
@@ -43,7 +48,6 @@
     &:hover {
         background-color: $color;
 
-    
         &:after {
             border-top: 10px solid $color;
         }
@@ -96,7 +100,7 @@
     margin-right: auto;
 }
 
-@mixin authorable {
+@mixin authorable($border: $buttonBorderColor, $background: $buttonBackgroundColor) {
     position: relative;
 
     &:before {
@@ -106,7 +110,7 @@
         position: absolute;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-top: 10px solid $buttonBorderColor;
+        border-top: 10px solid $border;
         border-bottom: 10px solid transparent;
         bottom: -21px;
     }
@@ -119,7 +123,7 @@
         position: absolute;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-top: 10px solid $backgroundColor;
+        border-top: 10px solid $background;
         border-bottom: 10px solid transparent;
         bottom: -18px;
     }
@@ -128,10 +132,12 @@
         align-self: flex-end;
         &:before {
             right: 1.5em;
+            border-top-color: $buttonBorderColor;
         }
 
         &:after {
             right: 1.5em;
+            border-top-color: $buttonBackgroundColor;
         }
     }
 

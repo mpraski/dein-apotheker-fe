@@ -48,7 +48,7 @@ export default class Action extends Vue {
 @import "@/assets/app.scss";
 
 .action-body {
-  @extend .bubble;
+  @include bubble;
   @include actionable;
   @include centered;
 

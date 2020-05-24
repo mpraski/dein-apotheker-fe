@@ -42,7 +42,7 @@ export default class ItemSelectible extends Vue {
 @import "@/assets/app.scss";
 
 .item-selectible-body {
-  @extend .bubble;
+  @include bubble;
 
   @include actionable;
   @include selectable;

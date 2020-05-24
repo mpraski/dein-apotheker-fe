@@ -142,10 +142,10 @@ export default class Chat extends Vue {
 @import "@/assets/app.scss";
 
 .chat-container {
-  @extend .bubble;
+  @include bubble;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 0 !important;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
