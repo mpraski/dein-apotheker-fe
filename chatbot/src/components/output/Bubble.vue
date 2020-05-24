@@ -7,23 +7,18 @@
     @mouseleave="hover = false"
   >
     <slot></slot>
-    <FadeIn v-if="myResponse">
-      <CloseIcon v-if="hover" @click="onDelete" class="icon" />
-    </FadeIn>
+    <CloseIcon v-if="myResponse" :class="iconClass" @click="onDelete" class="icon" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
-import FadeIn from '@/components/transition/FadeIn.vue'
-
-import { Alignment } from '@/store/message/types'
+import { Component, Prop, Emit, Vue } from "vue-property-decorator";
+import CloseIcon from "vue-material-design-icons/Close.vue";
+import { Alignment } from "@/store/message/types";
 
 @Component({
   components: {
-    CloseIcon,
-    FadeIn
+    CloseIcon
   }
 })
 export default class Bubble extends Vue {
@@ -31,34 +26,40 @@ export default class Bubble extends Vue {
 
   private hover!: boolean;
 
-  constructor () {
-    super()
-    this.hover = false
+  constructor() {
+    super();
+    this.hover = false;
   }
 
   @Emit()
-  private onDelete () {
-    return 0
+  private onDelete() {
+    return 0;
   }
 
-  private get getAlignment () {
+  private get getAlignment() {
     return {
       [this.alignment.toLowerCase()]: true
-    }
+    };
   }
 
-  private get myResponse (): boolean {
-    return this.alignment === 'RIGHT'
+  private get myResponse(): boolean {
+    return this.alignment === "RIGHT";
   }
 
-  private get bodyStyle (): object {
+  private get bodyStyle(): object {
     if (this.myResponse) {
       return {
-        paddingRight: '0.5rem'
-      }
+        paddingRight: "0.5rem"
+      };
     }
 
-    return {}
+    return {};
+  }
+
+  private get iconClass(): object {
+    return {
+      hidden: !this.hover
+    };
   }
 }
 </script>
@@ -70,8 +71,8 @@ export default class Bubble extends Vue {
   @include bubble;
   @include authorable;
 
-  display: flex;
-  flex-direction: row;
+  display: flex !important;
+  flex-direction: row !important;
 
   min-width: 40%;
   margin-bottom: $marginMedium;
@@ -90,8 +91,12 @@ export default class Bubble extends Vue {
 
   .icon {
     cursor: pointer;
-    margin-left: auto;
+    margin-left: auto !important;
     transition: all $fastAnimationDuration;
+
+    &.hidden {
+      visibility: hidden;
+    }
 
     &:hover {
       transform: scale(1.5);

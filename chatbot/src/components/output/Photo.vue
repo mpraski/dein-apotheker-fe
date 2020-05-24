@@ -31,7 +31,7 @@ export default class Photo extends Vue {
   @Prop({ default: false })
   private padded!: boolean;
 
-  @Prop({ default: 24 })
+  @Prop({ default: 18 })
   private height!: number;
 
   private get getAlignment() {
