@@ -61,8 +61,8 @@ export default class CartButton extends Vue {
 @import "@/assets/app.scss";
 
 .cart-button {
-  width: 3rem;
-  height: 3rem;
+  width: $buttonSize;
+  height: $buttonSize;
   border-radius: $borderRadius;
   position: relative;
 
