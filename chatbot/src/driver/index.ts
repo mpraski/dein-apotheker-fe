@@ -89,7 +89,7 @@ export class Driver {
         return data
       })
       .then(question => {
-        this.recordQuestion(question)
+        this.recordQuestionDirect(question)
       })
       .catch(error => {
         this.recordError(error)
@@ -136,6 +136,17 @@ export class Driver {
     this.commitDirect(answerNamespace, AnswerMutations.addQuestion, question)
     for (const message of messages) {
       this.commit(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
+    }
+    this.commitDirect(inputNamespace, InputMutations.hideInput)
+    this.commit(inputNamespace, InputMutations.showInput, input)
+  }
+
+  private recordQuestionDirect (question: Question) {
+    const { messages, input } = question
+
+    this.commitDirect(answerNamespace, AnswerMutations.addQuestion, question)
+    for (const message of messages) {
+      this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
     }
     this.commitDirect(inputNamespace, InputMutations.hideInput)
     this.commit(inputNamespace, InputMutations.showInput, input)

@@ -45,6 +45,8 @@ export default class Placeholder extends Vue {
   color: $textColorSecondary;
   background-color: transparent;
 
+  margin-bottom: $marginSmall;
+
   .icon {
     margin-left: $marginSmall;
   }

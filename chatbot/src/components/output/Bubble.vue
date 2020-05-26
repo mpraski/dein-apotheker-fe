@@ -68,8 +68,8 @@ export default class Bubble extends Vue {
 @import "@/assets/app.scss";
 
 .message-body {
-  @include bubble;
-  @include authorable;
+  @include bubble(lighten($accentColor, 10%), lighten($accentColor, 10%), $bubbleBackgroundColor, $bubbleBackgroundColor);
+  @include authorable(lighten($accentColor, 10%), lighten($accentColor, 10%), $bubbleBackgroundColor, $bubbleBackgroundColor);
 
   display: flex !important;
   flex-direction: row !important;

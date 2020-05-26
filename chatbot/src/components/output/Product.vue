@@ -1,5 +1,6 @@
 <template>
   <div class="product-body">
+    <div class="image" :style="styleImage" />
     <div class="header">
       <span class="name">{{name}}</span>
       <div class="info-body" @click="onInfo">
@@ -16,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from "vue-property-decorator";
 
-import CartIcon from 'vue-material-design-icons/Cart.vue'
-import InfoIcon from 'vue-material-design-icons/InformationOutline.vue'
+import CartIcon from "vue-material-design-icons/Cart.vue";
+import InfoIcon from "vue-material-design-icons/InformationOutline.vue";
 
 @Component({
   components: {
@@ -28,16 +29,29 @@ import InfoIcon from 'vue-material-design-icons/InformationOutline.vue'
   }
 })
 export default class Product extends Vue {
-  @Prop({ default: '' }) private name!: string;
+  @Prop({ default: "" }) private name!: string;
+
+  @Prop({ default: "" })
+  private image!: string;
+
+  @Prop({ default: 16 })
+  private height!: number;
 
   @Emit()
-  private onBuy () {
-    return 0
+  private onBuy() {
+    return 0;
   }
 
   @Emit()
-  private onInfo () {
-    return 0
+  private onInfo() {
+    return 0;
+  }
+
+  private get styleImage(): object {
+    return {
+      height: `${this.height}rem`,
+      backgroundImage: `url("${this.image}")`
+    };
   }
 }
 </script>
@@ -47,10 +61,32 @@ export default class Product extends Vue {
 
 .product-body {
   @extend .vertical-list;
+  @include bubble($buttonBorderColor, $backgroundColor);
+
+  padding: 0 !important;
+  margin-bottom: $marginMedium;
+
+  @include respond-to(small) {
+    margin-bottom: $marginRegular;
+  }
+
+  .image {
+    flex-grow: 1;
+
+    border-top-left-radius: 0.65rem;
+    border-top-right-radius: 0.65rem;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 
   .header {
     @extend .horizontal-list;
     justify-content: space-between;
+    padding: $paddingButtonSmall;
+
+    border-bottom: $borderWidth $borderStyle $buttonBorderColor;
 
     .name {
       font-weight: bold;
@@ -70,23 +106,20 @@ export default class Product extends Vue {
         margin-left: $marginMinute;
       }
     }
-
-    margin-bottom: $marginSmall;
   }
 
   .buy {
     @extend .horizontal-list;
     justify-content: space-between;
 
-    border: 1px solid darken($accentColor, 20%);
-    border-radius: $borderRadius;
-    background-color: $accentColor;
+    color: $focusColor;
 
-    font-size: $textSize;
-    padding: $paddingButtonSmall;
-    margin-bottom: $marginSmall;
+    font-size: $textSizeLarge;
+    padding: $paddingButtonBuy;
+    border-bottom-left-radius: 0.65rem;
+    border-bottom-right-radius: 0.65rem;
 
-    @include actionable(darken($accentColor, 10%));
+    @include actionable;
 
     span {
       align-self: center;

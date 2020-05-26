@@ -65,8 +65,8 @@ export default class Photo extends Vue {
 @import "@/assets/app.scss";
 
 .photo-body {
-  @include bubble;
-  @include authorable;
+  @include bubble(lighten($accentColor, 10%), lighten($accentColor, 10%), $bubbleBackgroundColor, $bubbleBackgroundColor);
+  @include authorable(lighten($accentColor, 10%), lighten($accentColor, 10%), $bubbleBackgroundColor, $bubbleBackgroundColor);
 
   display: flex;
   flex-direction: column;

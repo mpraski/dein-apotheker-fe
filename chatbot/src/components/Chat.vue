@@ -113,7 +113,7 @@ export default class Chat extends Vue {
     this.inputHeight = `${height}px`;
 
     // Beetiful sheetcoed
-    const fun = this.scrollToEnd.bind(this, "auto");
+    const fun = this.scrollToEnd.bind(this, "smooth");
     for (const t of [100, 200, 300, 400, 500]) {
       setTimeout(fun, t);
     }
@@ -194,7 +194,7 @@ export default class Chat extends Vue {
   padding: $marginMedium $marginMedium ($marginMedium - $marginSmall)
     $marginMedium;
 
-  transition: min-height $animationDuration ease-in;
+  transition: min-height $animationDuration ease-in-out;
 
   @include respond-to(small) {
     border-bottom-left-radius: $borderRadius;

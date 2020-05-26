@@ -1,4 +1,4 @@
-@mixin bubble($border: $buttonBorderColor, $background: $buttonBackgroundColor) {
+@mixin bubble($normalBorder: $buttonBorderColor, $normalBackground: $buttonBackgroundColor, $border: $buttonBorderColor, $background: $buttonBackgroundColor) {
     border-radius: $borderRadius;
     border-style: $borderStyle;
     border-width: $borderWidth;
@@ -16,8 +16,8 @@
     border-color: $border;
 
     &.right {
-        background-color: $buttonBackgroundColor;
-        border-color: $buttonBorderColor;
+        background-color: $normalBackground;
+        border-color: $normalBorder;
     }
 
     text-align: left;
@@ -100,7 +100,7 @@
     margin-right: auto;
 }
 
-@mixin authorable($border: $buttonBorderColor, $background: $buttonBackgroundColor) {
+@mixin authorable($normalBorder: $buttonBorderColor, $normalBackground: $buttonBorderColor, $border: $buttonBorderColor, $background: $buttonBackgroundColor) {
     position: relative;
 
     &:before {
@@ -132,12 +132,12 @@
         align-self: flex-end;
         &:before {
             right: 1.5em;
-            border-top-color: $buttonBorderColor;
+            border-top-color: $normalBorder;
         }
 
         &:after {
             right: 1.5em;
-            border-top-color: $buttonBackgroundColor;
+            border-top-color: $normalBackground;
         }
     }
 
