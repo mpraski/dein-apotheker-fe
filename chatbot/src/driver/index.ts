@@ -148,8 +148,8 @@ export class Driver {
     for (const message of messages) {
       this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [message, 'LEFT'])
     }
-    this.commitDirect(inputNamespace, InputMutations.hideInput)
-    this.commit(inputNamespace, InputMutations.showInput, input)
+    //this.commitDirect(inputNamespace, InputMutations.hideInput)
+    this.commitDirect(inputNamespace, InputMutations.showInput, input)
   }
 
   private recordError (error: string) {
