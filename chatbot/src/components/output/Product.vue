@@ -112,7 +112,7 @@ export default class Product extends Vue {
 
     color: $focusColor;
     font-size: $textSize;
-    padding: $paddingButtonSmall;
+    padding: $paddingButtonBuySmall;
     border-bottom-left-radius: 0.65rem;
     border-bottom-right-radius: 0.65rem;
 
