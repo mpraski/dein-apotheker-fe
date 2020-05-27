@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
-import FadeIn from "@/components/transition/FadeIn.vue";
+import FadeIn from '@/components/transition/FadeIn.vue'
 
-import { Alignment } from "@/store/message/types";
+import { Alignment } from '@/store/message/types'
 
 @Component({
   components: {
@@ -22,7 +22,7 @@ import { Alignment } from "@/store/message/types";
 export default class Photo extends Vue {
   @Prop() private alignment!: Alignment;
 
-  @Prop({ default: "" })
+  @Prop({ default: '' })
   private image!: string;
 
   @Prop({ default: false })
@@ -34,29 +34,29 @@ export default class Photo extends Vue {
   @Prop({ default: 18 })
   private height!: number;
 
-  private get getAlignment() {
+  private get getAlignment () {
     return {
       [this.alignment.toLowerCase()]: true,
       full: this.full
-    };
+    }
   }
 
-  private get style(): object {
+  private get style (): object {
     return {
       height: `${this.height}rem`
-    };
+    }
   }
 
-  private get styleImage(): object {
+  private get styleImage (): object {
     return {
       backgroundImage: `url("${this.image}")`
-    };
+    }
   }
 
-  private get styleContent(): object {
+  private get styleContent (): object {
     return {
       padded: this.padded
-    };
+    }
   }
 }
 </script>

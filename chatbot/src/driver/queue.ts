@@ -6,7 +6,7 @@ export class Queue<T> {
     private timerID: number;
     private queuedCommits: Array<message>;
 
-    private static readonly defaultInterval: number = 500;
+    private static readonly defaultInterval: number = 750;
 
     constructor (
         private store: Store<T>,

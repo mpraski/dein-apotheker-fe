@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({})
 export default class Logo extends Vue {}
@@ -19,7 +19,7 @@ export default class Logo extends Vue {}
   align-items: center;
 
   .logo {
-    width: $buttonSize;
+    //width: $buttonSize;
     height: $buttonSize;
 
     margin-right: $marginMedium;

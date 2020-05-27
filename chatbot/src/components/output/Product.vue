@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from "vue-property-decorator";
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 
-import CartIcon from "vue-material-design-icons/Cart.vue";
-import InfoIcon from "vue-material-design-icons/InformationOutline.vue";
+import CartIcon from 'vue-material-design-icons/Cart.vue'
+import InfoIcon from 'vue-material-design-icons/InformationOutline.vue'
 
 @Component({
   components: {
@@ -29,29 +29,29 @@ import InfoIcon from "vue-material-design-icons/InformationOutline.vue";
   }
 })
 export default class Product extends Vue {
-  @Prop({ default: "" }) private name!: string;
+  @Prop({ default: '' }) private name!: string;
 
-  @Prop({ default: "" })
+  @Prop({ default: '' })
   private image!: string;
 
-  @Prop({ default: 16 })
+  @Prop({ default: 14 })
   private height!: number;
 
   @Emit()
-  private onBuy() {
-    return 0;
+  private onBuy () {
+    return 0
   }
 
   @Emit()
-  private onInfo() {
-    return 0;
+  private onInfo () {
+    return 0
   }
 
-  private get styleImage(): object {
+  private get styleImage (): object {
     return {
       height: `${this.height}rem`,
       backgroundImage: `url("${this.image}")`
-    };
+    }
   }
 }
 </script>
@@ -66,10 +66,6 @@ export default class Product extends Vue {
   padding: 0 !important;
   margin-bottom: $marginMedium;
 
-  @include respond-to(small) {
-    margin-bottom: $marginRegular;
-  }
-
   .image {
     flex-grow: 1;
 
@@ -83,9 +79,9 @@ export default class Product extends Vue {
 
   .header {
     @extend .horizontal-list;
+
     justify-content: space-between;
     padding: $paddingButtonSmall;
-
     border-bottom: $borderWidth $borderStyle $buttonBorderColor;
 
     .name {
@@ -94,8 +90,9 @@ export default class Product extends Vue {
 
     .info-body {
       @extend .horizontal-list;
-      align-items: center;
+
       cursor: pointer;
+      align-items: center;
 
       .info {
         color: $textColorInfo;
@@ -109,17 +106,20 @@ export default class Product extends Vue {
   }
 
   .buy {
+    @include actionable;
     @extend .horizontal-list;
     justify-content: space-between;
 
     color: $focusColor;
-
-    font-size: $textSizeLarge;
-    padding: $paddingButtonBuy;
+    font-size: $textSize;
+    padding: $paddingButtonSmall;
     border-bottom-left-radius: 0.65rem;
     border-bottom-right-radius: 0.65rem;
 
-    @include actionable;
+    @include respond-to(small) {
+      font-size: $textSizeLarge;
+      padding: $paddingButtonBuy;
+    }
 
     span {
       align-self: center;

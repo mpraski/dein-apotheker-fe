@@ -10,18 +10,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { Action, Getter } from "vuex-class";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Action, Getter } from 'vuex-class'
 
-import { popupNamespace } from "@/store/popup";
-import { cartNamespace } from "@/store/cart";
+import { popupNamespace } from '@/store/popup'
+import { cartNamespace } from '@/store/cart'
 
-import { Actions as PopupActions, PopupKey } from "@/store/popup/types";
-import { Getters as CartGetters } from "@/store/cart/types";
+import { Actions as PopupActions, PopupKey } from '@/store/popup/types'
+import { Getters as CartGetters } from '@/store/cart/types'
 
-import Bar from "@/components/output/Bar.vue";
-import CartButton from "@/components/output/CartButton.vue";
-import Logo from "@/components/output/Logo.vue";
+import Bar from '@/components/output/Bar.vue'
+import CartButton from '@/components/output/CartButton.vue'
+import Logo from '@/components/output/Logo.vue'
 
 @Component({
   components: {

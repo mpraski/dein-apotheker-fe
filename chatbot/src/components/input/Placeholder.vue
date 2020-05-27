@@ -6,9 +6,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-import EmoticonOutline from "vue-material-design-icons/EmoticonOutline.vue";
+import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
 
 @Component({
   components: {
@@ -16,16 +16,16 @@ import EmoticonOutline from "vue-material-design-icons/EmoticonOutline.vue";
   }
 })
 export default class Placeholder extends Vue {
-  @Prop({ default: "" })
+  @Prop({ default: '' })
   private text!: string;
 
   @Prop({ default: false })
   private padded!: boolean;
 
-  private get placeholderClass(): object {
+  private get placeholderClass (): object {
     return {
       padded: this.padded
-    };
+    }
   }
 }
 </script>
