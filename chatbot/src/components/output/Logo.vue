@@ -19,7 +19,7 @@ export default class Logo extends Vue {}
   align-items: center;
 
   .logo {
-    //width: $buttonSize;
+    width: $buttonSize;
     height: $buttonSize;
 
     margin-right: $marginMedium;

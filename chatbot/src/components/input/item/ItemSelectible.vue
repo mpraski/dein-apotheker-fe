@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import CheckIcon from 'vue-material-design-icons/Check.vue'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
-import VueMarkdown from 'vue-markdown'
+import { Component, Prop, Vue } from "vue-property-decorator";
+import CheckIcon from "vue-material-design-icons/Check.vue";
+import CloseIcon from "vue-material-design-icons/Close.vue";
+import VueMarkdown from "vue-markdown";
 
-import FadeIn from '@/components/transition/FadeIn.vue'
+import FadeIn from "@/components/transition/FadeIn.vue";
 
 @Component({
   components: {
@@ -26,14 +26,14 @@ import FadeIn from '@/components/transition/FadeIn.vue'
   }
 })
 export default class ItemSelectible extends Vue {
-  @Prop({ default: '' })
+  @Prop({ default: "" })
   private content!: string;
 
   @Prop({ default: false })
   private selected!: boolean;
 
-  private get getIcon () {
-    return this.selected ? CloseIcon : CheckIcon
+  private get getIcon() {
+    return this.selected ? CloseIcon : CheckIcon;
   }
 }
 </script>
@@ -43,13 +43,9 @@ export default class ItemSelectible extends Vue {
 
 .item-selectible-body {
   @include bubble;
-
   @include actionable;
   @include selectable;
-
-  display: flex;
-
-  max-width: 100%;
+  @extend .horizontal-list;
 
   margin-left: $marginSmall;
   margin-bottom: $marginSmall;

@@ -1,4 +1,9 @@
-@mixin bubble($normalBorder: $buttonBorderColor, $normalBackground: $buttonBackgroundColor, $border: $buttonBorderColor, $background: $buttonBackgroundColor) {
+@mixin bubble(
+    $normalBorder: $buttonBorderColor,
+    $normalBackground: $buttonBackgroundColor,
+    $border: $buttonBorderColor,
+    $background: $buttonBackgroundColor
+) {
     border-radius: $borderRadius;
     border-style: $borderStyle;
     border-width: $borderWidth;
@@ -40,7 +45,7 @@
     flex-direction: column;
 }
 
-@mixin actionable($color: $buttonBorderColor) {
+@mixin actionable($color: $buttonBorderColor, $disabled: $buttonBorderColor) {
     cursor: pointer;
 
     transition: all $animationDuration;
@@ -59,17 +64,17 @@
     }
 
     &.disabled {
-        background-color: $color;
+        background-color: $disabled;
         color: $textColorSecondary;
         cursor: not-allowed;
 
         &:hover {
-            background-color: $color;
+            background-color: $disabled;
         }
 
         &:active {
-            border-color: $color;
-            background-color: $color;
+            border-color: $disabled;
+            background-color: $disabled;
         }
     }
 }
@@ -100,7 +105,12 @@
     margin-right: auto;
 }
 
-@mixin authorable($normalBorder: $buttonBorderColor, $normalBackground: $buttonBorderColor, $border: $buttonBorderColor, $background: $buttonBackgroundColor) {
+@mixin authorable(
+    $normalBorder: $buttonBorderColor,
+    $normalBackground: $buttonBorderColor,
+    $border: $buttonBorderColor,
+    $background: $buttonBackgroundColor
+) {
     position: relative;
 
     &:before {

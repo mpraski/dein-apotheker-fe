@@ -141,8 +141,8 @@ export default class Chat extends Vue {
 
 .chat-container {
   @include bubble;
-  display: flex;
-  flex-direction: column;
+  @extend .vertical-list;
+  
   padding: 0 !important;
   margin-left: auto;
   margin-right: auto;

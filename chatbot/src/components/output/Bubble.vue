@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
-import { Alignment } from '@/store/message/types'
+import { Component, Prop, Emit, Vue } from "vue-property-decorator";
+import CloseIcon from "vue-material-design-icons/Close.vue";
+import { Alignment } from "@/store/message/types";
 
 @Component({
   components: {
@@ -26,40 +26,40 @@ export default class Bubble extends Vue {
 
   private hover!: boolean;
 
-  constructor () {
-    super()
-    this.hover = false
+  constructor() {
+    super();
+    this.hover = false;
   }
 
   @Emit()
-  private onDelete () {
-    return 0
+  private onDelete() {
+    return 0;
   }
 
-  private get getAlignment () {
+  private get getAlignment() {
     return {
       [this.alignment.toLowerCase()]: true
-    }
+    };
   }
 
-  private get myResponse (): boolean {
-    return this.alignment === 'RIGHT'
+  private get myResponse(): boolean {
+    return this.alignment === "RIGHT";
   }
 
-  private get bodyStyle (): object {
+  private get bodyStyle(): object {
     if (this.myResponse) {
       return {
-        paddingRight: '0.5rem'
-      }
+        paddingRight: "0.5rem"
+      };
     }
 
-    return {}
+    return {};
   }
 
-  private get iconClass (): object {
+  private get iconClass(): object {
     return {
       hidden: !this.hover
-    }
+    };
   }
 }
 </script>
@@ -68,23 +68,22 @@ export default class Bubble extends Vue {
 @import "@/assets/app.scss";
 
 .message-body {
+  @extend .horizontal-list;
   @include bubble(
-    lighten($accentColor, 10%),
-    lighten($accentColor, 10%),
+    $bubbleAccentColor,
+    $bubbleAccentColor,
     $bubbleBackgroundColor,
     $bubbleBackgroundColor
   );
   @include authorable(
-    lighten($accentColor, 10%),
-    lighten($accentColor, 10%),
+    $bubbleAccentColor,
+    $bubbleAccentColor,
     $bubbleBackgroundColor,
     $bubbleBackgroundColor
   );
 
-  display: flex !important;
-  flex-direction: row !important;
-
-  min-width: 25%;
+  flex-wrap: nowrap;
+  min-width: $bubbleWidth;
   margin-bottom: $marginMedium;
 
   &:first-child {
@@ -93,7 +92,7 @@ export default class Bubble extends Vue {
 
   .icon {
     cursor: pointer;
-    margin-left: auto !important;
+    margin-left: auto;
     transition: all $fastAnimationDuration;
 
     &.hidden {

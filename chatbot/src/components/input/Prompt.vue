@@ -59,42 +59,15 @@ export default class Prompt extends Vue {
   }
 
   .send {
+    @include actionable($accentColor, $buttonBorderColor);
+
     padding: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: $marginSmall;
     background-color: $accentColor;
-
-    border-radius: 2rem;
-
-    transition: $animationDuration;
-    cursor: pointer;
-
-    &:hover {
-      background-color: lighten($accentColor, 5%);
-      border-color: lighten($accentColor, 5%);
-    }
-
-    &:active {
-      background-color: lighten($accentColor, 10%);
-      border-color: lighten($accentColor, 10%);
-    }
-
-    &.disabled {
-      background-color: $buttonBorderColor;
-      color: $textColorSecondary;
-      cursor: not-allowed;
-
-      &:hover {
-        background-color: $buttonBorderColor;
-      }
-
-      &:active {
-        border-color: $buttonBorderColor;
-        background-color: $buttonBorderColor;
-      }
-    }
+    border-radius: $borderRound;
   }
 }
 </style>

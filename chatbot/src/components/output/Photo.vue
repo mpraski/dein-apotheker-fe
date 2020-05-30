@@ -87,8 +87,8 @@ export default class Photo extends Vue {
   .image {
     flex-grow: 1;
 
-    border-top-left-radius: 0.65rem;
-    border-top-right-radius: 0.65rem;
+    border-top-left-radius: $borderRadiusInner;
+    border-top-right-radius: $borderRadiusInner;
 
     background-position: center;
     background-repeat: no-repeat;

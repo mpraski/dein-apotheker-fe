@@ -69,8 +69,8 @@ export default class Product extends Vue {
   .image {
     flex-grow: 1;
 
-    border-top-left-radius: 0.65rem;
-    border-top-right-radius: 0.65rem;
+    border-top-left-radius: $borderRadiusInner;
+    border-top-right-radius: $borderRadiusInner;
 
     background-position: center;
     background-repeat: no-repeat;
@@ -113,8 +113,8 @@ export default class Product extends Vue {
     color: $focusColor;
     font-size: $textSize;
     padding: $paddingButtonBuySmall;
-    border-bottom-left-radius: 0.65rem;
-    border-bottom-right-radius: 0.65rem;
+    border-bottom-left-radius: $borderRadiusInner;
+    border-bottom-right-radius: $borderRadiusInner;
 
     @include respond-to(small) {
       font-size: $textSizeLarge;
