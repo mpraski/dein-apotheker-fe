@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 
 import { cartNamespace } from '@/store/cart'
-import { CartState, Actions as CartActions } from '@/store/cart/types'
+import { CartState } from '@/store/cart/types'
 
 @Component({})
 export default class Cart extends Vue {

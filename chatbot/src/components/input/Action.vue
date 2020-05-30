@@ -1,8 +1,8 @@
 <template>
-  <div class="action-body" v-bind:class="{ disabled: !enabled }" @click="onSelect">
+  <div class="action-body" :class="{ disabled: !enabled }" @click="onSelect">
     <p>{{content}}</p>
     <keep-alive v-if="icon">
-      <component v-bind:is="iconComp" class="icon"></component>
+      <component :is="iconComp" class="icon"></component>
     </keep-alive>
   </div>
 </template>

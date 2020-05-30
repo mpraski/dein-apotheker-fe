@@ -7,14 +7,14 @@
       placeholder="Your answer"
       class="input"
     />
-    <div v-on:click="onSend" v-bind:class="{ disabled: isDisabled }" class="send">
+    <div v-on:click="onSend" :class="{ disabled: isDisabled }" class="send">
       <SendIcon class="icon" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import SendIcon from 'vue-material-design-icons/Send.vue'
 
 @Component({
@@ -26,9 +26,6 @@ export default class Prompt extends Vue {
   @Prop({ default: '' })
   private content!: string;
 
-  @Prop({ default: () => () => 0 })
-  private onSubmit!: (c: string) => void;
-
   private get isDisabled (): boolean {
     return this.content === ''
   }
@@ -37,6 +34,11 @@ export default class Prompt extends Vue {
     if (this.content) {
       this.onSubmit(this.content)
     }
+  }
+
+  @Emit()
+  private onSubmit (c: string): string {
+    return c
   }
 }
 </script>

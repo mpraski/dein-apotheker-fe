@@ -1,5 +1,5 @@
 <template>
-  <div class="placeholder-body" v-bind:class="placeholderClass">
+  <div class="placeholder-body" :class="placeholderClass">
     {{text}}
     <EmoticonOutline class="icon" />
   </div>

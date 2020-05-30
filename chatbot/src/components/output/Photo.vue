@@ -1,7 +1,7 @@
 <template>
-  <div class="photo-body" v-bind:class="getAlignment" :style="style">
+  <div class="photo-body" :class="getAlignment" :style="style">
     <div class="image" :style="styleImage" />
-    <div v-bind:class="styleContent">
+    <div :class="styleContent">
       <slot></slot>
     </div>
   </div>
@@ -65,8 +65,18 @@ export default class Photo extends Vue {
 @import "@/assets/app.scss";
 
 .photo-body {
-  @include bubble(lighten($accentColor, 10%), lighten($accentColor, 10%), $bubbleBackgroundColor, $bubbleBackgroundColor);
-  @include authorable(lighten($accentColor, 10%), lighten($accentColor, 10%), $bubbleBackgroundColor, $bubbleBackgroundColor);
+  @include bubble(
+    lighten($accentColor, 10%),
+    lighten($accentColor, 10%),
+    $bubbleBackgroundColor,
+    $bubbleBackgroundColor
+  );
+  @include authorable(
+    lighten($accentColor, 10%),
+    lighten($accentColor, 10%),
+    $bubbleBackgroundColor,
+    $bubbleBackgroundColor
+  );
 
   display: flex;
   flex-direction: column;

@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
 import Item from '@/components/input/item/Item.vue'
 import Action from '@/components/input/Action.vue'
@@ -33,11 +33,13 @@ export default class Single extends Vue {
   @Prop({ default: () => [] })
   private options!: ReadonlyArray<Option>;
 
-  @Prop({ default: () => () => 0 })
-  private onSelect!: (a: Option) => void;
-
   private get isSingleItem (): boolean {
     return this.options.length === 1
+  }
+
+  @Emit()
+  private onSelect (a: Option): Option {
+    return a
   }
 }
 </script>

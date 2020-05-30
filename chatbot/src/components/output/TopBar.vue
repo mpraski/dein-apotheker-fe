@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 
 import { popupNamespace } from '@/store/popup'

@@ -4,7 +4,7 @@
       class="language"
       v-for="l in languages"
       :key="l"
-      v-bind:class="{ selected: selected === l }"
+      :class="{ selected: selected === l }"
       @click="onSelect(l)"
     >{{l}}</li>
   </ul>
@@ -20,7 +20,7 @@ export default class LanguageSwitch extends Vue {
   @Prop() private selected!: string;
 
   @Emit()
-  private onSelect (s: string) {
+  private onSelect (s: string): string {
     return s
   }
 }

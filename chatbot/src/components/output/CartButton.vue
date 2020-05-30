@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
-import CartIcon from "vue-material-design-icons/Cart.vue";
-import FadeIn from "@/components/transition/FadeIn.vue";
+import CartIcon from 'vue-material-design-icons/Cart.vue'
+import FadeIn from '@/components/transition/FadeIn.vue'
 
 @Component({
   components: {
@@ -28,31 +28,31 @@ export default class CartButton extends Vue {
 
   private static readonly defaultInterval: number = 1000;
 
-  private get badgeVisible(): boolean {
-    return this.items !== 0;
+  private get badgeVisible (): boolean {
+    return this.items !== 0
   }
 
-  private hidePopover() {
-    this.showPopover = false;
-    this.timerID = -1;
+  private hidePopover () {
+    this.showPopover = false
+    this.timerID = -1
   }
 
-  @Watch("items")
-  private onPropertyChanged(value: number, old: number) {
+  @Watch('items')
+  private onPropertyChanged (value: number, old: number) {
     if (value <= old) {
-      return;
+      return
     }
 
     if (this.timerID !== -1) {
-      clearTimeout(this.timerID);
+      clearTimeout(this.timerID)
     }
 
-    this.showPopover = true;
+    this.showPopover = true
 
     this.timerID = setTimeout(
       this.hidePopover.bind(this),
       CartButton.defaultInterval
-    );
+    )
   }
 }
 </script>

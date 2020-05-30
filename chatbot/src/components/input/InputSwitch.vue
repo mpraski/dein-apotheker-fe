@@ -1,13 +1,13 @@
 <template>
   <div ref="inputContainer">
-    <Single v-if="input.type === 'single'" :options="input.options" :on-select="onSingleSelect" />
+    <Single v-if="input.type === 'single'" :options="input.options" @on-select="onSingleSelect" />
     <Multiple
       v-else-if=" input.type === 'multiple'"
       :options="input.options"
-      :on-submit="onMultipleSelect"
+      @on-submit="onMultipleSelect"
     />
-    <Prompt v-else-if="input.type === 'prompt'" :on-submit="onPromptSubmit" />
-    <Placeholder v-else-if="input.type === 'begin'" text="Please hang on" padded="true"/>
+    <Prompt v-else-if="input.type === 'prompt'" @on-submit="onPromptSubmit" />
+    <Placeholder v-else-if="input.type === 'begin'" text="Please hang on" padded="true" />
     <Placeholder v-else-if="input.type === 'end'" text="Thank you for the chat" />
     <Resizer @on-resize="queueHeightChange" />
   </div>
@@ -36,9 +36,6 @@ import { AnswerValue } from '@/store/answer/types'
 })
 export default class InputSwitch extends Vue {
   @Prop() private input!: Input;
-
-  @Prop({ default: () => () => 0 })
-  private onAnswer!: (v: AnswerValue) => void;
 
   $refs!: {
     inputContainer: HTMLDivElement;
@@ -69,7 +66,12 @@ export default class InputSwitch extends Vue {
   }
 
   @Emit()
-  private onHeightChanged (height: number) {
+  private onAnswer (v: AnswerValue): AnswerValue {
+    return v
+  }
+
+  @Emit()
+  private onHeightChanged (height: number): number {
     return height
   }
 }

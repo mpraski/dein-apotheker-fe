@@ -1,7 +1,7 @@
 <template>
   <div
     class="message-body"
-    v-bind:class="getAlignment"
+    :class="getAlignment"
     :style="bodyStyle"
     @mouseover="hover = true"
     @mouseleave="hover = false"
@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from "vue-property-decorator";
-import CloseIcon from "vue-material-design-icons/Close.vue";
-import { Alignment } from "@/store/message/types";
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
+import { Alignment } from '@/store/message/types'
 
 @Component({
   components: {
@@ -26,40 +26,40 @@ export default class Bubble extends Vue {
 
   private hover!: boolean;
 
-  constructor() {
-    super();
-    this.hover = false;
+  constructor () {
+    super()
+    this.hover = false
   }
 
   @Emit()
-  private onDelete() {
-    return 0;
+  private onDelete () {
+    return 0
   }
 
-  private get getAlignment() {
+  private get getAlignment () {
     return {
       [this.alignment.toLowerCase()]: true
-    };
+    }
   }
 
-  private get myResponse(): boolean {
-    return this.alignment === "RIGHT";
+  private get myResponse (): boolean {
+    return this.alignment === 'RIGHT'
   }
 
-  private get bodyStyle(): object {
+  private get bodyStyle (): object {
     if (this.myResponse) {
       return {
-        paddingRight: "0.5rem"
-      };
+        paddingRight: '0.5rem'
+      }
     }
 
-    return {};
+    return {}
   }
 
-  private get iconClass(): object {
+  private get iconClass (): object {
     return {
       hidden: !this.hover
-    };
+    }
   }
 }
 </script>

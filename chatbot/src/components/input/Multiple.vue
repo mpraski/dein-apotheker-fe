@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
 import ItemSelectible from '@/components/input/item/ItemSelectible.vue'
 import Action from '@/components/input/Action.vue'
@@ -36,9 +36,6 @@ import { Option } from '@/store/input/types'
 export default class Multiple extends Vue {
   @Prop({ default: () => [] })
   private options!: ReadonlyArray<Option>;
-
-  @Prop({ default: () => () => 0 })
-  private onSubmit!: (a: Array<Option>) => void;
 
   private selected: { [id: string]: boolean };
 
@@ -69,6 +66,11 @@ export default class Multiple extends Vue {
     ) as Array<Option>
 
     this.onSubmit(items)
+  }
+
+  @Emit()
+  private onSubmit (a: Array<Option>): Array<Option> {
+    return a
   }
 }
 </script>
