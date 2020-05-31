@@ -15,7 +15,7 @@ export default class Logo extends Vue {}
 @import "@/assets/app.scss";
 
 .logo-body {
-  @extend .horizontal-list;
+  @include horizontal-list;
   align-items: center;
 
   .logo {

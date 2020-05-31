@@ -68,7 +68,7 @@ export default class Bubble extends Vue {
 @import "@/assets/app.scss";
 
 .message-body {
-  @extend .horizontal-list;
+  @include horizontal-list(flex-end, nowrap);
   @include bubble(
     $bubbleAccentColor,
     $bubbleAccentColor,
@@ -82,7 +82,6 @@ export default class Bubble extends Vue {
     $bubbleBackgroundColor
   );
 
-  flex-wrap: nowrap;
   min-width: $bubbleWidth;
   margin-bottom: $marginMedium;
 

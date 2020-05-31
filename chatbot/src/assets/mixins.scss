@@ -33,11 +33,11 @@
     }
 }
 
-.horizontal-list {
+@mixin horizontal-list($justify: flex-end, $wrap: wrap) {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    justify-content: $justify;
+    flex-wrap: $wrap;
 }
 
 .vertical-list {

@@ -79,8 +79,7 @@ export default class Multiple extends Vue {
 @import "@/assets/app.scss";
 
 .multiple-list {
-  @extend .horizontal-list;
-  justify-content: center;
+  @include horizontal-list(center);
 }
 
 .proceed {

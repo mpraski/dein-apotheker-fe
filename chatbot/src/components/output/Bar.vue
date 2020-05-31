@@ -20,11 +20,9 @@ export default class Bar extends Vue {}
 @import "@/assets/app.scss";
 
 .bar-body {
-  @extend .horizontal-list;
+  @include horizontal-list(space-between);
 
   align-items: center;
-  justify-content: space-between;
-
   padding: $marginSmall $marginMedium;
   border-bottom: $borderWidth $borderStyle $buttonBorderColor;
 }

@@ -51,11 +51,9 @@ export default class Action extends Vue {
   @include bubble;
   @include actionable;
   @include centered;
-  @extend .horizontal-list;
+  @include horizontal-list(center);
 
-  justify-content: center;
   align-items: center;
-
   margin-bottom: $marginSmall;
 
   .icon {

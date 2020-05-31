@@ -78,9 +78,8 @@ export default class Product extends Vue {
   }
 
   .header {
-    @extend .horizontal-list;
+    @include horizontal-list(space-between);
 
-    justify-content: space-between;
     padding: $paddingButtonSmall;
     border-bottom: $borderWidth $borderStyle $buttonBorderColor;
 
@@ -89,7 +88,7 @@ export default class Product extends Vue {
     }
 
     .info-body {
-      @extend .horizontal-list;
+      @include horizontal-list;
 
       cursor: pointer;
       align-items: center;
@@ -107,8 +106,7 @@ export default class Product extends Vue {
 
   .buy {
     @include actionable;
-    @extend .horizontal-list;
-    justify-content: space-between;
+    @include horizontal-list(space-between);
 
     color: $focusColor;
     font-size: $textSize;

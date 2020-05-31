@@ -48,6 +48,6 @@ export default class Single extends Vue {
 @import "@/assets/app.scss";
 
 .single-list {
-  @extend .horizontal-list;
+  @include horizontal-list;
 }
 </style>
