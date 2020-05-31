@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from "vue-property-decorator";
 
-import CartIcon from 'vue-material-design-icons/Cart.vue'
-import InfoIcon from 'vue-material-design-icons/InformationOutline.vue'
+import CartIcon from "vue-material-design-icons/Cart.vue";
+import InfoIcon from "vue-material-design-icons/InformationOutline.vue";
 
 @Component({
   components: {
@@ -29,29 +29,29 @@ import InfoIcon from 'vue-material-design-icons/InformationOutline.vue'
   }
 })
 export default class Product extends Vue {
-  @Prop({ default: '' }) private name!: string;
+  @Prop({ default: "" }) private name!: string;
 
-  @Prop({ default: '' })
+  @Prop({ default: "" })
   private image!: string;
 
   @Prop({ default: 14 })
   private height!: number;
 
   @Emit()
-  private onBuy () {
-    return 0
+  private onBuy() {
+    return 0;
   }
 
   @Emit()
-  private onInfo () {
-    return 0
+  private onInfo() {
+    return 0;
   }
 
-  private get styleImage (): object {
+  private get styleImage(): object {
     return {
       height: `${this.height}rem`,
       backgroundImage: `url("${this.image}")`
-    }
+    };
   }
 }
 </script>
@@ -81,7 +81,6 @@ export default class Product extends Vue {
     @include horizontal-list(space-between);
 
     padding: $paddingButtonSmall;
-    border-bottom: $borderWidth $borderStyle $buttonBorderColor;
 
     .name {
       font-weight: bold;
@@ -107,12 +106,14 @@ export default class Product extends Vue {
   .buy {
     @include actionable;
     @include horizontal-list(space-between);
+    @include actionable(darken($focusColor, 10%));
 
-    color: $focusColor;
+    border: 1px solid darken($focusColor, 20%);
+    border-radius: $borderRadius;
+    background-color: $focusColor;
     font-size: $textSize;
-    padding: $paddingButtonBuySmall;
-    border-bottom-left-radius: $borderRadiusInner;
-    border-bottom-right-radius: $borderRadiusInner;
+    padding: $paddingButtonSmall;
+    margin: $marginSmall;
 
     @include respond-to(small) {
       font-size: $textSizeLarge;

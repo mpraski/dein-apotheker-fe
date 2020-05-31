@@ -1,6 +1,6 @@
 // COLOR
 $accentColor: #ffd428;
-$focusColor: #ffb028;
+$focusColor: #ffc228;
 // Background
 $backgroundColor: #fff;
 $secondaryBackgroundColor: #fafafa;
@@ -22,7 +22,7 @@ $textColorSecondary: darken($buttonBorderColor, 15%);
 $borderWidth: 2px;
 $borderStyle: solid;
 $borderRadius: 0.75rem;
-$borderRadiusInner: 0.65rem;
+$borderRadiusInner: borderRadius - 0.1rem;
 $borderRound: 2rem;
 
 // MARGIN
@@ -35,7 +35,7 @@ $marginMinute: 0.15rem;
 // PADDING
 $paddingButton: 0.5rem 1.25rem;
 $paddingButtonSmall: 0.35rem 0.75rem;
-$paddingButtonBuy: 0.75rem;
+$paddingButtonBuy: 0.5rem 0.75rem;
 $paddingButtonBuySmall: 0.5rem 0.75rem;
 
 // TEXT
