@@ -6,15 +6,20 @@ build:
   stage: build
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY:5000
-    - docker build --tag $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_IMAGE:latest
+    - docker build --tag $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:$CI_COMMIT_SHA --tag $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:latest ./$CI_REGISTRY_CHATBOT_FILE
+    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:latest
+    - docker build --tag $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:$CI_COMMIT_SHA --tag $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:latest ./$CI_REGISTRY_STATIC_FILE
+    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:latest
 
 deploy:
   stage: deploy
   script:
     - ssh-add $DO_KEY
     - ssh -i $DO_KEY $DO_USER@$DO_HOST "
-      cd /var/www && sed docker-compose.yml -i -e 's/\($CI_REGISTRY_IMAGE:\)\(.*\)/\1$CI_COMMIT_SHA/' 
+      cd /var/www 
+      && sed docker-compose.yml -i -e 's/\($CI_REGISTRY_CHATBOT:\)\(.*\)/\1$CI_COMMIT_SHA/' 
+      && sed docker-compose.yml -i -e 's/\($CI_REGISTRY_STATIC:\)\(.*\)/\1$CI_COMMIT_SHA/' 
       && docker-compose down -v --rmi all 
       && docker-compose up -d"
