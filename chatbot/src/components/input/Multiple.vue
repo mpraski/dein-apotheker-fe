@@ -11,8 +11,8 @@
     </div>
     <Action
       class="proceed"
-      content="Proceed"
       icon="arrow"
+      :content="$t('general.proceed')"
       :enabled="hasItems"
       :on-select="onProceed"
     />

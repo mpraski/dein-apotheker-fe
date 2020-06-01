@@ -7,8 +7,8 @@
       @on-submit="onMultipleSelect"
     />
     <Prompt v-else-if="input.type === 'prompt'" @on-submit="onPromptSubmit" />
-    <Placeholder v-else-if="input.type === 'begin'" text="Please hang on" padded="true" />
-    <Placeholder v-else-if="input.type === 'end'" text="Thank you for the chat" />
+    <Placeholder v-else-if="input.type === 'begin'" :text="$t('message.hangOn')" padded="true" />
+    <Placeholder v-else-if="input.type === 'end'" :text="$t('message.thankYou')" />
     <Resizer @on-resize="queueHeightChange" />
   </div>
 </template>

@@ -10,7 +10,7 @@
   <Popup
     v-else-if="popups.cart"
     :visible="popups.cart"
-    title="Your items"
+    :title="$t('cart.items')"
     @on-close="hidePopup('cart')"
   >
     <Cart />

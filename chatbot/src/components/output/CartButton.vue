@@ -3,7 +3,7 @@
     <div class="badge" v-if="badgeVisible">{{items}}</div>
     <CartIcon class="icon" />
     <FadeIn>
-      <span v-if="showPopover" class="popover">Item added!</span>
+      <span v-if="showPopover" class="popover">{{ $t("cart.added") }}</span>
     </FadeIn>
   </div>
 </template>

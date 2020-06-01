@@ -29,11 +29,11 @@ export default class ProductInfo extends Vue {
   private get items (): ReadonlyArray<Item> {
     return [
       {
-        title: 'Directions',
+        title: this.$t('product.directions') as string,
         content: this.directions
       },
       {
-        title: 'Explanation',
+        title: this.$t('product.explanation') as string,
         content: this.explanation
       }
     ]

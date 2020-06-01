@@ -2,12 +2,12 @@
   <div class="prompt-body">
     <input
       v-model="content"
-      v-on:keyup.enter="onSend"
+      @keyup.enter="onSend"
+      :placeholder="$t('message.yourAnswer')"
       type="text"
-      placeholder="Your answer"
       class="input"
     />
-    <div v-on:click="onSend" :class="{ disabled: isDisabled }" class="send">
+    <div @click="onSend" :class="{ disabled: isDisabled }" class="send">
       <SendIcon class="icon" />
     </div>
   </div>

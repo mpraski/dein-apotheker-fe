@@ -24,12 +24,7 @@ import { Alignment } from '@/store/message/types'
 export default class Bubble extends Vue {
   @Prop() private alignment!: Alignment;
 
-  private hover!: boolean;
-
-  constructor () {
-    super()
-    this.hover = false
-  }
+  private hover = false;
 
   @Emit()
   private onDelete () {
@@ -68,7 +63,7 @@ export default class Bubble extends Vue {
 @import "@/assets/app.scss";
 
 .message-body {
-  @include horizontal-list(flex-end, nowrap);
+  @include horizontal-list(flex-start, nowrap);
   @include bubble(
     $bubbleAccentColor,
     $bubbleAccentColor,

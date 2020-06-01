@@ -4,23 +4,23 @@
     <div class="header">
       <span class="name">{{name}}</span>
       <div class="info-body" @click="onInfo">
-        <span class="info">More</span>
+        <span class="info">{{ $t("product.more") }}</span>
         <InfoIcon class="icon" />
       </div>
     </div>
     <div class="buy" @click="onBuy">
       <CartIcon class="icon" />
-      <span>Add to Basket</span>
+      <span>{{ $t("cart.add") }}</span>
       <CartIcon class="invisible" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from "vue-property-decorator";
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 
-import CartIcon from "vue-material-design-icons/Cart.vue";
-import InfoIcon from "vue-material-design-icons/InformationOutline.vue";
+import CartIcon from 'vue-material-design-icons/Cart.vue'
+import InfoIcon from 'vue-material-design-icons/InformationOutline.vue'
 
 @Component({
   components: {
@@ -29,29 +29,29 @@ import InfoIcon from "vue-material-design-icons/InformationOutline.vue";
   }
 })
 export default class Product extends Vue {
-  @Prop({ default: "" }) private name!: string;
+  @Prop({ default: '' }) private name!: string;
 
-  @Prop({ default: "" })
+  @Prop({ default: '' })
   private image!: string;
 
   @Prop({ default: 14 })
   private height!: number;
 
   @Emit()
-  private onBuy() {
-    return 0;
+  private onBuy () {
+    return 0
   }
 
   @Emit()
-  private onInfo() {
-    return 0;
+  private onInfo () {
+    return 0
   }
 
-  private get styleImage(): object {
+  private get styleImage (): object {
     return {
       height: `${this.height}rem`,
       backgroundImage: `url("${this.image}")`
-    };
+    }
   }
 }
 </script>
@@ -116,7 +116,6 @@ export default class Product extends Vue {
     margin: $marginSmall;
 
     @include respond-to(small) {
-      font-size: $textSizeLarge;
       padding: $paddingButtonBuy;
     }
 

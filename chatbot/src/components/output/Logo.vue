@@ -1,6 +1,7 @@
 <template>
   <div class="logo-body">
-    <img class="logo" src="@/assets/logo.png" />Dein Apotheker
+    <img class="logo" src="@/assets/logo.png" />
+    {{ $t("general.title") }}
   </div>
 </template>
 
