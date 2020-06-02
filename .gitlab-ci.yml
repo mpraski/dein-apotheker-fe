@@ -19,7 +19,7 @@ deploy:
     - ssh-add $DO_KEY
     - ssh -i $DO_KEY $DO_USER@$DO_HOST "
       cd /var/www 
+      && docker-compose down 
       && sed docker-compose.yml -i -e 's/\($CI_REGISTRY_CHATBOT:\)\(.*\)/\1$CI_COMMIT_SHA/' 
       && sed docker-compose.yml -i -e 's/\($CI_REGISTRY_STATIC:\)\(.*\)/\1$CI_COMMIT_SHA/' 
-      && docker-compose down --rmi all 
       && docker-compose up -d"
