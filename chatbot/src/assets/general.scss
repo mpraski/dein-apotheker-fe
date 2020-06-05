@@ -87,7 +87,15 @@ ul {
     margin: 0;
     padding: 0 1rem;
 
-    li:not(:last-child) {
-        margin-bottom: $marginSmall;
+    li {
+        line-height: $lineHeightSmall;
+
+        @include respond-to(small) {
+            line-height: $lineHeight;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: $marginSmall;
+        }
     }
 }

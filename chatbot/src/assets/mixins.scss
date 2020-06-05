@@ -9,11 +9,9 @@
     border-width: $borderWidth;
 
     padding: $paddingButtonSmall;
-    max-width: 100%;
 
     @include respond-to(small) {
         padding: $paddingButton;
-        max-width: 70%;
     }
 
     color: $buttonTextColor;
@@ -40,9 +38,11 @@
     flex-wrap: $wrap;
 }
 
-.vertical-list {
+@mixin vertical-list($align: inherit, $wrap: nowrap) {
     display: flex;
     flex-direction: column;
+    align-items: $align;
+    flex-wrap: $wrap;
 }
 
 @mixin actionable($color: $buttonBorderColor, $disabled: $buttonBorderColor) {
@@ -135,30 +135,32 @@
         border-right: 10px solid transparent;
         border-top: 10px solid $background;
         border-bottom: 10px solid transparent;
-        bottom: -18px;
+        bottom: -21px;
     }
 
     &.right {
         align-self: flex-end;
+
         &:before {
-            right: 1.5em;
+            right: 1em;
             border-top-color: $normalBorder;
         }
 
         &:after {
-            right: 1.5em;
+            right: 1em;
             border-top-color: $normalBackground;
         }
     }
 
     &.left {
         align-self: flex-start;
+        
         &:before {
-            left: 1.5em;
+            left: 1em;
         }
 
         &:after {
-            left: 1.5em;
+            left: 1em;
         }
     }
 }

@@ -24,7 +24,7 @@ export default class Item extends Vue {
   @include bubble;
   @include actionable;
 
-  max-width: 100%;
+  padding: $paddingSymptom !important;
 
   margin-left: $marginSmall;
   margin-bottom: $marginSmall;

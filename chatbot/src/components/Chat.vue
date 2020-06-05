@@ -141,14 +141,13 @@ export default class Chat extends Vue {
 
 .chat-container {
   @include bubble;
-  @extend .vertical-list;
+  @include vertical-list;
 
   padding: 0 !important;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
   border: none;
-
   @include respond-to(medium) {
     height: 75vh;
   }
@@ -175,7 +174,7 @@ export default class Chat extends Vue {
 }
 
 .output-list {
-  @extend .vertical-list;
+  @include vertical-list;
 
   margin-left: auto;
   margin-right: auto;
@@ -184,7 +183,7 @@ export default class Chat extends Vue {
 }
 
 .input-container {
-  @extend .vertical-list;
+  @include vertical-list;
 
   background-color: $secondaryBackgroundColor;
   border-radius: 0;

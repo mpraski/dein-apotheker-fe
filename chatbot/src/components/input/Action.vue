@@ -53,6 +53,8 @@ export default class Action extends Vue {
   @include centered;
   @include horizontal-list(center);
 
+  padding: $paddingSymptom !important;
+
   align-items: center;
   margin-bottom: $marginSmall;
 

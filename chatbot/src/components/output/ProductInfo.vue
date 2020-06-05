@@ -45,10 +45,10 @@ export default class ProductInfo extends Vue {
 @import "@/assets/app.scss";
 
 .product-info-body {
-  @extend .vertical-list;
+  @include vertical-list;
 
   .item {
-    @extend .vertical-list;
+    @include vertical-list;
 
     &:not(:last-child) {
       margin-bottom: $marginMedium;

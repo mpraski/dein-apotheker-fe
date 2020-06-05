@@ -2,12 +2,13 @@
   <div
     class="message-body"
     :class="getAlignment"
-    :style="bodyStyle"
     @mouseover="hover = true"
     @mouseleave="hover = false"
   >
     <slot></slot>
-    <CloseIcon v-if="myResponse" :class="iconClass" @click="onDelete" class="icon" />
+    <div v-if="myResponse" class="close">
+      <CloseIcon :class="iconClass" @click="onDelete" class="icon" />
+    </div>
   </div>
 </template>
 
@@ -41,16 +42,6 @@ export default class Bubble extends Vue {
     return this.alignment === 'RIGHT'
   }
 
-  private get bodyStyle (): object {
-    if (this.myResponse) {
-      return {
-        paddingRight: '0.5rem'
-      }
-    }
-
-    return {}
-  }
-
   private get iconClass (): object {
     return {
       hidden: !this.hover
@@ -63,7 +54,7 @@ export default class Bubble extends Vue {
 @import "@/assets/app.scss";
 
 .message-body {
-  @include horizontal-list(flex-start, nowrap);
+  @include horizontal-list(flex-start);
   @include bubble(
     $bubbleAccentColor,
     $bubbleAccentColor,
@@ -77,24 +68,41 @@ export default class Bubble extends Vue {
     $bubbleBackgroundColor
   );
 
-  min-width: $bubbleWidth;
+  @include respond-to(small) {
+    padding: $paddingButton;
+    max-width: $bubbleMaxWidth;
+  }
+
+  position: relative;
   margin-bottom: $marginMedium;
+  max-width: $bubbleMaxWidthSmall;
+  min-width: $bubbleMinWidth;
 
   &:first-child {
     margin-top: $marginMedium;
   }
 
-  .icon {
-    cursor: pointer;
-    margin-left: auto;
-    transition: all $fastAnimationDuration;
+  .close {
+    @include horizontal-list(center);
 
-    &.hidden {
-      visibility: hidden;
-    }
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    left: -2.5rem;
+    height: 100%;
 
-    &:hover {
-      transform: scale(1.5);
+    .icon {
+      cursor: pointer;
+
+      &.hidden {
+        visibility: hidden;
+      }
+
+      &:hover {
+        transform: scale(1.5);
+      }
     }
   }
 }

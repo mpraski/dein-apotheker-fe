@@ -60,7 +60,8 @@ export default class Popup extends Vue {
     }
 
     .holder {
-      @extend .vertical-list;
+      @include vertical-list;
+
       margin: 0 auto;
       padding: $marginMedium;
       background-color: $backgroundColor;

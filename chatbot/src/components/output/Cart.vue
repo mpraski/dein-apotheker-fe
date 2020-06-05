@@ -15,8 +15,7 @@ import { CartState } from '@/store/cart/types'
 
 @Component({})
 export default class Cart extends Vue {
-  @State(cartNamespace)
-  private items!: CartState;
+  @State(cartNamespace) private items!: CartState;
 }
 </script>
 
@@ -24,6 +23,6 @@ export default class Cart extends Vue {
 @import "@/assets/app.scss";
 
 .cart-body {
-  @extend .vertical-list;
+  @include vertical-list;
 }
 </style>

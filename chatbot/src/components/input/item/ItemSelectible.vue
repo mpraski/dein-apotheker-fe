@@ -45,10 +45,9 @@ export default class ItemSelectible extends Vue {
   @include bubble;
   @include actionable;
   @include selectable;
-  @include horizontal-list;
+  @include horizontal-list(center);
 
-  margin-left: $marginSmall;
-  margin-bottom: $marginSmall;
+  padding: $paddingSymptom !important;
 
   .icon {
     margin-right: $marginSmall;

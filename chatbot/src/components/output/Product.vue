@@ -60,11 +60,16 @@ export default class Product extends Vue {
 @import "@/assets/app.scss";
 
 .product-body {
-  @extend .vertical-list;
+  @include vertical-list;
   @include bubble($buttonBorderColor, $backgroundColor);
 
   padding: 0 !important;
   margin-bottom: $marginMedium;
+
+  @include respond-to(small) {
+    padding: $paddingButton;
+    max-width: $bubbleMaxWidth;
+  }
 
   .image {
     flex-grow: 1;
@@ -80,7 +85,7 @@ export default class Product extends Vue {
   .header {
     @include horizontal-list(space-between);
 
-    padding: $paddingButtonSmall;
+    padding: $paddingButton;
 
     .name {
       font-weight: bold;
@@ -108,16 +113,15 @@ export default class Product extends Vue {
     @include horizontal-list(space-between);
     @include actionable(darken($focusColor, 10%));
 
-    border: 1px solid darken($focusColor, 20%);
-    border-radius: $borderRadius;
+    border-bottom-left-radius: $borderRadiusInner;
+    border-bottom-right-radius: $borderRadiusInner;
     background-color: $focusColor;
     font-size: $textSize;
-    padding: $paddingButtonSmall;
-    margin: $marginSmall;
+    padding: $paddingButtonBuy;
 
-    @include respond-to(small) {
-      padding: $paddingButtonBuy;
-    }
+    margin-bottom: -$borderWidth;
+    margin-left: -$borderWidth;
+    margin-right: -$borderWidth;
 
     span {
       align-self: center;

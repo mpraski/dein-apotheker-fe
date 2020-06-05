@@ -79,7 +79,20 @@ export default class Multiple extends Vue {
 @import "@/assets/app.scss";
 
 .multiple-list {
-  @include horizontal-list(center);
+  @include horizontal-list;
+
+  & > div {
+    flex: 1 1 33%;
+    margin-bottom: $marginSmall;
+
+    &:nth-child(even) {
+      margin-left: $marginSmall / 2;
+    }
+
+    &:nth-child(odd) {
+      margin-right: $marginSmall / 2;
+    }
+  }
 }
 
 .proceed {
