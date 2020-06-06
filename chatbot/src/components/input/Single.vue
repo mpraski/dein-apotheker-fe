@@ -49,5 +49,10 @@ export default class Single extends Vue {
 
 .single-list {
   @include horizontal-list;
+
+  & > div {
+    margin-left: $marginSmall;
+    margin-bottom: $marginSmall;
+  }
 }
 </style>

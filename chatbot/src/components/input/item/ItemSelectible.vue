@@ -46,8 +46,7 @@ export default class ItemSelectible extends Vue {
   @include actionable;
   @include selectable;
   @include horizontal-list(center);
-
-  padding: $paddingSymptom !important;
+  @include padded($paddingSymptomSmall, $paddingSymptom);
 
   .icon {
     margin-right: $marginSmall;

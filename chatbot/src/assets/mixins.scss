@@ -1,3 +1,5 @@
+@import "responsive.scss";
+
 @mixin bubble(
     $normalBorder: $buttonBorderColor,
     $normalBackground: $buttonBackgroundColor,
@@ -8,15 +10,13 @@
     border-style: $borderStyle;
     border-width: $borderWidth;
 
-    padding: $paddingButtonSmall;
-
-    @include respond-to(small) {
-        padding: $paddingButton;
-    }
-
     color: $buttonTextColor;
     background-color: $background;
     border-color: $border;
+
+    @include respond-to(small) {
+        max-width: $bubbleMaxWidth;
+    }    
 
     &.right {
         background-color: $normalBackground;
@@ -28,6 +28,14 @@
 
     .icon > .material-design-icon__svg {
         bottom: 0;
+    }
+}
+
+@mixin padded($small: $paddingButtonSmall, $large: $paddingButton) {
+    padding: $small;
+
+    @include respond-to(small) {
+        padding: $large;
     }
 }
 
@@ -165,11 +173,11 @@
     }
 }
 
-@mixin big-icon {
+@mixin big-icon($color: $textColorInfo) {
     cursor: pointer;
     height: 1.5rem;
     width: 1.5rem;
-    color: $textColorInfo;
+    color: $color;
 
     & > .material-design-icon__svg {
         height: 1.5rem;

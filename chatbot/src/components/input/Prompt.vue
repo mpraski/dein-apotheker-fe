@@ -48,11 +48,9 @@ export default class Prompt extends Vue {
 
 .prompt-body {
   @include bubble;
+  @include padded;
   @include centered;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  @include horizontal-list(center, nowrap);
 
   margin-bottom: $marginSmall;
 

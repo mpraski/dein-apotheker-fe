@@ -54,6 +54,7 @@ export default class Bubble extends Vue {
 @import "@/assets/app.scss";
 
 .message-body {
+  @include padded;
   @include horizontal-list(flex-start);
   @include bubble(
     $bubbleAccentColor,
@@ -67,11 +68,6 @@ export default class Bubble extends Vue {
     $bubbleBackgroundColor,
     $bubbleBackgroundColor
   );
-
-  @include respond-to(small) {
-    padding: $paddingButton;
-    max-width: $bubbleMaxWidth;
-  }
 
   position: relative;
   margin-bottom: $marginMedium;
@@ -94,7 +90,7 @@ export default class Bubble extends Vue {
     height: 100%;
 
     .icon {
-      cursor: pointer;
+      @include big-icon($textColor);
 
       &.hidden {
         visibility: hidden;

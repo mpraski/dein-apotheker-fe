@@ -65,6 +65,7 @@ export default class Photo extends Vue {
 @import "@/assets/app.scss";
 
 .photo-body {
+  @include vertical-list;
   @include bubble(
     lighten($accentColor, 10%),
     lighten($accentColor, 10%),
@@ -78,17 +79,7 @@ export default class Photo extends Vue {
     $bubbleBackgroundColor
   );
 
-  display: flex;
-  flex-direction: column;
-
-  max-width: 100%;
   margin-bottom: $marginMedium;
-  padding: 0 !important;
-
-  @include respond-to(small) {
-    margin-bottom: $marginRegular;
-    max-width: 70%;
-  }
 
   &.full {
     width: 100%;

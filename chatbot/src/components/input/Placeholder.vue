@@ -1,5 +1,5 @@
 <template>
-  <div class="placeholder-body" :class="placeholderClass">
+  <div class="placeholder-body">
     {{text}}
     <EmoticonOutline class="icon" />
   </div>
@@ -18,15 +18,6 @@ import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
 export default class Placeholder extends Vue {
   @Prop({ default: '' })
   private text!: string;
-
-  @Prop({ default: false })
-  private padded!: boolean;
-
-  private get placeholderClass (): object {
-    return {
-      padded: this.padded
-    }
-  }
 }
 </script>
 
@@ -34,25 +25,17 @@ export default class Placeholder extends Vue {
 @import "@/assets/app.scss";
 
 .placeholder-body {
-  @include bubble;
+  @include padded;
   @include centered;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  @include horizontal-list(center);
+  @include bubble(transparent, transparent, transparent, transparent);
 
   border: 0;
   color: $textColorSecondary;
-  background-color: transparent;
-
   margin-bottom: $marginSmall;
 
   .icon {
     margin-left: $marginSmall;
-  }
-
-  &.padded {
-    padding: 2.5rem 0;
   }
 }
 </style>

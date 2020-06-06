@@ -17,12 +17,12 @@ export default class Logo extends Vue {}
 
 .logo-body {
   @include horizontal-list;
+
   align-items: center;
 
   .logo {
     width: $buttonSize;
     height: $buttonSize;
-
     margin-right: $marginMedium;
   }
 }

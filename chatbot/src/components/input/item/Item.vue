@@ -23,10 +23,8 @@ export default class Item extends Vue {
 .item-body {
   @include bubble;
   @include actionable;
+  @include padded($paddingSymptomSmall, $paddingSymptom);
 
-  padding: $paddingSymptom !important;
-
-  margin-left: $marginSmall;
-  margin-bottom: $marginSmall;
+  max-width: 100% !important;
 }
 </style>

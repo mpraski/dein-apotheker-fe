@@ -2,12 +2,12 @@ import { Module } from 'vuex'
 import { getters } from './getters'
 import { actions } from './actions'
 import { mutations } from './mutations'
-import { InputState, InputBegin } from './types'
+import { InputState } from './types'
 import { RootState } from '@/store/types'
 
 export const state: InputState = {
-  show: true,
-  input: { type: 'begin' } as InputBegin,
+  show: false,
+  input: undefined,
   language: undefined,
   languages: []
 }

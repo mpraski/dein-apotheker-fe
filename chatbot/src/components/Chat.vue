@@ -2,7 +2,7 @@
   <div class="chat-container">
     <TopBar />
     <SimpleBar data-simplebar-auto-hide="true" class="output-container" ref="outputContainer">
-      <FadeIn group="true" delay="true" class="output-list">
+      <FadeIn group="true" class="output-list">
         <OutputSwitch
           v-for="([m, a], index) in messages"
           :key="index"
@@ -111,10 +111,6 @@ export default class Chat extends Vue {
 
   private onInputHeight (height: number) {
     this.inputHeight = `${height}px`
-
-    // Beetiful sheetcoed
-    const fun = this.scrollToEnd.bind(this, 'smooth')
-    setTimeout(fun, 500)
   }
 
   private onAnswer (value: AnswerValue) {
@@ -143,11 +139,11 @@ export default class Chat extends Vue {
   @include bubble;
   @include vertical-list;
 
-  padding: 0 !important;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
   border: none;
+
   @include respond-to(medium) {
     height: 75vh;
   }
@@ -191,7 +187,7 @@ export default class Chat extends Vue {
   padding: $marginMedium $marginMedium ($marginMedium - $marginSmall)
     $marginMedium;
 
-  transition: min-height $animationDuration ease-in-out;
+  transition: min-height $animationDuration ease;
 
   @include respond-to(small) {
     border-bottom-left-radius: $borderRadius;

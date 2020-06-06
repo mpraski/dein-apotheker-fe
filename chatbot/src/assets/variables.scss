@@ -12,7 +12,7 @@ $buttonTextColor: #2c3e50;
 $buttonBackgroundColor: white;
 $buttonBorderColor: #eeeeee;
 // Test
-$textColor: #1e2a37;
+$textColor: #2c3e50;
 $textColorInfo: lighten($textColor, 35%);
 $textColorSecondary: darken($buttonBorderColor, 15%);
 
@@ -33,12 +33,12 @@ $marginSmallest: 0.25rem;
 $marginMinute: 0.15rem;
 
 // PADDING
-$paddingSymptom: 0.75rem 1.25rem;
+$paddingSymptom: 0.75rem 1rem;
 $paddingSymptomSmall: 0.5rem 0.75rem;
-$paddingButton: 0.5rem 0.75rem;
-$paddingButtonSmall: 0.35rem 0.75rem;
+$paddingButton: 0.75rem 1rem;
+$paddingButtonSmall: 0.5rem 0.75rem;
 $paddingButtonBuy: 0.75rem calc(1rem + 2 * 2px);
-$paddingButtonBuySmall: 0.75rem 0.75rem;
+$paddingButtonBuySmall: 0.5rem 0.75rem;
 
 // TEXT
 $textSize: 1.125rem;
@@ -56,6 +56,6 @@ $chatWidth: 45rem;
 $buttonSize: 3rem;
 
 // ANIMATION
-$animationDuration: 0.5s;
+$animationDuration: 0.4s;
 $animationDelay: 0s;
 $fastAnimationDuration: 0.1s;

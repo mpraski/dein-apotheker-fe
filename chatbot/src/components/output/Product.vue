@@ -4,7 +4,6 @@
     <div class="header">
       <span class="name">{{name}}</span>
       <div class="info-body" @click="onInfo">
-        <span class="info">{{ $t("product.more") }}</span>
         <InfoIcon class="icon" />
       </div>
     </div>
@@ -63,13 +62,7 @@ export default class Product extends Vue {
   @include vertical-list;
   @include bubble($buttonBorderColor, $backgroundColor);
 
-  padding: 0 !important;
   margin-bottom: $marginMedium;
-
-  @include respond-to(small) {
-    padding: $paddingButton;
-    max-width: $bubbleMaxWidth;
-  }
 
   .image {
     flex-grow: 1;
