@@ -28,17 +28,15 @@ export class Driver {
   }
 
   private namespaced (ns: string, path: string): string {
-    return `${ns}/${path}`
+    return ns === '' ? path : `${ns}/${path}`
   }
 
   private commit (ns: string, type: string, payload?: any, options?: CommitOptions) {
-    const dest = ns === '' ? type : this.namespaced(ns, type)
-    this.queue.commit(dest, payload, options)
+    this.queue.commit(this.namespaced(ns, type), payload, options)
   }
 
   private commitDirect (ns: string, type: string, payload?: any, options?: CommitOptions) {
-    const dest = ns === '' ? type : this.namespaced(ns, type)
-    this.store.commit(dest, payload, options)
+    this.store.commit(this.namespaced(ns, type), payload, options)
   }
 
   private subscribe () {
@@ -71,29 +69,18 @@ export class Driver {
   private fetchToken () {
     this.gateway.token()
       .then(token => this.commitDirect('', RootMutations.provideToken, token))
-      .catch(error => {
-        this.recordError(error)
-      })
+      .catch(this.recordError.bind(this))
   }
 
   private initiateChat (token: Token) {
     this.gateway.setToken(token)
-    this.gateway.start({
-      scenarios: [],
-      question: '',
-      data: {}
-    })
-      .then(response => {
-        const { context, data } = response
+    this.gateway.start(this.emptyCtx)
+      .then(({ context, data }) => {
         this.recordContext(context)
         return data
       })
-      .then(question => {
-        this.recordQuestionDirect(question)
-      })
-      .catch(error => {
-        this.recordError(error)
-      })
+      .then(this.recordQuestionDirect.bind(this))
+      .catch(this.recordError.bind(this))
   }
 
   private sendAnswer (ctx: Context, answer: Answer) {
@@ -107,17 +94,12 @@ export class Driver {
     ])
 
     this.gateway.answer(ctx, answer)
-      .then(response => {
-        const { context, data } = response
+      .then(({ context, data }) => {
         this.recordContext(context)
         return data
       })
-      .then(question => {
-        this.recordQuestion(question)
-      })
-      .catch(error => {
-        this.recordError(error)
-      })
+      .then(this.recordQuestion.bind(this))
+      .catch(this.recordError.bind(this))
   }
 
   private rewind (count: number, input: Input) {
@@ -163,5 +145,13 @@ export class Driver {
 
   private get needsToken (): boolean {
     return !this.store.state.token
+  }
+
+  private get emptyCtx (): Context {
+    return {
+      scenarios: [],
+      question: '',
+      data: {}
+    }
   }
 }

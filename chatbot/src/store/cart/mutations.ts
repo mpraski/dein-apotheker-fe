@@ -25,7 +25,18 @@ export const mutations: MutationDefinition = {
     }
   },
   [Mutations.remove] (state, id: string) {
-    state = state.map(([p, c]) => [p, c - 1])
-    state = state.filter(([p, _]) => p.id !== id)
+    for (let i = state.length; i--;) {
+      const [p, c] = state[i]
+
+      if (p.id !== id) {
+        continue
+      }
+
+      if (c - 1 === 0) {
+        state.splice(i, 1)
+      } else {
+        Vue.set(state, i, [p, c - 1])
+      }
+    }
   }
 }

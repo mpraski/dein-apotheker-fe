@@ -3,9 +3,7 @@
     <div class="image" :style="styleImage" />
     <div class="header">
       <span class="name">{{name}}</span>
-      <div class="info-body" @click="onInfo">
-        <InfoIcon class="icon" />
-      </div>
+      <InfoIcon class="info-body" @click="onInfo" />
     </div>
     <div class="buy" @click="onBuy">
       <CartIcon class="icon" />
@@ -76,41 +74,28 @@ export default class Product extends Vue {
   }
 
   .header {
+    @include padded;
     @include horizontal-list(space-between);
-
-    padding: $paddingButton;
 
     .name {
       font-weight: bold;
     }
 
     .info-body {
-      @include horizontal-list;
-
-      cursor: pointer;
-      align-items: center;
-
-      .info {
-        color: $textColorInfo;
-      }
-
-      .icon {
-        @include big-icon;
-        margin-left: $marginMinute;
-      }
+      @include big-icon;
     }
   }
 
   .buy {
     @include actionable;
     @include horizontal-list(space-between);
+    @include padded($paddingButtonBuySmall, $paddingButtonBuy);
     @include actionable(darken($focusColor, 10%));
 
     border-bottom-left-radius: $borderRadiusInner;
     border-bottom-right-radius: $borderRadiusInner;
     background-color: $focusColor;
     font-size: $textSize;
-    padding: $paddingButtonBuy;
 
     margin-bottom: -$borderWidth;
     margin-left: -$borderWidth;

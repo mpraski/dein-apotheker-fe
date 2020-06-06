@@ -1,8 +1,8 @@
 import { join } from '@fireflysemantics/join'
 import { Token } from '@/store/types'
-import { Request, Response, Optional } from './types'
+import { Request, Response } from './types'
 
-export async function http<T> (
+export async function http<T>(
   url: string,
   additional?: RequestInit
 ): Promise<T> {
@@ -29,15 +29,12 @@ export async function http<T> (
 }
 
 export class Client {
-  public token: Optional<Token>
+  public token?: Token
 
-  constructor (
-    private baseURL: string
-  ) {
-    this.token = undefined
-  }
+  /* eslint-disable no-useless-constructor */
+  constructor(private baseURL: string) { }
 
-  public async do<T = any, R = any> (
+  public async do<T = any, R = any>(
     path: string,
     request: Request<R>
   ): Promise<T> {
@@ -58,7 +55,7 @@ export class Client {
     })
   }
 
-  private static withHeaders (init?: HeadersInit): Headers {
+  private static withHeaders(init?: HeadersInit): Headers {
     const headers = new Headers(init)
 
     headers.append('Accept', 'application/json')
