@@ -1,5 +1,8 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" class="logo" />
+  <div>
+    <img alt="Vue logo" src="./assets/logo.png" class="logo" />
+    <p>Hello wurld</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,7 +14,7 @@ export default class App extends Vue {}
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
