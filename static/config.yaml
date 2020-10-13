@@ -1,0 +1,6 @@
+baseURL: http://dein-apotheker.online/
+languageCode: en-GB
+title: Dein Apotheker
+theme: yourfolio
+disableKinds: [RSS, taxonomy, taxonomyTerm]
+googleAnalytics: UA-XXXXX-Y

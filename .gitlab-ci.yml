@@ -9,6 +9,9 @@ build:
     - docker build --tag $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:$CI_COMMIT_SHA --tag $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:latest -f $CI_REGISTRY_CHATBOT_FILE .
     - docker push $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:$CI_COMMIT_SHA
     - docker push $CI_REGISTRY:5000/$CI_REGISTRY_CHATBOT:latest
+    - docker build --tag $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:$CI_COMMIT_SHA --tag $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:latest -f $CI_REGISTRY_STATIC_FILE .
+    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY:5000/$CI_REGISTRY_STATIC:latest
 
 deploy:
   stage: deploy
@@ -18,4 +21,5 @@ deploy:
       cd /var/www 
       && docker-compose down 
       && sed docker-compose.yml -i -e 's/\($CI_REGISTRY_CHATBOT:\)\(.*\)/\1$CI_COMMIT_SHA/' 
+      && sed docker-compose.yml -i -e 's/\($CI_REGISTRY_STATIC:\)\(.*\)/\1$CI_COMMIT_SHA/' 
       && docker-compose up -d"
