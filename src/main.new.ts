@@ -15,6 +15,9 @@ import VueI18n from 'vue-i18n'
 import 'typeface-roboto/index.css'
 import 'vue-material-design-icons/styles.css'
 
+Vue.config.productionTip = false
+
+Vue.use(VueI18n)
 
 const vuexSession = new VuexPersistence<RootState>({
   storage: window.sessionStorage

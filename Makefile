@@ -12,7 +12,7 @@ install:
 	@echo "$(OK_COLOR)==> Installing packages for $(SERVICE_NAME)...$(NO_COLOR)"
 	@yarn install
 
-build:
+build: test
 	@echo "$(OK_COLOR)==> Building $(SERVICE_NAME)...$(NO_COLOR)"
 	@yarn build
 
