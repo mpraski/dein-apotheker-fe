@@ -10,12 +10,20 @@ all: clean build
 
 install:
 	@echo "$(OK_COLOR)==> Installing packages for $(SERVICE_NAME)...$(NO_COLOR)"
-	@yarn install
+	@npm install
 
 build: test
 	@echo "$(OK_COLOR)==> Building $(SERVICE_NAME)...$(NO_COLOR)"
-	@yarn build
+	@npm run build
 
 run:
 	@echo "$(OK_COLOR)==> Running $(SERVICE_NAME)...$(NO_COLOR)"
-	@yarn serve
+	@npm run serve
+
+test: lint
+	@echo "$(OK_COLOR)==> Running tests...$(NO_COLOR)"
+	@npm run test:unit
+
+lint:
+	@echo "$(OK_COLOR)==> Checking code style...$(NO_COLOR)"
+	@npm run lint
