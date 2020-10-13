@@ -869,11 +869,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@fireflysemantics/join@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@fireflysemantics/join/-/join-1.0.3.tgz#1d943a28be892ee6e0c58e370f63e242e2127813"
-  integrity sha512-KPMafYQkSYz8gm1veO47lhPIKcbCQJPOaMrLWrt4lF1LV9rHGoN8SEB0QR9tLS7ycwaM9wfjCjhoaKQhP3zifw==
-
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -11003,11 +10998,6 @@ vue-property-decorator@^8.4.2:
   integrity sha512-O6OUN2OMsYTGPvgFtXeBU3jPnX5ffQ9V4I1WfxFQ6dqz6cOUbR3Usou7kgFpfiXDvV7dJQSFcJ5yUPgOtPPm1Q==
   dependencies:
     vue-class-component "^7.1.0"
-
-vue-router@^3.2.0:
-  version "3.4.6"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.4.6.tgz#f7bda2c9a43d39837621c9a02ba7789f5daa24b2"
-  integrity sha512-kaXnB3pfFxhAJl/Mp+XG1HJMyFqrL/xPqV7oXlpXn4AwMmm6VNgf0nllW8ksflmZANfI4kdo0bVn/FYSsAolPQ==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"

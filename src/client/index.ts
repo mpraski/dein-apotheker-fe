@@ -1,4 +1,3 @@
-import { join } from '@fireflysemantics/join'
 import { HTTPError } from './error'
 import { Request, Response } from './types'
 
@@ -55,10 +54,10 @@ export class Client {
     path: string,
     request: Request<R>
   ): Promise<T> {
-    const url = join(this.baseURL, path)
+    const url = this.join(this.baseURL, path)
     const body = request.body
     const method = request.method
-    const headers = Client.withHeaders(request.headers)
+    const headers = this.withHeaders(request.headers)
     const token = this.token
 
     if (token) {
@@ -76,10 +75,10 @@ export class Client {
     path: string,
     request: Request<R>
   ): Promise<number> {
-    const url = join(this.baseURL, path)
+    const url = this.join(this.baseURL, path)
     const body = request.body
     const method = request.method
-    const headers = Client.withHeaders(request.headers)
+    const headers = this.withHeaders(request.headers)
     const token = this.token
 
     if (token) {
@@ -93,12 +92,22 @@ export class Client {
     })
   }
 
-  private static withHeaders(init?: HeadersInit): Headers {
+  private withHeaders(init?: HeadersInit): Headers {
     const headers = new Headers(init)
 
     headers.append('Accept', 'application/json')
     headers.append('Content-Type', 'application/json')
 
     return headers
+  }
+
+  private join(...args: string[]): string {
+    return args.map((part, i) => {
+      if (i === 0) {
+        return part.trim().replace(/[/]*$/g, '')
+      } else {
+        return part.trim().replace(/(^[/]*|[/]*$)/g, '')
+      }
+    }).filter((x) => x.length).join('/')
   }
 }

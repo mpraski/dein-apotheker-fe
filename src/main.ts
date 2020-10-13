@@ -1,10 +1,9 @@
 import Vue from 'vue'
-import App from '@/App.vue'
-import '@/registerServiceWorker'
-import router from '@/router'
-import { createStore } from '@/store'
+import Chat from '@/components/Chat.vue'
+
 import { RootState } from '@/store/types'
 import { Client } from '@/client'
+import { createStore } from '@/store'
 import { fetchToken } from '@/client/plugin'
 import { registerDriver } from './driver/plugin'
 import { ChatClient, SessionClient } from '@/gateway'
@@ -15,6 +14,7 @@ import VuexPersistence from 'vuex-persist'
 import VueI18n from 'vue-i18n'
 import 'typeface-roboto/index.css'
 import 'vue-material-design-icons/styles.css'
+import '@/registerServiceWorker'
 
 Vue.config.productionTip = false
 
@@ -40,8 +40,7 @@ const i18n = new VueI18n({
 })
 
 new Vue({
-  router,
   store,
   i18n,
-  render: h => h(App)
+  render: h => h(Chat)
 }).$mount('#app')
