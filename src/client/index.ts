@@ -1,5 +1,5 @@
 import { join } from '@fireflysemantics/join'
-import { ServerError } from './error'
+import { HTTPError } from './error'
 import { Request, Response } from './types'
 
 export async function http<T>(
@@ -10,7 +10,7 @@ export async function http<T>(
   const decoded = await response.json() as Response<T>
 
   if (!response.ok) {
-    throw new ServerError(response.status)
+    throw new HTTPError(response.status)
   }
 
   if (decoded.error) {
@@ -31,7 +31,7 @@ export async function code(
   const response = await fetch(url, additional)
 
   if (!response.ok) {
-    throw new ServerError(response.status)
+    throw new HTTPError(response.status)
   }
 
   return response.status

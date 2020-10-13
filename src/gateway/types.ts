@@ -1,30 +1,26 @@
-import { Context, Question, AnswerType } from '@/store/answer/types'
-import { Token } from '@/store/types'
+import { Chat } from '@/store/chat/types'
 
-export type Call<R> = (c: Context, ...a: any[]) => Promise<Contextual<R>>
+export type Call<R, S> = (r: R) => Promise<S>
 
-export interface API {
-    start: Call<AnswerResponse>;
-    answer: Call<AnswerResponse>;
-    token: () => Promise<Token>;
-    setToken: (t: Token) => void;
+export type Cast<S> = () => Promise<S>
+
+export interface ChatService {
+  answer: Call<AnswerRequest, AnswerResponse>;
 }
 
-export interface Contextual<T> {
-    context: Context;
-    data: T;
+export interface SessionService {
+  new: Cast<NewSessionResponse>;
+  has: Cast<boolean>;
+  delete: Cast<boolean>;
 }
 
 export interface AnswerRequest {
-    type: AnswerType;
-    value: string | ReadonlyArray<string>;
+  state: string;
+  value: string | ReadonlyArray<string> | null;
 }
 
-export type AnswerResponse = Question;
+export type AnswerResponse = Chat
 
-export const withContext = <T>(c: Context, t: T): Contextual<T> => {
-  return {
-    context: c,
-    data: t
-  }
+export interface NewSessionResponse {
+  csrf_token: string;
 }

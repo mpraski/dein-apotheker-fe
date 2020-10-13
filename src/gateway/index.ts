@@ -1,34 +1,83 @@
 import { Client } from '@/client'
-import { extractAnswer, Context, Answer } from '@/store/answer/types'
-import { API, Contextual, AnswerResponse, withContext } from './types'
-import { Token } from '@/store/types'
+import { Code } from '@/client/code'
+import { HTTPError } from '@/client/error'
+import { ChatService, AnswerRequest, AnswerResponse, SessionService, NewSessionResponse } from './types'
 
-export class Gateway implements API {
-  /* eslint-disable no-useless-constructor */
-  constructor (private client: Client) { }
+export class ChatClient implements ChatService {
+  private client: Client;
 
-  public async start (ctx: Context): Promise<Contextual<AnswerResponse>> {
+  constructor(client: Client) {
+    this.client = client
+  }
+
+  public async answer(req: AnswerRequest): Promise<AnswerResponse> {
     return this.client.do('/answer', {
       method: 'POST',
-      body: withContext(ctx, {})
+      body: req
+    })
+  }
+}
+
+export class ChatInterceptor implements ChatService {
+  private base: ChatService;
+  private action: () => {};
+
+  constructor(base: ChatService, action: () => {}) {
+    this.base = base
+    this.action = action
+  }
+
+  public async answer(req: AnswerRequest): Promise<AnswerResponse> {
+    try {
+      return this.base.answer(req)
+    } catch (e) {
+      if (e instanceof HTTPError) {
+        if (e.code === Code.UNAUTHORIZED) {
+          this.action()
+        }
+      }
+
+      throw e
+    }
+  }
+}
+
+export class SessionClient implements SessionService {
+  private client: Client;
+
+  constructor(client: Client) {
+    this.client = client
+  }
+
+  public async new(): Promise<NewSessionResponse> {
+    return this.client.do('/session', {
+      method: 'POST'
     })
   }
 
-  public async answer (ctx: Context, answer: Answer): Promise<Contextual<AnswerResponse>> {
-    return this.client.do('/answer', {
-      method: 'POST',
-      body: withContext(ctx, {
-        type: answer.type,
-        value: extractAnswer(answer)
+  public async has(): Promise<boolean> {
+    try {
+      const resp = await this.client.code('/session', {
+        method: 'GET'
       })
+
+      return resp === Code.OK
+    } catch (e) {
+      if (e instanceof HTTPError) {
+        if (e.code === Code.UNAUTHORIZED) {
+          return false
+        }
+      }
+
+      throw e
+    }
+  }
+
+  public async delete(): Promise<boolean> {
+    const resp = await this.client.code('/session', {
+      method: 'DELETE'
     })
-  }
 
-  public async token (): Promise<Token> {
-    return this.client.do('/token', { method: 'POST' })
-  }
-
-  public setToken (token: Token) {
-    this.client.token = token
+    return resp === Code.NO_CONTENT
   }
 }

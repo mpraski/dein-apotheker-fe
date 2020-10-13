@@ -1,4 +1,4 @@
-import { Gateway } from '@/gateway'
+import { AnswerRequest, ChatService, SessionService } from '@/gateway/types'
 import { Store, Plugin, CommitOptions } from 'vuex'
 import { RootState, Mutations as RootMutations, Token } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
@@ -12,38 +12,38 @@ import { Queue } from './queue'
 export class Driver {
   private queue: Queue<RootState>;
 
-  constructor (
-    private gateway: Gateway,
+  constructor(
+    private chat: ChatService,
+    private session: SessionService,
     private store: Store<RootState>
   ) {
     this.queue = new Queue(store)
     this.subscribe()
   }
 
-  public static plugin (gateway: Gateway): Plugin<RootState> {
+  public static plugin(
+    chat: ChatService,
+    session: SessionService
+  ): Plugin<RootState> {
     return (store: Store<RootState>) => {
       /* eslint-disable no-new */
-      new Driver(gateway, store)
+      new Driver(chat, session, store)
     }
   }
 
-  private namespaced (ns: string, path: string): string {
+  private namespaced(ns: string, path: string): string {
     return ns === '' ? path : `${ns}/${path}`
   }
 
-  private commit (ns: string, type: string, payload?: any, options?: CommitOptions) {
+  private commit(ns: string, type: string, payload?: any, options?: CommitOptions) {
     this.queue.commit(this.namespaced(ns, type), payload, options)
   }
 
-  private commitDirect (ns: string, type: string, payload?: any, options?: CommitOptions) {
+  private commitDirect(ns: string, type: string, payload?: any, options?: CommitOptions) {
     this.store.commit(this.namespaced(ns, type), payload, options)
   }
 
-  private subscribe () {
-    if (this.needsToken) {
-      this.fetchToken()
-    }
-
+  private subscribe() {
     this.store.subscribe((mutation, state) => {
       switch (mutation.type) {
         case this.namespaced(answerNamespace, AnswerMutations.addAnswer): {
@@ -52,38 +52,39 @@ export class Driver {
           this.sendAnswer(context, answer)
           break
         }
-        case this.namespaced(answerNamespace, AnswerMutations.rewind): {
-          const count = (state as any).answer.rewindMessages as number
-          const input = this.store.getters[this.namespaced(answerNamespace, AnswerGetters.currentQuestion)].input
-          this.rewind(count, input)
-          break
-        }
         case RootMutations.provideToken: {
-          this.initiateChat(mutation.payload as Token)
+          this.beginChat()
           break
         }
       }
     })
+
+    this.checkSession()
   }
 
-  private fetchToken () {
-    this.gateway.token()
-      .then(token => this.commitDirect('', RootMutations.provideToken, token))
-      .catch(this.recordError.bind(this))
+  private async checkSession() {
+    const fetchToken = async () => {
+      const { csrf_token: token } = await this.session.new()
+
+      this.commitDirect('', RootMutations.provideToken, token)
+    }
+
+    if (this.needsToken) {
+      return fetchToken()
+    }
+
+    if (await this.session.has()) {
+      return
+    }
+
+    return fetchToken()
   }
 
-  private initiateChat (token: Token) {
-    this.gateway.setToken(token)
-    this.gateway.start(this.emptyCtx)
-      .then(({ context, data }) => {
-        this.recordContext(context)
-        return data
-      })
-      .then(this.recordQuestionDirect.bind(this))
-      .catch(this.recordError.bind(this))
+  private beginChat() {
+    this.chat.answer(this.emptyAnswer)
   }
 
-  private sendAnswer (ctx: Context, answer: Answer) {
+  private sendAnswer(ctx: Context, answer: Answer) {
     this.commitDirect(inputNamespace, InputMutations.hideInput)
     this.commitDirect(messageNamespace, MessageMutations.receiveMessage, [
       {
@@ -102,17 +103,7 @@ export class Driver {
       .catch(this.recordError.bind(this))
   }
 
-  private rewind (count: number, input: Input) {
-    this.commitDirect(messageNamespace, MessageMutations.rewind, count)
-    this.commitDirect(inputNamespace, InputMutations.hideInput)
-    this.commit(inputNamespace, InputMutations.showInput, input)
-  }
-
-  private recordContext (ctx: Context) {
-    this.commitDirect(answerNamespace, AnswerMutations.addContext, ctx)
-  }
-
-  private recordQuestion (question: Question) {
+  private recordQuestion(question: Question) {
     const { messages, input } = question
 
     this.commitDirect(answerNamespace, AnswerMutations.addQuestion, question)
@@ -123,7 +114,7 @@ export class Driver {
     this.commit(inputNamespace, InputMutations.showInput, input)
   }
 
-  private recordQuestionDirect (question: Question) {
+  private recordQuestionDirect(question: Question) {
     const { messages, input } = question
 
     this.commitDirect(answerNamespace, AnswerMutations.addQuestion, question)
@@ -133,7 +124,7 @@ export class Driver {
     this.commitDirect(inputNamespace, InputMutations.showInput, input)
   }
 
-  private recordError (error: string) {
+  private recordError(error: string) {
     this.commit(messageNamespace, MessageMutations.receiveMessage, [
       {
         type: 'text',
@@ -143,15 +134,14 @@ export class Driver {
     ])
   }
 
-  private get needsToken (): boolean {
+  private get needsToken(): boolean {
     return !this.store.state.token
   }
 
-  private get emptyCtx (): Context {
+  private get emptyAnswer(): AnswerRequest {
     return {
-      scenarios: [],
-      question: '',
-      data: {}
+      state: 'new',
+      value: null
     }
   }
 }

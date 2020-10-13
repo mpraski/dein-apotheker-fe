@@ -5,8 +5,10 @@ import router from '@/router'
 import { createStore } from '@/store'
 import { RootState } from '@/store/types'
 import { Client } from '@/client'
-import { Gateway } from '@/gateway'
+import { fetchToken } from '@/client/plugin'
+import { ChatClient, SessionClient } from '@/gateway'
 import { Driver } from '@/driver'
+
 
 import { messages as en } from '@/translations/en'
 
@@ -19,15 +21,17 @@ Vue.config.productionTip = false
 
 Vue.use(VueI18n)
 
+const client = new Client(process.env.VUE_APP_API_ROOT)
+const chat = new ChatClient(client)
+const session = new SessionClient(client)
+
 const vuexSession = new VuexPersistence<RootState>({
   storage: window.sessionStorage
 })
 
 const store = createStore(
   // vuexSession.plugin,
-  Driver.plugin(
-    new Gateway(new Client(process.env.VUE_APP_API_ROOT))
-  )
+  fetchToken(client)
 )
 
 // Create VueI18n instance with options
