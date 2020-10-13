@@ -6,7 +6,7 @@ type MutationDefinition = {
 }
 
 export const mutations: MutationDefinition = {
-  [Mutations.provideToken] (state, token: Token) {
+  [Mutations.provideToken](state, token: Token) {
     state.token = token
   }
 }

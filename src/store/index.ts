@@ -5,10 +5,7 @@ import { getters } from './getters'
 import { actions } from './actions'
 import { mutations } from './mutations'
 import { message } from './message'
-import { input } from './input'
-import { answer } from './answer'
-import { popup } from './popup'
-import { cart } from './cart'
+import { chat } from './chat'
 
 Vue.use(Vuex)
 
@@ -18,11 +15,8 @@ export const createStore = (...plugins: Array<Plugin<RootState>>): Store<RootSta
   } as RootState
 
   const modules = {
-    message,
-    input,
-    answer,
-    popup,
-    cart
+    chat,
+    message
   }
 
   const store: StoreOptions<RootState> = {

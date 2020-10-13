@@ -1,5 +1,5 @@
 import { join } from '@fireflysemantics/join'
-import { Token } from '@/store/types'
+import { ServerError } from './error'
 import { Request, Response } from './types'
 
 export async function http<T>(
@@ -7,32 +7,49 @@ export async function http<T>(
   additional?: RequestInit
 ): Promise<T> {
   const response = await fetch(url, additional)
+  const decoded = await response.json() as Response<T>
 
-  let r: Response<T>
-  try {
-    r = await response.json() as Response<T>
-  } catch (ex) {
-    /* eslint-disable no-throw-literal */
-    throw 'failed to decode response: ' + ex.toString()
+  if (!response.ok) {
+    throw new ServerError(response.status)
   }
 
-  if (r.error) {
-    throw r.error
+  if (decoded.error) {
+    throw decoded.error
   }
 
-  if (r.content) {
-    return r.content
+  if (decoded.data) {
+    return decoded.data
   }
 
-  /* eslint-disable no-throw-literal */
-  throw 'didn\'t expect to reach this'
+  throw new Error('didn\'t expect to reach this')
+}
+
+export async function code(
+  url: string,
+  additional?: RequestInit
+): Promise<number> {
+  const response = await fetch(url, additional)
+
+  if (!response.ok) {
+    throw new ServerError(response.status)
+  }
+
+  return response.status
 }
 
 export class Client {
-  public token?: Token
+  private token?: string;
+  private baseURL: string;
 
-  /* eslint-disable no-useless-constructor */
-  constructor(private baseURL: string) { }
+  private readonly tokenName = 'x-csrf-token'
+
+  constructor(baseURL: string) {
+    this.baseURL = baseURL
+  }
+
+  public setToken(token: string) {
+    this.token = token
+  }
 
   public async do<T = any, R = any>(
     path: string,
@@ -45,10 +62,31 @@ export class Client {
     const token = this.token
 
     if (token) {
-      headers.append('Token', token)
+      headers.append(this.tokenName, token)
     }
 
     return http<T>(url, {
+      method: method,
+      headers: headers,
+      body: JSON.stringify(body)
+    })
+  }
+
+  public async code<R = any>(
+    path: string,
+    request: Request<R>
+  ): Promise<number> {
+    const url = join(this.baseURL, path)
+    const body = request.body
+    const method = request.method
+    const headers = Client.withHeaders(request.headers)
+    const token = this.token
+
+    if (token) {
+      headers.append(this.tokenName, token)
+    }
+
+    return code(url, {
       method: method,
       headers: headers,
       body: JSON.stringify(body)

@@ -25,11 +25,9 @@ export type MessageState = Array<[Message, Alignment]>;
 
 // Keys
 export enum Mutations {
-    receiveMessage = 'receiveMessage',
-    rewind = 'rewind'
+    addMessage = 'addMessage',
 }
 
 export enum Actions {
-    receiveMessage = 'receiveMessage',
-    rewind = 'rewind'
+    addMessage = 'addMessage',
 }

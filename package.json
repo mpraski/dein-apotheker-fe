@@ -68,6 +68,7 @@
       "ecmaVersion": 2020
     },
     "rules": {
+      "indent": "off",
       "space-before-function-paren": "off",
       "@typescript-eslint/no-explicit-any": 0,
       "@typescript-eslint/no-non-null-assertion": 0,

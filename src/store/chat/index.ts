@@ -2,16 +2,16 @@ import { Module } from 'vuex'
 import { getters } from './getters'
 import { actions } from './actions'
 import { mutations } from './mutations'
-import { CartState } from './types'
+import { ChatState } from './types'
 import { RootState } from '@/store/types'
 
-export const state: CartState = []
+export const state: ChatState = []
 
-export const cartNamespace = 'cart'
+export const chatNamespace = 'chat'
 
 const namespaced = true
 
-export const cart: Module<CartState, RootState> = {
+export const chat: Module<ChatState, RootState> = {
   namespaced,
   state,
   getters,

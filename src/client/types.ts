@@ -1,6 +1,6 @@
 export interface Response<T> {
-    error?: string;
-    content?: T;
+    error: string | null;
+    data: T | null;
 }
 
 export interface Request<T> {
