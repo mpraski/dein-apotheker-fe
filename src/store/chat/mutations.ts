@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { Chat, ChatState, Mutations } from './types'
+import { Chat, ChatState, emptyState, Mutations } from './types'
 import { ValueOf } from '@/store/types'
 
 type MutationDefinition = {
@@ -8,6 +8,11 @@ type MutationDefinition = {
 
 export const mutations: MutationDefinition = {
   [Mutations.addChat](state, chat: Chat) {
-    state.push(chat)
+    state.states.push(chat.id)
+    state.message = chat.message
+    state.cart = chat.cart
+  },
+  [Mutations.clear](state) {
+    state = emptyState()
   }
 }

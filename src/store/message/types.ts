@@ -15,8 +15,6 @@ export interface MessageProduct {
     type: 'product';
     image: string;
     name: string;
-    directions: string;
-    explanation: string;
 }
 
 export type Message = MessageText | MessageImage | MessageProduct;
@@ -26,8 +24,10 @@ export type MessageState = Array<[Message, Alignment]>;
 // Keys
 export enum Mutations {
     addMessage = 'addMessage',
+    clear = 'clear'
 }
 
 export enum Actions {
     addMessage = 'addMessage',
+    clear = 'clear'
 }

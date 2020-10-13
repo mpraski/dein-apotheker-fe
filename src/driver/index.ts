@@ -1,5 +1,5 @@
 import { AnswerRequest, ChatService, SessionService } from '@/gateway/types'
-import { Store, Plugin, CommitOptions } from 'vuex'
+import { Store, CommitOptions } from 'vuex'
 import { RootState, Mutations as RootMutations, Token } from '@/store/types'
 import { answerNamespace } from '@/store/answer'
 import { Message, Mutations as MessageMutations } from '@/store/message/types'
@@ -19,16 +19,6 @@ export class Driver {
   ) {
     this.queue = new Queue(store)
     this.subscribe()
-  }
-
-  public static plugin(
-    chat: ChatService,
-    session: SessionService
-  ): Plugin<RootState> {
-    return (store: Store<RootState>) => {
-      /* eslint-disable no-new */
-      new Driver(chat, session, store)
-    }
   }
 
   private namespaced(ns: string, path: string): string {

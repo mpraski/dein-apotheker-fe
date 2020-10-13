@@ -1,5 +1,5 @@
 import { GetterTree } from 'vuex'
-import { Chat, ChatState, Getters } from './types'
+import { ChatState, Message, Getters, Cart } from './types'
 import { RootState, ValueOf } from '@/store/types'
 
 type GetterDefinition = {
@@ -7,7 +7,20 @@ type GetterDefinition = {
 }
 
 export const getters: GetterDefinition = {
-  [Getters.currentChat](state): Chat | undefined {
-    return state[state.length - 1]
+  [Getters.input](state): boolean {
+    return state.showInput
+  },
+  [Getters.state](state): string | undefined {
+    if (state.states.length) {
+      return state.states[state.states.length - 1]
+    }
+
+    return undefined
+  },
+  [Getters.message](state): Message | undefined {
+    return state.message
+  },
+  [Getters.cart](state): Cart | undefined {
+    return state.cart
   }
 }

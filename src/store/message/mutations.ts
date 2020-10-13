@@ -9,5 +9,8 @@ type MutationDefinition = {
 export const mutations: MutationDefinition = {
   [Mutations.addMessage](messages, message: [Message, Alignment]) {
     messages.push(message)
+  },
+  [Mutations.clear](messages) {
+    messages.splice(0, messages.length)
   }
 }

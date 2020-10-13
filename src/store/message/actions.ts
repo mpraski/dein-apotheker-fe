@@ -9,5 +9,8 @@ type ActionDefinition = {
 export const actions: ActionDefinition = {
   [Actions.addMessage]({ commit }, message: [Message, Alignment, string]) {
     commit(Mutations.addMessage, message)
+  },
+  [Actions.clear]({ commit }) {
+    commit(Mutations.clear)
   }
 }
