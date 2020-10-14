@@ -2,7 +2,7 @@ import { AnswerResponse, ChatService, SessionService } from '@/gateway/types'
 import { Store, DispatchOptions } from 'vuex'
 import { RootState, Mutations as RootMutations, Actions as RootActions } from '@/store/types'
 import { Message, Actions as MessageActions } from '@/store/message/types'
-import { Answer, Message as APIMessage, Actions as ChatActions, Mutations as ChatMutation } from '@/store/chat/types'
+import { Answer, Message as APIMessage, Actions as ChatActions, Mutations as ChatMutation, QuestionOption, Database } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 import { messageNamespace } from '@/store/message'
 import { HTTPError } from '@/client/error'
@@ -65,14 +65,19 @@ export class Driver {
   }
 
   private async answer(answer: Answer) {
+    const text = this.formatAnswer(answer)
+
     await this.dispatch(chatNamespace, ChatActions.hideInput)
-    await this.dispatch(messageNamespace, MessageActions.addMessage, [
-      {
-        type: 'text',
-        content: answer.value
-      } as Message,
-      'RIGHT'
-    ])
+
+    if (text) {
+      await this.dispatch(messageNamespace, MessageActions.addMessage, [
+        {
+          type: 'text',
+          content: text
+        } as Message,
+        'RIGHT'
+      ])
+    }
 
     let response: AnswerResponse
 
@@ -91,18 +96,52 @@ export class Driver {
     return this.dispatch(chatNamespace, ChatActions.addResponse, payload)
   }
 
-  private async prepareForAnswer(message: APIMessage) {
-    if (message.text.length) {
+  private async prepareForAnswer({ text }: APIMessage) {
+    if (text.length) {
       await this.dispatch(messageNamespace, MessageActions.addMessage, [
         {
           type: 'text',
-          content: message.text
+          content: text
         } as Message,
         'LEFT'
       ])
     }
 
     return this.dispatch(chatNamespace, ChatActions.showInput)
+  }
+
+  private formatAnswer({ value }: Answer): string | undefined {
+    if (this.currentMessage) {
+      const { type, input } = this.currentMessage
+
+      switch (type) {
+        case 'comment': return 'OK'
+        case 'free': return value as string
+        case 'list':
+        case 'product_list': {
+          const selected = value as Array<string>
+          const { rows } = input as Database
+          const filtered = rows
+            .filter((r, _) => selected.includes(r.id))
+            .map((r, _) => r.name)
+
+          return filtered.length ? filtered.join(', ') : undefined
+        }
+        case 'question': {
+          const choice = value as string
+          const options = input as Array<QuestionOption>
+          const filtered = options.filter((o, _) => { return o.id === choice })
+
+          return filtered.length ? filtered[0].text : undefined
+        }
+      }
+    }
+
+    return undefined
+  }
+
+  private get currentMessage(): APIMessage | undefined {
+    return (this.store?.state as any).chat.answer
   }
 
   private namespaced(ns: string, path: string): string {

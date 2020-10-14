@@ -32,7 +32,7 @@ export interface Database {
   rows: Array<Row>;
 }
 
-export type Input = QuestionOption | Database | Product | null
+export type Input = Array<QuestionOption> | Database | Product | null
 
 export interface Message {
   question: string;
