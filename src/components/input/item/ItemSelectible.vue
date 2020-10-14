@@ -5,7 +5,7 @@
         <component :is="getIcon" class="icon"></component>
       </FadeIn>
     </keep-alive>
-    <VueMarkdown v-once :source="content" />
+    <p>{{ content }}</p>
   </div>
 </template>
 
@@ -13,33 +13,31 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
-import VueMarkdown from 'vue-markdown'
 
 import FadeIn from '@/components/transition/FadeIn.vue'
 
 @Component({
   components: {
-    VueMarkdown,
     CheckIcon,
     CloseIcon,
-    FadeIn
-  }
+    FadeIn,
+  },
 })
 export default class ItemSelectible extends Vue {
   @Prop({ default: '' })
-  private content!: string;
+  private content!: string
 
   @Prop({ default: false })
-  private selected!: boolean;
+  private selected!: boolean
 
-  private get getIcon () {
+  private get getIcon() {
     return this.selected ? CloseIcon : CheckIcon
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .item-selectible-body {
   @include bubble;

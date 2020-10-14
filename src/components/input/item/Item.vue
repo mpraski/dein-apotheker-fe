@@ -1,24 +1,19 @@
 <template>
-  <VueMarkdown v-once :source="content" class="item-body right" />
+  <p class="item-body right">{{ content }}</p>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import VueMarkdown from 'vue-markdown'
 
-@Component({
-  components: {
-    VueMarkdown
-  }
-})
+@Component({})
 export default class Item extends Vue {
   @Prop({ default: '' })
-  private content!: string;
+  private content!: string
 }
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .item-body {
   @include bubble;

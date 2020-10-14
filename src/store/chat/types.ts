@@ -43,27 +43,35 @@ export interface Message {
 
 export type Cart = Array<Product>;
 
-export interface Chat {
-  id: string;
-  message: Message;
-  cart: Cart;
+export interface Answer {
+  state: string;
+  value: string | Array<string> | null;
 }
 
 export interface ChatState {
   showInput: boolean;
   message?: Message;
+  answer?: Answer;
   states: Array<string>;
   cart: Cart;
 }
 
 // Keys
 export enum Mutations {
-  addChat = 'addChat',
+  showInput = 'showInput',
+  hideInput = 'hideInput',
+  addCart = 'addCart',
+  addAnswer = 'addAnswer',
+  addMessage = 'addMessage',
+  addState = 'addState',
   clear = 'clear'
 }
 
 export enum Actions {
-  addChat = 'addChat',
+  showInput = 'showInput',
+  hideInput = 'hideInput',
+  addAnswer = 'addAnswer',
+  addResponse = 'addResponse',
   clear = 'clear'
 }
 
@@ -77,6 +85,7 @@ export enum Getters {
 export const emptyState: () => ChatState = () => ({
   showInput: false,
   message: undefined,
+  answer: undefined,
   states: [],
   cart: []
 })

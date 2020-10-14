@@ -1,16 +1,16 @@
-export type Token = string;
-
 export interface RootState {
-    token?: Token;
+    token?: string;
 }
 
 // Keys
 export enum Mutations {
-    provideToken = 'provideToken',
+    requestToken = 'requestToken',
+    setToken = 'setToken'
 }
 
 export enum Actions {
-    provideToken = 'provideToken',
+    requestToken = 'requestToken',
+    setToken = 'setToken'
 }
 
 // Helpers

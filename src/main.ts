@@ -15,6 +15,7 @@ import VueI18n from 'vue-i18n'
 import 'typeface-roboto/index.css'
 import 'vue-material-design-icons/styles.css'
 import '@/registerServiceWorker'
+import { Driver } from './driver'
 
 Vue.config.productionTip = false
 
@@ -23,6 +24,7 @@ Vue.use(VueI18n)
 const client = new Client(process.env.VUE_APP_API_ROOT)
 const chat = new ChatClient(client)
 const session = new SessionClient(client)
+const driver = new Driver(chat, session)
 const vuexSession = new VuexPersistence<RootState>({
   storage: window.sessionStorage
 })
@@ -30,7 +32,7 @@ const vuexSession = new VuexPersistence<RootState>({
 const store = createStore(
   vuexSession.plugin,
   fetchToken(client),
-  registerDriver(chat, session)
+  registerDriver(driver)
 )
 
 // Create VueI18n instance with options
@@ -39,8 +41,12 @@ const i18n = new VueI18n({
   messages: { en }
 })
 
-new Vue({
+const vm = new Vue({
   store,
   i18n,
   render: h => h(Chat)
-}).$mount('#app')
+})
+
+vm.$driver = driver
+
+vm.$mount('#app')

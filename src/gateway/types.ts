@@ -1,4 +1,4 @@
-import { Chat } from '@/store/chat/types'
+import { Answer, Message, Cart } from '@/store/chat/types'
 
 export type Call<R, S> = (r: R) => Promise<S>
 
@@ -11,15 +11,15 @@ export interface ChatService {
 export interface SessionService {
   new: Cast<NewSessionResponse>;
   has: Cast<boolean>;
-  delete: Cast<boolean>;
 }
 
-export interface AnswerRequest {
-  state: string;
-  value: string | ReadonlyArray<string> | null;
-}
+export type AnswerRequest = Answer;
 
-export type AnswerResponse = Chat
+export interface AnswerResponse {
+  id: string;
+  message: Message;
+  cart: Cart;
+}
 
 export interface NewSessionResponse {
   csrf_token: string;

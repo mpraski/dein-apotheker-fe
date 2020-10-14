@@ -1,10 +1,10 @@
-import { Store, CommitOptions } from 'vuex'
+import { Store, DispatchOptions } from 'vuex'
 
-type message = [string, any?, CommitOptions?]
+type message = [string, any?, DispatchOptions?]
 
 export class Queue<T> {
   private timerID: number;
-  private queuedCommits: Array<message>;
+  private queuedActions: Array<message>;
 
   private static readonly defaultInterval: number = 800;
 
@@ -12,12 +12,12 @@ export class Queue<T> {
     private store: Store<T>,
     private interval: number = Queue.defaultInterval
   ) {
-    this.queuedCommits = []
+    this.queuedActions = []
     this.timerID = setInterval(this.deliver.bind(this), this.interval)
   }
 
-  public commit(type: string, payload?: any, options?: CommitOptions) {
-    this.queuedCommits.push([type, payload, options])
+  public dispatch(type: string, payload?: any, options?: DispatchOptions) {
+    this.queuedActions.push([type, payload, options])
     this.stop()
     this.timerID = setInterval(this.deliver.bind(this), this.interval)
   }
@@ -27,9 +27,9 @@ export class Queue<T> {
   }
 
   private deliver() {
-    if (this.queuedCommits.length > 0) {
-      const [type, payload, options] = this.queuedCommits.shift()!
-      this.store.commit(type, payload, options)
+    if (this.queuedActions.length > 0) {
+      const [type, payload, options] = this.queuedActions.shift()!
+      this.store.dispatch(type, payload, options)
     }
   }
 }

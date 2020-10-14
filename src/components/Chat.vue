@@ -1,7 +1,11 @@
 <template>
   <div class="chat-container">
     <TopBar />
-    <SimpleBar data-simplebar-auto-hide="true" class="output-container" ref="outputContainer">
+    <SimpleBar
+      data-simplebar-auto-hide="true"
+      class="output-container"
+      ref="outputContainer"
+    >
       <FadeIn group="true" class="output-list">
         <OutputSwitch
           v-for="([m, a], index) in messages"
@@ -43,16 +47,15 @@ import TopBar from '@/components/output/TopBar.vue'
 
 import { messageNamespace } from '@/store/message'
 import { MessageState } from '@/store/message/types'
-import { inputNamespace } from '@/store/input'
-import { Input, Getters as InputGetters } from '@/store/input/types'
-import { answerNamespace } from '@/store/answer'
+
 import {
   Answer,
-  Actions as AnswerActions,
-  Getters as AnswerGetters,
-  Question,
-  AnswerValue
-} from '@/store/answer/types'
+  Input,
+  Message,
+  Actions as ChatActions,
+  Getters as ChatGetters,
+} from '@/store/chat/types'
+import { chatNamespace } from '@/store/chat'
 
 @Component({
   components: {
@@ -62,78 +65,66 @@ import {
     InputSwitch,
     SimpleBar,
     TopBar,
-    PopupManager
-  }
+    PopupManager,
+  },
 })
 export default class Chat extends Vue {
   @State(messageNamespace)
-  messages!: MessageState;
+  messages!: MessageState
 
-  @Getter(InputGetters.input, { namespace: inputNamespace })
-  input!: Input;
+  @Getter(ChatGetters.message, { namespace: chatNamespace })
+  message!: Message
 
-  @Getter(InputGetters.showInput, { namespace: inputNamespace })
-  showInput!: boolean;
+  @Getter(ChatGetters.input, { namespace: chatNamespace })
+  input!: boolean
 
-  @Getter(AnswerGetters.currentQuestion, { namespace: answerNamespace })
-  currentQuestion?: Question;
+  @Action(ChatActions.addAnswer, { namespace: chatNamespace })
+  addAnswer!: (a: Answer) => void
 
-  @Action(AnswerActions.addAnswer, { namespace: answerNamespace })
-  addAnswer!: (a: Answer) => void;
+  private static readonly scrollAmount: number = 9999
 
-  @Action(AnswerActions.rewind, { namespace: answerNamespace })
-  rewind!: (index: number) => void;
-
-  private static readonly scrollAmount: number = 9999;
-
-  private inputHeight = 'auto';
+  private inputHeight = 'auto'
 
   $refs!: {
-    outputContainer: HTMLDivElement;
-    inputContainer: HTMLDivElement;
-  };
+    outputContainer: HTMLDivElement
+    inputContainer: HTMLDivElement
+  }
 
-  private mounted () {
+  private mounted() {
+    this.$driver.start()
     this.scrollToEnd('auto')
   }
 
-  private updated () {
+  private updated() {
     this.$nextTick(() => this.scrollToEnd('smooth'))
   }
 
-  private scrollToEnd (behaviour: 'smooth' | 'auto') {
+  private scrollToEnd(behaviour: 'smooth' | 'auto') {
     const scrollElem = (this.$refs.outputContainer as any).scrollElement
     scrollElem.scrollBy({
       top: Chat.scrollAmount,
-      behavior: behaviour
+      behavior: behaviour,
     })
   }
 
-  private onInputHeight (height: number) {
+  private onInputHeight(height: number) {
     this.inputHeight = `${height}px`
   }
 
-  private onAnswer (value: AnswerValue) {
-    const question = this.currentQuestion
-    if (question) {
-      this.addAnswer({
-        ID: question.ID,
-        type: question.input.type,
-        value: value
-      })
-    }
+  private onAnswer(answer: Answer) {
+    this.addAnswer(answer)
   }
 
-  private get inputStyle (): object {
+  private get inputStyle(): object {
     return {
-      minHeight: this.inputHeight
+      minHeight: this.inputHeight,
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .chat-container {
   @include bubble;
