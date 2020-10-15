@@ -6,8 +6,11 @@ type MutationDefinition = {
 }
 
 export const mutations: MutationDefinition = {
-  [Mutations.requestToken](state) {
+  [Mutations.requestSession](state) {
     state.token = undefined
+  },
+  [Mutations.receiveSession](state, token: string) {
+    state.token = token
   },
   [Mutations.setToken](state, token: string) {
     state.token = token

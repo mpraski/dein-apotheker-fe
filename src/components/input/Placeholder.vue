@@ -1,20 +1,13 @@
 <template>
   <div class="placeholder-body">
     {{ text }}
-    <EmoticonOutline class="icon" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
-import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
-
-@Component({
-  components: {
-    EmoticonOutline,
-  },
-})
+@Component({})
 export default class Placeholder extends Vue {
   @Prop({ default: '' })
   private text!: string
@@ -33,9 +26,5 @@ export default class Placeholder extends Vue {
   border: 0;
   color: $textColorSecondary;
   margin-bottom: $marginSmall;
-
-  .icon {
-    margin-left: $marginSmall;
-  }
 }
 </style>

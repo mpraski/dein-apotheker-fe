@@ -6,8 +6,11 @@ type ActionDefinition = {
 }
 
 export const actions: ActionDefinition = {
-  [Actions.requestToken]({ commit }) {
-    commit(Mutations.requestToken)
+  [Mutations.requestSession]({ commit }) {
+    commit(Mutations.requestSession)
+  },
+  [Actions.receiveSession]({ commit }, token: string) {
+    commit(Mutations.receiveSession, token)
   },
   [Actions.setToken]({ commit }, token: string) {
     commit(Mutations.setToken, token)

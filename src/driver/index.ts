@@ -22,11 +22,11 @@ export class Driver {
   }
 
   public async start() {
-    if (await this.session.has()) {
-      return null
+    if (this.currentToken && await this.session.has()) {
+      return this.dispatch('', RootActions.setToken, this.currentToken)
     }
 
-    return this.newSession()
+    return this.dispatch('', RootActions.requestSession)
   }
 
   public subscribe(store: Store<RootState>) {
@@ -34,6 +34,14 @@ export class Driver {
 
     store.subscribe((mutation, _) => {
       switch (mutation.type) {
+        case RootMutations.requestSession: {
+          this.newSession()
+          break
+        }
+        case RootMutations.receiveSession: {
+          this.dispatch(chatNamespace, ChatMutation.addAnswer, this.emptyAnswer)
+          break
+        }
         case this.namespaced(chatNamespace, ChatMutation.addMessage): {
           this.prepareForAnswer(mutation.payload as APIMessage)
           break
@@ -42,33 +50,25 @@ export class Driver {
           this.answer(mutation.payload as Answer)
           break
         }
-        case RootMutations.requestToken: {
-          this.newSession()
-          break
-        }
-        case RootMutations.setToken: {
-          this.dispatch(chatNamespace, ChatMutation.addAnswer, this.emptyAnswer)
-          break
-        }
       }
     })
   }
 
   private async newSession() {
-    await this.dispatch(chatNamespace, ChatActions.clear)
-    await this.dispatch(messageNamespace, MessageActions.clear)
+    await Promise.all([
+      this.dispatch(chatNamespace, ChatActions.clear),
+      this.dispatch(messageNamespace, MessageActions.clear)
+    ])
 
-    const { csrf_token: token } = await this.session.new()
-
-    return this.dispatch('', RootActions.setToken, token)
+    return this.session.new().then(({ csrf_token: token }) =>
+      this.dispatch('', RootActions.receiveSession, token)
+    )
   }
 
   private async answer(answer: Answer) {
-    const text = this.formatAnswer(answer)
-
-    console.log(text)
-
     await this.dispatch(chatNamespace, ChatActions.hideInput)
+
+    const text = this.formatAnswer(answer)
 
     if (text) {
       await this.dispatch(messageNamespace, MessageActions.addMessage, [
@@ -86,7 +86,7 @@ export class Driver {
       response = await this.chat.answer(answer)
     } catch (e) {
       if (HTTPError.is(e, Code.UNAUTHORIZED)) {
-        return this.newSession()
+        return this.dispatch('', RootActions.requestSession)
       }
 
       throw e
@@ -144,6 +144,10 @@ export class Driver {
         return 'Thanks, I\'ll pass'
       }
     }
+  }
+
+  private get currentToken(): string | undefined {
+    return this.store?.state.token
   }
 
   private get currentMessage(): APIMessage | undefined {

@@ -4,12 +4,14 @@ export interface RootState {
 
 // Keys
 export enum Mutations {
-    requestToken = 'requestToken',
+    requestSession = 'requestSession',
+    receiveSession = 'receiveSession',
     setToken = 'setToken'
 }
 
 export enum Actions {
-    requestToken = 'requestToken',
+    requestSession = 'requestSession',
+    receiveSession = 'receiveSession',
     setToken = 'setToken'
 }
 
