@@ -13,7 +13,7 @@ export async function http<T>(
   }
 
   if (decoded.error) {
-    throw decoded.error
+    throw new Error(decoded.error)
   }
 
   if (decoded.data) {
@@ -67,6 +67,7 @@ export class Client {
     return http<T>(url, {
       method: method,
       headers: headers,
+      credentials: 'include',
       body: JSON.stringify(body)
     })
   }
@@ -88,6 +89,7 @@ export class Client {
     return code(url, {
       method: method,
       headers: headers,
+      credentials: 'include',
       body: JSON.stringify(body)
     })
   }

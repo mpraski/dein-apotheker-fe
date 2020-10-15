@@ -19,32 +19,32 @@ import SendIcon from 'vue-material-design-icons/Send.vue'
 
 @Component({
   components: {
-    SendIcon
-  }
+    SendIcon,
+  },
 })
 export default class Prompt extends Vue {
   @Prop({ default: '' })
-  private content!: string;
+  private content!: string
 
-  private get isDisabled (): boolean {
+  private get isDisabled(): boolean {
     return this.content === ''
   }
 
-  private onSend () {
+  private onSend() {
     if (this.content) {
       this.onSubmit(this.content)
     }
   }
 
   @Emit()
-  private onSubmit (c: string): string {
+  private onSubmit(c: string): string {
     return c
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .prompt-body {
   @include bubble;

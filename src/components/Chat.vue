@@ -12,22 +12,21 @@
           :key="index"
           :message="m"
           :alignment="a"
-          @on-delete="rewind(index)"
         />
       </FadeIn>
     </SimpleBar>
     <div class="input-container" ref="inputContainer" :style="inputStyle">
       <FadeIn>
         <InputSwitch
-          v-if="showInput"
-          :input="input"
+          v-if="input"
+          :type="message.type"
+          :input="message.input"
           @on-answer="onAnswer"
           @on-height-changed="onInputHeight"
         />
       </FadeIn>
     </div>
     <Resizer @on-resize="scrollToEnd('smooth')" />
-    <PopupManager />
   </div>
 </template>
 
@@ -42,7 +41,6 @@ import FadeIn from '@/components/transition/FadeIn.vue'
 import Resizer from '@/components/transition/Resizer.vue'
 import OutputSwitch from '@/components/output/OutputSwitch.vue'
 import InputSwitch from '@/components/input/InputSwitch.vue'
-import PopupManager from '@/components/output/PopupManager.vue'
 import TopBar from '@/components/output/TopBar.vue'
 
 import { messageNamespace } from '@/store/message'
@@ -53,7 +51,7 @@ import {
   Input,
   Message,
   Actions as ChatActions,
-  Getters as ChatGetters,
+  Getters as ChatGetters
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 
@@ -64,9 +62,8 @@ import { chatNamespace } from '@/store/chat'
     OutputSwitch,
     InputSwitch,
     SimpleBar,
-    TopBar,
-    PopupManager,
-  },
+    TopBar
+  }
 })
 export default class Chat extends Vue {
   @State(messageNamespace)
@@ -85,9 +82,10 @@ export default class Chat extends Vue {
 
   private inputHeight = 'auto'
 
+  // prettier-ignore
   $refs!: {
-    outputContainer: HTMLDivElement
-    inputContainer: HTMLDivElement
+    outputContainer: HTMLDivElement;
+    inputContainer: HTMLDivElement;
   }
 
   private mounted() {
@@ -103,7 +101,7 @@ export default class Chat extends Vue {
     const scrollElem = (this.$refs.outputContainer as any).scrollElement
     scrollElem.scrollBy({
       top: Chat.scrollAmount,
-      behavior: behaviour,
+      behavior: behaviour
     })
   }
 
@@ -117,7 +115,7 @@ export default class Chat extends Vue {
 
   private get inputStyle(): object {
     return {
-      minHeight: this.inputHeight,
+      minHeight: this.inputHeight
     }
   }
 }

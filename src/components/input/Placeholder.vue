@@ -1,6 +1,6 @@
 <template>
   <div class="placeholder-body">
-    {{text}}
+    {{ text }}
     <EmoticonOutline class="icon" />
   </div>
 </template>
@@ -12,17 +12,17 @@ import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
 
 @Component({
   components: {
-    EmoticonOutline
-  }
+    EmoticonOutline,
+  },
 })
 export default class Placeholder extends Vue {
   @Prop({ default: '' })
-  private text!: string;
+  private text!: string
 }
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .placeholder-body {
   @include padded;

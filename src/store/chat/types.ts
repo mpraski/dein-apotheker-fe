@@ -43,6 +43,8 @@ export interface Message {
 
 export type Cart = Array<Product>;
 
+export type AnswerValue = string | Array<string> | null;
+
 export interface Answer {
   state: string;
   value: string | Array<string> | null;

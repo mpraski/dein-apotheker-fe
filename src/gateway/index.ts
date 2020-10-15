@@ -1,6 +1,5 @@
 import { Client } from '@/client'
 import { Code } from '@/client/code'
-import { HTTPError } from '@/client/error'
 import { ChatService, AnswerRequest, AnswerResponse, SessionService, NewSessionResponse } from './types'
 
 export class ChatClient implements ChatService {
@@ -11,7 +10,7 @@ export class ChatClient implements ChatService {
   }
 
   public async answer(req: AnswerRequest): Promise<AnswerResponse> {
-    return this.client.do('/answer', {
+    return this.client.do('/chat/answer', {
       method: 'POST',
       body: req
     })
@@ -32,18 +31,8 @@ export class SessionClient implements SessionService {
   }
 
   public async has(): Promise<boolean> {
-    try {
-      const resp = await this.client.code('/session', {
-        method: 'GET'
-      })
-
-      return resp === Code.OK
-    } catch (e) {
-      if (HTTPError.is(e, Code.NOT_FOUND)) {
-        return false
-      }
-
-      throw e
-    }
+    return this.client.code('/session', {
+      method: 'GET'
+    }).then((code) => code === Code.OK)
   }
 }

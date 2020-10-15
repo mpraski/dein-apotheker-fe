@@ -1,6 +1,6 @@
 <template>
   <div class="action-body" :class="{ disabled: !enabled }" @click="onSelect">
-    <p>{{content}}</p>
+    <p>{{ content }}</p>
     <keep-alive v-if="icon">
       <component :is="iconComp" class="icon"></component>
     </keep-alive>
@@ -15,27 +15,27 @@ import Item from '@/components/input/item/Item.vue'
 @Component({
   components: {
     Item,
-    CloseIcon
-  }
+    CloseIcon,
+  },
 })
 export default class Action extends Vue {
   @Prop({ default: undefined })
-  private icon?: 'arrow';
+  private icon?: 'arrow'
 
   @Prop({ default: '' })
-  private content!: string;
+  private content!: string
 
   @Prop({ default: true })
-  private enabled!: boolean;
+  private enabled!: boolean
 
   @Prop()
-  private onSelect!: () => void;
+  private onSelect!: () => void
 
   private static readonly iconMapping = {
-    arrow: CloseIcon
-  };
+    arrow: CloseIcon,
+  }
 
-  private get iconComp () {
+  private get iconComp() {
     if (this.icon) {
       return Action.iconMapping[this.icon]
     }
@@ -45,7 +45,7 @@ export default class Action extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .action-body {
   @include bubble;

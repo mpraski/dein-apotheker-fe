@@ -2,7 +2,7 @@ import { AnswerResponse, ChatService, SessionService } from '@/gateway/types'
 import { Store, DispatchOptions } from 'vuex'
 import { RootState, Mutations as RootMutations, Actions as RootActions } from '@/store/types'
 import { Message, Actions as MessageActions } from '@/store/message/types'
-import { Answer, Message as APIMessage, Actions as ChatActions, Mutations as ChatMutation, QuestionOption, Database } from '@/store/chat/types'
+import { Answer, Message as APIMessage, Actions as ChatActions, Mutations as ChatMutation, QuestionOption, Database, Product } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 import { messageNamespace } from '@/store/message'
 import { HTTPError } from '@/client/error'
@@ -11,7 +11,6 @@ import { Code } from '@/client/code'
 export class Driver {
   private chat: ChatService;
   private session: SessionService;
-
   private store?: Store<RootState>;
 
   constructor(
@@ -48,7 +47,7 @@ export class Driver {
           break
         }
         case RootMutations.setToken: {
-          this.answer(this.emptyAnswer)
+          this.dispatch(chatNamespace, ChatMutation.addAnswer, this.emptyAnswer)
           break
         }
       }
@@ -133,6 +132,13 @@ export class Driver {
           const filtered = options.filter((o, _) => { return o.id === choice })
 
           return filtered.length ? filtered[0].text : undefined
+        }
+        case 'product': {
+          if (value) {
+            return (input as Product).name
+          }
+
+          return 'Thanks, I\'ll pass'
         }
       }
     }

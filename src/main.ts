@@ -29,6 +29,8 @@ const vuexSession = new VuexPersistence<RootState>({
   storage: window.sessionStorage
 })
 
+Vue.prototype.$driver = driver
+
 const store = createStore(
   vuexSession.plugin,
   fetchToken(client),
@@ -41,12 +43,8 @@ const i18n = new VueI18n({
   messages: { en }
 })
 
-const vm = new Vue({
+new Vue({
   store,
   i18n,
   render: h => h(Chat)
-})
-
-vm.$driver = driver
-
-vm.$mount('#app')
+}).$mount('#app')
