@@ -66,6 +66,8 @@ export class Driver {
   private async answer(answer: Answer) {
     const text = this.formatAnswer(answer)
 
+    console.log(text)
+
     await this.dispatch(chatNamespace, ChatActions.hideInput)
 
     if (text) {
@@ -109,45 +111,43 @@ export class Driver {
     return this.dispatch(chatNamespace, ChatActions.showInput)
   }
 
-  private formatAnswer({ value }: Answer): string | undefined {
-    if (this.currentMessage) {
-      const { type, input } = this.currentMessage
+  private formatAnswer({ answer }: Answer): string | undefined {
+    if (!this.currentMessage) return undefined
 
-      switch (type) {
-        case 'comment': return 'OK'
-        case 'free': return value as string
-        case 'list':
-        case 'product_list': {
-          const selected = value as Array<string>
-          const { rows } = input as Database
-          const filtered = rows
-            .filter((r, _) => selected.includes(r.id))
-            .map((r, _) => r.name)
+    const { type, input } = this.currentMessage
 
-          return filtered.length ? filtered.join(', ') : undefined
+    switch (type) {
+      case 'comment': return 'OK'
+      case 'free': return answer as string
+      case 'list':
+      case 'product_list': {
+        const selected = answer as Array<string>
+        const { rows } = input as Database
+        const filtered = rows
+          .filter((r, _) => selected.includes(r.id))
+          .map((r, _) => r.name)
+
+        return filtered.length ? filtered.join(', ') : undefined
+      }
+      case 'question': {
+        const choice = answer as string
+        const options = input as Array<QuestionOption>
+        const filtered = options.filter((o, _) => { return o.id === choice })
+
+        return filtered.length ? filtered[0].text : undefined
+      }
+      case 'product': {
+        if (answer) {
+          return (input as Product).name
         }
-        case 'question': {
-          const choice = value as string
-          const options = input as Array<QuestionOption>
-          const filtered = options.filter((o, _) => { return o.id === choice })
 
-          return filtered.length ? filtered[0].text : undefined
-        }
-        case 'product': {
-          if (value) {
-            return (input as Product).name
-          }
-
-          return 'Thanks, I\'ll pass'
-        }
+        return 'Thanks, I\'ll pass'
       }
     }
-
-    return undefined
   }
 
   private get currentMessage(): APIMessage | undefined {
-    return (this.store?.state as any).chat.answer
+    return (this.store?.state as any).chat.message
   }
 
   private namespaced(ns: string, path: string): string {
@@ -161,7 +161,7 @@ export class Driver {
   private get emptyAnswer(): Answer {
     return {
       state: 'new',
-      value: null
+      answer: null
     }
   }
 }

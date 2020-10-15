@@ -2,7 +2,7 @@
   <div ref="inputContainer">
     <Question
       v-if="type === 'question'"
-      :options="input.options"
+      :options="input"
       @on-select="onAnswer"
     />
     <Prompt v-else-if="input.type === 'free'" @on-submit="onAnswer" />
@@ -26,15 +26,16 @@ import { Input, QuestionType, AnswerValue } from '@/store/chat/types'
     Question,
     Prompt,
     Placeholder,
-    Resizer,
-  },
+    Resizer
+  }
 })
 export default class InputSwitch extends Vue {
   @Prop() private type!: QuestionType
   @Prop() private input!: Input
 
+  // prettier-ignore
   $refs!: {
-    inputContainer: HTMLDivElement
+    inputContainer: HTMLDivElement;
   }
 
   private queueHeightChange() {

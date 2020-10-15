@@ -16,7 +16,7 @@
 
     @include respond-to(small) {
         max-width: $bubbleMaxWidth;
-    }    
+    }
 
     &.right {
         background-color: $normalBackground;
@@ -162,7 +162,7 @@
 
     &.left {
         align-self: flex-start;
-        
+
         &:before {
             left: 1em;
         }

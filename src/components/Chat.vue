@@ -18,7 +18,7 @@
     <div class="input-container" ref="inputContainer" :style="inputStyle">
       <FadeIn>
         <InputSwitch
-          v-if="input"
+          v-if="showInput"
           :type="message.type"
           :input="message.input"
           @on-answer="onAnswer"
@@ -51,7 +51,8 @@ import {
   Input,
   Message,
   Actions as ChatActions,
-  Getters as ChatGetters
+  Getters as ChatGetters,
+  AnswerValue
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 
@@ -69,11 +70,14 @@ export default class Chat extends Vue {
   @State(messageNamespace)
   messages!: MessageState
 
+  @Getter(ChatGetters.state, { namespace: chatNamespace })
+  state!: string
+
   @Getter(ChatGetters.message, { namespace: chatNamespace })
   message!: Message
 
-  @Getter(ChatGetters.input, { namespace: chatNamespace })
-  input!: boolean
+  @Getter(ChatGetters.showInput, { namespace: chatNamespace })
+  showInput!: boolean
 
   @Action(ChatActions.addAnswer, { namespace: chatNamespace })
   addAnswer!: (a: Answer) => void
@@ -109,8 +113,8 @@ export default class Chat extends Vue {
     this.inputHeight = `${height}px`
   }
 
-  private onAnswer(answer: Answer) {
-    this.addAnswer(answer)
+  private onAnswer(answer: AnswerValue) {
+    this.addAnswer({ state: this.state, answer })
   }
 
   private get inputStyle(): object {

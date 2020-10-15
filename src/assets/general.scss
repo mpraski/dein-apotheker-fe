@@ -4,6 +4,12 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
+
+    font-family: $fontFamily;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $textColor;
+    font-size: 16px;
 }
 
 *:focus {
@@ -50,26 +56,6 @@ textarea {
     font-size: $textSize;
     color: $textColor;
     outline: none;
-}
-
-main {
-    font-family: $fontFamily;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: $backgroundColor;
-    color: $textColor;
-    font-size: 16px;
-    width: 100%;
-    height: 100%;
-
-    & > .home {
-        height: 100%;
-        overflow: hidden;
-    }
-
-    @include respond-to(small) {
-        font-size: $textSize;
-    }
 }
 
 p {

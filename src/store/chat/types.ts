@@ -47,7 +47,7 @@ export type AnswerValue = string | Array<string> | null;
 
 export interface Answer {
   state: string;
-  value: string | Array<string> | null;
+  answer: string | Array<string> | null;
 }
 
 export interface ChatState {
@@ -78,7 +78,7 @@ export enum Actions {
 }
 
 export enum Getters {
-  input = 'input',
+  showInput = 'showInput',
   state = 'state',
   message = 'message',
   cart = 'cart'

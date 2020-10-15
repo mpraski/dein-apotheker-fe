@@ -7,7 +7,7 @@ type GetterDefinition = {
 }
 
 export const getters: GetterDefinition = {
-  [Getters.input](state): boolean {
+  [Getters.showInput](state): boolean {
     return state.showInput
   },
   [Getters.state](state): string | undefined {

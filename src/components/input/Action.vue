@@ -15,8 +15,8 @@ import Item from '@/components/input/item/Item.vue'
 @Component({
   components: {
     Item,
-    CloseIcon,
-  },
+    CloseIcon
+  }
 })
 export default class Action extends Vue {
   @Prop({ default: undefined })
@@ -32,7 +32,7 @@ export default class Action extends Vue {
   private onSelect!: () => void
 
   private static readonly iconMapping = {
-    arrow: CloseIcon,
+    arrow: CloseIcon
   }
 
   private get iconComp() {

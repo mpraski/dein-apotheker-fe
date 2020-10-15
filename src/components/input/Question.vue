@@ -6,6 +6,7 @@
       :content="option.text"
       @click.native="onSelect(option.id)"
     />
+    <Placeholder v-if="isEmpty" :text="$t('message.thankYou')" />
   </div>
 </template>
 
@@ -13,20 +14,22 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
 import Item from '@/components/input/item/Item.vue'
+import Placeholder from '@/components/input/Placeholder.vue'
 
 import { QuestionOption } from '@/store/chat/types'
 
 @Component({
   components: {
-    Item
+    Item,
+    Placeholder
   }
 })
 export default class Question extends Vue {
   @Prop({ default: () => [] })
   private options!: ReadonlyArray<QuestionOption>
 
-  private get isSingleItem(): boolean {
-    return this.options.length === 1
+  private get isEmpty(): boolean {
+    return this.options.length === 0
   }
 
   @Emit()
