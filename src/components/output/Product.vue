@@ -1,14 +1,8 @@
 <template>
-  <div class="product-body">
+  <div class="product">
     <div class="image" :style="styleImage" />
     <div class="header">
-      <span class="name">{{name}}</span>
-      <InfoIcon class="info-body" @click="onInfo" />
-    </div>
-    <div class="buy" @click="onBuy">
-      <CartIcon class="icon" />
-      <span>{{ $t("cart.add") }}</span>
-      <CartIcon class="invisible" />
+      <span class="name">{{ name }}</span>
     </div>
   </div>
 </template>
@@ -16,35 +10,23 @@
 <script lang="ts">
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 
-import CartIcon from 'vue-material-design-icons/Cart.vue'
-import InfoIcon from 'vue-material-design-icons/InformationOutline.vue'
-
-@Component({
-  components: {
-    CartIcon,
-    InfoIcon
-  }
-})
+@Component({})
 export default class Product extends Vue {
-  @Prop({ default: '' }) private name!: string;
+  @Prop({ default: '' })
+  private name!: string
 
   @Prop({ default: '' })
-  private image!: string;
+  private image!: string
 
   @Prop({ default: 14 })
-  private height!: number;
+  private height!: number
 
   @Emit()
-  private onBuy () {
+  private onBuy() {
     return 0
   }
 
-  @Emit()
-  private onInfo () {
-    return 0
-  }
-
-  private get styleImage (): object {
+  private get styleImage(): object {
     return {
       height: `${this.height}rem`,
       backgroundImage: `url("${this.image}")`
@@ -54,13 +36,10 @@ export default class Product extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
-.product-body {
+.product {
   @include vertical-list;
-  @include bubble($buttonBorderColor, $backgroundColor);
-
-  margin-bottom: $marginMedium;
 
   .image {
     flex-grow: 1;
@@ -83,34 +62,6 @@ export default class Product extends Vue {
 
     .info-body {
       @include big-icon;
-    }
-  }
-
-  .buy {
-    @include actionable;
-    @include horizontal-list(space-between);
-    @include padded($paddingButtonBuySmall, $paddingButtonBuy);
-    @include actionable(darken($focusColor, 10%));
-
-    border-bottom-left-radius: $borderRadiusInner;
-    border-bottom-right-radius: $borderRadiusInner;
-    background-color: $focusColor;
-    font-size: $textSize;
-
-    margin-bottom: -$borderWidth;
-    margin-left: -$borderWidth;
-    margin-right: -$borderWidth;
-
-    span {
-      align-self: center;
-    }
-
-    .icon {
-      align-self: flex-start;
-    }
-
-    .invisible {
-      visibility: hidden;
     }
   }
 }

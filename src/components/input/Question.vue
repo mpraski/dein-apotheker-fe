@@ -1,5 +1,5 @@
 <template>
-  <div class="option-list">
+  <div class="options">
     <Item
       v-for="option in options"
       :key="option.id"
@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
-import Item from '@/components/input/item/Item.vue'
+import Item from '@/components/input/Item.vue'
 import Placeholder from '@/components/input/Placeholder.vue'
 
 import { QuestionOption } from '@/store/chat/types'
@@ -42,7 +42,7 @@ export default class Question extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.option-list {
+.options {
   @include horizontal-list;
 
   & > div {

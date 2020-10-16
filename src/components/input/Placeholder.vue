@@ -1,5 +1,5 @@
 <template>
-  <div class="placeholder-body">
+  <div class="placeholder">
     {{ text }}
   </div>
 </template>
@@ -17,7 +17,7 @@ export default class Placeholder extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.placeholder-body {
+.placeholder {
   @include padded;
   @include centered;
   @include horizontal-list(center);

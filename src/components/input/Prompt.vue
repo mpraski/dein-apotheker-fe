@@ -1,5 +1,5 @@
 <template>
-  <div class="prompt-body">
+  <div class="prompt">
     <input
       v-model="content"
       @keyup.enter="onSend"
@@ -19,8 +19,8 @@ import SendIcon from 'vue-material-design-icons/Send.vue'
 
 @Component({
   components: {
-    SendIcon,
-  },
+    SendIcon
+  }
 })
 export default class Prompt extends Vue {
   @Prop({ default: '' })
@@ -46,7 +46,7 @@ export default class Prompt extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.prompt-body {
+.prompt {
   @include bubble;
   @include padded;
   @include centered;

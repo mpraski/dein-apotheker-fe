@@ -15,14 +15,13 @@
         />
       </FadeIn>
     </SimpleBar>
-    <div class="input-container" ref="inputContainer" :style="inputStyle">
+    <div class="input-container">
       <FadeIn>
         <InputSwitch
           v-if="showInput"
           :type="message.type"
           :input="message.input"
           @on-answer="onAnswer"
-          @on-height-changed="onInputHeight"
         />
       </FadeIn>
     </div>
@@ -32,7 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, Getter } from 'vuex-class'
+import { State, namespace } from 'vuex-class'
 
 import SimpleBar from 'simplebar-vue'
 import 'simplebar/dist/simplebar.min.css'
@@ -56,6 +55,9 @@ import {
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 
+const chat = namespace(chatNamespace)
+const message = namespace(messageNamespace)
+
 @Component({
   components: {
     FadeIn,
@@ -70,26 +72,23 @@ export default class Chat extends Vue {
   @State(messageNamespace)
   messages!: MessageState
 
-  @Getter(ChatGetters.state, { namespace: chatNamespace })
+  @chat.Getter
   state!: string
 
-  @Getter(ChatGetters.message, { namespace: chatNamespace })
+  @chat.Getter
   message!: Message
 
-  @Getter(ChatGetters.showInput, { namespace: chatNamespace })
+  @chat.Getter
   showInput!: boolean
 
-  @Action(ChatActions.addAnswer, { namespace: chatNamespace })
+  @chat.Action
   addAnswer!: (a: Answer) => void
 
   private static readonly scrollAmount: number = 9999
 
-  private inputHeight = 'auto'
-
   // prettier-ignore
   $refs!: {
     outputContainer: HTMLDivElement;
-    inputContainer: HTMLDivElement;
   }
 
   private mounted() {
@@ -109,18 +108,8 @@ export default class Chat extends Vue {
     })
   }
 
-  private onInputHeight(height: number) {
-    this.inputHeight = `${height}px`
-  }
-
   private onAnswer(answer: AnswerValue) {
     this.addAnswer({ state: this.state, answer })
-  }
-
-  private get inputStyle(): object {
-    return {
-      minHeight: this.inputHeight
-    }
   }
 }
 </script>
@@ -144,9 +133,6 @@ export default class Chat extends Vue {
   @include respond-to(small) {
     max-width: $chatWidth;
 
-    margin-top: $marginRegular;
-    margin-bottom: $marginRegular;
-
     height: 85vh;
 
     border-radius: $borderRadius;
@@ -169,18 +155,21 @@ export default class Chat extends Vue {
   margin-right: auto;
 
   padding: 0 $marginMedium;
+
+  > *:first-child {
+    margin-top: $marginMedium;
+  }
 }
 
 .input-container {
   @include vertical-list;
 
-  background-color: $secondaryBackgroundColor;
+  min-height: 30%;
+
   border-radius: 0;
   border-top: $borderWidth $borderStyle $buttonBorderColor;
   padding: $marginMedium $marginMedium ($marginMedium - $marginSmall)
     $marginMedium;
-
-  transition: min-height $animationDuration ease;
 
   @include respond-to(small) {
     border-bottom-left-radius: $borderRadius;
