@@ -13,8 +13,8 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
-import Item from '@/components/input/Item.vue'
-import Placeholder from '@/components/input/Placeholder.vue'
+import Item from '@/components/Item.vue'
+import Placeholder from '@/components/Placeholder.vue'
 
 import { QuestionOption } from '@/store/chat/types'
 
@@ -24,7 +24,7 @@ import { QuestionOption } from '@/store/chat/types'
     Placeholder
   }
 })
-export default class Question extends Vue {
+export default class Options extends Vue {
   @Prop({ default: () => [] })
   private options!: ReadonlyArray<QuestionOption>
 
@@ -43,11 +43,10 @@ export default class Question extends Vue {
 @import '@/assets/app.scss';
 
 .options {
-  @include horizontal-list;
+  @include horizontal-list(center);
 
-  & > div {
-    margin-left: $marginSmall;
-    margin-bottom: $marginSmall;
+  > *:not(:last-child) {
+    margin-right: $marginSmall;
   }
 }
 </style>

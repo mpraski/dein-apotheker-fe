@@ -14,10 +14,10 @@
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
 
-import Bubble from '@/components/output/Bubble.vue'
-import Content from '@/components/output/Content.vue'
-import Product from '@/components/output/Product.vue'
-import Unknown from '@/components/output/Unknown.vue'
+import Bubble from '@/components/Bubble.vue'
+import Content from '@/components/Content.vue'
+import Product from '@/components/Product.vue'
+import Unknown from '@/components/Unknown.vue'
 
 import { Message, Alignment } from '@/store/message/types'
 

@@ -1,9 +1,9 @@
 <template>
   <div class="cart-button">
-    <div class="badge" v-if="badgeVisible">{{items}}</div>
+    <div class="badge" v-if="badgeVisible">{{ items }}</div>
     <CartIcon class="icon" />
     <FadeIn>
-      <span v-if="showPopover" class="popover">{{ $t("cart.added") }}</span>
+      <span v-if="showPopover" class="popover">{{ $t('cart.added') }}</span>
     </FadeIn>
   </div>
 </template>
@@ -12,7 +12,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
 import CartIcon from 'vue-material-design-icons/Cart.vue'
-import FadeIn from '@/components/transition/FadeIn.vue'
+import FadeIn from '@/components/FadeIn.vue'
 
 @Component({
   components: {
@@ -21,24 +21,24 @@ import FadeIn from '@/components/transition/FadeIn.vue'
   }
 })
 export default class CartButton extends Vue {
-  @Prop({ default: 0 }) private items!: number;
+  @Prop({ default: 0 }) private items!: number
 
-  private timerID = -1;
-  private showPopover = false;
+  private timerID = -1
+  private showPopover = false
 
-  private static readonly defaultInterval: number = 1000;
+  private static readonly defaultInterval: number = 1000
 
-  private get badgeVisible (): boolean {
+  private get badgeVisible(): boolean {
     return this.items !== 0
   }
 
-  private hidePopover () {
+  private hidePopover() {
     this.showPopover = false
     this.timerID = -1
   }
 
   @Watch('items')
-  private onPropertyChanged (value: number, old: number) {
+  private onPropertyChanged(value: number, old: number) {
     if (value <= old) {
       return
     }
@@ -58,7 +58,7 @@ export default class CartButton extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .cart-button {
   @include actionable;

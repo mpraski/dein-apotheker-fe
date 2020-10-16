@@ -5,22 +5,23 @@
         v-for="row in rows"
         :key="row.id"
         :selected="selected[row.id]"
-        @click.native="onSelect(row.id)"
+        @click.native="onChoose(row.id)"
       >
         <component :is="component" :content="option.content" />
       </Bubble>
     </div>
     <template v-if="isMultiple">
-      <slot v-if="hasItems" name="proceed"></slot>
-      <slot v-else name="wait"></slot>
+      <slot v-if="hasItems" name="selection" :proceed="onProceed"></slot>
+      <slot v-else name="none" :proceed="onProceed"></slot>
     </template>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
-import Bubble from '@/components/output/Bubble.vue'
+import Bubble from '@/components/Bubble.vue'
 import { AnswerValue, Row } from '@/store/chat/types'
+import { VueConstructor } from 'vue'
 
 export type Mode = 'single' | 'multiple'
 
@@ -31,13 +32,13 @@ export type Mode = 'single' | 'multiple'
 })
 export default class List extends Vue {
   @Prop({ default: () => [] })
-  private options!: ReadonlyArray<Row>
+  private rows!: ReadonlyArray<Row>
 
   @Prop({ default: 'single' })
   private mode!: Mode
 
   @Prop()
-  private component!: Vue
+  private component!: VueConstructor<Vue>
 
   private selected: { [id: string]: boolean }
 
@@ -50,9 +51,9 @@ export default class List extends Vue {
     this.hasItems = false
   }
 
-  private onSelect(id: string) {
+  private onChoose(id: string) {
     if (this.mode === 'single') {
-      return this.onSubmit(id)
+      return this.onSelect(id)
     }
 
     if (this.selected[id]) {
@@ -67,11 +68,9 @@ export default class List extends Vue {
   }
 
   private onProceed() {
-    if (!this.hasItems) return
-
     const items = Object.keys(this.selected).map((id) => id)
 
-    this.onSubmit(items)
+    this.onSelect(items)
   }
 
   private get isMultiple(): boolean {
@@ -79,7 +78,7 @@ export default class List extends Vue {
   }
 
   @Emit()
-  private onSubmit(a: AnswerValue): AnswerValue {
+  private onSelect(a: AnswerValue): AnswerValue {
     return a
   }
 }

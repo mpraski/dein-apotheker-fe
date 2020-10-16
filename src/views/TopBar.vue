@@ -12,9 +12,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-import Bar from '@/components/output/Bar.vue'
-import Logo from '@/components/output/Logo.vue'
-import CartButton from '@/components/output/CartButton.vue'
+import Bar from '@/components/Bar.vue'
+import Logo from '@/components/Logo.vue'
+import CartButton from '@/components/CartButton.vue'
 
 @Component({
   components: {

@@ -21,11 +21,6 @@ export default class Product extends Vue {
   @Prop({ default: 14 })
   private height!: number
 
-  @Emit()
-  private onBuy() {
-    return 0
-  }
-
   private get styleImage(): object {
     return {
       height: `${this.height}rem`,

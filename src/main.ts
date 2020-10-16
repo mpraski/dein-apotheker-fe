@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Chat from '@/components/Chat.vue'
+import Chat from '@/views/Chat.vue'
 
 import { RootState } from '@/store/types'
 import { Client } from '@/client'

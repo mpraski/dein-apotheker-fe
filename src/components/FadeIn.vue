@@ -13,12 +13,12 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component({})
 export default class FadeIn extends Vue {
   @Prop({ default: false })
-  private group!: boolean;
+  private group!: boolean
 }
 </script>
 
 <style lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .fade-enter-active,
 .fade-leave-active {

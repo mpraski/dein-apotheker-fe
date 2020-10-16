@@ -1,5 +1,5 @@
 <template>
-  <b>{{ $t("message.unknown") }}</b>
+  <b>{{ $t('message.unknown') }}</b>
 </template>
 
 <script lang="ts">
