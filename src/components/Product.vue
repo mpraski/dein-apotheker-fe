@@ -1,6 +1,6 @@
 <template>
-  <div class="product">
-    <div class="image" :style="styleImage" />
+  <div class="product" :style="styleImage">
+    <img class="image" :src="image" />
     <div class="header">
       <span class="name">{{ name }}</span>
     </div>
@@ -23,8 +23,7 @@ export default class Product extends Vue {
 
   private get styleImage(): object {
     return {
-      height: `${this.height}rem`,
-      backgroundImage: `url("${this.image}")`
+      height: `${this.height}rem`
     }
   }
 }
@@ -37,14 +36,11 @@ export default class Product extends Vue {
   @include vertical-list;
 
   .image {
-    flex-grow: 1;
+    width: 100%;
+    height: auto;
 
     border-top-left-radius: $borderRadiusInner;
     border-top-right-radius: $borderRadiusInner;
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
   }
 
   .header {

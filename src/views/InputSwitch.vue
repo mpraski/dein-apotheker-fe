@@ -1,15 +1,20 @@
 <template>
-  <Options v-if="isOptionsInput" :options="options" @on-select="onAnswer" />
-  <List
-    v-else-if="type === 'list'"
-    :component="listComponent"
-    :rows="input"
+  <Placeholder v-if="isEnd" :text="$t('message.thankYou')" />
+  <Options
+    v-else-if="isOptionsInput"
+    :options="options"
     @on-select="onAnswer"
   />
   <List
-    v-else-if="type === 'product_list'"
+    v-else-if="isList"
     :component="listComponent"
-    :rows="input"
+    :rows="input.rows"
+    @on-select="onAnswer"
+  />
+  <List
+    v-else-if="isProductList"
+    :component="listComponent"
+    :rows="input.rows"
     @on-select="onAnswer"
   >
     <template v-slot:selection>
@@ -19,8 +24,7 @@
       <Item :content="$t('cart.skip')" @click.native="none.proceed" />
     </template>
   </List>
-  <Prompt v-else-if="type === 'free'" @on-submit="onAnswer" />
-  <Placeholder v-else-if="type === 'end'" :text="$t('message.thankYou')" />
+  <Prompt v-else-if="isFree" @on-submit="onAnswer" />
 </template>
 
 <script lang="ts">
@@ -48,6 +52,7 @@ import { VueConstructor } from 'vue'
   components: {
     Options,
     Prompt,
+    List,
     Placeholder,
     Product,
     Brand,
@@ -57,6 +62,24 @@ import { VueConstructor } from 'vue'
 export default class InputSwitch extends Vue {
   @Prop() private type!: QuestionType
   @Prop() private input!: Input
+
+  private get isEnd(): boolean {
+    return (
+      this.type === 'question' && !(this.input as Array<QuestionOption>).length
+    )
+  }
+
+  private get isList(): boolean {
+    return this.type === 'list'
+  }
+
+  private get isProductList(): boolean {
+    return this.type === 'product_list'
+  }
+
+  private get isFree(): boolean {
+    return this.type === 'free'
+  }
 
   private get isOptionsInput(): boolean {
     switch (this.type) {
@@ -88,6 +111,7 @@ export default class InputSwitch extends Vue {
 
     if (this.type === 'list') {
       const db = this.input as Database
+
       switch (db.database) {
         case 'Products':
           return Product
@@ -115,8 +139,8 @@ export default class InputSwitch extends Vue {
   }
 
   @Emit()
-  private onAnswer(v: AnswerValue): AnswerValue {
-    return v
+  private onAnswer(answer: AnswerValue): AnswerValue {
+    return answer
   }
 }
 </script>

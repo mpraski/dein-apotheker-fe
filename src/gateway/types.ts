@@ -11,6 +11,7 @@ export interface ChatService {
 export interface SessionService {
   new: Cast<NewSessionResponse>;
   has: Cast<boolean>;
+  delete: Cast<boolean>;
 }
 
 export type AnswerRequest = Answer;

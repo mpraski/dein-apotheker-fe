@@ -1,26 +1,29 @@
 @import "responsive.scss";
 
-@mixin bubble(
-    $normalBorder: $buttonBorderColor,
-    $normalBackground: $buttonBackgroundColor,
-    $border: $buttonBorderColor,
-    $background: $buttonBackgroundColor
-) {
+@mixin bubble($border: $buttonBorderColor, $background: $buttonBackgroundColor, $radius: $borderRadius) {
     border-radius: $borderRadius;
     border-style: $borderStyle;
     border-width: $borderWidth;
 
-    color: $buttonTextColor;
-    background-color: $background;
+    color: $textColor;
     border-color: $border;
+    background-color: $background;
+    max-width: $bubbleMaxWidthSmall;
 
     @include respond-to(small) {
         max-width: $bubbleMaxWidth;
     }
 
     &.right {
-        background-color: $normalBackground;
-        border-color: $normalBorder;
+        align-self: flex-end;
+        border: none;
+        background: $accentColor;
+        background: linear-gradient(90deg, $accentColor 35%, $accentColorDark 100%);
+        color: white;
+    }
+
+    &.left {
+        align-self: flex-start;
     }
 
     text-align: left;
@@ -59,11 +62,8 @@
     transition: all $animationDuration;
 
     &:hover {
+        border-color: $color;
         background-color: $color;
-
-        &:after {
-            border-top: 10px solid $color;
-        }
     }
 
     &:active {
@@ -87,90 +87,9 @@
     }
 }
 
-@mixin selectable {
-    &.selected {
-        background-color: $accentColor;
-        border-color: $accentColor;
-    }
-
-    &:hover {
-        &.selected {
-            background-color: lighten($accentColor, 5%);
-            border-color: lighten($accentColor, 5%);
-        }
-    }
-
-    &:active {
-        &.selected {
-            background-color: lighten($accentColor, 10%);
-            border-color: lighten($accentColor, 10%);
-        }
-    }
-}
-
 @mixin centered {
     margin-left: auto;
     margin-right: auto;
-}
-
-@mixin authorable(
-    $normalBorder: $buttonBorderColor,
-    $normalBackground: $buttonBorderColor,
-    $border: $buttonBorderColor,
-    $background: $buttonBackgroundColor
-) {
-    position: relative;
-
-    &:before {
-        content: "";
-        width: 0px;
-        height: 0px;
-        position: absolute;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid $border;
-        border-bottom: 10px solid transparent;
-        bottom: -21px;
-    }
-
-    &:after {
-        transition: $animationDuration;
-        content: "";
-        width: 0px;
-        height: 0px;
-        position: absolute;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid $background;
-        border-bottom: 10px solid transparent;
-        bottom: -21px;
-    }
-
-    &.right {
-        align-self: flex-end;
-
-        &:before {
-            right: 1em;
-            border-top-color: $normalBorder;
-        }
-
-        &:after {
-            right: 1em;
-            border-top-color: $normalBackground;
-        }
-    }
-
-    &.left {
-        align-self: flex-start;
-
-        &:before {
-            left: 1em;
-        }
-
-        &:after {
-            left: 1em;
-        }
-    }
 }
 
 @mixin big-icon($color: $textColorInfo) {

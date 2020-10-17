@@ -13,3 +13,11 @@ export class HTTPError {
         return false
     }
 }
+
+export class APIError {
+    public message: string;
+
+    constructor(message: string) {
+        this.message = message
+    }
+}

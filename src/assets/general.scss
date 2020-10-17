@@ -6,10 +6,15 @@ body {
     height: 100%;
 
     font-family: $fontFamily;
+    font-weight: $fontWeight;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: $textColor;
-    font-size: 16px;
+    font-size: $textSize;
+
+    @include respond-to(small) {
+        font-size: $textSizeLarge;
+    }
 }
 
 *:focus {

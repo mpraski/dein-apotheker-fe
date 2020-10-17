@@ -7,7 +7,7 @@
         :selected="selected[row.id]"
         @click.native="onChoose(row.id)"
       >
-        <component :is="component" :content="option.content" />
+        <component :is="component" v-bind="enhanceRow(row)" />
       </Bubble>
     </div>
     <template v-if="isMultiple">
@@ -77,6 +77,10 @@ export default class List extends Vue {
     return this.mode === 'multiple'
   }
 
+  private enhanceRow(row: Row): object {
+    return Object.assign(row, { height: 10 })
+  }
+
   @Emit()
   private onSelect(a: AnswerValue): AnswerValue {
     return a
@@ -86,4 +90,10 @@ export default class List extends Vue {
 
 <style scoped lang="scss">
 @import '@/assets/app.scss';
+
+.list-wrapper {
+  .list {
+    @include horizontal-list;
+  }
+}
 </style>

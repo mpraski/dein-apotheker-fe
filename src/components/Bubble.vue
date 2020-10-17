@@ -18,18 +18,6 @@ export default class Bubble extends Vue {
 @import '@/assets/app.scss';
 
 .bubble {
-  @include padded;
-  @include bubble(
-    $bubbleAccentColor,
-    $bubbleAccentColor,
-    $bubbleBackgroundColor,
-    $bubbleBackgroundColor
-  );
-  @include authorable(
-    $bubbleAccentColor,
-    $bubbleAccentColor,
-    $bubbleBackgroundColor,
-    $bubbleBackgroundColor
-  );
+  @include bubble($buttonBorderColor, white);
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <TopBar />
+    <TopBar @on-refresh="requestSession" />
     <SimpleBar
       data-simplebar-auto-hide="true"
       class="output-container"
@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { State, namespace } from 'vuex-class'
+import { State, Action, namespace } from 'vuex-class'
 
 import SimpleBar from 'simplebar-vue'
 import 'simplebar/dist/simplebar.min.css'
@@ -71,6 +71,9 @@ const message = namespace(messageNamespace)
 export default class Chat extends Vue {
   @State(messageNamespace)
   messages!: MessageState
+
+  @Action
+  requestSession!: () => void
 
   @chat.Getter
   state!: string
@@ -118,7 +121,6 @@ export default class Chat extends Vue {
 @import '@/assets/app.scss';
 
 .chat-container {
-  @include bubble;
   @include vertical-list;
 
   margin-left: auto;
@@ -126,26 +128,17 @@ export default class Chat extends Vue {
   height: 100%;
   border: none;
 
-  @include respond-to(medium) {
-    height: 75vh;
-  }
-
   @include respond-to(small) {
     max-width: $chatWidth;
-
-    height: 85vh;
-
-    border-radius: $borderRadius;
-    border-style: $borderStyle;
-    border-width: 0;
-
-    border: $borderWidth $borderStyle $buttonBorderColor;
   }
 }
 
 .output-container {
   height: 100%;
   overflow-y: auto;
+
+  box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.075),
+    inset 0 -10px 10px -10px rgba(0, 0, 0, 0.075);
 }
 
 .output-list {
@@ -159,6 +152,20 @@ export default class Chat extends Vue {
   > *:first-child {
     margin-top: $marginMedium;
   }
+
+  > * {
+    margin-bottom: $marginMedium;
+  }
+
+  @include respond-to(medium) {
+    > *:first-child {
+      margin-top: $marginRegular;
+    }
+
+    > * {
+      margin-bottom: $marginRegular;
+    }
+  }
 }
 
 .input-container {
@@ -167,9 +174,11 @@ export default class Chat extends Vue {
   min-height: 30%;
 
   border-radius: 0;
-  border-top: $borderWidth $borderStyle $buttonBorderColor;
-  padding: $marginMedium $marginMedium ($marginMedium - $marginSmall)
-    $marginMedium;
+  padding: $marginMedium;
+
+  @include respond-to(medium) {
+    padding: $marginRegular;
+  }
 
   @include respond-to(small) {
     border-bottom-left-radius: $borderRadius;

@@ -1,4 +1,4 @@
-import { HTTPError } from './error'
+import { HTTPError, APIError } from './errors'
 import { Request, Response } from './types'
 
 export async function http<T>(
@@ -13,7 +13,7 @@ export async function http<T>(
   }
 
   if (decoded.error) {
-    throw new Error(decoded.error)
+    throw new APIError(decoded.error)
   }
 
   if (decoded.data) {

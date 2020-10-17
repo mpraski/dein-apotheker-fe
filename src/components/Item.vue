@@ -19,9 +19,10 @@ export default class Item extends Vue {
 @import '@/assets/app.scss';
 
 .item {
-  @include bubble;
-  @include actionable;
-  @include selectable;
-  @include padded($paddingSymptomSmall, $paddingSymptom);
+  @include bubble($buttonBorderColor, $buttonBorderColor);
+  @include actionable(darken($buttonBorderColor, 10%));
+  @include padded;
+
+  border-radius: 10rem !important;
 }
 </style>

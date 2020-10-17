@@ -1,11 +1,23 @@
+import {
+  Answer,
+  Database,
+  Product,
+  QuestionOption,
+  Message as APIMessage,
+  Actions as ChatActions,
+  Mutations as ChatMutation
+} from '@/store/chat/types'
+import {
+  RootState,
+  Mutations as RootMutations,
+  Actions as RootActions
+} from '@/store/types'
 import { AnswerResponse, ChatService, SessionService } from '@/gateway/types'
-import { Store, DispatchOptions } from 'vuex'
-import { RootState, Mutations as RootMutations, Actions as RootActions } from '@/store/types'
 import { Message, Actions as MessageActions } from '@/store/message/types'
-import { Answer, Message as APIMessage, Actions as ChatActions, Mutations as ChatMutation, QuestionOption, Database, Product } from '@/store/chat/types'
+import { Store, DispatchOptions } from 'vuex'
 import { chatNamespace } from '@/store/chat'
 import { messageNamespace } from '@/store/message'
-import { HTTPError } from '@/client/error'
+import { HTTPError } from '@/client/errors'
 import { Code } from '@/client/code'
 
 export class Driver {
@@ -56,6 +68,7 @@ export class Driver {
 
   private async newSession() {
     await Promise.all([
+      this.session.delete(),
       this.dispatch(chatNamespace, ChatActions.clear),
       this.dispatch(messageNamespace, MessageActions.clear)
     ])
@@ -97,13 +110,26 @@ export class Driver {
     return this.dispatch(chatNamespace, ChatActions.addResponse, payload)
   }
 
-  private async prepareForAnswer({ text }: APIMessage) {
+  private async prepareForAnswer({ text, type, input }: APIMessage) {
     if (text.length) {
       await this.dispatch(messageNamespace, MessageActions.addMessage, [
         {
           type: 'text',
           content: text
-        } as Message,
+        },
+        'LEFT'
+      ])
+    }
+
+    if (type === 'product') {
+      const product = input as Product
+
+      await this.dispatch(messageNamespace, MessageActions.addMessage, [
+        {
+          type: 'product',
+          name: product.name,
+          image: product.image
+        },
         'LEFT'
       ])
     }
@@ -117,8 +143,6 @@ export class Driver {
     const { type, input } = this.currentMessage
 
     switch (type) {
-      case 'comment': return 'OK'
-      case 'free': return answer as string
       case 'list':
       case 'product_list': {
         const selected = answer as Array<string>
@@ -129,7 +153,8 @@ export class Driver {
 
         return filtered.length ? filtered.join(', ') : undefined
       }
-      case 'question': {
+      case 'question':
+      case 'comment': {
         const choice = answer as string
         const options = input as Array<QuestionOption>
         const filtered = options.filter((o, _) => { return o.id === choice })
@@ -143,6 +168,7 @@ export class Driver {
 
         return 'Thanks, I\'ll pass'
       }
+      case 'free': return answer as string
     }
   }
 
@@ -158,7 +184,12 @@ export class Driver {
     return ns === '' ? path : `${ns}/${path}`
   }
 
-  private async dispatch(ns: string, type: string, payload?: any, options?: DispatchOptions) {
+  private async dispatch(
+    ns: string,
+    type: string,
+    payload?: any,
+    options?: DispatchOptions
+  ) {
     return this.store?.dispatch(this.namespaced(ns, type), payload, options)
   }
 

@@ -1,18 +1,18 @@
 <template>
-  <Bubble v-if="message.type === 'text'" :class="getAlignment(alignment)">
-    <Content :content="message.content" />
-  </Bubble>
-  <Bubble v-else-if="message.type === 'product'">
-    <Product :name="message.name" :image="message.image" />
-  </Bubble>
-  <Bubble v-else>
-    <Unknown />
+  <Bubble :class="getAlignment(alignment)">
+    <Content v-if="message.type === 'text'" :content="message.content" />
+    <Product
+      v-else-if="message.type === 'product'"
+      :name="message.name"
+      :image="message.image"
+      :height="10"
+    />
+    <Unknown v-else />
   </Bubble>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
-import { Action } from 'vuex-class'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 import Bubble from '@/components/Bubble.vue'
 import Content from '@/components/Content.vue'

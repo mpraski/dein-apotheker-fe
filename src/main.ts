@@ -12,7 +12,6 @@ import { messages as en } from '@/translations/en'
 
 import VuexPersistence from 'vuex-persist'
 import VueI18n from 'vue-i18n'
-import 'typeface-roboto/index.css'
 import 'vue-material-design-icons/styles.css'
 import '@/registerServiceWorker'
 import { Driver } from './driver'

@@ -17,13 +17,16 @@ export default class Bar extends Vue {}
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .bar-body {
   @include horizontal-list(space-between);
 
   align-items: center;
   padding: $marginSmall $marginMedium;
-  border-bottom: $borderWidth $borderStyle $buttonBorderColor;
+
+  > div {
+    @include horizontal-list;
+  }
 }
 </style>

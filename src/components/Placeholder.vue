@@ -1,7 +1,5 @@
 <template>
-  <div class="placeholder">
-    {{ text }}
-  </div>
+  <p class="placeholder">{{ text }}</p>
 </template>
 
 <script lang="ts">
@@ -18,13 +16,8 @@ export default class Placeholder extends Vue {
 @import '@/assets/app.scss';
 
 .placeholder {
-  @include padded;
-  @include centered;
   @include horizontal-list(center);
-  @include bubble(transparent, transparent, transparent, transparent);
 
-  border: 0;
   color: $textColorSecondary;
-  margin-bottom: $marginSmall;
 }
 </style>

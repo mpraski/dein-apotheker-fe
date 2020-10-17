@@ -1,5 +1,5 @@
 <template>
-  <p>{{ content }}</p>
+  <p class="content">{{ content }}</p>
 </template>
 
 <script lang="ts">
@@ -10,3 +10,11 @@ export default class Content extends Vue {
   @Prop({ default: '' }) private content!: string
 }
 </script>
+
+<style scoped lang="scss">
+@import '@/assets/app.scss';
+
+.content {
+  @include padded;
+}
+</style>

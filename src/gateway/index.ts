@@ -35,4 +35,10 @@ export class SessionClient implements SessionService {
       method: 'GET'
     }).then((code) => code === Code.OK)
   }
+
+  public async delete(): Promise<boolean> {
+    return this.client.code('/session', {
+      method: 'DELETE'
+    }).then((code) => code === Code.NO_CONTENT)
+  }
 }
