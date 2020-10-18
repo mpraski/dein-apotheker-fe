@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="holder">
         <div class="header">
-          <h2 class="title">{{title}}</h2>
+          <h2 class="title">{{ title }}</h2>
           <CloseIcon class="icon" @click="onClose" />
         </div>
         <div class="body">
@@ -27,18 +27,18 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
   }
 })
 export default class Popup extends Vue {
-  @Prop({ default: '' }) private title!: string;
-  @Prop({ default: false }) private visible!: boolean;
+  @Prop({ default: () => '' }) private title!: string
+  @Prop({ default: () => false }) private visible!: boolean
 
   @Emit()
-  private onClose () {
+  private onClose() {
     return 0
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .popup-mask {
   position: fixed;
@@ -98,7 +98,7 @@ export default class Popup extends Vue {
         }
 
         .icon {
-          @include big-icon;
+          @extend .big-icon;
         }
       }
     }

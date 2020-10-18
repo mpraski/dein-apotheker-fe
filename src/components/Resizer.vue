@@ -8,7 +8,7 @@ import debounce from 'lodash.debounce'
 
 @Component({})
 export default class Resizer extends Vue {
-  @Prop({ default: 100 })
+  @Prop({ default: () => 100 })
   private interval!: number
 
   private debouncedResize: () => void

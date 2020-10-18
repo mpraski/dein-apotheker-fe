@@ -21,7 +21,8 @@ import FadeIn from '@/components/FadeIn.vue'
   }
 })
 export default class CartButton extends Vue {
-  @Prop({ default: 0 }) private items!: number
+  @Prop({ default: () => 0 })
+  private items!: number
 
   private timerID = -1
   private showPopover = false
@@ -69,7 +70,7 @@ export default class CartButton extends Vue {
   position: relative;
 
   .icon {
-    @include big-icon;
+    @extend .big-icon;
 
     position: absolute;
     top: 0.75rem;
@@ -96,7 +97,7 @@ export default class CartButton extends Vue {
     top: 50%;
     transform: translateY(-50%);
 
-    background-color: $textColorInfo;
+    background-color: $textColorSecondary;
     color: white;
 
     border-radius: $borderRadius / 2;

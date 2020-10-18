@@ -1,6 +1,6 @@
 <template>
   <div class="options">
-    <Item
+    <Option
       v-for="option in options"
       :key="option.id"
       :content="option.text"
@@ -12,13 +12,13 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
-import Item from '@/components/Item.vue'
+import Option from '@/components/Option.vue'
 
 import { QuestionOption } from '@/store/chat/types'
 
 @Component({
   components: {
-    Item
+    Option
   }
 })
 export default class Options extends Vue {

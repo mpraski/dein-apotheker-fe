@@ -1,7 +1,7 @@
 <template>
-  <Bubble :class="getAlignment(alignment)">
+  <Bubble :alignment="data.alignment" :when="data.when">
     <Content v-if="message.type === 'text'" :content="message.content" />
-    <Product
+    <Card
       v-else-if="message.type === 'product'"
       :name="message.name"
       :image="message.image"
@@ -14,29 +14,23 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
+import Card from '@/components/Card.vue'
 import Bubble from '@/components/Bubble.vue'
 import Content from '@/components/Content.vue'
-import Product from '@/components/Product.vue'
 import Unknown from '@/components/Unknown.vue'
 
-import { Message, Alignment } from '@/store/message/types'
+import { Message, MessageData } from '@/store/message/types'
 
 @Component({
   components: {
+    Card,
     Bubble,
     Content,
-    Product,
     Unknown
   }
 })
 export default class OutputSwitch extends Vue {
   @Prop() private message!: Message
-  @Prop() private alignment!: Alignment
-
-  private getAlignment(alignment: string) {
-    return {
-      [alignment.toLowerCase()]: true
-    }
-  }
+  @Prop() private data!: MessageData
 }
 </script>

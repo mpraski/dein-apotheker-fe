@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { MessageState, Message, Mutations, Alignment } from './types'
+import { MessageState, Message, Mutations, MessageData } from './types'
 import { ValueOf } from '@/store/types'
 
 type MutationDefinition = {
@@ -7,7 +7,7 @@ type MutationDefinition = {
 }
 
 export const mutations: MutationDefinition = {
-  [Mutations.addMessage](messages, message: [Message, Alignment]) {
+  [Mutations.addMessage](messages, message: [Message, MessageData]) {
     messages.push(message)
   },
   [Mutations.clear](messages) {

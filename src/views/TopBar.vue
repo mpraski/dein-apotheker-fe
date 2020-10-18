@@ -16,6 +16,7 @@ import Logo from '@/components/Logo.vue'
 import Button from '@/components/Button.vue'
 import CartIcon from 'vue-material-design-icons/Cart.vue'
 import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
+import Dots from '@/components/Dots.vue'
 
 @Component({
   components: {
@@ -23,7 +24,8 @@ import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
     Logo,
     Button,
     CartIcon,
-    RefreshIcon
+    RefreshIcon,
+    Dots
   }
 })
 export default class TopBar extends Vue {

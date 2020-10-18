@@ -13,7 +13,7 @@ import {
   Actions as RootActions
 } from '@/store/types'
 import { AnswerResponse, ChatService, SessionService } from '@/gateway/types'
-import { Message, Actions as MessageActions } from '@/store/message/types'
+import { Message, Actions as MessageActions, MessageData } from '@/store/message/types'
 import { Store, DispatchOptions } from 'vuex'
 import { chatNamespace } from '@/store/chat'
 import { messageNamespace } from '@/store/message'
@@ -89,7 +89,10 @@ export class Driver {
           type: 'text',
           content: text
         } as Message,
-        'RIGHT'
+        {
+          alignment: 'RIGHT',
+          when: Date.now()
+        } as MessageData
       ])
     }
 
@@ -116,8 +119,11 @@ export class Driver {
         {
           type: 'text',
           content: text
-        },
-        'LEFT'
+        } as Message,
+        {
+          alignment: 'LEFT',
+          when: Date.now()
+        } as MessageData
       ])
     }
 
@@ -129,8 +135,11 @@ export class Driver {
           type: 'product',
           name: product.name,
           image: product.image
-        },
-        'LEFT'
+        } as Message,
+        {
+          alignment: 'LEFT',
+          when: Date.now()
+        } as MessageData
       ])
     }
 

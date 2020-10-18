@@ -19,7 +19,12 @@ export interface MessageProduct {
 
 export type Message = MessageText | MessageImage | MessageProduct;
 
-export type MessageState = Array<[Message, Alignment]>;
+export interface MessageData {
+    alignment: Alignment;
+    when: number;
+};
+
+export type MessageState = Array<[Message, MessageData]>;
 
 // Keys
 export enum Mutations {

@@ -23,7 +23,7 @@ import SendIcon from 'vue-material-design-icons/Send.vue'
   }
 })
 export default class Prompt extends Vue {
-  @Prop({ default: '' })
+  @Prop({ default: () => '' })
   private content!: string
 
   private get isDisabled(): boolean {
@@ -47,9 +47,9 @@ export default class Prompt extends Vue {
 @import '@/assets/app.scss';
 
 .prompt {
-  @include bubble;
-  @include padded;
-  @include centered;
+  @extend .bubble;
+  @extend .padded;
+  @extend .centered;
   @include horizontal-list(center, nowrap);
 
   margin-bottom: $marginSmall;
@@ -59,7 +59,7 @@ export default class Prompt extends Vue {
   }
 
   .send {
-    @include actionable($accentColor, $buttonBorderColor);
+    @include actionable($accentColor, $borderColor);
 
     padding: 0.75rem;
     display: flex;

@@ -13,6 +13,6 @@ export default class Unknown extends Vue {}
 @import '@/assets/app.scss';
 
 .unknown {
-  @include padded;
+  @extend .padded;
 }
 </style>

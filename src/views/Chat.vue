@@ -8,10 +8,10 @@
     >
       <FadeIn group="true" class="output-list">
         <OutputSwitch
-          v-for="([m, a], index) in messages"
+          v-for="([m, d], index) in messages"
           :key="index"
           :message="m"
-          :alignment="a"
+          :data="d"
         />
       </FadeIn>
     </SimpleBar>
@@ -137,8 +137,7 @@ export default class Chat extends Vue {
   height: 100%;
   overflow-y: auto;
 
-  box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.075),
-    inset 0 -10px 10px -10px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.075);
 }
 
 .output-list {

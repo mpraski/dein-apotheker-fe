@@ -12,7 +12,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({})
 export default class FadeIn extends Vue {
-  @Prop({ default: false })
+  @Prop({ default: () => false })
   private group!: boolean
 }
 </script>

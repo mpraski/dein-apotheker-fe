@@ -1,5 +1,5 @@
 <template>
-  <div class="product" :style="styleImage">
+  <div class="card" :style="styleImage">
     <img class="image" :src="image" />
     <div class="header">
       <span class="name">{{ name }}</span>
@@ -8,17 +8,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({})
-export default class Product extends Vue {
-  @Prop({ default: '' })
+export default class Card extends Vue {
+  @Prop({ default: () => '' })
   private name!: string
 
-  @Prop({ default: '' })
+  @Prop({ default: () => '' })
   private image!: string
 
-  @Prop({ default: 14 })
+  @Prop({ default: () => 14 })
   private height!: number
 
   private get styleImage(): object {
@@ -32,7 +32,7 @@ export default class Product extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.product {
+.card {
   @include vertical-list;
 
   .image {
@@ -44,7 +44,7 @@ export default class Product extends Vue {
   }
 
   .header {
-    @include padded;
+    @extend .padded;
     @include horizontal-list(space-between);
 
     .name {
@@ -52,7 +52,7 @@ export default class Product extends Vue {
     }
 
     .info-body {
-      @include big-icon;
+      @extend .big-icon;
     }
   }
 }

@@ -30,13 +30,11 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
+import Placeholder from '@/components/Placeholder.vue'
 import Options from '@/components/Options.vue'
 import Prompt from '@/components/Prompt.vue'
 import List from '@/components/List.vue'
-import Placeholder from '@/components/Placeholder.vue'
-import Product from '@/components/Product.vue'
-import Brand from '@/components/Brand.vue'
-import API from '@/components/API.vue'
+import Card from '@/components/Card.vue'
 
 import {
   Input,
@@ -54,9 +52,7 @@ import { VueConstructor } from 'vue'
     Prompt,
     List,
     Placeholder,
-    Product,
-    Brand,
-    API
+    Card
   }
 })
 export default class InputSwitch extends Vue {
@@ -105,21 +101,10 @@ export default class InputSwitch extends Vue {
   }
 
   private get listComponent(): VueConstructor<Vue> | undefined {
-    if (this.type === 'product_list') {
-      return Product
-    }
-
-    if (this.type === 'list') {
-      const db = this.input as Database
-
-      switch (db.database) {
-        case 'Products':
-          return Product
-        case 'Brands':
-          return Brand
-        case 'API':
-          return API
-      }
+    switch (this.type) {
+      case 'list':
+      case 'product_list':
+        return Card
     }
 
     return undefined

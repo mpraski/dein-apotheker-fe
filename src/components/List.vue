@@ -1,14 +1,14 @@
 <template>
   <div class="list-wrapper">
     <div class="list">
-      <Bubble
+      <SelectibleItem
         v-for="row in rows"
         :key="row.id"
         :selected="selected[row.id]"
         @click.native="onChoose(row.id)"
       >
-        <component :is="component" v-bind="enhanceRow(row)" />
-      </Bubble>
+        <component :is="component" :height="10" v-bind="row" />
+      </SelectibleItem>
     </div>
     <template v-if="isMultiple">
       <slot v-if="hasItems" name="selection" :proceed="onProceed"></slot>
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
-import Bubble from '@/components/Bubble.vue'
+import SelectibleItem from '@/components/SelectibleItem.vue'
 import { AnswerValue, Row } from '@/store/chat/types'
 import { VueConstructor } from 'vue'
 
@@ -27,14 +27,14 @@ export type Mode = 'single' | 'multiple'
 
 @Component({
   components: {
-    Bubble
+    SelectibleItem
   }
 })
 export default class List extends Vue {
   @Prop({ default: () => [] })
   private rows!: ReadonlyArray<Row>
 
-  @Prop({ default: 'single' })
+  @Prop({ default: () => 'single' })
   private mode!: Mode
 
   @Prop()
@@ -75,10 +75,6 @@ export default class List extends Vue {
 
   private get isMultiple(): boolean {
     return this.mode === 'multiple'
-  }
-
-  private enhanceRow(row: Row): object {
-    return Object.assign(row, { height: 10 })
   }
 
   @Emit()

@@ -7,7 +7,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component({})
 export default class Placeholder extends Vue {
-  @Prop({ default: '' })
+  @Prop({ default: () => '' })
   private text!: string
 }
 </script>

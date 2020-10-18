@@ -1,47 +1,5 @@
 @import "responsive.scss";
 
-@mixin bubble($border: $buttonBorderColor, $background: $buttonBackgroundColor, $radius: $borderRadius) {
-    border-radius: $borderRadius;
-    border-style: $borderStyle;
-    border-width: $borderWidth;
-
-    color: $textColor;
-    border-color: $border;
-    background-color: $background;
-    max-width: $bubbleMaxWidthSmall;
-
-    @include respond-to(small) {
-        max-width: $bubbleMaxWidth;
-    }
-
-    &.right {
-        align-self: flex-end;
-        border: none;
-        background: $accentColor;
-        background: linear-gradient(90deg, $accentColor 35%, $accentColorDark 100%);
-        color: white;
-    }
-
-    &.left {
-        align-self: flex-start;
-    }
-
-    text-align: left;
-    user-select: none;
-
-    .icon > .material-design-icon__svg {
-        bottom: 0;
-    }
-}
-
-@mixin padded($small: $paddingButtonSmall, $large: $paddingButton) {
-    padding: $small;
-
-    @include respond-to(small) {
-        padding: $large;
-    }
-}
-
 @mixin horizontal-list($justify: flex-end, $wrap: wrap) {
     display: flex;
     flex-direction: row;
@@ -56,7 +14,7 @@
     flex-wrap: $wrap;
 }
 
-@mixin actionable($color: $buttonBorderColor, $disabled: $buttonBorderColor) {
+@mixin actionable($color: $borderColor, $disabled: $borderColor) {
     cursor: pointer;
 
     transition: all $animationDuration;
@@ -87,16 +45,80 @@
     }
 }
 
-@mixin centered {
+.alignable {
+    &.right {
+        align-self: flex-end;
+    }
+
+    &.left {
+        align-self: flex-start;
+    }
+}
+
+.limited-width {
+    max-width: $bubbleMaxWidthSmall;
+
+    @include respond-to(small) {
+        max-width: $bubbleMaxWidth;
+    }
+}
+
+.bubble {
+    @extend .alignable;
+
+    border-radius: $borderRadius;
+    border-style: $borderStyle;
+    border-width: $borderWidth;
+
+    color: $textColor;
+    border-color: $borderColor;
+    background-color: $backgroundColor;
+
+    text-align: left;
+    user-select: none;
+
+    &.right {
+        align-self: flex-end;
+        border: none;
+        border-bottom-right-radius: 0;
+        background: $accentColor;
+        background: linear-gradient(90deg, $accentColor 35%, $accentColorDark 100%);
+        color: white;
+    }
+
+    &.left {
+        border-top-left-radius: 0;
+        align-self: flex-start;
+    }
+}
+
+.padded {
+    padding: $paddingButtonSmall;
+
+    @include respond-to(small) {
+        padding: $paddingButton;
+    }
+}
+
+.option {
+    @extend .bubble;
+    @extend .padded;
+    @include actionable(darken($borderColor, 10%));
+
+    border-radius: 10rem;
+    background-color: $borderColor;
+}
+
+.centered {
     margin-left: auto;
     margin-right: auto;
 }
 
-@mixin big-icon($color: $textColorInfo) {
+.big-icon {
     cursor: pointer;
     height: 1.5rem;
     width: 1.5rem;
-    color: $color;
+    color: $textColorSecondary;
 
     & > .material-design-icon__svg {
         height: 1.5rem;

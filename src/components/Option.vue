@@ -1,12 +1,12 @@
 <template>
-  <p class="content">{{ content }}</p>
+  <p class="option">{{ content }}</p>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({})
-export default class Content extends Vue {
+export default class Option extends Vue {
   @Prop({ default: () => '' })
   private content!: string
 }
@@ -14,8 +14,4 @@ export default class Content extends Vue {
 
 <style scoped lang="scss">
 @import '@/assets/app.scss';
-
-.content {
-  @extend .padded;
-}
 </style>
