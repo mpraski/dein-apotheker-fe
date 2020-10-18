@@ -1,12 +1,8 @@
 <template>
   <div class="chat-container">
     <TopBar @on-refresh="requestSession" />
-    <SimpleBar
-      data-simplebar-auto-hide="true"
-      class="output-container"
-      ref="outputContainer"
-    >
-      <FadeIn group="true" class="output-list">
+    <div class="output-container" ref="outputContainer">
+      <FadeIn group="true" class="output-list" ref="outputContainer">
         <OutputSwitch
           v-for="([m, d], index) in messages"
           :key="index"
@@ -14,7 +10,7 @@
           :data="d"
         />
       </FadeIn>
-    </SimpleBar>
+    </div>
     <div class="input-container">
       <FadeIn>
         <InputSwitch
@@ -32,9 +28,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { State, Action, namespace } from 'vuex-class'
-
-import SimpleBar from 'simplebar-vue'
-import 'simplebar/dist/simplebar.min.css'
 
 import FadeIn from '@/components/FadeIn.vue'
 import Resizer from '@/components/Resizer.vue'
@@ -64,7 +57,6 @@ const message = namespace(messageNamespace)
     Resizer,
     OutputSwitch,
     InputSwitch,
-    SimpleBar,
     TopBar
   }
 })
@@ -135,9 +127,16 @@ export default class Chat extends Vue {
 
 .output-container {
   height: 100%;
-  overflow-y: auto;
+
+  overflow-y: hidden;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
 
   box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.075);
+
+  & > div:last-child {
+    scroll-snap-align: end;
+  }
 }
 
 .output-list {

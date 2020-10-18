@@ -18,6 +18,7 @@
     cursor: pointer;
 
     transition: all $animationDuration;
+    transition-delay: $animationDelay;
 
     &:hover {
         border-color: $color;

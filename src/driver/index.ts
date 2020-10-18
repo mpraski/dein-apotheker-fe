@@ -19,10 +19,12 @@ import { chatNamespace } from '@/store/chat'
 import { messageNamespace } from '@/store/message'
 import { HTTPError } from '@/client/errors'
 import { Code } from '@/client/code'
+import { Queue } from './queue'
 
 export class Driver {
   private chat: ChatService;
   private session: SessionService;
+  private queue?: Queue<RootState>;
   private store?: Store<RootState>;
 
   constructor(
@@ -43,6 +45,7 @@ export class Driver {
 
   public subscribe(store: Store<RootState>) {
     this.store = store
+    this.queue = new Queue<RootState>(store)
 
     store.subscribe((mutation, _) => {
       switch (mutation.type) {
@@ -109,13 +112,20 @@ export class Driver {
     }
 
     const payload = [response.id, response.message, response.cart]
+    const dispatcher = this.initialState
+      ? this.dispatch.bind(this)
+      : this.dispatchQueue.bind(this)
 
-    return this.dispatch(chatNamespace, ChatActions.addResponse, payload)
+    return dispatcher(chatNamespace, ChatActions.addResponse, payload)
   }
 
   private async prepareForAnswer({ text, type, input }: APIMessage) {
+    const dispatcher = this.initialState
+      ? this.dispatch.bind(this)
+      : this.dispatchQueue.bind(this)
+
     if (text.length) {
-      await this.dispatch(messageNamespace, MessageActions.addMessage, [
+      await dispatcher(messageNamespace, MessageActions.addMessage, [
         {
           type: 'text',
           content: text
@@ -130,7 +140,7 @@ export class Driver {
     if (type === 'product') {
       const product = input as Product
 
-      await this.dispatch(messageNamespace, MessageActions.addMessage, [
+      await dispatcher(messageNamespace, MessageActions.addMessage, [
         {
           type: 'product',
           name: product.name,
@@ -143,7 +153,7 @@ export class Driver {
       ])
     }
 
-    return this.dispatch(chatNamespace, ChatActions.showInput)
+    return dispatcher(chatNamespace, ChatActions.showInput)
   }
 
   private formatAnswer({ answer }: Answer): string | undefined {
@@ -189,6 +199,10 @@ export class Driver {
     return (this.store?.state as any).chat.message
   }
 
+  private get initialState(): boolean {
+    return (this.store?.state as any).chat.states.length < 2
+  }
+
   private namespaced(ns: string, path: string): string {
     return ns === '' ? path : `${ns}/${path}`
   }
@@ -200,6 +214,15 @@ export class Driver {
     options?: DispatchOptions
   ) {
     return this.store?.dispatch(this.namespaced(ns, type), payload, options)
+  }
+
+  private async dispatchQueue(
+    ns: string,
+    type: string,
+    payload?: any,
+    options?: DispatchOptions
+  ) {
+    return this.queue?.dispatch(this.namespaced(ns, type), payload, options)
   }
 
   private get emptyAnswer(): Answer {
