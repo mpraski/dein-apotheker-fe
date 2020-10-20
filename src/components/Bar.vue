@@ -1,12 +1,12 @@
 <template>
-  <div class="bar-body">
+  <header class="bar-body">
     <div>
       <slot name="left"></slot>
     </div>
     <div>
       <slot name="right"></slot>
     </div>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">

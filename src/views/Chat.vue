@@ -1,18 +1,16 @@
 <template>
-  <div class="chat-container">
+  <main>
     <TopBar @on-refresh="requestSession" />
-    <div class="output-container" ref="outputContainer">
-      <FadeIn group="true" class="output-list" ref="outputContainer">
+    <Scroller :height="height" @on-measure="onMeasure" ref="scroller">
+      <FadeIn group="true" class="output">
         <OutputSwitch
-          v-for="([m, d], index) in messages"
-          :key="index"
+          v-for="([m, d], i) in messages"
+          :key="i"
           :message="m"
           :data="d"
         />
       </FadeIn>
-    </div>
-    <div class="input-container">
-      <FadeIn>
+      <FadeIn class="input">
         <InputSwitch
           v-if="showInput"
           :type="message.type"
@@ -20,16 +18,17 @@
           @on-answer="onAnswer"
         />
       </FadeIn>
-    </div>
-    <Resizer @on-resize="scrollToEnd('smooth')" />
-  </div>
+    </Scroller>
+    <Resizer @on-resize="scrollToBotton('smooth')" />
+  </main>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Watch, Vue } from 'vue-property-decorator'
 import { State, Action, namespace } from 'vuex-class'
 
 import FadeIn from '@/components/FadeIn.vue'
+import Scroller from '@/components/Scroller.vue'
 import Resizer from '@/components/Resizer.vue'
 import OutputSwitch from '@/views/OutputSwitch.vue'
 import InputSwitch from '@/views/InputSwitch.vue'
@@ -47,13 +46,16 @@ import {
   AnswerValue
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
+import { scrollerNamespace } from '@/store/scroller'
 
 const chat = namespace(chatNamespace)
 const message = namespace(messageNamespace)
+const scroller = namespace(scrollerNamespace)
 
 @Component({
   components: {
     FadeIn,
+    Scroller,
     Resizer,
     OutputSwitch,
     InputSwitch,
@@ -79,32 +81,43 @@ export default class Chat extends Vue {
   @chat.Action
   addAnswer!: (a: Answer) => void
 
-  private static readonly scrollAmount: number = 9999
+  @scroller.Getter
+  height!: number
+
+  @scroller.Action
+  measure!: (n: number) => void
+
+  private readonly scrollAmount: number = 9999
 
   // prettier-ignore
   $refs!: {
-    outputContainer: HTMLDivElement;
+    scroller: Scroller;
   }
 
   private mounted() {
     this.$driver.start()
-    this.scrollToEnd('auto')
+    this.scrollToBotton('auto')
   }
 
   private updated() {
-    this.$nextTick(() => this.scrollToEnd('smooth'))
+    this.$nextTick(() => this.scrollToBotton())
   }
 
-  private scrollToEnd(behaviour: 'smooth' | 'auto') {
-    const scrollElem = (this.$refs.outputContainer as any).scrollElement
-    scrollElem.scrollBy({
-      top: Chat.scrollAmount,
-      behavior: behaviour
-    })
+  private scrollToBotton(behaviour: 'smooth' | 'auto' = 'smooth') {
+    this.$refs.scroller.scrollToEnd(this.scrollAmount, behaviour)
   }
 
   private onAnswer(answer: AnswerValue) {
     this.addAnswer({ state: this.state, answer })
+  }
+
+  private onMeasure(contentHeight: number) {
+    this.measure(contentHeight)
+  }
+
+  @Watch('messages')
+  private onPropertyChanged(value: any, old: any) {
+    this.$nextTick(() => this.$refs.scroller.measure())
   }
 }
 </script>
@@ -112,75 +125,34 @@ export default class Chat extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.chat-container {
+main {
   @include vertical-list;
 
   margin-left: auto;
   margin-right: auto;
   height: 100%;
-  border: none;
 
   @include respond-to(small) {
     max-width: $chatWidth;
   }
 }
 
-.output-container {
-  height: 100%;
-
-  overflow-y: hidden;
-  overscroll-behavior-y: contain;
-  scroll-snap-type: y mandatory;
-
-  box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.075);
-
-  & > div:last-child {
-    scroll-snap-align: end;
-  }
+.input {
+  margin-top: $marginMedium;
+  padding: 0 $marginMedium;
 }
 
-.output-list {
+.output {
   @include vertical-list;
-
-  margin-left: auto;
-  margin-right: auto;
 
   padding: 0 $marginMedium;
 
   > *:first-child {
-    margin-top: $marginMedium;
+    margin-top: $marginRegular;
   }
 
   > * {
     margin-bottom: $marginMedium;
-  }
-
-  @include respond-to(medium) {
-    > *:first-child {
-      margin-top: $marginRegular;
-    }
-
-    > * {
-      margin-bottom: $marginRegular;
-    }
-  }
-}
-
-.input-container {
-  @include vertical-list;
-
-  min-height: 30%;
-
-  border-radius: 0;
-  padding: $marginMedium;
-
-  @include respond-to(medium) {
-    padding: $marginRegular;
-  }
-
-  @include respond-to(small) {
-    border-bottom-left-radius: $borderRadius;
-    border-bottom-right-radius: $borderRadius;
   }
 }
 </style>

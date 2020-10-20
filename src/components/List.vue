@@ -7,7 +7,7 @@
         :selected="selected[row.id]"
         @click.native="onChoose(row.id)"
       >
-        <component :is="component" :height="10" v-bind="row" />
+        <component :is="component" v-bind="row" />
       </SelectibleItem>
     </div>
     <template v-if="isMultiple">
@@ -89,7 +89,12 @@ export default class List extends Vue {
 
 .list-wrapper {
   .list {
-    @include horizontal-list;
+    @include horizontal-list(flex-end, nowrap);
+    overflow-x: auto;
+
+    > *:not(:last-child) {
+      margin-right: $marginSmall;
+    }
   }
 }
 </style>

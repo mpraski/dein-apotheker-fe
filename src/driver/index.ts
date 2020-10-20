@@ -12,11 +12,16 @@ import {
   Mutations as RootMutations,
   Actions as RootActions
 } from '@/store/types'
+import {
+  Actions as ScrollerActions,
+  defaultIncrement
+} from '@/store/scroller/types'
 import { AnswerResponse, ChatService, SessionService } from '@/gateway/types'
 import { Message, Actions as MessageActions, MessageData } from '@/store/message/types'
 import { Store, DispatchOptions } from 'vuex'
 import { chatNamespace } from '@/store/chat'
 import { messageNamespace } from '@/store/message'
+import { scrollerNamespace } from '@/store/scroller'
 import { HTTPError } from '@/client/errors'
 import { Code } from '@/client/code'
 import { Queue } from './queue'
@@ -73,7 +78,8 @@ export class Driver {
     await Promise.all([
       this.session.delete(),
       this.dispatch(chatNamespace, ChatActions.clear),
-      this.dispatch(messageNamespace, MessageActions.clear)
+      this.dispatch(messageNamespace, MessageActions.clear),
+      this.dispatch(scrollerNamespace, ScrollerActions.clear)
     ])
 
     return this.session.new().then(({ csrf_token: token }) =>
@@ -87,7 +93,7 @@ export class Driver {
     const text = this.formatAnswer(answer)
 
     if (text) {
-      await this.dispatch(messageNamespace, MessageActions.addMessage, [
+      await this.dispatchQueue(messageNamespace, MessageActions.addMessage, [
         {
           type: 'text',
           content: text
@@ -123,6 +129,8 @@ export class Driver {
     const dispatcher = this.initialState
       ? this.dispatch.bind(this)
       : this.dispatchQueue.bind(this)
+
+    dispatcher(scrollerNamespace, ScrollerActions.allocate, defaultIncrement())
 
     if (text.length) {
       await dispatcher(messageNamespace, MessageActions.addMessage, [

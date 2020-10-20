@@ -5,25 +5,15 @@
     :options="options"
     @on-select="onAnswer"
   />
-  <List
-    v-else-if="isList"
-    :component="listComponent"
-    :rows="input.rows"
-    @on-select="onAnswer"
-  />
-  <List
-    v-else-if="isProductList"
-    :component="listComponent"
-    :rows="input.rows"
-    @on-select="onAnswer"
-  >
+  <Chooser v-else-if="isList" :rows="input.rows" @on-select="onAnswer" />
+  <Chooser v-else-if="isProductList" :rows="input.rows" @on-select="onAnswer">
     <template v-slot:selection>
       <Item :content="$t('cart.add')" @click.native="selection.proceed" />
     </template>
     <template v-slot:none>
       <Item :content="$t('cart.skip')" @click.native="none.proceed" />
     </template>
-  </List>
+  </Chooser>
   <Prompt v-else-if="isFree" @on-submit="onAnswer" />
 </template>
 
@@ -33,8 +23,7 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import Placeholder from '@/components/Placeholder.vue'
 import Options from '@/components/Options.vue'
 import Prompt from '@/components/Prompt.vue'
-import List from '@/components/List.vue'
-import Card from '@/components/Card.vue'
+import Chooser from '@/components/Chooser.vue'
 
 import {
   Input,
@@ -50,9 +39,8 @@ import { VueConstructor } from 'vue'
   components: {
     Options,
     Prompt,
-    List,
     Placeholder,
-    Card
+    Chooser
   }
 })
 export default class InputSwitch extends Vue {
@@ -100,7 +88,7 @@ export default class InputSwitch extends Vue {
     return []
   }
 
-  private get listComponent(): VueConstructor<Vue> | undefined {
+  /*private get listComponent(): VueConstructor<Vue> | undefined {
     switch (this.type) {
       case 'list':
       case 'product_list':
@@ -108,7 +96,7 @@ export default class InputSwitch extends Vue {
     }
 
     return undefined
-  }
+  }*/
 
   private productOptions(product: APIProduct): Array<QuestionOption> {
     return [

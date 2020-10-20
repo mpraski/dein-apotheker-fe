@@ -1,5 +1,5 @@
 <template>
-  <div class="bubble">
+  <div class="selectible">
     <slot></slot>
   </div>
 </template>
@@ -13,3 +13,12 @@ export default class SelectibleItem extends Vue {
   private selected!: boolean
 }
 </script>
+
+<style scoped lang="scss">
+@import '@/assets/app.scss';
+
+.selectible {
+  @extend .bubble;
+  @include actionable;
+}
+</style>

@@ -5,7 +5,6 @@
       v-else-if="message.type === 'product'"
       :name="message.name"
       :image="message.image"
-      :height="10"
     />
     <Unknown v-else />
   </Bubble>

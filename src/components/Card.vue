@@ -1,9 +1,7 @@
 <template>
-  <div class="card" :style="styleImage">
-    <img class="image" :src="image" />
-    <div class="header">
-      <span class="name">{{ name }}</span>
-    </div>
+  <div class="card" :style="styleCard">
+    <div class="image" :style="styleImage" />
+    <p class="header">{{ name }}</p>
   </div>
 </template>
 
@@ -18,12 +16,22 @@ export default class Card extends Vue {
   @Prop({ default: () => '' })
   private image!: string
 
-  @Prop({ default: () => 14 })
+  @Prop({ default: () => 12 })
   private height!: number
+
+  @Prop({ default: () => 14 })
+  private width!: number
+
+  private get styleCard(): object {
+    return {
+      height: `${this.height}rem`,
+      width: `${this.width}rem`
+    }
+  }
 
   private get styleImage(): object {
     return {
-      height: `${this.height}rem`
+      backgroundImage: `url(${this.image})`
     }
   }
 }
@@ -36,8 +44,14 @@ export default class Card extends Vue {
   @include vertical-list;
 
   .image {
+    height: 100%;
     width: 100%;
-    height: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+
+    padding-top: $marginSmall;
 
     border-top-left-radius: $borderRadiusInner;
     border-top-right-radius: $borderRadiusInner;
@@ -45,15 +59,6 @@ export default class Card extends Vue {
 
   .header {
     @extend .padded;
-    @include horizontal-list(space-between);
-
-    .name {
-      font-weight: bold;
-    }
-
-    .info-body {
-      @extend .big-icon;
-    }
   }
 }
 </style>

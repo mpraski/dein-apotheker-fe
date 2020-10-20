@@ -4,10 +4,11 @@ $accentColorDark: #ff8500;
 
 // Background
 $backgroundColor: white;
+$backgroundColorSecondary: #fafafa;
 
 // Text
 $textColor: #2c3e50;
-$textColorSecondary: #9e9e9e;
+$textColorSecondary: #a8a8a8;
 
 // Original text color was #2c3e50
 // cool color #ffe433
@@ -18,7 +19,7 @@ $borderRound: 2rem;
 $borderStyle: solid;
 $borderRadius: 0.75rem;
 $borderRadiusInner: $borderRadius - 0.1rem;
-$borderColor: #f1f1f1;
+$borderColor: #eeeeee;
 
 // Margin
 $marginRegular: 1.5rem;
@@ -44,7 +45,7 @@ $lineHeightSmall: 1.3rem;
 $bubbleMaxWidthSmall: 80%;
 $bubbleMaxWidth: 70%;
 $bubbleMinWidth: 10%;
-$chatWidth: 50rem;
+$chatWidth: 55rem;
 $buttonSize: 3rem;
 
 // Animation

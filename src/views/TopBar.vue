@@ -1,5 +1,5 @@
 <template>
-  <Bar>
+  <Bar class="top-bar">
     <template v-slot:left><Logo /></template>
     <template v-slot:right>
       <Button @click.native="onRefresh"><RefreshIcon /></Button>
@@ -35,3 +35,23 @@ export default class TopBar extends Vue {
   }
 }
 </script>
+
+<style scoped lang="scss">
+@import '@/assets/app.scss';
+
+.top-bar {
+  z-index: 1;
+
+  background-color: $backgroundColor;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.01),
+    0 1px 10px 2px rgba(0, 0, 0, 0.025), 0 5px 5px -10px rgba(0, 0, 0, 0.05);
+
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  @include respond-to(medium) {
+    border-bottom-left-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+  }
+}
+</style>
