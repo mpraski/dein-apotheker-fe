@@ -14,8 +14,6 @@ export const mutations: MutationDefinition = {
       const diff = state.height - state.contentHeight
       const inc = diff > 0 ? increment - diff : increment
 
-      console.log(increment, diff, inc)
-
       state.height += inc
     }
   },

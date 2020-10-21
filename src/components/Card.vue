@@ -46,6 +46,7 @@ export default class Card extends Vue {
   .image {
     height: 100%;
     width: 100%;
+
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -53,8 +54,8 @@ export default class Card extends Vue {
 
     padding-top: $marginSmall;
 
-    border-top-left-radius: $borderRadiusInner;
-    border-top-right-radius: $borderRadiusInner;
+    border-top-left-radius: $borderRadius;
+    border-top-right-radius: $borderRadius;
   }
 
   .header {

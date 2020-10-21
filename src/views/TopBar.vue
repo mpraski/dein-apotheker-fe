@@ -43,8 +43,7 @@ export default class TopBar extends Vue {
   z-index: 1;
 
   background-color: $backgroundColor;
-  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.01),
-    0 1px 10px 2px rgba(0, 0, 0, 0.025), 0 5px 5px -10px rgba(0, 0, 0, 0.05);
+  box-shadow: $boxShadow;
 
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;

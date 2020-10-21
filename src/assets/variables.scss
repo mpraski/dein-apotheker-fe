@@ -18,7 +18,6 @@ $borderWidth: 2px;
 $borderRound: 2rem;
 $borderStyle: solid;
 $borderRadius: 0.75rem;
-$borderRadiusInner: $borderRadius - 0.1rem;
 $borderColor: #eeeeee;
 
 // Margin
@@ -38,12 +37,12 @@ $textSizeLarge: 18px;
 $textSizeSmall: 14px;
 $fontFamily: "Ubuntu", sans-serif;
 $fontWeight: 400;
-$lineHeight: 1.575rem;
+$lineHeight: 1.5rem;
 $lineHeightSmall: 1.3rem;
 
 // General
-$bubbleMaxWidthSmall: 80%;
-$bubbleMaxWidth: 70%;
+$bubbleMaxWidthSmall: 90%;
+$bubbleMaxWidth: 80%;
 $bubbleMinWidth: 10%;
 $chatWidth: 55rem;
 $buttonSize: 3rem;
@@ -51,3 +50,4 @@ $buttonSize: 3rem;
 // Animation
 $animationDuration: 0.25s;
 $animationDelay: 0;
+$boxShadow: 0 5px 10px 1px rgba(0, 0, 0, 0.01), 0 1px 10px 2px rgba(0, 0, 0, 0.03), 0 5px 5px -10px rgba(0, 0, 0, 0.06);

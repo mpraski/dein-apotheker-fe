@@ -5,7 +5,12 @@
     :options="options"
     @on-select="onAnswer"
   />
-  <Chooser v-else-if="isList" :rows="input.rows" @on-select="onAnswer" />
+  <Chooser
+    v-else-if="isList"
+    :rows="input.rows"
+    :columns="listColumns"
+    @on-select="onAnswer"
+  />
   <Chooser v-else-if="isProductList" :rows="input.rows" @on-select="onAnswer">
     <template v-slot:selection>
       <Item :content="$t('cart.add')" @click.native="selection.proceed" />
@@ -86,6 +91,17 @@ export default class InputSwitch extends Vue {
     }
 
     return []
+  }
+
+  private get listColumns(): number {
+    if (
+      this.type === 'list' &&
+      (this.input as Database).database === 'Brands'
+    ) {
+      return 3
+    }
+
+    return 2
   }
 
   /*private get listComponent(): VueConstructor<Vue> | undefined {
