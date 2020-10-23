@@ -64,7 +64,7 @@ export default class Chooser extends Vue {
   }
 
   private onProceed() {
-    const items = Object.keys(this.selected).map((id) => id)
+    const items = Object.keys(this.selected)
 
     this.onSelect(items)
   }

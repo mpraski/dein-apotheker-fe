@@ -11,7 +11,3 @@ export default class Option extends Vue {
   private content!: string
 }
 </script>
-
-<style scoped lang="scss">
-@import '@/assets/app.scss';
-</style>
