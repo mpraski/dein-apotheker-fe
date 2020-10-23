@@ -6,7 +6,7 @@ WARN_COLOR=\033[33;01m
 SERVICE_NAME=chatbot
 
 .PHONY: all test build
-all: clean build
+all: build
 
 install:
 	@echo "$(OK_COLOR)==> Installing packages for $(SERVICE_NAME)...$(NO_COLOR)"
