@@ -22,6 +22,7 @@ export default class Bar extends Vue {}
 .bar-body {
   @include horizontal-list(space-between);
 
+  flex: none;
   align-items: center;
   padding: $marginSmall $marginMedium;
 
