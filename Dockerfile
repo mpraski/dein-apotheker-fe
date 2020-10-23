@@ -12,6 +12,7 @@ COPY ./babel.config.js .
 COPY ./Makefile .
 COPY ./package.json .
 COPY ./tsconfig.json .
+COPY ./vue.config.js .
 COPY ./.env .
 COPY ./.env.production .
 

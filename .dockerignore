@@ -22,4 +22,7 @@ yarn-error.log*
 
 # Other shit
 builds
+dist
+node_modules
+.vscode
 .gitlab-ci.env
