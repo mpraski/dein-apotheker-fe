@@ -10,11 +10,14 @@ import { ChatClient, SessionClient } from '@/gateway'
 
 import { messages as en } from '@/translations/en'
 
+import smoothscroll from 'smoothscroll-polyfill'
 import VuexPersistence from 'vuex-persist'
 import VueI18n from 'vue-i18n'
 import 'vue-material-design-icons/styles.css'
 import '@/registerServiceWorker'
 import { Driver } from './driver'
+
+smoothscroll.polyfill()
 
 Vue.config.productionTip = false
 
