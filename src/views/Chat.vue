@@ -19,7 +19,7 @@
         />
       </FadeIn>
     </Scroller>
-    <Resizer @on-resize="scrollToBotton('smooth')" />
+    <Resizer @on-resize="recalculate('smooth')" />
   </main>
 </template>
 
@@ -85,7 +85,7 @@ export default class Chat extends Vue {
   height!: number
 
   @scroller.Action
-  measure!: (n: number) => void
+  measure!: (d: [number, number]) => void
 
   private readonly scrollAmount: number = 9999
 
@@ -96,7 +96,7 @@ export default class Chat extends Vue {
 
   private mounted() {
     this.$driver.start()
-    this.scrollToBotton('auto')
+    this.recalculate('auto')
   }
 
   private updated() {
@@ -107,12 +107,17 @@ export default class Chat extends Vue {
     this.$refs.scroller.scrollToEnd(this.scrollAmount, behaviour)
   }
 
+  private recalculate(behaviour: 'smooth' | 'auto' = 'smooth') {
+    this.$refs.scroller.measure()
+    this.scrollToBotton(behaviour)
+  }
+
   private onAnswer(answer: AnswerValue) {
     this.addAnswer({ state: this.state, answer })
   }
 
-  private onMeasure(contentHeight: number) {
-    this.measure(contentHeight)
+  private onMeasure(data: [number, number]) {
+    this.measure(data)
   }
 
   @Watch('messages')

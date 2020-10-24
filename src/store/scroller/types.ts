@@ -4,6 +4,7 @@ export const defaultIncrement = (percentage = 0.4) => {
 
 export interface ScrollerState {
   height: number;
+  scrollerHeight: number;
   contentHeight: number;
 }
 
@@ -27,5 +28,6 @@ export enum Getters {
 
 export const emptyState: () => ScrollerState = () => ({
   height: 0,
+  scrollerHeight: 0,
   contentHeight: 0
 })

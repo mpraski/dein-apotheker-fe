@@ -34,8 +34,11 @@ export default class Scroller extends Vue {
   }
 
   @Emit()
-  private onMeasure(): number {
-    return this.$refs.content.clientHeight
+  private onMeasure(): [number, number] {
+    const scrollerHeight = this.$refs.scroller.clientHeight
+    const contentHeight = this.$refs.content.clientHeight
+
+    return [scrollerHeight, contentHeight]
   }
 
   @Watch('height')
@@ -55,6 +58,8 @@ export default class Scroller extends Vue {
 @import '@/assets/app.scss';
 
 .scroller {
+  height: 100%;
+  width: 100%;
   overflow-y: scroll;
 
   .area {

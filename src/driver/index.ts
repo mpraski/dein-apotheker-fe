@@ -76,7 +76,6 @@ export class Driver {
 
   private async newSession() {
     await Promise.all([
-      this.session.delete(),
       this.dispatch(chatNamespace, ChatActions.clear),
       this.dispatch(messageNamespace, MessageActions.clear),
       this.dispatch(scrollerNamespace, ScrollerActions.clear)
@@ -130,8 +129,6 @@ export class Driver {
       ? this.dispatch.bind(this)
       : this.dispatchQueue.bind(this)
 
-    dispatcher(scrollerNamespace, ScrollerActions.allocate, defaultIncrement())
-
     if (text.length) {
       await dispatcher(messageNamespace, MessageActions.addMessage, [
         {
@@ -160,6 +157,8 @@ export class Driver {
         } as MessageData
       ])
     }
+
+    dispatcher(scrollerNamespace, ScrollerActions.allocate, defaultIncrement())
 
     return dispatcher(chatNamespace, ChatActions.showInput)
   }
