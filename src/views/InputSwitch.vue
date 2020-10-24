@@ -84,10 +84,9 @@ export default class InputSwitch extends Vue {
   private get options(): Array<QuestionOption> {
     switch (this.type) {
       case 'question':
+      case 'product':
       case 'comment':
         return this.input as Array<QuestionOption>
-      case 'product':
-        return this.productOptions(this.input as APIProduct)
     }
 
     return []
@@ -113,19 +112,6 @@ export default class InputSwitch extends Vue {
 
     return undefined
   }*/
-
-  private productOptions(product: APIProduct): Array<QuestionOption> {
-    return [
-      {
-        id: product.id,
-        text: this.$t('cart.add').toString()
-      },
-      {
-        id: 'skip',
-        text: this.$t('cart.skip').toString()
-      }
-    ]
-  }
 
   @Emit()
   private onAnswer(answer: AnswerValue): AnswerValue {
