@@ -6,6 +6,7 @@ export type Cast<S> = () => Promise<S>
 
 export interface ChatService {
   answer: Call<AnswerRequest, AnswerResponse>;
+  revert: Call<RevertRequest, AnswerResponse>;
 }
 
 export interface SessionService {
@@ -19,6 +20,10 @@ export interface AnswerResponse {
   id: string;
   message: Message;
   cart: Cart;
+}
+
+export interface RevertRequest {
+  state: string;
 }
 
 export interface NewSessionResponse {

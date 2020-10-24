@@ -8,6 +8,7 @@
           :key="i"
           :message="m"
           :data="d"
+          @on-delete="revert([i, d.state])"
         />
       </FadeIn>
       <FadeIn class="input">
@@ -80,6 +81,9 @@ export default class Chat extends Vue {
 
   @chat.Action
   addAnswer!: (a: Answer) => void
+
+  @chat.Action
+  revert!: (a: [number, string]) => void
 
   @scroller.Getter
   height!: number

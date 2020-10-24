@@ -1,6 +1,6 @@
 import { Client } from '@/client'
 import { Code } from '@/client/code'
-import { ChatService, AnswerRequest, AnswerResponse, SessionService, NewSessionResponse } from './types'
+import { ChatService, AnswerRequest, AnswerResponse, SessionService, NewSessionResponse, RevertRequest } from './types'
 
 export class ChatClient implements ChatService {
   private client: Client;
@@ -12,6 +12,13 @@ export class ChatClient implements ChatService {
   public async answer(req: AnswerRequest): Promise<AnswerResponse> {
     return this.client.do('/chat/answer', {
       method: 'POST',
+      body: req
+    })
+  }
+
+  public async revert(req: RevertRequest): Promise<AnswerResponse> {
+    return this.client.do('/chat/revert', {
+      method: 'PATCH',
       body: req
     })
   }

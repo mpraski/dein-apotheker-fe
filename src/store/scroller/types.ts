@@ -12,12 +12,14 @@ export interface ScrollerState {
 export enum Mutations {
   allocate = 'allocate',
   measure = 'measure',
+  revert = 'revert',
   clear = 'clear'
 }
 
 export enum Actions {
   allocate = 'allocate',
   measure = 'measure',
+  revert = 'revert',
   clear = 'clear'
 }
 

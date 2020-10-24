@@ -13,6 +13,9 @@ export const actions: ActionDefinition = {
   [Actions.measure]({ commit }, height: number) {
     commit(Mutations.measure, height)
   },
+  [Actions.revert]({ commit }) {
+    commit(Mutations.revert)
+  },
   [Actions.clear]({ commit }) {
     commit(Mutations.clear)
   }

@@ -21,6 +21,14 @@ export const actions: ActionDefinition = {
     commit(Mutations.addMessage, payload[1])
     commit(Mutations.addCart, payload[2])
   },
+  [Actions.revertResponse]({ commit }, payload: [string, Message, Cart]) {
+    commit(Mutations.addState, payload[0])
+    commit(Mutations.revertMessage, payload[1])
+    commit(Mutations.addCart, payload[2])
+  },
+  [Actions.revert]({ commit }, payload: [number, string]) {
+    commit(Mutations.revert, payload)
+  },
   [Actions.clear]({ commit }) {
     commit(Mutations.clear)
   }

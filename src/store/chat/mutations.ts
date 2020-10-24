@@ -25,6 +25,20 @@ export const mutations: MutationDefinition = {
   [Mutations.addState](state, stateID: string) {
     state.states.push(stateID)
   },
+  [Mutations.revertMessage](state, message: Message) {
+    state.message = message
+  },
+  [Mutations.revert](state, [_, prevState]: [number, string]) {
+    const idx = state.states.findIndex((s) => s === prevState)
+
+    if (idx === -1) {
+      return
+    }
+
+    const states = state.states.slice(0, idx)
+
+    Object.assign(state, emptyState(states))
+  },
   [Mutations.clear](state) {
     Object.assign(state, emptyState())
   }

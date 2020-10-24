@@ -16,7 +16,7 @@ export default class Card extends Vue {
   @Prop({ default: () => '' })
   private image!: string
 
-  @Prop({ default: () => 12 })
+  @Prop({ default: () => 14 })
   private height!: number
 
   @Prop({ default: () => 14 })

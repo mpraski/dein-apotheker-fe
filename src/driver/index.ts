@@ -70,6 +70,10 @@ export class Driver {
           this.answer(mutation.payload as Answer)
           break
         }
+        case this.namespaced(chatNamespace, ChatMutation.revert): {
+          this.revert(mutation.payload as [number, string])
+          break
+        }
       }
     })
   }
@@ -99,6 +103,7 @@ export class Driver {
         } as Message,
         {
           alignment: 'RIGHT',
+          state: this.currentState!,
           when: Date.now()
         } as MessageData
       ])
@@ -198,6 +203,30 @@ export class Driver {
     }
   }
 
+  private async revert([index, state]: [number, string]) {
+    await this.dispatch(chatNamespace, ChatActions.hideInput)
+
+    await this.dispatch(messageNamespace, MessageActions.revert, index)
+
+    let response: AnswerResponse
+
+    try {
+      response = await this.chat.revert({ state })
+    } catch (e) {
+      if (HTTPError.is(e, Code.UNAUTHORIZED)) {
+        return this.dispatch('', RootActions.requestSession)
+      }
+
+      throw e
+    }
+
+    const payload = [response.id, response.message, response.cart]
+
+    await this.dispatch(chatNamespace, ChatActions.revertResponse, payload)
+
+    return this.dispatch(chatNamespace, ChatActions.showInput)
+  }
+
   private get currentToken(): string | undefined {
     return this.store?.state.token
   }
@@ -208,6 +237,16 @@ export class Driver {
 
   private get initialState(): boolean {
     return (this.store?.state as any).chat.states.length < 2
+  }
+
+  private get currentState(): string | undefined {
+    const states = (this.store?.state as any).chat.states as string[]
+
+    if (states.length) {
+      return states[states.length - 1]
+    }
+
+    return undefined
   }
 
   private namespaced(ns: string, path: string): string {

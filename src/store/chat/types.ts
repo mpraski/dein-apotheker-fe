@@ -66,6 +66,8 @@ export enum Mutations {
   addAnswer = 'addAnswer',
   addMessage = 'addMessage',
   addState = 'addState',
+  revertMessage = 'revertMessage',
+  revert = 'revert',
   clear = 'clear'
 }
 
@@ -74,6 +76,8 @@ export enum Actions {
   hideInput = 'hideInput',
   addAnswer = 'addAnswer',
   addResponse = 'addResponse',
+  revertResponse = 'revertResponse',
+  revert = 'revert',
   clear = 'clear'
 }
 
@@ -84,10 +88,10 @@ export enum Getters {
   cart = 'cart'
 }
 
-export const emptyState: () => ChatState = () => ({
+export const emptyState: (s?: string[]) => ChatState = (states: string[] = []) => ({
   showInput: false,
   message: undefined,
   answer: undefined,
-  states: [],
+  states: states,
   cart: []
 })

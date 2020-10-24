@@ -21,6 +21,7 @@ export type Message = MessageText | MessageImage | MessageProduct;
 
 export interface MessageData {
     alignment: Alignment;
+    state: string;
     when: number;
 };
 
@@ -29,10 +30,12 @@ export type MessageState = Array<[Message, MessageData]>;
 // Keys
 export enum Mutations {
     addMessage = 'addMessage',
+    revert = 'revert',
     clear = 'clear'
 }
 
 export enum Actions {
     addMessage = 'addMessage',
+    revert = 'revert',
     clear = 'clear'
 }
