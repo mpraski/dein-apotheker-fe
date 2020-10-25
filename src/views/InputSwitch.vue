@@ -36,7 +36,8 @@ import {
   AnswerValue,
   Database,
   QuestionOption,
-  Product as APIProduct
+  Product as APIProduct,
+  ProductInput
 } from '@/store/chat/types'
 import { VueConstructor } from 'vue'
 
@@ -84,9 +85,10 @@ export default class InputSwitch extends Vue {
   private get options(): Array<QuestionOption> {
     switch (this.type) {
       case 'question':
-      case 'product':
       case 'comment':
         return this.input as Array<QuestionOption>
+      case 'product':
+        return (this.input as ProductInput).answers
     }
 
     return []

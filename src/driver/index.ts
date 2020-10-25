@@ -5,7 +5,8 @@ import {
   QuestionOption,
   Message as APIMessage,
   Actions as ChatActions,
-  Mutations as ChatMutation
+  Mutations as ChatMutation,
+  ProductInput
 } from '@/store/chat/types'
 import {
   RootState,
@@ -151,7 +152,7 @@ export class Driver {
     }
 
     if (type === 'product') {
-      const product = input as Product
+      const { product } = input as ProductInput
 
       await dispatcher(messageNamespace, MessageActions.addMessage, [
         {
@@ -190,16 +191,17 @@ export class Driver {
       case 'comment': {
         const choice = answer as string
         const options = input as Array<QuestionOption>
-        const filtered = options.filter((o, _) => { return o.id === choice })
+        const idx = options.findIndex((o) => { return o.id === choice })
 
-        return filtered.length ? filtered[0].text : undefined
+        return options[idx].text
       }
       case 'product': {
-        if (answer) {
-          return (input as Product).name
-        }
+        const choice = answer as string
+        const { product, answers } = input as ProductInput
+        const idx = answers.findIndex((o) => { return o.id === choice })
+        const ans = answers[idx]
 
-        return 'Thanks, I\'ll pass'
+        return ans.text.includes('cart') ? product.name : ans.text
       }
       case 'free': return answer as string
     }
