@@ -61,6 +61,12 @@ export default class Scroller extends Vue {
   height: 100%;
   width: 100%;
   overflow-y: scroll;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
 
   .area {
     width: 100%;
