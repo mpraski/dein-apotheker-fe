@@ -11,10 +11,14 @@
 <script lang="ts">
 import { Component, Prop, Watch, Emit, Vue } from 'vue-property-decorator'
 
+export type ScrollType = 'smooth' | 'auto'
+
 @Component({})
 export default class Scroller extends Vue {
   @Prop({ default: () => 0 })
   private height!: number
+
+  private readonly scrollAmount: number = 9999
 
   // prettier-ignore
   $refs!: {
@@ -26,9 +30,9 @@ export default class Scroller extends Vue {
     this.onMeasure()
   }
 
-  public scrollToEnd(top: number, behaviour: 'smooth' | 'auto' = 'smooth') {
+  public scrollToEnd(behaviour: ScrollType = 'smooth') {
     this.$refs.scroller.scrollBy({
-      top: top,
+      top: this.scrollAmount,
       behavior: behaviour
     })
   }
@@ -43,7 +47,7 @@ export default class Scroller extends Vue {
 
   @Watch('height')
   private onPropertyChanged(value: number, old: number) {
-    this.scrollToEnd(9999)
+    this.scrollToEnd()
   }
 
   private get areaStyle(): object {

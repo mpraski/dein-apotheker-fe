@@ -19,7 +19,7 @@ export class ChatClient implements ChatService {
   public async revert(req: RevertRequest): Promise<AnswerResponse> {
     return this.client.do('/chat/peek', {
       method: 'GET',
-      params: { state: req.state }
+      params: req
     })
   }
 }

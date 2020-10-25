@@ -15,8 +15,8 @@ export const mutations: MutationDefinition = {
       messages[messages.length - 2][1].height = height
     }
   },
-  [Mutations.revert](state, index: number) {
-    state.splice(index, state.length - index)
+  [Mutations.revert](messages, index: number) {
+    messages.splice(index, messages.length - index)
   },
   [Mutations.clear](messages) {
     messages.splice(0, messages.length)

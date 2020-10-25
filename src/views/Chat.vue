@@ -1,7 +1,7 @@
 <template>
   <main>
     <TopBar @on-refresh="requestSession" />
-    <Scroller :height="height" @on-measure="onMeasure" ref="scroller">
+    <Scroller :height="height" @on-measure="measure" ref="scroller">
       <FadeIn group="true" class="output">
         <OutputSwitch
           v-for="([m, d], i) in messages"
@@ -29,7 +29,7 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import { State, Action, namespace } from 'vuex-class'
 
 import FadeIn from '@/components/FadeIn.vue'
-import Scroller from '@/components/Scroller.vue'
+import Scroller, { ScrollType } from '@/components/Scroller.vue'
 import Resizer from '@/components/Resizer.vue'
 import OutputSwitch from '@/views/OutputSwitch.vue'
 import InputSwitch from '@/views/InputSwitch.vue'
@@ -91,8 +91,6 @@ export default class Chat extends Vue {
   @scroller.Action
   measure!: (d: [number, number]) => void
 
-  private readonly scrollAmount: number = 9999
-
   // prettier-ignore
   $refs!: {
     scroller: Scroller;
@@ -104,24 +102,20 @@ export default class Chat extends Vue {
   }
 
   private updated() {
-    this.$nextTick(() => this.scrollToBotton())
+    this.$nextTick(() => this.scrollToBotton('smooth'))
   }
 
-  private scrollToBotton(behaviour: 'smooth' | 'auto' = 'smooth') {
-    this.$refs.scroller.scrollToEnd(this.scrollAmount, behaviour)
+  private scrollToBotton(behaviour: ScrollType) {
+    this.$refs.scroller.scrollToEnd(behaviour)
   }
 
-  private recalculate(behaviour: 'smooth' | 'auto' = 'smooth') {
+  private recalculate(behaviour: ScrollType) {
     this.$refs.scroller.measure()
     this.scrollToBotton(behaviour)
   }
 
   private onAnswer(answer: AnswerValue) {
     this.addAnswer({ state: this.state, answer })
-  }
-
-  private onMeasure(data: [number, number]) {
-    this.measure(data)
   }
 
   @Watch('messages')
