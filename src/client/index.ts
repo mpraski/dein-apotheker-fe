@@ -1,10 +1,9 @@
 import { HTTPError, APIError } from './errors'
 import { Request, Response } from './types'
 
-export async function http<T>(
-  url: string,
-  additional?: RequestInit
-): Promise<T> {
+type httpClient<T> = (y: string, i?: RequestInit) => Promise<T>
+
+async function http<T>(url: string, additional?: RequestInit): Promise<T> {
   const response = await fetch(url, additional)
   const decoded = await response.json() as Response<T>
 
@@ -23,10 +22,7 @@ export async function http<T>(
   throw new Error('didn\'t expect to reach this')
 }
 
-export async function code(
-  url: string,
-  additional?: RequestInit
-): Promise<number> {
+async function code(url: string, additional?: RequestInit): Promise<number> {
   const response = await fetch(url, additional)
 
   if (!response.ok) {
@@ -50,35 +46,28 @@ export class Client {
     this.token = token
   }
 
-  public async do<T = any, R = any>(
+  public async do<T, R>(
     path: string,
     request: Request<R>
   ): Promise<T> {
-    const url = this.join(this.baseURL, path)
-    const body = request.body
-    const method = request.method
-    const headers = this.withHeaders(request.headers)
-    const token = this.token
-
-    if (token) {
-      headers.append(this.tokenName, token)
-    }
-
-    return http<T>(url, {
-      method: method,
-      headers: headers,
-      credentials: 'include',
-      body: JSON.stringify(body)
-    })
+    return this.execute(path, request, http as httpClient<T>)
   }
 
-  public async code<R = any>(
+  public async code<R>(
     path: string,
     request: Request<R>
   ): Promise<number> {
-    const url = this.join(this.baseURL, path)
+    return this.execute(path, request, code)
+  }
+
+  private async execute<T = any, R = any>(
+    path: string,
+    request: Request<R>,
+    func: httpClient<T>
+  ): Promise<T> {
     const body = request.body
     const method = request.method
+    const params = request.params
     const headers = this.withHeaders(request.headers)
     const token = this.token
 
@@ -86,7 +75,9 @@ export class Client {
       headers.append(this.tokenName, token)
     }
 
-    return code(url, {
+    const url = this.buildURL(this.join(this.baseURL, path), params)
+
+    return func(url, {
       method: method,
       headers: headers,
       credentials: 'include',
@@ -111,5 +102,13 @@ export class Client {
         return part.trim().replace(/(^[/]*|[/]*$)/g, '')
       }
     }).filter((x) => x.length).join('/')
+  }
+
+  private buildURL(base: string, params?: Record<string, any>): string {
+    if (!params) {
+      return base
+    }
+
+    return base + '?' + new URLSearchParams(params)
   }
 }

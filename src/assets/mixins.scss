@@ -19,8 +19,7 @@
 @mixin actionable($color: $borderColor, $disabled: $borderColor) {
     cursor: pointer;
 
-    transition: all $animationDuration;
-    transition-delay: $animationDelay;
+    @extend .transitionable;
 
     &:hover {
         border-color: $color;
@@ -46,6 +45,11 @@
             background-color: $disabled;
         }
     }
+}
+
+.transitionable {
+    transition: all $animationDuration;
+    transition-delay: $animationDelay;
 }
 
 .alignable {

@@ -2,8 +2,10 @@
   <Bar class="top-bar">
     <template v-slot:left><Logo /></template>
     <template v-slot:right>
-      <Button @click.native="onRefresh"><RefreshIcon /></Button>
-      <Button><CartIcon /></Button>
+      <Button @click.native="onRefresh">
+        <RefreshIcon title="Start again" />
+      </Button>
+      <Button><CartIcon title="Show cart" /></Button>
     </template>
   </Bar>
 </template>

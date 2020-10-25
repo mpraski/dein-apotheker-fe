@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { ScrollerState, emptyState, Mutations } from './types'
+import { ScrollerState, emptyState, Mutations, defaultIncrement } from './types'
 import { ValueOf } from '@/store/types'
 
 type MutationDefinition = {
@@ -33,6 +33,7 @@ export const mutations: MutationDefinition = {
   },
   [Mutations.revert](state) {
     state.height = state.contentHeight
+    console.log('reverted', state.height)
   },
   [Mutations.clear](state) {
     Object.assign(state, emptyState())

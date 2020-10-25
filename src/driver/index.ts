@@ -74,6 +74,9 @@ export class Driver {
           this.revert(mutation.payload as [number, string])
           break
         }
+        case this.namespaced(messageNamespace, MessageActions.revert): {
+          this.dispatch(scrollerNamespace, ScrollerActions.revert)
+        }
       }
     })
   }
@@ -204,9 +207,10 @@ export class Driver {
   }
 
   private async revert([index, state]: [number, string]) {
-    await this.dispatch(chatNamespace, ChatActions.hideInput)
-
-    await this.dispatch(messageNamespace, MessageActions.revert, index)
+    await Promise.all([
+      this.dispatch(chatNamespace, ChatActions.hideInput),
+      this.dispatch(messageNamespace, MessageActions.revert, index)
+    ])
 
     let response: AnswerResponse
 

@@ -88,10 +88,14 @@ export enum Getters {
   cart = 'cart'
 }
 
-export const emptyState: (s?: string[]) => ChatState = (states: string[] = []) => ({
-  showInput: false,
-  message: undefined,
-  answer: undefined,
-  states: states,
-  cart: []
-})
+export const emptyState: (state?: Partial<ChatState>) => ChatState = (state: Partial<ChatState> = {}) => {
+  const empty = {
+    showInput: false,
+    message: undefined,
+    answer: undefined,
+    states: [],
+    cart: []
+  }
+
+  return Object.assign(empty, state)
+}

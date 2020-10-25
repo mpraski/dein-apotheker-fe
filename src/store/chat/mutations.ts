@@ -35,9 +35,9 @@ export const mutations: MutationDefinition = {
       return
     }
 
-    const states = state.states.slice(0, idx)
-
-    Object.assign(state, emptyState(states))
+    Object.assign(state, emptyState({
+      states: state.states.slice(0, idx)
+    }))
   },
   [Mutations.clear](state) {
     Object.assign(state, emptyState())

@@ -8,6 +8,7 @@
     <div class="action-wrapper">
       <CloseCircle
         class="action"
+        title="Delete this message"
         v-if="isMine"
         :class="showClass"
         @click="onDelete"
@@ -77,12 +78,13 @@ export default class Bubble extends Vue {
 
     .action {
       @extend .big-icon;
+      @extend .transitionable;
+
+      opacity: 0;
       margin-right: $marginSmall;
 
-      visibility: hidden;
-
       &.visible {
-        visibility: visible;
+        opacity: 1;
       }
 
       &:hover {
