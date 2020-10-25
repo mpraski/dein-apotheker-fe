@@ -145,8 +145,7 @@ export class Driver {
           content: text
         } as Message,
         {
-          alignment: 'LEFT',
-          when: Date.now()
+          alignment: 'LEFT'
         } as MessageData
       ])
     }
@@ -161,8 +160,7 @@ export class Driver {
           image: product.image
         } as Message,
         {
-          alignment: 'LEFT',
-          when: Date.now()
+          alignment: 'LEFT'
         } as MessageData
       ])
     }
@@ -233,7 +231,7 @@ export class Driver {
 
     await this.dispatch(chatNamespace, ChatActions.revertResponse, payload)
 
-    return this.dispatch(chatNamespace, ChatActions.showInput)
+    return this.dispatchQueue(chatNamespace, ChatActions.showInput)
   }
 
   private get currentToken(): string | undefined {
