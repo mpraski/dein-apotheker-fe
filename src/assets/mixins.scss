@@ -47,6 +47,17 @@
     }
 }
 
+@mixin bordered($radius: $borderRadius, $style: $borderStyle, $width: $borderWidth, $color: transparent) {
+    border-radius: $radius;
+    border-style: $style;
+    border-width: $width;
+    border-color: $color;
+}
+
+.elevated {
+    box-shadow: $boxShadow;
+}
+
 .transitionable {
     transition: all $animationDuration;
     transition-delay: $animationDelay;
@@ -71,11 +82,9 @@
 }
 
 .bubble {
+    @include bordered;
     @extend .alignable;
-
-    border-radius: $borderRadius;
-    border-style: $borderStyle;
-    border-width: $borderWidth;
+    @extend .elevated;
 
     color: $textColor;
     border-color: $borderColor;
@@ -108,12 +117,11 @@
 }
 
 .option {
-    @extend .bubble;
+    @include actionable;
+    @include bordered($borderRadiusSmall, solid, $borderWidthAction, darken($borderColor, 25%));
     @extend .padded;
-    @include actionable(darken($borderColor, 10%));
 
-    border-radius: 10rem;
-    background-color: $borderColor;
+    color: darken($borderColor, 50%);
 }
 
 .centered {

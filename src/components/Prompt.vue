@@ -67,7 +67,7 @@ export default class Prompt extends Vue {
     justify-content: center;
     margin-left: $marginSmall;
     background-color: $accentColor;
-    border-radius: $borderRound;
+    border-radius: $borderRadius;
   }
 }
 </style>

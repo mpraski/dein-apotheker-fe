@@ -15,7 +15,7 @@ export default class Button extends Vue {}
 @import '@/assets/app.scss';
 
 .button {
-  @extend .bubble;
+  @include bordered;
   @include actionable;
 
   width: $buttonSize;
