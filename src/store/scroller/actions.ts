@@ -10,11 +10,11 @@ export const actions: ActionDefinition = {
   [Actions.allocate]({ commit }, increment: number) {
     commit(Mutations.allocate, increment)
   },
-  [Actions.measure]({ commit }, height: number) {
-    commit(Mutations.measure, height)
+  [Actions.measure]({ commit }, data: [number, number]) {
+    commit(Mutations.measure, data)
   },
-  [Actions.revert]({ commit }) {
-    commit(Mutations.revert)
+  [Actions.revert]({ commit }, height: number) {
+    commit(Mutations.revert, height)
   },
   [Actions.clear]({ commit }) {
     commit(Mutations.clear)

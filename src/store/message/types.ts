@@ -23,6 +23,7 @@ export interface MessageData {
     alignment: Alignment;
     state: string;
     when: number;
+    height: number;
 };
 
 export type MessageState = Array<[Message, MessageData]>;
@@ -30,12 +31,14 @@ export type MessageState = Array<[Message, MessageData]>;
 // Keys
 export enum Mutations {
     addMessage = 'addMessage',
+    addHeight = 'addHeight',
     revert = 'revert',
     clear = 'clear'
 }
 
 export enum Actions {
     addMessage = 'addMessage',
+    addHeight = 'addHeight',
     revert = 'revert',
     clear = 'clear'
 }

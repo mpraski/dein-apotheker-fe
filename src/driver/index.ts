@@ -17,7 +17,7 @@ import {
   defaultIncrement
 } from '@/store/scroller/types'
 import { AnswerResponse, ChatService, SessionService } from '@/gateway/types'
-import { Message, Actions as MessageActions, MessageData } from '@/store/message/types'
+import { Message, Actions as MessageActions, MessageData, MessageState } from '@/store/message/types'
 import { Store, DispatchOptions } from 'vuex'
 import { chatNamespace } from '@/store/chat'
 import { messageNamespace } from '@/store/message'
@@ -74,8 +74,9 @@ export class Driver {
           this.revert(mutation.payload as [number, string])
           break
         }
-        case this.namespaced(messageNamespace, MessageActions.revert): {
-          this.dispatch(scrollerNamespace, ScrollerActions.revert)
+        case this.namespaced(scrollerNamespace, ScrollerActions.allocate): {
+          this.dispatch(messageNamespace, MessageActions.addHeight, this.currentHeight)
+          break
         }
       }
     })
@@ -207,10 +208,14 @@ export class Driver {
   }
 
   private async revert([index, state]: [number, string]) {
+    const [_, { height }] = this.messageAt(index)
+
     await Promise.all([
       this.dispatch(chatNamespace, ChatActions.hideInput),
       this.dispatch(messageNamespace, MessageActions.revert, index)
     ])
+
+    await this.dispatch(scrollerNamespace, ScrollerActions.revert, height)
 
     let response: AnswerResponse
 
@@ -253,6 +258,22 @@ export class Driver {
     return undefined
   }
 
+  private get currentHeight(): number {
+    return (this.store?.state as any).scroller.height
+  }
+
+  private get emptyAnswer(): Answer {
+    return {
+      state: 'new',
+      answer: null
+    }
+  }
+
+  private messageAt(idx: number): [Message, MessageData] {
+    const messages = (this.store?.state as any).message as MessageState
+    return messages[idx]
+  }
+
   private namespaced(ns: string, path: string): string {
     return ns === '' ? path : `${ns}/${path}`
   }
@@ -273,12 +294,5 @@ export class Driver {
     options?: DispatchOptions
   ) {
     return this.queue?.dispatch(this.namespaced(ns, type), payload, options)
-  }
-
-  private get emptyAnswer(): Answer {
-    return {
-      state: 'new',
-      answer: null
-    }
   }
 }

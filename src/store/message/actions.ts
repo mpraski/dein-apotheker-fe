@@ -10,6 +10,9 @@ export const actions: ActionDefinition = {
   [Actions.addMessage]({ commit }, message: [Message, Alignment, string]) {
     commit(Mutations.addMessage, message)
   },
+  [Actions.addHeight]({ commit }, index: number) {
+    commit(Mutations.addHeight, index)
+  },
   [Actions.revert]({ commit }, index: number) {
     commit(Mutations.revert, index)
   },

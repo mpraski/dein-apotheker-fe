@@ -10,6 +10,11 @@ export const mutations: MutationDefinition = {
   [Mutations.addMessage](messages, message: [Message, MessageData]) {
     messages.push(message)
   },
+  [Mutations.addHeight](messages, height: number) {
+    if (messages.length > 1) {
+      messages[messages.length - 2][1].height = height
+    }
+  },
   [Mutations.revert](state, index: number) {
     state.splice(index, state.length - index)
   },

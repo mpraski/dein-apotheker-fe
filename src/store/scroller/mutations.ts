@@ -31,9 +31,8 @@ export const mutations: MutationDefinition = {
     state.scrollerHeight = scrollerHeight
     state.contentHeight = contentHeight
   },
-  [Mutations.revert](state) {
-    state.height = state.contentHeight
-    console.log('reverted', state.height)
+  [Mutations.revert](state, height: number) {
+    state.height = height
   },
   [Mutations.clear](state) {
     Object.assign(state, emptyState())

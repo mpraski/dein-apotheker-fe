@@ -28,8 +28,12 @@ export enum Getters {
   contentHeight = 'contentHeight'
 }
 
-export const emptyState: () => ScrollerState = () => ({
-  height: 0,
-  scrollerHeight: 0,
-  contentHeight: 0
-})
+export const emptyState: (state?: Partial<ScrollerState>) => ScrollerState = (state: Partial<ScrollerState> = {}) => {
+  const empty = {
+    height: 0,
+    scrollerHeight: 0,
+    contentHeight: 0
+  }
+
+  return Object.assign(empty, state)
+}
