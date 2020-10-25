@@ -1,7 +1,7 @@
 <template>
   <div class="logo-body">
     <img class="logo" src="@/assets/logo.png" />
-    {{ $t("general.title") }}
+    {{ $t('general.title') }}
   </div>
 </template>
 
@@ -13,12 +13,13 @@ export default class Logo extends Vue {}
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/app.scss";
+@import '@/assets/app.scss';
 
 .logo-body {
   @include horizontal-list;
 
   align-items: center;
+  user-select: none;
 
   .logo {
     width: $buttonSize;

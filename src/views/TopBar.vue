@@ -51,8 +51,8 @@ export default class TopBar extends Vue {
   border-bottom-right-radius: 0;
 
   @include respond-to(medium) {
-    border-bottom-left-radius: $borderRadius;
-    border-bottom-right-radius: $borderRadius;
+    background-color: transparent;
+    box-shadow: none;
   }
 }
 </style>

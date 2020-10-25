@@ -21,6 +21,7 @@ export default class Button extends Vue {}
   width: $buttonSize;
   height: $buttonSize;
   position: relative;
+  background-color: transparent;
   border: 0;
 
   > * {
