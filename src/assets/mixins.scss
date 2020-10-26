@@ -121,7 +121,7 @@
     @include bordered($borderRadiusSmall, solid, $borderWidthAction, darken($borderColor, 25%));
     @extend .padded;
 
-    color: darken($borderColor, 50%);
+    color: darken($borderColor, 45%);
 }
 
 .centered {
