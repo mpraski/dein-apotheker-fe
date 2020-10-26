@@ -56,17 +56,8 @@ export default class ChooserItem extends Vue {
   }
 
   .header {
+    @include responsive-text;
     margin-left: $marginSmall;
-    font-size: $textSizeSmall;
-
-    @include respond-to(small) {
-      margin-left: $marginMedium;
-      font-size: $textSize;
-    }
-
-    @include respond-to(medium) {
-      font-size: $textSizeLarge;
-    }
   }
 
   .icon {

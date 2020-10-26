@@ -10,7 +10,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: $textColor;
-    font-size: $textSize;
     background-color: $backgroundColorSecondary;
 
     @include respond-to(small) {
@@ -35,6 +34,7 @@ input[type="tel"],
 input[type="text"],
 input[type="url"],
 textarea {
+    @include responsive-text;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
@@ -50,23 +50,12 @@ textarea {
     box-sizing: border-box;
     color: $textColor;
     outline: none;
-
-    font-size: $textSize;
-
-    @include respond-to(medium) {
-        font-size: $textSizeLarge;
-    }
 }
 
 p {
+    @include responsive-text;
     margin: 0;
     padding: 0;
-
-    line-height: $lineHeightSmall;
-
-    @include respond-to(small) {
-        line-height: $lineHeight;
-    }
 }
 
 ul {

@@ -54,6 +54,21 @@
     border-color: $color;
 }
 
+@mixin responsive-text() {
+    font-size: $textSizeSmall;
+    line-height: $lineHeightSmall;
+
+    @include respond-to(medium) {
+        font-size: $textSize;
+        line-height: $lineHeight;
+    }
+
+    @include respond-to(large) {
+        font-size: $textSizeLarge;
+        line-height: $lineHeightLarge;
+    }
+}
+
 .elevated {
     box-shadow: $boxShadow;
 }
@@ -111,8 +126,12 @@
 .padded {
     padding: $paddingButtonSmall;
 
-    @include respond-to(small) {
+    @include respond-to(medium) {
         padding: $paddingButton;
+    }
+
+    @include respond-to(large) {
+        padding: $paddingButtonLarge;
     }
 }
 
