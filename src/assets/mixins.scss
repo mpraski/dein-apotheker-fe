@@ -62,6 +62,11 @@
         font-size: $textSize;
         line-height: $lineHeight;
     }
+
+    @include respond-to(large) {
+        font-size: $textSizeLarge;
+        line-height: $lineHeightLarge;
+    }
 }
 
 .elevated {
