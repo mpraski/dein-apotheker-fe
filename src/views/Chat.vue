@@ -151,11 +151,23 @@ main {
   padding: 0 $marginMedium;
 
   > *:first-child {
-    margin-top: $marginRegular;
+    margin-top: $marginSmall;
   }
 
   > * {
-    margin-bottom: $marginMedium;
+    margin-bottom: $marginSmall;
+  }
+
+  @include respond-to(small) {
+    padding: 0 $marginRegular;
+
+    > *:first-child {
+      margin-top: $marginMedium;
+    }
+
+    > * {
+      margin-bottom: $marginMedium;
+    }
   }
 }
 </style>
