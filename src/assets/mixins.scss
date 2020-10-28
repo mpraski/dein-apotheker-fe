@@ -58,14 +58,9 @@
     font-size: $textSize;
     line-height: $lineHeight;
 
-    @include respond-to(large) {
+    @include respond-to(medium) {
         font-size: $textSize;
         line-height: $lineHeight;
-    }
-
-    @include respond-to(large) {
-        font-size: $textSizeLarge;
-        line-height: $lineHeightLarge;
     }
 }
 
