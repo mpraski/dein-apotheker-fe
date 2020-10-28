@@ -132,10 +132,10 @@
 
 .option {
     @include actionable;
-    @include bordered($borderRadiusSmall, solid, $borderWidthAction, darken($borderColor, 25%));
+    @include bordered($borderRadiusSmall, solid, $borderWidthAction, $borderColorDark);
     @extend .padded;
 
-    color: darken($borderColor, 45%);
+    color: $borderColorDarker;
 }
 
 .centered {
