@@ -1,5 +1,5 @@
 <template>
-  <div class="options">
+  <div class="options" :class="optionsClass">
     <Option
       v-for="option in options"
       :key="option.id"
@@ -29,6 +29,13 @@ export default class Options extends Vue {
   private onSelect(answer: string): string {
     return answer
   }
+
+  private get optionsClass(): object {
+    return {
+      short: this.options.length < 3,
+      long: this.options.length >= 3
+    }
+  }
 }
 </script>
 
@@ -36,14 +43,34 @@ export default class Options extends Vue {
 @import '@/assets/app.scss';
 
 .options {
-  @include horizontal-list(center);
-
   > * {
     margin-bottom: $marginMedium;
   }
 
-  > *:not(:last-child) {
-    margin-right: $marginMedium;
+  &.long {
+    @include vertical-list(center);
+  }
+
+  &.short {
+    @include horizontal-list(center);
+
+    > *:not(:last-child) {
+      margin-right: $marginMedium;
+    }
+  }
+
+  @include respond-to(medium) {
+    &.long {
+      @include horizontal-list(center);
+    }
+
+    &.short {
+      @include horizontal-list(center);
+    }
+
+    > *:not(:last-child) {
+      margin-right: $marginMedium;
+    }
   }
 }
 </style>

@@ -73,7 +73,7 @@ export default class Bubble extends Vue {
   @include vertical-list(flex-end);
 
   .action-wrapper {
-    @include horizontal-list;
+    @include horizontal-list(flex-end, nowrap);
     align-items: center;
 
     .action {
@@ -98,10 +98,16 @@ export default class Bubble extends Vue {
   }
 
   .time {
-    font-size: $textSizeSmall;
     margin-top: $marginSmallest;
     color: $textColorSecondary;
     user-select: none;
+
+    display: none;
+
+    @include respond-to(medium) {
+      display: inline-block;
+      font-size: $textSizeSmall;
+    }
   }
 }
 </style>
