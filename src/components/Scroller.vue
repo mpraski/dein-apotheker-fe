@@ -18,8 +18,6 @@ export default class Scroller extends Vue {
   @Prop({ default: () => 0 })
   private height!: number
 
-  private readonly scrollAmount: number = 9999
-
   // prettier-ignore
   $refs!: {
     scroller: HTMLDivElement;
@@ -54,6 +52,10 @@ export default class Scroller extends Vue {
     return {
       height: `${this.height}px`
     }
+  }
+
+  private get scrollAmount(): number {
+    return this.height - this.$refs.content.clientHeight
   }
 }
 </script>

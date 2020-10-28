@@ -55,12 +55,17 @@
 }
 
 @mixin responsive-text() {
-    font-size: $textSizeSmall;
-    line-height: $lineHeightSmall;
+    font-size: $textSize;
+    line-height: $lineHeight;
 
-    @include respond-to(medium) {
+    @include respond-to(large) {
         font-size: $textSize;
         line-height: $lineHeight;
+    }
+
+    @include respond-to(large) {
+        font-size: $textSizeLarge;
+        line-height: $lineHeightLarge;
     }
 }
 
@@ -119,7 +124,7 @@
 }
 
 .padded {
-    padding: $paddingButtonSmall;
+    padding: $paddingButton;
 
     @include respond-to(medium) {
         padding: $paddingButton;
