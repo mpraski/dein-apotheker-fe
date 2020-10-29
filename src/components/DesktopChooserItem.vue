@@ -1,21 +1,16 @@
 <template>
-  <div class="chooser-item">
+  <div class="desktop-chooser-item">
     <div class="image" :style="styleImage" />
     <p class="header">{{ name }}</p>
-    <ChevronRight class="icon" />
+    <div class="icon"><slot></slot></div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 
-@Component({
-  components: {
-    ChevronRight
-  }
-})
-export default class ChooserItem extends Vue {
+@Component({})
+export default class DesktopChooserItem extends Vue {
   @Prop({ default: () => '' })
   private name!: string
 
@@ -41,7 +36,7 @@ export default class ChooserItem extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.chooser-item {
+.desktop-chooser-item {
   @include horizontal-list(flex-start, nowrap);
   @include actionable;
 

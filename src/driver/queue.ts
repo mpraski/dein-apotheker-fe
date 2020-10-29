@@ -13,7 +13,7 @@ export class Queue<T> {
     private interval: number = Queue.defaultInterval
   ) {
     this.queuedActions = []
-    this.timerID = setInterval(this.deliver.bind(this), this.interval)
+    this.timerID = -1
   }
 
   public dispatch(type: string, payload?: any, options?: DispatchOptions) {
@@ -23,6 +23,8 @@ export class Queue<T> {
   }
 
   public stop() {
+    if (this.timerID === -1) return
+
     clearInterval(this.timerID)
   }
 

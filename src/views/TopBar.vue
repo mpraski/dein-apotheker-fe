@@ -5,7 +5,7 @@
       <Button @click.native="onRefresh">
         <RefreshIcon title="Start again" />
       </Button>
-      <Button><CartIcon title="Show cart" /></Button>
+      <Button><BasketOutline title="Show cart" /></Button>
     </template>
   </Bar>
 </template>
@@ -16,7 +16,7 @@ import { Component, Vue, Emit } from 'vue-property-decorator'
 import Bar from '@/components/Bar.vue'
 import Logo from '@/components/Logo.vue'
 import Button from '@/components/Button.vue'
-import CartIcon from 'vue-material-design-icons/Cart.vue'
+import BasketOutline from 'vue-material-design-icons/BasketOutline.vue'
 import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
 import Dots from '@/components/Dots.vue'
 
@@ -25,7 +25,7 @@ import Dots from '@/components/Dots.vue'
     Bar,
     Logo,
     Button,
-    CartIcon,
+    BasketOutline,
     RefreshIcon,
     Dots
   }
