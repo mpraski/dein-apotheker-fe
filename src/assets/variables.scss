@@ -7,7 +7,7 @@ $backgroundColor: white;
 $backgroundColorSecondary: #fafafa;
 
 // Text
-$textColor: #381d44;
+$textColor: #321b3c;
 $textColorSecondary: #a8a8a8;
 
 // Original text color was #2c3e50
@@ -20,8 +20,8 @@ $borderRadius: 0.75rem;
 $borderRadiusSmall: 10rem;
 $borderStyle: solid;
 $borderColor: #eeeeee;
-$borderColorDarker: #76677c;
-$borderColorDark: lighten($borderColorDarker, 15%);
+$borderColorDark: lighten(#6e5d77, 15%);
+$borderColorDarker: lighten(#6e5d77, 0%);
 
 // Margin
 $marginRegular: 1.5rem;
