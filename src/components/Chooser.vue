@@ -1,7 +1,7 @@
 <template>
   <div class="chooser-wrapper">
     <div class="searcher">
-      <RefreshIcon class="icon" /><input
+      <MagnifyIcon class="icon" /><input
         class="field"
         type="text"
         placeholder="Search"
@@ -28,14 +28,14 @@
 import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
 import ChooserItem from '@/components/ChooserItem.vue'
 import { AnswerValue, Row } from '@/store/chat/types'
-import RefreshIcon from 'vue-material-design-icons/Magnify.vue'
+import MagnifyIcon from 'vue-material-design-icons/Magnify.vue'
 
 type Maybe<T> = T | undefined
 
 @Component({
   components: {
     ChooserItem,
-    RefreshIcon
+    MagnifyIcon
   }
 })
 export default class Chooser extends Vue {
