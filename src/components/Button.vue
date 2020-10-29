@@ -25,7 +25,7 @@ export default class Button extends Vue {}
   border: 0;
 
   > * {
-    @extend .big-icon;
+    @include big-icon;
 
     position: absolute;
     top: 0.75rem;

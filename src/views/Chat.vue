@@ -142,10 +142,12 @@ main {
 
 .input {
   margin-top: $marginMedium;
-  padding: 0 $marginMedium;
+  margin-left: $marginMedium;
+  margin-right: $marginMedium;
 
   @include respond-to(small) {
-    padding: 0 $marginRegular;
+    margin-left: $marginRegular;
+    margin-right: $marginRegular;
   }
 }
 

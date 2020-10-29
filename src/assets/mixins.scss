@@ -55,6 +55,11 @@
 }
 
 @mixin responsive-text() {
+    font-family: $fontFamily;
+    font-weight: $fontWeight;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
     font-size: $textSize;
     line-height: $lineHeight;
 
@@ -135,6 +140,18 @@
     }
 }
 
+.margin-left {
+    margin-left: $marginButton;
+
+    @include respond-to(medium) {
+        margin-left: $marginButton;
+    }
+
+    @include respond-to(large) {
+        margin-left: $marginButtonLarge;
+    }
+}
+
 .option {
     @include bordered($borderRadiusSmall, solid, $borderWidthAction, $borderColorDark);
     @extend .padded;
@@ -156,15 +173,15 @@
     margin-right: auto;
 }
 
-.big-icon {
+@mixin big-icon($size: 1.5rem) {
     cursor: pointer;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: $size;
+    width: $size;
     color: $textColorSecondary;
 
     & > .material-design-icon__svg {
-        height: 1.5rem;
-        width: 1.5rem;
+        height: $size;
+        width: $size;
         bottom: 0;
     }
 }

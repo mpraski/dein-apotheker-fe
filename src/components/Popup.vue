@@ -98,7 +98,7 @@ export default class Popup extends Vue {
         }
 
         .icon {
-          @extend .big-icon;
+          @include big-icon;
         }
       }
     }

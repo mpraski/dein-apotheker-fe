@@ -5,16 +5,10 @@ body {
     width: 100%;
     height: 100%;
 
-    font-family: $fontFamily;
-    font-weight: $fontWeight;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     color: $textColor;
     background-color: $backgroundColorSecondary;
 
-    @include respond-to(small) {
-        font-size: $textSizeLarge;
-    }
+    @include responsive-text;
 }
 
 *:focus {

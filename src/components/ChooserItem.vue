@@ -62,7 +62,7 @@ export default class ChooserItem extends Vue {
 
   .icon {
     margin-left: auto;
-    margin-right: $marginMedium;
+    margin-right: $marginSmall;
   }
 }
 </style>

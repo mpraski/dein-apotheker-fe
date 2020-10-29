@@ -17,6 +17,7 @@ export default class Logo extends Vue {}
 
 .logo-body {
   @include horizontal-list;
+  @include responsive-text;
 
   align-items: center;
   user-select: none;

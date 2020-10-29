@@ -17,7 +17,7 @@
         <slot></slot>
       </div>
     </div>
-    <span class="time" v-if="isMine">{{ time }}</span>
+    <p class="time" v-if="isMine">{{ time }}</p>
   </div>
 </template>
 
@@ -77,7 +77,7 @@ export default class Bubble extends Vue {
     align-items: center;
 
     .action {
-      @extend .big-icon;
+      @include big-icon;
       @extend .transitionable;
 
       opacity: 0;

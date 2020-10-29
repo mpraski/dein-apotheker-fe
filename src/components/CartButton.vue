@@ -70,7 +70,7 @@ export default class CartButton extends Vue {
   position: relative;
 
   .icon {
-    @extend .big-icon;
+    @include big-icon;
 
     position: absolute;
     top: 0.75rem;
