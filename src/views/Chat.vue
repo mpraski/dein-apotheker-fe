@@ -143,6 +143,10 @@ main {
 .input {
   margin-top: $marginMedium;
   padding: 0 $marginMedium;
+
+  @include respond-to(small) {
+    padding: 0 $marginRegular;
+  }
 }
 
 .output {

@@ -136,11 +136,19 @@
 }
 
 .option {
-    @include actionable;
     @include bordered($borderRadiusSmall, solid, $borderWidthAction, $borderColorDark);
     @extend .padded;
+    @extend .transitionable;
 
     color: $borderColorDarker;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        @extend .elevated;
+        color: $textColor;
+        background-color: white;
+    }
 }
 
 .centered {
