@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
-import { AnswerValue, Product } from '@/store/chat/types'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Product } from '@/store/chat/types'
 import DesktopList from '@/components/DesktopList.vue'
 
 @Component({

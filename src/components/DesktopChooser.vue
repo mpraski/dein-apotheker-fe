@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
-import { AnswerValue, Row } from '@/store/chat/types'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { Row } from '@/store/chat/types'
 import Searcher from '@/components/Searcher.vue'
 import DesktopList from '@/components/DesktopList.vue'
 
@@ -49,7 +49,7 @@ export default class DesktopChooser extends Vue {
   }
 
   @Emit()
-  private onSelect(a: AnswerValue): AnswerValue {
+  private onSelect(a: string): string {
     return a
   }
 }
