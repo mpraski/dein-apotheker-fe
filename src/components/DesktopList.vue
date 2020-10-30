@@ -7,7 +7,6 @@
           v-bind="item"
           @click.native="onSelect(item.id)"
         >
-          <component :is="icon" />
         </DesktopChooserItem>
       </div>
     </div>
@@ -19,15 +18,13 @@ import { Row } from '@/store/chat/types'
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
-import BasketPlusOutline from 'vue-material-design-icons/BasketPlusOutline.vue'
 
 type Maybe<T> = T | undefined
 
 @Component({
   components: {
     DesktopChooserItem,
-    ChevronRight,
-    BasketPlusOutline
+    ChevronRight
   }
 })
 export default class DesktopList extends Vue {
@@ -36,9 +33,6 @@ export default class DesktopList extends Vue {
 
   @Prop({ default: () => [] })
   private rows!: Row[]
-
-  @Prop({ default: () => false })
-  private buy!: boolean
 
   private chunk<T>(list: T[], size = 2): Maybe<T>[][] {
     let i, j: number
@@ -65,14 +59,6 @@ export default class DesktopList extends Vue {
 
   private get chunked(): Maybe<Row>[][] {
     return this.chunk(this.rows, this.columns)
-  }
-
-  private get icon() {
-    if (this.buy) {
-      return BasketPlusOutline
-    }
-
-    return ChevronRight
   }
 }
 </script>
@@ -106,7 +92,7 @@ export default class DesktopList extends Vue {
     flex-wrap: wrap;
     width: 100%;
 
-    border-bottom: 2px solid $borderColor;
+    border-bottom: 1px solid $borderColor;
   }
 
   .column {
@@ -116,7 +102,7 @@ export default class DesktopList extends Vue {
     flex: 1;
 
     &:not(:last-child) {
-      border-right: 2px solid $borderColor;
+      border-right: 1px solid $borderColor;
     }
   }
 }

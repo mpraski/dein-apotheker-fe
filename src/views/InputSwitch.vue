@@ -11,18 +11,11 @@
     :columns="listColumns"
     @on-select="onAnswer"
   />
-  <DesktopChooser
+  <DesktopBuyer
     v-else-if="isProductList"
-    :rows="input.rows"
+    :products="input.rows"
     @on-select="onAnswer"
-  >
-    <template v-slot:selection>
-      <Item :content="$t('cart.add')" @click.native="selection.proceed" />
-    </template>
-    <template v-slot:none>
-      <Item :content="$t('cart.skip')" @click.native="none.proceed" />
-    </template>
-  </DesktopChooser>
+  />
   <Prompt v-else-if="isFree" @on-submit="onAnswer" />
 </template>
 
@@ -33,6 +26,7 @@ import Placeholder from '@/components/Placeholder.vue'
 import Options from '@/components/Options.vue'
 import Prompt from '@/components/Prompt.vue'
 import DesktopChooser from '@/components/DesktopChooser.vue'
+import DesktopBuyer from '@/components/DesktopBuyer.vue'
 
 import {
   Input,
@@ -50,7 +44,8 @@ import { VueConstructor } from 'vue'
     Options,
     Prompt,
     Placeholder,
-    DesktopChooser
+    DesktopChooser,
+    DesktopBuyer
   }
 })
 export default class InputSwitch extends Vue {

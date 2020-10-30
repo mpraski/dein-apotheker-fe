@@ -117,8 +117,7 @@
         align-self: flex-end;
         border: none;
         border-bottom-right-radius: 0;
-        background: $accentColor;
-        background: linear-gradient(90deg, $accentColor 35%, $accentColorDark 100%);
+        background: $accentGradient;
         color: white;
     }
 

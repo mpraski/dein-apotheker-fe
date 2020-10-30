@@ -1,6 +1,8 @@
 // Color
 $accentColor: #ff6d00;
 $accentColorDark: #ff7900;
+$accentColorDarkest: #ff4800;
+$accentGradient: linear-gradient(90deg, $accentColor 35%, $accentColorDark 100%);
 
 // Background
 $backgroundColor: white;
@@ -26,6 +28,7 @@ $borderColorDarker: lighten(#736070, 0%);
 // Margin
 $marginRegular: 1.5rem;
 $marginMedium: 1rem;
+$marginBetween: 0.75rem;
 $marginSmall: 0.5rem;
 $marginSmallest: 0.25rem;
 $marginMinute: 0.15rem;

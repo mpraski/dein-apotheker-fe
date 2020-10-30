@@ -1,5 +1,5 @@
 <template>
-  <div class="desktop-chooser-item">
+  <div class="desktop-chooser-item" :class="itemClass">
     <div class="image" :style="styleImage" />
     <p class="header">{{ name }}</p>
     <div class="icon"><slot></slot></div>
@@ -23,12 +23,19 @@ export default class DesktopChooserItem extends Vue {
   @Prop({ default: () => 3 })
   private width!: number
 
+  @Prop({ default: () => false })
+  private selected!: boolean
+
   private get styleImage(): object {
     return {
       height: `${this.height}rem`,
       width: `${this.width}rem`,
       backgroundImage: `url(${this.image})`
     }
+  }
+
+  private get itemClass(): object {
+    return { selected: this.selected }
   }
 }
 </script>
@@ -47,17 +54,25 @@ export default class DesktopChooserItem extends Vue {
     background-repeat: no-repeat;
     background-size: contain;
     background-origin: content-box;
-    margin: $marginSmall;
+    margin: $marginBetween;
   }
 
   .header {
     @include responsive-text;
-    margin-left: $marginSmall;
+    margin-left: $marginBetween;
   }
 
   .icon {
     margin-left: auto;
-    margin-right: $marginSmall;
+    margin-right: $marginBetween;
+  }
+
+  &.selected {
+    color: $accentColorDarkest;
+
+    .icon {
+      color: $accentColorDarkest;
+    }
   }
 }
 </style>

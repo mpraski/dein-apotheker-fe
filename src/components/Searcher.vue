@@ -51,7 +51,9 @@ export default class Searcher extends Vue {
   @extend .padded;
   @include horizontal-list(flex-start, center);
 
-  border-bottom: 2px solid $borderColor;
+  align-items: center;
+
+  border-bottom: 1px solid $borderColor;
 
   .icon {
     @include big-icon(2rem);

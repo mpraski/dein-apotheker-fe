@@ -1,22 +1,36 @@
 <template>
-  <div class="desktop-buyer">
-    <DesktopList :rows="products" />
-  </div>
+  <DesktopSelector :products="products" @on-select="onSelect">
+    <template v-slot:selection="props">
+      <p @click="props.proceed" class="action">
+        {{ $t('cart.add') }}
+      </p>
+    </template>
+    <template v-slot:none="props">
+      <p @click="props.proceed" class="action">{{ $t('cart.skip') }}</p>
+    </template>
+  </DesktopSelector>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import { Product } from '@/store/chat/types'
-import DesktopList from '@/components/DesktopList.vue'
+import DesktopSelector from '@/components/DesktopSelector.vue'
+import Content from '@/components/Content.vue'
 
 @Component({
   components: {
-    DesktopList
+    DesktopSelector,
+    Content
   }
 })
 export default class DesktopBuyer extends Vue {
   @Prop({ default: () => [] })
   private products!: Product[]
+
+  @Emit()
+  private onSelect(a: string[]): string[] {
+    return a
+  }
 }
 </script>
 
@@ -25,5 +39,9 @@ export default class DesktopBuyer extends Vue {
 
 .dektop-buyer {
   @extend .bubble;
+}
+
+.action {
+  @include actionable;
 }
 </style>

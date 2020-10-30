@@ -1,7 +1,7 @@
 <template>
   <div class="desktop-chooser">
     <Searcher @on-search="setSearch" ref="searcher" />
-    <DesktopList :rows="filtered" :colums="columns" @on-select="onSelect" />
+    <DesktopList :rows="filtered" :columns="columns" @on-select="onSelect" />
   </div>
 </template>
 
