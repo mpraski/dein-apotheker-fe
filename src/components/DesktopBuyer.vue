@@ -36,6 +36,7 @@ import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
 import BasketOutline from 'vue-material-design-icons/BasketOutline.vue'
 import ArrowRightThinCircleOutline from 'vue-material-design-icons/ArrowRightThinCircleOutline.vue'
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 import Check from 'vue-material-design-icons/CheckCircle.vue'
 
 type Maybe<T> = T | undefined
@@ -45,6 +46,7 @@ type Maybe<T> = T | undefined
     DesktopChooserItem,
     BasketOutline,
     ArrowRightThinCircleOutline,
+    ChevronRight,
     Check
   }
 })
@@ -92,7 +94,7 @@ export default class DesktopBuyer extends Vue {
       return Check
     }
 
-    return undefined
+    return ChevronRight
   }
 
   private chunk<T>(list: T[], size = 2): Maybe<T>[][] {
@@ -160,13 +162,7 @@ export default class DesktopBuyer extends Vue {
       flex-wrap: wrap;
       width: 100%;
 
-      &:first-child {
-        margin-top: $marginSmall;
-      }
-
-      &:last-child {
-        margin-bottom: $marginSmall;
-      }
+      border-bottom: 1px solid $borderColor;
     }
 
     .column {
@@ -174,6 +170,10 @@ export default class DesktopBuyer extends Vue {
       flex-direction: column;
       flex-basis: 100%;
       flex: 1;
+
+      &:not(:last-child) {
+        border-right: 1px solid $borderColor;
+      }
     }
   }
 
@@ -196,7 +196,7 @@ export default class DesktopBuyer extends Vue {
 
       .text {
         color: $textColorSecondary;
-        margin: 0 $marginSmall;
+        margin: 0 $marginMedium;
       }
 
       &.selected {

@@ -2,6 +2,7 @@
   <div class="desktop-chooser-item" :class="itemClass">
     <div class="image" :style="styleImage" />
     <p class="header">{{ name }}</p>
+    <div class="icon"><slot></slot></div>
   </div>
 </template>
 
@@ -49,30 +50,25 @@ export default class DesktopChooserItem extends Vue {
   align-items: center;
 
   .image {
-    @extend .bubble;
-    box-shadow: none;
-    border: 2px solid $borderColor;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
     background-origin: content-box;
-    margin-left: $marginMedium;
-    margin-top: $marginSmall;
-    margin-bottom: $marginSmall;
-    margin-right: $marginSmall;
-    padding: $marginSmall;
+    margin: $marginBetween;
   }
 
   .header {
     @include responsive-text;
+    margin-left: $marginSmall;
+  }
+
+  .icon {
+    margin-left: auto;
+    margin-right: $marginBetween;
   }
 
   &.selected {
     color: $accentColorDarkest;
-
-    .image {
-      border-color: $accentColorDark;
-    }
   }
 }
 </style>

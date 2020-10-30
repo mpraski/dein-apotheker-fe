@@ -7,6 +7,7 @@
           v-bind="item"
           @click.native="onSelect(item.id)"
         >
+          <ChevronRight />
         </DesktopChooserItem>
       </div>
     </div>
@@ -92,13 +93,7 @@ export default class DesktopList extends Vue {
     flex-wrap: wrap;
     width: 100%;
 
-    &:first-child {
-      margin-top: $marginSmall;
-    }
-
-    &:last-child {
-      margin-bottom: $marginSmall;
-    }
+    border-bottom: 1px solid $borderColor;
   }
 
   .column {
@@ -106,6 +101,10 @@ export default class DesktopList extends Vue {
     flex-direction: column;
     flex-basis: 100%;
     flex: 1;
+
+    &:not(:last-child) {
+      border-right: 1px solid $borderColor;
+    }
   }
 }
 </style>
