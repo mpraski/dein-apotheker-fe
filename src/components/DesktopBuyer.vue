@@ -1,6 +1,10 @@
 <template>
   <div class="desktop-buyer-wrapper">
     <div class="possibilities">
+      <div class="action">
+        <BasketOutline class="icon" />
+        <p class="text">My recommendation</p>
+      </div>
       <div class="action" @click="onProceed" :class="actionClass">
         <p v-if="hasItems" class="text">
           {{ $t('cart.add', { items: this.noItems }) }}
@@ -30,6 +34,7 @@
 import { Product } from '@/store/chat/types'
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
 import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
+import BasketOutline from 'vue-material-design-icons/BasketOutline.vue'
 import ArrowRightThinCircleOutline from 'vue-material-design-icons/ArrowRightThinCircleOutline.vue'
 import Check from 'vue-material-design-icons/CheckCircle.vue'
 
@@ -38,6 +43,7 @@ type Maybe<T> = T | undefined
 @Component({
   components: {
     DesktopChooserItem,
+    BasketOutline,
     ArrowRightThinCircleOutline,
     Check
   }
@@ -154,7 +160,13 @@ export default class DesktopBuyer extends Vue {
       flex-wrap: wrap;
       width: 100%;
 
-      border-bottom: 1px solid $borderColor;
+      &:first-child {
+        margin-top: $marginSmall;
+      }
+
+      &:last-child {
+        margin-bottom: $marginSmall;
+      }
     }
 
     .column {
@@ -162,16 +174,12 @@ export default class DesktopBuyer extends Vue {
       flex-direction: column;
       flex-basis: 100%;
       flex: 1;
-
-      &:not(:last-child) {
-        border-right: 1px solid $borderColor;
-      }
     }
   }
 
   .possibilities {
     @extend .padded;
-    @include horizontal-list(flex-end);
+    @include horizontal-list(space-between);
 
     align-items: center;
     border-bottom: 1px solid $borderColor;
@@ -183,12 +191,12 @@ export default class DesktopBuyer extends Vue {
       align-items: center;
 
       .icon {
-        @include big-icon(2rem);
-        margin-left: $marginSmall;
+        @include big-icon;
       }
 
       .text {
         color: $textColorSecondary;
+        margin: 0 $marginSmall;
       }
 
       &.selected {

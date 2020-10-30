@@ -56,11 +56,11 @@ export default class Searcher extends Vue {
   border-bottom: 1px solid $borderColor;
 
   .icon {
-    @include big-icon(2rem);
+    @include big-icon;
   }
 
   .field {
-    @extend .margin-left;
+    margin-left: $marginSmall;
   }
 }
 </style>

@@ -92,7 +92,13 @@ export default class DesktopList extends Vue {
     flex-wrap: wrap;
     width: 100%;
 
-    border-bottom: 1px solid $borderColor;
+    &:first-child {
+      margin-top: $marginSmall;
+    }
+
+    &:last-child {
+      margin-bottom: $marginSmall;
+    }
   }
 
   .column {
@@ -100,10 +106,6 @@ export default class DesktopList extends Vue {
     flex-direction: column;
     flex-basis: 100%;
     flex: 1;
-
-    &:not(:last-child) {
-      border-right: 1px solid $borderColor;
-    }
   }
 }
 </style>
