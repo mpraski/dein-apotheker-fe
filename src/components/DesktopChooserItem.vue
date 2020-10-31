@@ -54,17 +54,17 @@ export default class DesktopChooserItem extends Vue {
     background-repeat: no-repeat;
     background-size: contain;
     background-origin: content-box;
-    margin: $marginBetween;
+    margin: $marginSmall;
   }
 
   .header {
     @include responsive-text;
-    margin-left: $marginSmall;
+    margin-left: $marginMedium;
   }
 
   .icon {
     margin-left: auto;
-    margin-right: $marginBetween;
+    margin-right: $marginSmall;
   }
 
   &.selected {
