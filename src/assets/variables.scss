@@ -18,8 +18,9 @@ $textColorSecondary: #a8a8a8;
 // Border
 $borderWidth: 0px;
 $borderWidthAction: 2px;
-$borderRadius: 0.75rem;
-$borderRadiusSmall: 10rem;
+$borderRadius: 1rem;
+$borderRadiusSmall: 0.2rem;
+$borderRadiusHuge: 10rem;
 $borderStyle: solid;
 $borderColor: #eeeeee;
 $borderColorDark: lighten(#76766c, 15%);
@@ -63,7 +64,7 @@ $buttonSize: 3rem;
 // Animation
 $animationDuration: 0.15s;
 $animationDelay: 0;
-$boxShadow: 0 1px 10px 5px rgba(0, 0, 0, 0.01), 0 1px 10px 2px rgba(0, 0, 0, 0.025),
-    0 10px 50px -10px rgba(0, 0, 0, 0.075);
+$boxShadow: 0 1px 10px 5px rgba(0, 0, 0, 0.01), 0 1px 10px 5px rgba(0, 0, 0, 0.025),
+    0 10px 20px -15px rgba(0, 0, 0, 0.075);
 $boxShadowSmall: 0 1px 10px 1px rgba(0, 0, 0, 0.02), 0 1px 10px 1px rgba(0, 0, 0, 0.04),
     0 10px 0px -10px rgba(0, 0, 0, 0);

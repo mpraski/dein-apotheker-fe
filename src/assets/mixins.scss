@@ -116,13 +116,13 @@
     &.right {
         align-self: flex-end;
         border: none;
-        border-bottom-right-radius: 0;
+        border-bottom-right-radius: $borderRadiusSmall;
         background: $accentGradient;
         color: white;
     }
 
     &.left {
-        border-top-left-radius: 0;
+        border-bottom-left-radius: $borderRadiusSmall;
         align-self: flex-start;
     }
 }
@@ -152,7 +152,7 @@
 }
 
 .option {
-    @include bordered($borderRadiusSmall, solid, $borderWidthAction, $borderColorDark);
+    @include bordered($borderRadiusHuge, solid, $borderWidthAction, $borderColorDark);
     @extend .padded;
     @extend .transitionable;
 
