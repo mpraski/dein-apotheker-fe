@@ -44,6 +44,10 @@ textarea {
     box-sizing: border-box;
     color: $textColor;
     outline: none;
+
+    &::placeholder {
+        color: $textColorSecondary;
+    }
 }
 
 p {

@@ -6,7 +6,6 @@
       placeholder="Search"
       v-model="searchValue"
       ref="searchInput"
-      autofocus
     />
   </div>
 </template>

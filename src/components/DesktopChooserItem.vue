@@ -49,12 +49,13 @@ export default class DesktopChooserItem extends Vue {
 
   align-items: center;
 
+  padding: $marginBetween $marginMedium;
+
   .image {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
     background-origin: content-box;
-    margin: $marginSmall;
   }
 
   .header {
@@ -64,7 +65,6 @@ export default class DesktopChooserItem extends Vue {
 
   .icon {
     margin-left: auto;
-    margin-right: $marginSmall;
   }
 
   &.selected {
