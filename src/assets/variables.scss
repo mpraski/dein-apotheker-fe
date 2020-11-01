@@ -1,8 +1,8 @@
 // Color
-$accentColor: #ff6d00;
-$accentColorDark: #ff7900;
-$accentColorDarkest: #ff4800;
-$accentGradient: linear-gradient(90deg, $accentColor 35%, $accentColorDark 100%);
+$accentColor: #ffee70;
+$accentColorDark: #ffec5c;
+$accentColorDarkest: #ff7b00;
+$accentGradient: linear-gradient(90deg, $accentColorDark 35%, $accentColor 100%);
 
 // Background
 $backgroundColor: white;
@@ -23,7 +23,7 @@ $borderRadiusSmall: 0.2rem;
 $borderRadiusHuge: 10rem;
 $borderStyle: solid;
 $borderColor: #eeeeee;
-$borderColorDark: lighten(#76766c, 15%);
+$borderColorDark: lighten(#76766c, 25%);
 $borderColorDarker: lighten(#76766c, 0%);
 
 // Margin
@@ -66,5 +66,5 @@ $animationDuration: 0.15s;
 $animationDelay: 0;
 $boxShadow: 0 1px 10px 5px rgba(0, 0, 0, 0.01), 0 1px 10px 5px rgba(0, 0, 0, 0.025),
     0 10px 20px -15px rgba(0, 0, 0, 0.075);
-$boxShadowSmall: 0 1px 10px 1px rgba(0, 0, 0, 0.03), 0 1px 10px 1px rgba(0, 0, 0, 0.06),
+$boxShadowSmall: 0 1px 10px 1px rgba(0, 0, 0, 0.03), 0 1px 10px 5px rgba(0, 0, 0, 0.02),
     0 10px 0px -10px rgba(0, 0, 0, 0);

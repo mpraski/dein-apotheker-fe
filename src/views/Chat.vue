@@ -168,11 +168,11 @@ main {
     padding: 0 $marginRegular;
 
     > *:first-child {
-      margin-top: $marginMedium;
+      margin-top: $marginRegular;
     }
 
     > * {
-      margin-bottom: $marginMedium;
+      margin-bottom: $marginRegular;
     }
   }
 }

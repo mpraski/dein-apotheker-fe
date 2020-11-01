@@ -113,7 +113,8 @@
         border: none;
         border-bottom-right-radius: $borderRadiusSmall;
         background: $accentGradient;
-        color: white;
+        //color: white;
+        box-shadow: none;
     }
 
     &.left {

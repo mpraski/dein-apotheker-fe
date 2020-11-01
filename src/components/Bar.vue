@@ -1,9 +1,12 @@
 <template>
   <header class="bar-body">
-    <div>
+    <div class="left">
       <slot name="left"></slot>
     </div>
-    <div>
+    <div class="center">
+      <slot name="center"></slot>
+    </div>
+    <div class="right">
       <slot name="right"></slot>
     </div>
   </header>
@@ -20,14 +23,24 @@ export default class Bar extends Vue {}
 @import '@/assets/app.scss';
 
 .bar-body {
-  @include horizontal-list(space-between);
+  @include horizontal-list;
 
-  flex: none;
-  align-items: center;
   padding: $marginSmall $marginMedium;
+  //border-bottom: 1px solid $borderColor;
 
-  > div {
-    @include horizontal-list;
+  & > div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.left {
+      justify-content: flex-start;
+    }
+
+    &.right {
+      justify-content: flex-end;
+    }
   }
 }
 </style>
