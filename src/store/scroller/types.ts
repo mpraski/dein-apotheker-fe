@@ -1,3 +1,5 @@
+import { defaultWith } from '../types'
+
 export const defaultIncrement = (percentage = 0.4) => {
   return percentage * window.innerHeight
 }
@@ -28,12 +30,8 @@ export enum Getters {
   contentHeight = 'contentHeight'
 }
 
-export const emptyState: (state?: Partial<ScrollerState>) => ScrollerState = (state: Partial<ScrollerState> = {}) => {
-  const empty = {
-    height: 0,
-    scrollerHeight: 0,
-    contentHeight: 0
-  }
-
-  return Object.assign(empty, state)
-}
+export const emptyState = defaultWith<ScrollerState>(() => ({
+  height: 0,
+  scrollerHeight: 0,
+  contentHeight: 0
+}))

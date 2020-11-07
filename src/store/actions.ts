@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex'
-import { RootState, Actions, Mutations, ValueOf } from './types'
+import { RootState, Actions, Mutations, ValueOf, computeScreenSize } from './types'
 
 type ActionDefinition = {
   [K in Actions]: ValueOf<ActionTree<RootState, any>>;
@@ -14,5 +14,8 @@ export const actions: ActionDefinition = {
   },
   [Actions.setToken]({ commit }, token: string) {
     commit(Mutations.setToken, token)
+  },
+  [Actions.computeScreen]({ commit }) {
+    commit(Mutations.setScreen, computeScreenSize())
   }
 }

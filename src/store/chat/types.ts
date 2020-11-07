@@ -1,3 +1,5 @@
+import { defaultWith } from '../types'
+
 export type QuestionType = 'question' | 'product' | 'product_list' | 'list' | 'comment' | 'free'
 
 export type DatabaseType = 'Products' | 'Brands' | 'API'
@@ -93,14 +95,10 @@ export enum Getters {
   cart = 'cart'
 }
 
-export const emptyState: (state?: Partial<ChatState>) => ChatState = (state: Partial<ChatState> = {}) => {
-  const empty = {
-    showInput: false,
-    message: undefined,
-    answer: undefined,
-    states: [],
-    cart: []
-  }
-
-  return Object.assign(empty, state)
-}
+export const emptyState = defaultWith<ChatState>(() => ({
+  showInput: false,
+  message: undefined,
+  answer: undefined,
+  states: [],
+  cart: []
+}))

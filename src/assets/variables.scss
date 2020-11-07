@@ -18,8 +18,8 @@ $textColorSecondary: #a8a8a8;
 // Border
 $borderWidth: 0px;
 $borderWidthAction: 2px;
-$borderRadius: 1rem;
-$borderRadiusSmall: 0.2rem;
+$borderRadius: 0.75rem;
+$borderRadiusSmall: 0.15rem;
 $borderRadiusHuge: 10rem;
 $borderStyle: solid;
 $borderColor: #eeeeee;
@@ -51,7 +51,7 @@ $textSizeSmallest: 12px;
 $fontFamily: "Ubuntu", sans-serif;
 $fontWeight: 400;
 $lineHeight: 1.4rem;
-$lineHeightLarge: 1.5rem;
+$lineHeightLarge: 1.4rem;
 $lineHeightSmall: 1.3rem;
 
 // General
@@ -66,5 +66,4 @@ $animationDuration: 0.15s;
 $animationDelay: 0;
 $boxShadow: 0 1px 10px 5px rgba(0, 0, 0, 0.01), 0 1px 10px 5px rgba(0, 0, 0, 0.025),
     0 10px 20px -15px rgba(0, 0, 0, 0.075);
-$boxShadowSmall: 0 1px 10px 1px rgba(0, 0, 0, 0.03), 0 1px 10px 5px rgba(0, 0, 0, 0.02),
-    0 10px 0px -10px rgba(0, 0, 0, 0);
+$boxShadowSmall: 0 1px 5px 1px rgba(0, 0, 0, 0.03), 0 1px 5px 5px rgba(0, 0, 0, 0.03), 0 10px 0px -10px rgba(0, 0, 0, 0);

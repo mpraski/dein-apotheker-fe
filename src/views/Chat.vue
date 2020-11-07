@@ -70,6 +70,9 @@ export default class Chat extends Vue {
   @Action
   requestSession!: () => void
 
+  @Action
+  computeScreen!: () => void
+
   @chat.Getter
   state!: string
 
@@ -112,6 +115,7 @@ export default class Chat extends Vue {
   private recalculate(behaviour: ScrollType) {
     this.$refs.scroller.measure()
     this.scrollToBotton(behaviour)
+    this.computeScreen()
   }
 
   private onAnswer(answer: AnswerValue) {
