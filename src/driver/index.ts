@@ -151,21 +151,6 @@ export class Driver {
       ])
     }
 
-    if (type === 'product') {
-      const { product } = input as ProductInput
-
-      await dispatcher(messageNamespace, MessageActions.addMessage, [
-        {
-          type: 'product',
-          name: product.name,
-          image: product.image
-        } as Message,
-        {
-          alignment: 'LEFT'
-        } as MessageData
-      ])
-    }
-
     dispatcher(scrollerNamespace, ScrollerActions.allocate, defaultIncrement())
 
     return dispatcher(chatNamespace, ChatActions.showInput)

@@ -5,6 +5,7 @@
     :options="options"
     @on-select="onAnswer"
   />
+  <ProductChooser v-else-if="isProduct" :input="input" @on-select="onAnswer" />
   <DesktopChooser
     v-else-if="isList"
     :rows="input.rows"
@@ -27,6 +28,7 @@ import Options from '@/components/Options.vue'
 import Prompt from '@/components/Prompt.vue'
 import DesktopChooser from '@/components/DesktopChooser.vue'
 import DesktopBuyer from '@/components/DesktopBuyer.vue'
+import ProductChooser from '@/components/ProductChooser.vue'
 
 import {
   Input,
@@ -45,7 +47,8 @@ import { VueConstructor } from 'vue'
     Prompt,
     Placeholder,
     DesktopChooser,
-    DesktopBuyer
+    DesktopBuyer,
+    ProductChooser
   }
 })
 export default class InputSwitch extends Vue {
@@ -62,6 +65,10 @@ export default class InputSwitch extends Vue {
     return this.type === 'list'
   }
 
+  private get isProduct(): boolean {
+    return this.type === 'product'
+  }
+
   private get isProductList(): boolean {
     return this.type === 'product_list'
   }
@@ -73,7 +80,6 @@ export default class InputSwitch extends Vue {
   private get isOptionsInput(): boolean {
     switch (this.type) {
       case 'question':
-      case 'product':
       case 'comment':
         return true
     }

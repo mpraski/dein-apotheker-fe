@@ -1,7 +1,10 @@
 <template>
-  <div class="card" :style="styleCard">
+  <div class="card">
     <div class="image" :style="styleImage" />
-    <p class="header">{{ name }}</p>
+    <div class="actions">
+      <p class="header">{{ name }}</p>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -22,16 +25,11 @@ export default class Card extends Vue {
   @Prop({ default: () => 14 })
   private width!: number
 
-  private get styleCard(): object {
-    return {
-      height: `${this.height}rem`,
-      width: `${this.width}rem`
-    }
-  }
-
   private get styleImage(): object {
     return {
-      backgroundImage: `url(${this.image})`
+      backgroundImage: `url(${this.image})`,
+      height: `${this.height}rem`,
+      width: `${this.width}rem`
     }
   }
 }
@@ -41,7 +39,8 @@ export default class Card extends Vue {
 @import '@/assets/app.scss';
 
 .card {
-  @include vertical-list;
+  @extend .padded;
+  @include horizontal-list(flex-start);
 
   .image {
     height: 100%;
@@ -51,15 +50,17 @@ export default class Card extends Vue {
     background-repeat: no-repeat;
     background-size: contain;
     background-origin: content-box;
-
-    padding-top: $marginSmall;
-
-    border-top-left-radius: $borderRadius;
-    border-top-right-radius: $borderRadius;
   }
 
-  .header {
-    @extend .padded;
+  .actions {
+    @include vertical-list;
+    @extend .margin-left;
+    justify-content: center;
+
+    .header {
+      font-size: $textSizeBig;
+      margin-bottom: $marginRegular;
+    }
   }
 }
 </style>
