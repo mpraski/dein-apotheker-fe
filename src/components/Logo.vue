@@ -1,7 +1,7 @@
 <template>
   <div class="logo-body">
     <img class="logo" src="@/assets/logo.png" />
-    {{ $t('general.title') }}
+    <p class="text">{{ $t('general.title') }}</p>
   </div>
 </template>
 
@@ -26,6 +26,16 @@ export default class Logo extends Vue {}
     width: $buttonSize;
     height: $buttonSize;
     margin-right: $marginMedium;
+  }
+
+  .text {
+    display: none;
+  }
+
+  @include respond-to(medium) {
+    .text {
+      display: inline-block;
+    }
   }
 }
 </style>

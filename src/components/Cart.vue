@@ -1,10 +1,22 @@
-<template><p>Just a prank, bro</p></template>
+<template>
+  <div class="cart">
+    <DesktopChooserItem v-for="item in cart" :key="item.id" v-bind="item" />
+  </div>
+</template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
 
-@Component({})
-export default class Cart extends Vue {}
+@Component({
+  components: {
+    DesktopChooserItem
+  }
+})
+export default class Cart extends Vue {
+  @Prop({ default: () => [] })
+  private cart!: Cart
+}
 </script>
 
 <style scoped lang="scss">

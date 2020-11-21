@@ -180,11 +180,11 @@ main {
   padding: 0 $marginMedium;
 
   > *:first-child {
-    margin-top: $marginSmall;
+    margin-top: $marginMedium;
   }
 
   > * {
-    margin-bottom: $marginSmall;
+    margin-bottom: $marginMedium;
   }
 
   @include respond-to(small) {

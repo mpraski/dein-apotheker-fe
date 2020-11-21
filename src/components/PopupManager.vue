@@ -5,7 +5,7 @@
     title="Your cart"
     @on-close="hidePopup('cart')"
   >
-    <Cart />
+    <Cart :cart="popups.cart" />
   </Popup>
 </template>
 

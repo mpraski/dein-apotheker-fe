@@ -88,7 +88,7 @@ export default class Popup extends Vue {
         @include horizontal-list;
 
         justify-content: space-between;
-        margin-bottom: $marginRegular;
+        margin-bottom: $marginMedium;
 
         .title {
           margin: 0;
