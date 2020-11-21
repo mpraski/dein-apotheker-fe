@@ -1,6 +1,6 @@
 <template>
   <main>
-    <TopBar @on-refresh="requestSession" />
+    <TopBar @on-refresh="requestSession" @on-cart="showPopup(['cart', cart])" />
     <Scroller :height="height" @on-measure="measure" ref="scroller">
       <FadeIn group="true" class="output">
         <OutputSwitch
@@ -20,6 +20,7 @@
         />
       </FadeIn>
     </Scroller>
+    <PopupManager :popups="popups" @hide-popup="hidePopup" />
     <Resizer @on-resize="recalculate('smooth')" />
   </main>
 </template>
@@ -31,6 +32,7 @@ import { State, Action, namespace } from 'vuex-class'
 import FadeIn from '@/components/FadeIn.vue'
 import Scroller, { ScrollType } from '@/components/Scroller.vue'
 import Resizer from '@/components/Resizer.vue'
+import PopupManager from '@/components/PopupManager.vue'
 import OutputSwitch from '@/views/OutputSwitch.vue'
 import InputSwitch from '@/views/InputSwitch.vue'
 import TopBar from '@/views/TopBar.vue'
@@ -44,14 +46,18 @@ import {
   Message,
   Actions as ChatActions,
   Getters as ChatGetters,
-  AnswerValue
+  AnswerValue,
+  Cart
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 import { scrollerNamespace } from '@/store/scroller'
+import { popupNamespace } from '@/store/popup'
+import { PopupKey, PopupState } from '@/store/popup/types'
 
 const chat = namespace(chatNamespace)
 const message = namespace(messageNamespace)
 const scroller = namespace(scrollerNamespace)
+const popup = namespace(popupNamespace)
 
 @Component({
   components: {
@@ -60,12 +66,16 @@ const scroller = namespace(scrollerNamespace)
     Resizer,
     OutputSwitch,
     InputSwitch,
-    TopBar
+    TopBar,
+    PopupManager
   }
 })
 export default class Chat extends Vue {
   @State(messageNamespace)
   messages!: MessageState
+
+  @State(popupNamespace)
+  popups!: PopupState
 
   @Action
   requestSession!: () => void
@@ -78,6 +88,9 @@ export default class Chat extends Vue {
 
   @chat.Getter
   message!: Message
+
+  @chat.Getter
+  cart!: Cart
 
   @chat.Getter
   showInput!: boolean
@@ -93,6 +106,12 @@ export default class Chat extends Vue {
 
   @scroller.Action
   measure!: (d: [number, number]) => void
+
+  @popup.Action
+  showPopup!: (d: [PopupKey, any]) => void
+
+  @popup.Action
+  hidePopup!: (d: PopupKey) => void
 
   // prettier-ignore
   $refs!: {

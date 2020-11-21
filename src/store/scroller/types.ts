@@ -1,6 +1,6 @@
 import { defaultWith } from '../types'
 
-export const defaultIncrement = (percentage = 0.4) => {
+export const defaultIncrement = (percentage = 0.45) => {
   return percentage * window.innerHeight
 }
 

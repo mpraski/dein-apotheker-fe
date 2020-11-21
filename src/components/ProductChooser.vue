@@ -37,5 +37,9 @@ export default class ProductChooser extends Vue {
 
 .product-chooser {
   @extend .bubble;
+
+  & > div {
+    flex-wrap: nowrap;
+  }
 }
 </style>

@@ -69,6 +69,50 @@
     }
 }
 
+@mixin padded-m($horizontal: true, $vertical: true) {
+    @if $horizontal {
+        padding-left: $paddingButtonHorizontal;
+        padding-right: $paddingButtonHorizontal;
+
+        @include respond-to(medium) {
+            padding-left: $paddingButtonHorizontal;
+            padding-right: $paddingButtonHorizontal;
+        }
+
+        @include respond-to(large) {
+            padding-left: $paddingButtonHorizontalLarge;
+            padding-right: $paddingButtonHorizontalLarge;
+        }
+    }
+
+    @if $vertical {
+        padding-top: $paddingButtonVertical;
+        padding-bottom: $paddingButtonVertical;
+
+        @include respond-to(medium) {
+            padding-top: $paddingButtonVertical;
+            padding-bottom: $paddingButtonVertical;
+        }
+
+        @include respond-to(large) {
+            padding-top: $paddingButtonVerticalLarge;
+            padding-bottom: $paddingButtonVerticalLarge;
+        }
+    }
+}
+
+@mixin margin-left-m() {
+    margin-left: $marginButton;
+
+    @include respond-to(medium) {
+        margin-left: $marginButton;
+    }
+
+    @include respond-to(large) {
+        margin-left: $marginButtonLarge;
+    }
+}
+
 .elevated {
     box-shadow: $boxShadowSmall;
 }

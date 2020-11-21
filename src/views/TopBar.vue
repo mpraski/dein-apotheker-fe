@@ -5,7 +5,9 @@
       <Button @click.native="onRefresh">
         <RefreshIcon title="Start again" />
       </Button>
-      <Button><BasketOutline title="Show cart" /></Button>
+      <Button @click.native="onCart">
+        <BasketOutline title="Show cart" />
+      </Button>
     </template>
   </Bar>
 </template>
@@ -33,6 +35,11 @@ import Dots from '@/components/Dots.vue'
 export default class TopBar extends Vue {
   @Emit()
   private onRefresh() {
+    return 0
+  }
+
+  @Emit()
+  private onCart() {
     return 0
   }
 }
