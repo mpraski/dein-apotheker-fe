@@ -1,8 +1,9 @@
 <template>
   <div class="product-chooser">
-    <Card :name="input.product.name" :image="input.product.image">
-      <Options :options="input.answers" @on-select="onSelect" flat="true" />
-    </Card>
+    <DesktopChooserItem v-bind="input.product" class="product">
+      <ChevronRight />
+    </DesktopChooserItem>
+    <Options :options="input.answers" @on-select="onSelect" />
   </div>
 </template>
 
@@ -10,14 +11,14 @@
 import { AnswerValue, ProductInput } from '@/store/chat/types'
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
-import Card from '@/components/Card.vue'
-import Bubble from '@/components/Bubble.vue'
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
+import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
 import Options from '@/components/Options.vue'
 
 @Component({
   components: {
-    Card,
-    Bubble,
+    ChevronRight,
+    DesktopChooserItem,
     Options
   }
 })
@@ -37,6 +38,12 @@ export default class ProductChooser extends Vue {
 
 .product-chooser {
   @extend .bubble;
+
+  .product {
+    @include margin-bottom-m;
+
+    border-bottom: 1px solid $borderColor;
+  }
 
   & > div {
     flex-wrap: nowrap;

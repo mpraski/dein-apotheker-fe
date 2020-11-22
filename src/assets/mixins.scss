@@ -113,6 +113,18 @@
     }
 }
 
+@mixin margin-bottom-m() {
+    margin-bottom: $marginButton;
+
+    @include respond-to(medium) {
+        margin-bottom: $marginButton;
+    }
+
+    @include respond-to(large) {
+        margin-bottom: $marginButtonLarge;
+    }
+}
+
 .elevated {
     box-shadow: $boxShadowSmall;
 }

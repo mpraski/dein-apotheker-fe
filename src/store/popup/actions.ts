@@ -11,7 +11,6 @@ export const actions: ActionDefinition = {
     commit(Mutations.showPopup, payload)
   },
   [Actions.hidePopup]({ commit }, payload: PopupKey) {
-    console.log(payload)
     commit(Mutations.hidePopup, payload)
   }
 }

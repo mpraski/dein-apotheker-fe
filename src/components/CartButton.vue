@@ -1,8 +1,7 @@
 <template>
   <div class="cart-button">
     <div class="badge" v-if="badgeVisible">{{ items }}</div>
-    <CartIcon class="icon" />
-    <Button @click.native="onCart">
+    <Button>
       <BasketOutline title="Show cart" class="icon" />
     </Button>
     <FadeIn>

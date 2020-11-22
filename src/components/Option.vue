@@ -1,5 +1,5 @@
 <template>
-  <Content class="option" :content="content" max="45" />
+  <Content class="option" :content="content" />
 </template>
 
 <script lang="ts">

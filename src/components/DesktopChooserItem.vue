@@ -17,10 +17,10 @@ export default class DesktopChooserItem extends Vue {
   @Prop({ default: () => '' })
   private image!: string
 
-  @Prop({ default: () => 3 })
+  @Prop({ default: () => 4 })
   private height!: number
 
-  @Prop({ default: () => 3 })
+  @Prop({ default: () => 4 })
   private width!: number
 
   @Prop({ default: () => false })
