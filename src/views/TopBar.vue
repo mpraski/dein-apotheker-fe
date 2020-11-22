@@ -5,20 +5,18 @@
       <Button @click.native="onRefresh">
         <RefreshIcon title="Start again" />
       </Button>
-      <Button @click.native="onCart">
-        <BasketOutline title="Show cart" />
-      </Button>
+      <CartButton @click.native="onCart" :items="cart" />
     </template>
   </Bar>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 
 import Bar from '@/components/Bar.vue'
 import Logo from '@/components/Logo.vue'
 import Button from '@/components/Button.vue'
-import BasketOutline from 'vue-material-design-icons/BasketOutline.vue'
+import CartButton from '@/components/CartButton.vue'
 import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
 import Dots from '@/components/Dots.vue'
 
@@ -27,12 +25,15 @@ import Dots from '@/components/Dots.vue'
     Bar,
     Logo,
     Button,
-    BasketOutline,
+    CartButton,
     RefreshIcon,
     Dots
   }
 })
 export default class TopBar extends Vue {
+  @Prop({ default: () => 0 })
+  private cart!: number
+
   @Emit()
   private onRefresh() {
     return 0

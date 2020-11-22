@@ -94,7 +94,7 @@ export default class Popup extends Vue {
           margin: 0;
           padding: 0;
           font-size: $textSizeLarge;
-          font-weight: normal;
+          font-weight: bold;
         }
 
         .icon {

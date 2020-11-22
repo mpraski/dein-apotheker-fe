@@ -1,6 +1,10 @@
 <template>
   <main>
-    <TopBar @on-refresh="requestSession" @on-cart="showPopup(['cart', cart])" />
+    <TopBar
+      @on-refresh="requestSession"
+      @on-cart="showPopup(['cart', cart])"
+      :cart="cartSize"
+    />
     <Scroller :height="height" @on-measure="measure" ref="scroller">
       <FadeIn group="true" class="output">
         <OutputSwitch
@@ -144,6 +148,10 @@ export default class Chat extends Vue {
   @Watch('messages')
   private onPropertyChanged(value: any, old: any) {
     this.$nextTick(() => this.$refs.scroller.measure())
+  }
+
+  private get cartSize(): number {
+    return Object.keys(this.cart).length
   }
 }
 </script>

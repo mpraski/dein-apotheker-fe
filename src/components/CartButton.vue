@@ -2,6 +2,9 @@
   <div class="cart-button">
     <div class="badge" v-if="badgeVisible">{{ items }}</div>
     <CartIcon class="icon" />
+    <Button @click.native="onCart">
+      <BasketOutline title="Show cart" class="icon" />
+    </Button>
     <FadeIn>
       <span v-if="showPopover" class="popover">{{ $t('cart.added') }}</span>
     </FadeIn>
@@ -11,12 +14,14 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
-import CartIcon from 'vue-material-design-icons/Cart.vue'
+import Button from '@/components/Button.vue'
+import BasketOutline from 'vue-material-design-icons/BasketOutline.vue'
 import FadeIn from '@/components/FadeIn.vue'
 
 @Component({
   components: {
-    CartIcon,
+    Button,
+    BasketOutline,
     FadeIn
   }
 })
@@ -102,6 +107,8 @@ export default class CartButton extends Vue {
 
     border-radius: $borderRadius / 2;
     padding: 0.25rem 0.5rem;
+
+    z-index: 1;
   }
 }
 </style>
