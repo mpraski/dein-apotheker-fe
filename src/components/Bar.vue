@@ -26,7 +26,6 @@ export default class Bar extends Vue {}
   @include horizontal-list;
 
   padding: $marginSmall $marginMedium;
-  //border-bottom: 1px solid $borderColor;
 
   & > div {
     flex: 1;

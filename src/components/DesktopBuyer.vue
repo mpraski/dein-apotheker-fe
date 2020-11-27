@@ -3,7 +3,7 @@
     <div class="possibilities">
       <div class="action">
         <BasketOutline class="icon" />
-        <p class="text">My recommendation</p>
+        <p class="text">{{ $t('cart.recommendation') }}</p>
       </div>
       <div class="action" @click="onProceed" :class="actionClass">
         <p v-if="hasItems" class="text">
@@ -16,14 +16,14 @@
     <div class="desktop-buyer">
       <div class="row" v-for="chunk in chunked" :key="chunk[0].id">
         <div class="column" v-for="(item, idx) in chunk" :key="idx">
-          <DesktopChooserItem
+          <ListItem
             v-if="item"
             v-bind="item"
             :selected="selected[item.id]"
             @click.native="onChoose(item.id)"
           >
             <component :is="iconFor(item.id)" />
-          </DesktopChooserItem>
+          </ListItem>
         </div>
       </div>
     </div>
@@ -31,19 +31,18 @@
 </template>
 
 <script lang="ts">
+import { Maybe, chunk } from '@/util/util'
 import { Product } from '@/store/chat/types'
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
-import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
+import ListItem from '@/components/ListItem.vue'
 import BasketOutline from 'vue-material-design-icons/BasketOutline.vue'
 import ArrowRightThinCircleOutline from 'vue-material-design-icons/ArrowRightThinCircleOutline.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 import Check from 'vue-material-design-icons/CheckCircle.vue'
 
-type Maybe<T> = T | undefined
-
 @Component({
   components: {
-    DesktopChooserItem,
+    ListItem,
     BasketOutline,
     ArrowRightThinCircleOutline,
     ChevronRight,
@@ -97,31 +96,13 @@ export default class DesktopBuyer extends Vue {
     return ChevronRight
   }
 
-  private chunk<T>(list: T[], size = 2): Maybe<T>[][] {
-    let i, j: number
-    const arr: Maybe<T>[][] = []
-
-    for (i = 0, j = list.length; i < j; i += size) {
-      arr.push(list.slice(i, i + size))
-    }
-
-    const last = arr[arr.length - 1]
-
-    while (j < i) {
-      last.push(undefined)
-      j++
-    }
-
-    return arr
-  }
-
   @Emit()
   private onSelect(a: string[]): string[] {
     return a
   }
 
   private get chunked(): Maybe<Product>[][] {
-    return this.chunk(this.products, this.columns)
+    return chunk(this.products, this.columns)
   }
 
   private get actionClass(): object {

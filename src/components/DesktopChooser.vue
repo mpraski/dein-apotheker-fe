@@ -1,7 +1,7 @@
 <template>
   <div class="desktop-chooser">
     <Searcher @on-search="setSearch" ref="searcher" />
-    <DesktopList :rows="filtered" :columns="columns" @on-select="onSelect" />
+    <Grid :rows="filtered" :columns="columns" @on-select="onSelect" />
   </div>
 </template>
 
@@ -9,12 +9,12 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { Row } from '@/store/chat/types'
 import Searcher from '@/components/Searcher.vue'
-import DesktopList from '@/components/DesktopList.vue'
+import Grid from '@/components/Grid.vue'
 
 @Component({
   components: {
     Searcher,
-    DesktopList
+    Grid
   }
 })
 export default class DesktopChooser extends Vue {

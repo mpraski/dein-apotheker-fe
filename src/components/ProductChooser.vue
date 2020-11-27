@@ -1,8 +1,8 @@
 <template>
   <div class="product-chooser">
-    <DesktopChooserItem v-bind="input.product" class="product">
+    <ListItem v-bind="input.product" class="product">
       <ChevronRight />
-    </DesktopChooserItem>
+    </ListItem>
     <Options :options="input.answers" @on-select="onSelect" />
   </div>
 </template>
@@ -12,13 +12,13 @@ import { AnswerValue, ProductInput } from '@/store/chat/types'
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
-import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
+import ListItem from '@/components/ListItem.vue'
 import Options from '@/components/Options.vue'
 
 @Component({
   components: {
     ChevronRight,
-    DesktopChooserItem,
+    ListItem,
     Options
   }
 })

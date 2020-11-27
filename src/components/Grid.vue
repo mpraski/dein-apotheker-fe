@@ -1,57 +1,34 @@
 <template>
-  <div class="desktop-list">
+  <div class="grid">
     <div class="row" v-for="chunk in chunked" :key="chunk[0].id">
       <div class="column" v-for="(item, idx) in chunk" :key="idx">
-        <DesktopChooserItem
-          v-if="item"
-          v-bind="item"
-          @click.native="onSelect(item.id)"
-        >
+        <ListItem v-if="item" v-bind="item" @click.native="onSelect(item.id)">
           <ChevronRight />
-        </DesktopChooserItem>
+        </ListItem>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { Maybe, chunk } from '@/util/util'
 import { Row } from '@/store/chat/types'
 import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
-import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
+import ListItem from '@/components/ListItem.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
-
-type Maybe<T> = T | undefined
 
 @Component({
   components: {
-    DesktopChooserItem,
+    ListItem,
     ChevronRight
   }
 })
-export default class DesktopList extends Vue {
+export default class Grid extends Vue {
   @Prop({ default: () => 2 })
   private columns!: number
 
   @Prop({ default: () => [] })
   private rows!: Row[]
-
-  private chunk<T>(list: T[], size = 2): Maybe<T>[][] {
-    let i, j: number
-    const arr: Maybe<T>[][] = []
-
-    for (i = 0, j = list.length; i < j; i += size) {
-      arr.push(list.slice(i, i + size))
-    }
-
-    const last = arr[arr.length - 1]
-
-    while (j < i) {
-      last.push(undefined)
-      j++
-    }
-
-    return arr
-  }
 
   @Emit()
   private onSelect(a: string): string {
@@ -59,7 +36,7 @@ export default class DesktopList extends Vue {
   }
 
   private get chunked(): Maybe<Row>[][] {
-    return this.chunk(this.rows, this.columns)
+    return chunk(this.rows, this.columns)
   }
 }
 </script>
@@ -67,7 +44,7 @@ export default class DesktopList extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.desktop-list {
+.grid {
   height: 25vh;
   max-height: 18rem;
   overflow-y: auto;

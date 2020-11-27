@@ -1,16 +1,16 @@
 <template>
   <div class="cart">
-    <DesktopChooserItem v-for="item in cart" :key="item.id" v-bind="item" />
+    <ListItem v-for="item in cart" :key="item.id" v-bind="item" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import DesktopChooserItem from '@/components/DesktopChooserItem.vue'
+import ListItem from '@/components/ListItem.vue'
 
 @Component({
   components: {
-    DesktopChooserItem
+    ListItem
   }
 })
 export default class Cart extends Vue {
@@ -18,7 +18,3 @@ export default class Cart extends Vue {
   private cart!: Cart
 }
 </script>
-
-<style scoped lang="scss">
-@import '@/assets/app.scss';
-</style>

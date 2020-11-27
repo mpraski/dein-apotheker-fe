@@ -14,7 +14,8 @@ export const messages: LocaleMessageObject = {
     add: 'Add {items} to Cart',
     added: 'Added to Cart!',
     items: 'Your items',
-    skip: 'Skip'
+    skip: 'Skip',
+    recommendation: 'Recommendation'
   },
   message: {
     unknown: 'Unknown',

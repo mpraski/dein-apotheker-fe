@@ -1,5 +1,5 @@
 <template>
-  <div class="desktop-chooser-item" :class="itemClass">
+  <div class="list-item" :class="itemClass">
     <div class="image" :style="styleImage" />
     <p class="header">{{ name }}</p>
     <div class="icon"><slot></slot></div>
@@ -10,7 +10,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({})
-export default class DesktopChooserItem extends Vue {
+export default class ListItem extends Vue {
   @Prop({ default: () => '' })
   private name!: string
 
@@ -43,7 +43,7 @@ export default class DesktopChooserItem extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.desktop-chooser-item {
+.list-item {
   @include horizontal-list(flex-start, nowrap);
   @include actionable;
 
