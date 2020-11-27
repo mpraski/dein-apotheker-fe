@@ -48,6 +48,7 @@ export default class Popup extends Vue {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+
   display: table;
   transition: opacity $animationDuration;
 
@@ -60,6 +61,7 @@ export default class Popup extends Vue {
     }
 
     .holder {
+      @extend .elevated;
       @include vertical-list;
 
       margin: 0 auto;
@@ -67,7 +69,6 @@ export default class Popup extends Vue {
       background-color: $backgroundColor;
       border-top-left-radius: $borderRadius;
       border-top-right-radius: $borderRadius;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
       transition: all $animationDuration;
       min-height: 60vh;
       bottom: 0;

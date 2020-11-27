@@ -10,7 +10,7 @@ export default class Content extends Vue {
   @Prop({ default: () => '' })
   private content!: string
 
-  @Prop({ default: () => 256 })
+  @Prop({ default: () => 2048 })
   private max!: number
 
   private get text(): string {
