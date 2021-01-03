@@ -98,22 +98,6 @@ export class Driver {
   private async answer(answer: Answer) {
     await this.dispatch(chatNamespace, ChatActions.hideInput)
 
-    const text = this.formatAnswer(answer)
-
-    if (text) {
-      await this.dispatchQueue(messageNamespace, MessageActions.addMessage, [
-        {
-          type: 'text',
-          content: text
-        } as Message,
-        {
-          alignment: 'RIGHT',
-          state: this.currentState!,
-          when: Date.now()
-        } as MessageData
-      ])
-    }
-
     let response: AnswerResponse
 
     try {

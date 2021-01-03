@@ -32,7 +32,7 @@ import CloseCircle from 'vue-material-design-icons/CloseCircle.vue'
   }
 })
 export default class Bubble extends Vue {
-  @Prop() private alignment!: Alignment
+  @Prop({ default: () => 'LEFT' }) private alignment!: Alignment
   @Prop() private when!: number
 
   private hover = false

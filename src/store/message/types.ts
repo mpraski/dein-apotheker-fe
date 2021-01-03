@@ -42,3 +42,7 @@ export enum Actions {
     revert = 'revert',
     clear = 'clear'
 }
+
+export enum Getters {
+    current = 'current'
+}

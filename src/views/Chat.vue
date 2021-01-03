@@ -5,25 +5,18 @@
       @on-cart="showPopup(['cart', cart])"
       :cart="cartSize"
     />
-    <Scroller :height="height" @on-measure="measure" ref="scroller">
-      <FadeIn group="true" class="output">
-        <OutputSwitch
-          v-for="([m, d], i) in messages"
-          :key="i"
-          :message="m"
-          :data="d"
-          @on-delete="revert([i, d.state])"
-        />
-      </FadeIn>
-      <FadeIn class="input">
-        <InputSwitch
-          v-if="showInput"
-          :type="message.type"
-          :input="message.input"
-          @on-answer="onAnswer"
-        />
-      </FadeIn>
-    </Scroller>
+    <Divider />
+    <FadeIn class="output">
+      <Content v-if="showInput" :content="current.content" />
+    </FadeIn>
+    <FadeIn class="input">
+      <InputSwitch
+        v-if="showInput"
+        :type="message.type"
+        :input="message.input"
+        @on-answer="onAnswer"
+      />
+    </FadeIn>
     <PopupManager :popups="popups" @hide-popup="hidePopup" />
     <Resizer @on-resize="recalculate('smooth')" />
   </main>
@@ -37,12 +30,13 @@ import FadeIn from '@/components/FadeIn.vue'
 import Scroller, { ScrollType } from '@/components/Scroller.vue'
 import Resizer from '@/components/Resizer.vue'
 import PopupManager from '@/components/PopupManager.vue'
-import OutputSwitch from '@/views/OutputSwitch.vue'
+import Content from '@/components/Content.vue'
 import InputSwitch from '@/views/InputSwitch.vue'
 import TopBar from '@/views/TopBar.vue'
+import Divider from '@/components/Divider.vue'
 
 import { messageNamespace } from '@/store/message'
-import { MessageState } from '@/store/message/types'
+import { MessageState, Message as CompoundMessage } from '@/store/message/types'
 
 import {
   Answer,
@@ -68,13 +62,17 @@ const popup = namespace(popupNamespace)
     FadeIn,
     Scroller,
     Resizer,
-    OutputSwitch,
+    Content,
     InputSwitch,
     TopBar,
-    PopupManager
+    PopupManager,
+    Divider
   }
 })
 export default class Chat extends Vue {
+  @message.Getter
+  current!: CompoundMessage
+
   @State(messageNamespace)
   messages!: MessageState
 
@@ -117,37 +115,12 @@ export default class Chat extends Vue {
   @popup.Action
   hidePopup!: (d: PopupKey) => void
 
-  // prettier-ignore
-  $refs!: {
-    scroller: Scroller;
-  }
-
   private mounted() {
     this.$driver.start()
-    this.recalculate('auto')
-  }
-
-  private updated() {
-    this.$nextTick(() => this.scrollToBotton('smooth'))
-  }
-
-  private scrollToBotton(behaviour: ScrollType) {
-    this.$refs.scroller.scrollToEnd(behaviour)
-  }
-
-  private recalculate(behaviour: ScrollType) {
-    this.$refs.scroller.measure()
-    this.scrollToBotton(behaviour)
-    this.computeScreen()
   }
 
   private onAnswer(answer: AnswerValue) {
     this.addAnswer({ state: this.state, answer })
-  }
-
-  @Watch('messages')
-  private onPropertyChanged(value: any, old: any) {
-    this.$nextTick(() => this.$refs.scroller.measure())
   }
 
   private get cartSize(): number {

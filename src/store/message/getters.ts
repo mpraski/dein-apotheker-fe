@@ -1,5 +1,13 @@
 import { GetterTree } from 'vuex'
-import { MessageState } from './types'
-import { RootState } from '@/store/types'
+import { Getters, Message, MessageState } from './types'
+import { RootState, ValueOf } from '@/store/types'
 
-export const getters: GetterTree<MessageState, RootState> = {}
+type GetterDefinition = {
+    [K in Getters]: ValueOf<GetterTree<MessageState, RootState>>;
+}
+
+export const getters: GetterDefinition = {
+    [Getters.current](state): Message {
+        return state[state.length - 1][0]
+    }
+}

@@ -47,30 +47,6 @@ export default class Options extends Vue {
     margin-bottom: $marginMedium;
   }
 
-  &.long {
-    @include vertical-list(center);
-  }
-
-  &.short {
-    @include horizontal-list(center);
-
-    > *:not(:last-child) {
-      margin-right: $marginMedium;
-    }
-  }
-
-  @include respond-to(medium) {
-    &.long {
-      @include horizontal-list(center);
-    }
-
-    &.short {
-      @include horizontal-list(center);
-    }
-
-    > *:not(:last-child) {
-      margin-right: $marginMedium;
-    }
-  }
+  @include vertical-list(flex-end);
 }
 </style>

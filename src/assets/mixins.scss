@@ -60,11 +60,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    font-size: $textSize;
-    line-height: $lineHeight;
+    font-size: $textSizeLarge;
+    line-height: $lineHeightLarge;
 
     @include respond-to(medium) {
-        font-size: $textSizeLarge;
+        font-size: $textSizeBig;
         line-height: $lineHeightLarge;
     }
 }

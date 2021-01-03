@@ -26,5 +26,6 @@ export default class Content extends Vue {
 
 .content {
   @extend .padded;
+  @include responsive-text;
 }
 </style>
