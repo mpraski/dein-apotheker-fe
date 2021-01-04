@@ -1,5 +1,5 @@
 <template>
-  <div class="options" :class="optionsClass">
+  <div class="options">
     <Option
       v-for="option in options"
       :key="option.id"
@@ -28,13 +28,6 @@ export default class Options extends Vue {
   @Emit()
   private onSelect(answer: string): string {
     return answer
-  }
-
-  private get optionsClass(): object {
-    return {
-      short: this.options.length < 3,
-      long: this.options.length >= 3
-    }
   }
 }
 </script>

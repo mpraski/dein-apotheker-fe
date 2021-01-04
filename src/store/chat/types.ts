@@ -50,6 +50,10 @@ export interface Message {
 
 export type Cart = Array<Product>;
 
+export type State = string;
+
+export type Question = string;
+
 export type AnswerValue = string | Array<string> | null;
 
 export interface Answer {
@@ -61,8 +65,9 @@ export interface ChatState {
   showInput: boolean;
   message?: Message;
   answer?: Answer;
-  states: Array<string>;
-  cart: Cart;
+  questions: Array<Question>;
+  states: Array<State>;
+  cart: Array<Product>;
 }
 
 // Keys
@@ -89,16 +94,15 @@ export enum Actions {
 }
 
 export enum Getters {
-  showInput = 'showInput',
   state = 'state',
-  message = 'message',
-  cart = 'cart'
+  question = 'question'
 }
 
 export const emptyState = defaultWith<ChatState>(() => ({
   showInput: false,
   message: undefined,
   answer: undefined,
+  questions: [],
   states: [],
   cart: []
 }))

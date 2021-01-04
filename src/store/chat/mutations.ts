@@ -21,6 +21,7 @@ export const mutations: MutationDefinition = {
   },
   [Mutations.addMessage](state, message: Message) {
     state.message = message
+    state.questions.push(message.text)
   },
   [Mutations.addState](state, stateID: string) {
     state.states.push(stateID)

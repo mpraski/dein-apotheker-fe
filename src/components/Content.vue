@@ -25,7 +25,6 @@ export default class Content extends Vue {
 @import '@/assets/app.scss';
 
 .content {
-  @extend .padded;
   @include responsive-text;
 }
 </style>

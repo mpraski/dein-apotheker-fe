@@ -1,10 +1,8 @@
 <template>
   <main>
-    <FadeIn class="output">
-      <Content v-if="showInput" :content="current.content" />
-    </FadeIn>
     <FadeIn>
-      <div class="input" v-if="showInput">
+      <div class="main" v-if="showInput">
+        <Content class="output" v-if="showInput" :content="question" />
         <InputSwitch
           :type="message.type"
           :input="message.input"
@@ -19,7 +17,6 @@
       class="top"
     />
     <PopupManager :popups="popups" @hide-popup="hidePopup" />
-    <Resizer @on-resize="recalculate('smooth')" />
   </main>
 </template>
 
@@ -28,16 +25,10 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import { State, Action, namespace } from 'vuex-class'
 
 import FadeIn from '@/components/FadeIn.vue'
-import Scroller, { ScrollType } from '@/components/Scroller.vue'
-import Resizer from '@/components/Resizer.vue'
 import PopupManager from '@/components/PopupManager.vue'
 import Content from '@/components/Content.vue'
 import InputSwitch from '@/views/InputSwitch.vue'
 import TopBar from '@/views/TopBar.vue'
-import Divider from '@/components/Divider.vue'
-
-import { messageNamespace } from '@/store/message'
-import { MessageState, Message as CompoundMessage } from '@/store/message/types'
 
 import {
   Answer,
@@ -46,69 +37,49 @@ import {
   Actions as ChatActions,
   Getters as ChatGetters,
   AnswerValue,
-  Cart
+  Cart,
+  Question
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
-import { scrollerNamespace } from '@/store/scroller'
 import { popupNamespace } from '@/store/popup'
 import { PopupKey, PopupState } from '@/store/popup/types'
 
 const chat = namespace(chatNamespace)
-const message = namespace(messageNamespace)
-const scroller = namespace(scrollerNamespace)
 const popup = namespace(popupNamespace)
 
 @Component({
   components: {
     FadeIn,
-    Scroller,
-    Resizer,
     Content,
     InputSwitch,
     TopBar,
-    PopupManager,
-    Divider
+    PopupManager
   }
 })
 export default class Chat extends Vue {
-  @message.Getter
-  current!: CompoundMessage
-
-  @State(messageNamespace)
-  messages!: MessageState
-
   @State(popupNamespace)
   popups!: PopupState
 
   @Action
   requestSession!: () => void
 
-  @Action
-  computeScreen!: () => void
+  @chat.Getter
+  question!: Question
 
   @chat.Getter
   state!: string
 
-  @chat.Getter
+  @chat.State
   message!: Message
 
-  @chat.Getter
+  @chat.State
   cart!: Cart
 
-  @chat.Getter
+  @chat.State
   showInput!: boolean
 
   @chat.Action
   addAnswer!: (a: Answer) => void
-
-  @chat.Action
-  revert!: (a: [number, string]) => void
-
-  @scroller.Getter
-  height!: number
-
-  @scroller.Action
-  measure!: (d: [number, number]) => void
 
   @popup.Action
   showPopup!: (d: [PopupKey, any]) => void
@@ -145,6 +116,10 @@ main {
   }
 }
 
+.main {
+@extend .padded;
+}
+
 .top {
   margin-top: auto;
 }
@@ -159,5 +134,6 @@ main {
   width: 75%;
 
   @include responsive-text(21px, 1.75rem, 'PT Serif');
+  @include hero;
 }
 </style>

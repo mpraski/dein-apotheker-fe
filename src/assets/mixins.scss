@@ -65,12 +65,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    font-size: $baseSize * 1.125;
-    line-height: $baseLine * 1.125;
+    font-size: $baseSize;
+    line-height: $baseLine;
+
+    @include respond-to(small) {
+        font-size: $baseSize * 1.15;
+        line-height: $baseLine;
+    }
 
     @include respond-to(medium) {
-        font-size: $baseSize * 1.5;
-        line-height: $baseLine * 1.25;
+        font-size: $baseSize * 1.25;
+        line-height: $baseLine;
     }
 }
 
@@ -127,6 +132,13 @@
 
     @include respond-to(large) {
         margin-bottom: $marginButtonLarge;
+    }
+}
+
+@mixin hero() {
+    @include respond-to(medium) {
+        font-size: 3vmin;
+        line-height: 4.5vmin;
     }
 }
 

@@ -103,16 +103,6 @@ export default class InputSwitch extends Vue {
     return 2
   }
 
-  /*private get listComponent(): VueConstructor<Vue> | undefined {
-    switch (this.type) {
-      case 'list':
-      case 'product_list':
-        return Card
-    }
-
-    return undefined
-  }*/
-
   @Emit()
   private onAnswer(answer: AnswerValue): AnswerValue {
     return answer

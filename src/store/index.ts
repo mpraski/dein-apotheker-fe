@@ -4,8 +4,6 @@ import { RootState } from './types'
 import { getters } from './getters'
 import { actions } from './actions'
 import { mutations } from './mutations'
-import { scroller } from './scroller'
-import { message } from './message'
 import { popup } from './popup'
 import { chat } from './chat'
 
@@ -18,8 +16,6 @@ export const createStore = (...plugins: Array<Plugin<RootState>>): Store<RootSta
 
   const modules = {
     chat,
-    message,
-    scroller,
     popup
   }
 
