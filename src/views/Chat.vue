@@ -1,22 +1,23 @@
 <template>
   <main>
+    <FadeIn class="output">
+      <Content v-if="showInput" :content="current.content" />
+    </FadeIn>
+    <FadeIn>
+      <div class="input" v-if="showInput">
+        <InputSwitch
+          :type="message.type"
+          :input="message.input"
+          @on-answer="onAnswer"
+        />
+      </div>
+    </FadeIn>
     <TopBar
       @on-refresh="requestSession"
       @on-cart="showPopup(['cart', cart])"
       :cart="cartSize"
+      class="top"
     />
-    <Divider />
-    <FadeIn class="output">
-      <Content v-if="showInput" :content="current.content" />
-    </FadeIn>
-    <FadeIn class="input">
-      <InputSwitch
-        v-if="showInput"
-        :type="message.type"
-        :input="message.input"
-        @on-answer="onAnswer"
-      />
-    </FadeIn>
     <PopupManager :popups="popups" @hide-popup="hidePopup" />
     <Resizer @on-resize="recalculate('smooth')" />
   </main>
@@ -144,40 +145,19 @@ main {
   }
 }
 
-.input {
-  margin-top: $marginMedium;
-  margin-left: $marginMedium;
-  margin-right: $marginMedium;
+.top {
+  margin-top: auto;
+}
 
-  @include respond-to(small) {
-    margin-left: $marginRegular;
-    margin-right: $marginRegular;
-  }
+.input {
+  @extend .padded;
 }
 
 .output {
-  @include vertical-list;
+  margin-top: $marginMedium;
+  margin-bottom: $marginMedium;
+  width: 75%;
 
-  padding: 0 $marginMedium;
-
-  > *:first-child {
-    margin-top: $marginMedium;
-  }
-
-  > * {
-    margin-bottom: $marginMedium;
-  }
-
-  @include respond-to(small) {
-    padding: 0 $marginRegular;
-
-    > *:first-child {
-      margin-top: $marginRegular;
-    }
-
-    > * {
-      margin-bottom: $marginRegular;
-    }
-  }
+  @include responsive-text(21px, 1.75rem, 'PT Serif');
 }
 </style>

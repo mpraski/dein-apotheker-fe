@@ -2,7 +2,7 @@ import { LocaleMessageObject } from 'vue-i18n'
 
 export const messages: LocaleMessageObject = {
   general: {
-    title: 'Dein Apotheker',
+    title: 'HealthBud',
     proceed: 'Proceed'
   },
   product: {

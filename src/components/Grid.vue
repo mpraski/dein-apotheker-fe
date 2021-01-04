@@ -45,8 +45,6 @@ export default class Grid extends Vue {
 @import '@/assets/app.scss';
 
 .grid {
-  height: 25vh;
-  max-height: 18rem;
   overflow-y: auto;
 
   &::-webkit-scrollbar-track {

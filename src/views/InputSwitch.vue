@@ -100,13 +100,6 @@ export default class InputSwitch extends Vue {
   }
 
   private get listColumns(): number {
-    if (
-      this.type === 'list' &&
-      (this.input as Database).database === 'Brands'
-    ) {
-      return 3
-    }
-
     return 2
   }
 

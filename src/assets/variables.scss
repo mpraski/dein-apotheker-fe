@@ -35,9 +35,8 @@ $marginSmallest: 0.25rem;
 $marginMinute: 0.15rem;
 
 // Padding
-$paddingButton: 0.75rem 1rem;
-$paddingButtonLarge: 0.75rem 1rem;
-$paddingButtonSmall: 0.5rem 0.75rem;
+$paddingButton: 0.25rem 1rem;
+$paddingButtonLarge: 0.25rem 1rem;
 
 $paddingButtonVertical: 0.75rem;
 $paddingButtonVerticalLarge: 0.75rem;
@@ -55,20 +54,21 @@ $marginButtonSmall: 0.75rem;
 $textSize: 16px;
 $textSizeLarge: 18px;
 $textSizeBig: 24px;
-$textSizeHuge: 28px;
+$textSizeHuge: 34px;
 $textSizeSmall: 14px;
 $textSizeSmallest: 12px;
 $fontFamily: "Ubuntu", sans-serif;
 $fontWeight: 400;
 $lineHeight: 1.4rem;
 $lineHeightLarge: 1.4rem;
+$lineHeightHuge: 2.7rem;
 $lineHeightSmall: 1.3rem;
 
 // General
 $bubbleMaxWidthSmall: 90%;
 $bubbleMaxWidth: 80%;
 $bubbleMinWidth: 10%;
-$chatWidth: 45rem;
+$chatWidth: 40rem;
 $buttonSize: 3rem;
 
 // Animation

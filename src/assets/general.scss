@@ -6,7 +6,6 @@ body {
     height: 100%;
 
     color: $textColor;
-    background-color: $backgroundColorSecondary;
 
     @include responsive-text;
 }

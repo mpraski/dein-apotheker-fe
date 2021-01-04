@@ -1,7 +1,6 @@
 <template>
   <div class="logo-body">
     <img class="logo" src="@/assets/logo.png" />
-    <p class="text">{{ $t('general.title') }}</p>
   </div>
 </template>
 

@@ -54,18 +54,23 @@
     border-color: $color;
 }
 
-@mixin responsive-text() {
-    font-family: $fontFamily;
-    font-weight: $fontWeight;
+@mixin responsive-text(
+    $baseSize: $textSize,
+    $baseLine: $lineHeight,
+    $baseFamily: $fontFamily,
+    $baseWeight: $fontWeight
+) {
+    font-family: $baseFamily;
+    font-weight: $baseWeight;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    font-size: $textSizeLarge;
-    line-height: $lineHeightLarge;
+    font-size: $baseSize * 1.125;
+    line-height: $baseLine * 1.125;
 
     @include respond-to(medium) {
-        font-size: $textSizeBig;
-        line-height: $lineHeightLarge;
+        font-size: $baseSize * 1.5;
+        line-height: $baseLine * 1.25;
     }
 }
 
@@ -204,18 +209,16 @@
 }
 
 .option {
-    @include bordered($borderRadiusHuge, solid, $borderWidthAction, $borderColorDark);
+    @include bordered($borderRadiusHuge, solid, $borderWidthAction, $accentColorDarkest);
     @extend .padded;
     @extend .transitionable;
 
-    color: $borderColorDarker;
+    color: $accentColorDarkest;
     cursor: pointer;
     user-select: none;
 
     &:hover {
         @extend .elevated;
-        color: $textColor;
-        background-color: white;
     }
 }
 
