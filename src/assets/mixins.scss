@@ -138,7 +138,7 @@
 @mixin hero() {
     @include respond-to(medium) {
         font-size: 3.5vmin;
-        line-height: 4.5vmin;
+        line-height: 5vmin;
     }
 }
 
