@@ -92,10 +92,9 @@ export default class Popup extends Vue {
         margin-bottom: $marginMedium;
 
         .title {
+          @include responsive-text;
           margin: 0;
           padding: 0;
-          font-size: $textSizeLarge;
-          font-weight: bold;
         }
 
         .icon {

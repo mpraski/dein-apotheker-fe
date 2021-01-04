@@ -37,7 +37,7 @@ export default class Options extends Vue {
 
 .options {
   > * {
-    margin-bottom: $marginMedium;
+    margin-bottom: $marginBetween;
   }
 
   @include vertical-list(flex-end);

@@ -1,8 +1,12 @@
 <template>
-  <div class="product-chooser">
-    <ListItem v-bind="input.product" class="product">
-      <ChevronRight />
-    </ListItem>
+  <div>
+    <ListItem
+      v-bind="input.product"
+      large="true"
+      height="7"
+      width="7"
+      class="product"
+    />
     <Options :options="input.answers" @on-select="onSelect" />
   </div>
 </template>
@@ -11,13 +15,11 @@
 import { AnswerValue, ProductInput } from '@/store/chat/types'
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
-import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 import ListItem from '@/components/ListItem.vue'
 import Options from '@/components/Options.vue'
 
 @Component({
   components: {
-    ChevronRight,
     ListItem,
     Options
   }
@@ -36,17 +38,7 @@ export default class ProductChooser extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.product-chooser {
-  @extend .bubble;
-
-  .product {
-    @include margin-bottom-m;
-
-    border-bottom: 1px solid $borderColor;
-  }
-
-  & > div {
-    flex-wrap: nowrap;
-  }
+.product {
+  margin-bottom: $marginMedium;
 }
 </style>

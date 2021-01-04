@@ -17,8 +17,8 @@ export default class Placeholder extends Vue {
 
 .placeholder {
   @include horizontal-list(center);
+  @include responsive-text;
 
   color: $textColorSecondary;
-  user-select: none;
 }
 </style>

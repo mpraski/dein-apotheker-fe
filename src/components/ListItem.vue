@@ -26,6 +26,9 @@ export default class ListItem extends Vue {
   @Prop({ default: () => false })
   private selected!: boolean
 
+  @Prop({ default: () => false })
+  private large!: boolean
+
   private get styleImage(): object {
     return {
       height: `${this.height}rem`,
@@ -35,7 +38,7 @@ export default class ListItem extends Vue {
   }
 
   private get itemClass(): object {
-    return { selected: this.selected }
+    return { large: this.large, selected: this.selected }
   }
 }
 </script>
@@ -45,11 +48,21 @@ export default class ListItem extends Vue {
 
 .list-item {
   @include horizontal-list(flex-start, nowrap);
-  @include actionable;
 
   align-items: center;
 
   padding: $marginBetween $marginMedium;
+
+  &:not(.large) {
+    @include actionable;
+  }
+
+  &.large {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
 
   .image {
     background-position: center center;

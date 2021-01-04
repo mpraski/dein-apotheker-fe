@@ -68,6 +68,8 @@
     font-size: $baseSize;
     line-height: $baseLine;
 
+    user-select: none;
+
     @include respond-to(small) {
         font-size: $baseSize * 1.15;
         line-height: $baseLine;
