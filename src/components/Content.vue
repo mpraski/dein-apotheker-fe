@@ -1,5 +1,5 @@
 <template>
-  <p class="content">{{ text }}</p>
+  <p class="content">{{ content }}</p>
 </template>
 
 <script lang="ts">
@@ -9,15 +9,6 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class Content extends Vue {
   @Prop({ default: () => '' })
   private content!: string
-
-  @Prop({ default: () => 2048 })
-  private max!: number
-
-  private get text(): string {
-    return this.content.length <= this.max
-      ? this.content
-      : this.content.substring(0, this.max) + '...'
-  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <main>
     <FadeIn>
-      <div class="main" v-if="showInput">
+      <section class="main" v-if="showInput">
         <Content class="output" :content="question" />
         <InputSwitch
           :type="message.type"
@@ -9,7 +9,7 @@
           @on-answer="onAnswer"
           @on-chooser="onChooser"
         />
-      </div>
+      </section>
     </FadeIn>
     <TopBar
       @on-refresh="requestSession"
