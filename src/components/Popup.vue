@@ -1,17 +1,15 @@
 <template>
-  <div class="popup-mask" v-if="visible">
-    <div class="wrapper">
-      <div class="holder">
-        <div class="header">
-          <h2 class="title">{{ title }}</h2>
-          <CloseIcon class="icon" @click="onClose" />
-        </div>
-        <div class="body">
-          <slot></slot>
-        </div>
-        <div class="footer">
-          <slot name="footer"></slot>
-        </div>
+  <div class="popup-mask">
+    <div class="holder">
+      <div class="header">
+        <h2 class="title">{{ title }}</h2>
+        <CloseIcon class="icon" @click="onClose" />
+      </div>
+      <div class="body">
+        <slot></slot>
+      </div>
+      <div class="footer">
+        <slot name="footer"></slot>
       </div>
     </div>
   </div>
@@ -28,7 +26,6 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
 })
 export default class Popup extends Vue {
   @Prop({ default: () => '' }) private title!: string
-  @Prop({ default: () => false }) private visible!: boolean
 
   @Emit()
   private onClose() {
@@ -47,60 +44,38 @@ export default class Popup extends Vue {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $backgroundColor;
 
-  display: table;
-  transition: opacity $animationDuration;
+  .holder {
+    @include vertical-list;
 
-  .wrapper {
-    display: table-cell;
-    vertical-align: bottom;
+    padding: $marginMedium;
+    margin-left: auto;
+    margin-right: auto;
 
-    @include respond-to(medium) {
-      display: block;
+    @include respond-to(small) {
+      max-width: $chatWidth;
     }
 
-    .holder {
-      @extend .elevated;
-      @include vertical-list;
+    .header {
+      @include horizontal-list;
 
-      margin: 0 auto;
-      padding: $marginMedium;
-      background-color: $backgroundColor;
-      border-top-left-radius: $borderRadius;
-      border-top-right-radius: $borderRadius;
-      transition: all $animationDuration;
-      min-height: 60vh;
-      bottom: 0;
+      justify-content: space-between;
+      margin-bottom: $marginMedium;
 
-      @include respond-to(medium) {
-        width: 75%;
-        margin-top: 25vh;
-        border-bottom-left-radius: $borderRadius;
-        border-bottom-right-radius: $borderRadius;
-        min-height: auto;
+      .title {
+        @include responsive-text;
+        margin: 0;
+        padding: 0;
       }
 
-      @include respond-to(large) {
-        width: 50%;
+      .icon {
+        @include big-icon;
       }
+    }
 
-      .header {
-        @include horizontal-list;
-
-        justify-content: space-between;
-        margin-bottom: $marginMedium;
-
-        .title {
-          @include responsive-text;
-          margin: 0;
-          padding: 0;
-        }
-
-        .icon {
-          @include big-icon;
-        }
-      }
+    .body {
+      flex: 1;
     }
   }
 }

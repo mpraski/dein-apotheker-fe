@@ -1,5 +1,5 @@
 <template>
-  <header class="bar-body">
+  <div class="bar-body">
     <div class="left">
       <slot name="left"></slot>
     </div>
@@ -9,7 +9,7 @@
     <div class="right">
       <slot name="right"></slot>
     </div>
-  </header>
+  </div>
 </template>
 
 <script lang="ts">

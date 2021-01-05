@@ -2,11 +2,12 @@
   <main>
     <FadeIn>
       <div class="main" v-if="showInput">
-        <Content class="output" v-if="showInput" :content="question" />
+        <Content class="output" :content="question" />
         <InputSwitch
           :type="message.type"
           :input="message.input"
           @on-answer="onAnswer"
+          @on-chooser="onChooser"
         />
       </div>
     </FadeIn>
@@ -16,7 +17,7 @@
       :cart="cartSize"
       class="top"
     />
-    <PopupManager :popups="popups" @hide-popup="hidePopup" />
+    <PopupManager :popups="popups" @hide-popup="hidePopup" @hide-all="clear" />
   </main>
 </template>
 
@@ -38,7 +39,8 @@ import {
   Getters as ChatGetters,
   AnswerValue,
   Cart,
-  Question
+  Question,
+  Row
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 import { popupNamespace } from '@/store/popup'
@@ -87,12 +89,19 @@ export default class Chat extends Vue {
   @popup.Action
   hidePopup!: (d: PopupKey) => void
 
+  @popup.Action
+  clear!: () => void
+
   private mounted() {
     this.$driver.start()
   }
 
   private onAnswer(answer: AnswerValue) {
     this.addAnswer({ state: this.state, answer })
+  }
+
+  private onChooser(data: [Row[], (a: AnswerValue) => void]) {
+    this.showPopup(['chooser', data])
   }
 
   private get cartSize(): number {
@@ -117,7 +126,7 @@ main {
 }
 
 .main {
-@extend .padded;
+  @extend .padded;
 }
 
 .top {

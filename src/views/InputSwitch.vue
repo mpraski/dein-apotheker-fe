@@ -6,11 +6,10 @@
     @on-select="onAnswer"
   />
   <ProductChooser v-else-if="isProduct" :input="input" @on-select="onAnswer" />
-  <DesktopChooser
+  <Option
     v-else-if="isList"
-    :rows="input.rows"
-    :columns="listColumns"
-    @on-select="onAnswer"
+    :content="$t('product.openList')"
+    @click.native="onChooser"
   />
   <DesktopBuyer
     v-else-if="isProductList"
@@ -24,9 +23,9 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 
 import Placeholder from '@/components/Placeholder.vue'
+import Option from '@/components/Option.vue'
 import Options from '@/components/Options.vue'
 import Prompt from '@/components/Prompt.vue'
-import DesktopChooser from '@/components/DesktopChooser.vue'
 import DesktopBuyer from '@/components/DesktopBuyer.vue'
 import ProductChooser from '@/components/ProductChooser.vue'
 
@@ -37,16 +36,17 @@ import {
   Database,
   QuestionOption,
   Product as APIProduct,
-  ProductInput
+  ProductInput,
+  Row
 } from '@/store/chat/types'
 import { VueConstructor } from 'vue'
 
 @Component({
   components: {
+    Option,
     Options,
     Prompt,
     Placeholder,
-    DesktopChooser,
     DesktopBuyer,
     ProductChooser
   }
@@ -99,13 +99,14 @@ export default class InputSwitch extends Vue {
     return []
   }
 
-  private get listColumns(): number {
-    return 2
-  }
-
   @Emit()
   private onAnswer(answer: AnswerValue): AnswerValue {
     return answer
+  }
+
+  @Emit()
+  private onChooser(): [Row[], (a: AnswerValue) => void] {
+    return [(this.input as Database).rows, this.onAnswer.bind(this)]
   }
 }
 </script>

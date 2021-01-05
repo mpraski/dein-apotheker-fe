@@ -21,7 +21,7 @@ export default class DesktopChooser extends Vue {
   @Prop({ default: () => [] })
   private rows!: Row[]
 
-  @Prop({ default: () => 2 })
+  @Prop({ default: () => 1 })
   private columns!: number
 
   private searchValue = ''

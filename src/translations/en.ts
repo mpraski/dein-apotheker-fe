@@ -8,9 +8,11 @@ export const messages: LocaleMessageObject = {
   product: {
     more: 'More',
     directions: 'Direction',
-    explanation: 'Explanation'
+    explanation: 'Explanation',
+    openList: 'Open list'
   },
   cart: {
+    title: 'Cart',
     add: 'Add {items} to Cart',
     added: 'Added to Cart!',
     items: 'Your items',

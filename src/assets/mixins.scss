@@ -81,62 +81,6 @@
     }
 }
 
-@mixin padded-m($horizontal: true, $vertical: true) {
-    @if $horizontal {
-        padding-left: $paddingButtonHorizontal;
-        padding-right: $paddingButtonHorizontal;
-
-        @include respond-to(medium) {
-            padding-left: $paddingButtonHorizontal;
-            padding-right: $paddingButtonHorizontal;
-        }
-
-        @include respond-to(large) {
-            padding-left: $paddingButtonHorizontalLarge;
-            padding-right: $paddingButtonHorizontalLarge;
-        }
-    }
-
-    @if $vertical {
-        padding-top: $paddingButtonVertical;
-        padding-bottom: $paddingButtonVertical;
-
-        @include respond-to(medium) {
-            padding-top: $paddingButtonVertical;
-            padding-bottom: $paddingButtonVertical;
-        }
-
-        @include respond-to(large) {
-            padding-top: $paddingButtonVerticalLarge;
-            padding-bottom: $paddingButtonVerticalLarge;
-        }
-    }
-}
-
-@mixin margin-left-m() {
-    margin-left: $marginButton;
-
-    @include respond-to(medium) {
-        margin-left: $marginButton;
-    }
-
-    @include respond-to(large) {
-        margin-left: $marginButtonLarge;
-    }
-}
-
-@mixin margin-bottom-m() {
-    margin-bottom: $marginButton;
-
-    @include respond-to(medium) {
-        margin-bottom: $marginButton;
-    }
-
-    @include respond-to(large) {
-        margin-bottom: $marginButtonLarge;
-    }
-}
-
 @mixin hero() {
     @include respond-to(medium) {
         font-size: 3.5vmin;
@@ -163,14 +107,6 @@
     }
 }
 
-.limited-width {
-    max-width: $bubbleMaxWidthSmall;
-
-    @include respond-to(small) {
-        max-width: $bubbleMaxWidth;
-    }
-}
-
 .bubble {
     @include bordered;
     @extend .alignable;
@@ -182,20 +118,6 @@
 
     text-align: left;
     user-select: none;
-
-    &.right {
-        align-self: flex-end;
-        border: none;
-        border-bottom-right-radius: $borderRadiusSmall;
-        background: $accentGradient;
-        //color: white;
-        box-shadow: none;
-    }
-
-    &.left {
-        border-bottom-left-radius: $borderRadiusSmall;
-        align-self: flex-start;
-    }
 }
 
 .padded {

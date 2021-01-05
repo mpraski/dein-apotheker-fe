@@ -1,16 +1,13 @@
-import { Cart } from '../chat/types'
+import { AnswerValue, Cart, Row } from '../chat/types'
 import { defaultWith } from '../types'
 
 type Partial<T> = {
     [P in keyof T]?: T[P];
 }
 
-type Pick<T, K extends keyof T> = {
-    [P in K]: T[P];
-}
-
 export interface PopupData {
     cart: Cart;
+    chooser: [Row[], (a: AnswerValue) => void];
 }
 
 export type PopupState = Partial<PopupData>
@@ -20,17 +17,16 @@ export type PopupKey = keyof PopupData
 // Keys
 export enum Mutations {
     showPopup = 'showPopup',
-    hidePopup = 'hidePopup'
+    hidePopup = 'hidePopup',
+    clear = 'clear'
 }
 
 export enum Actions {
     showPopup = 'showPopup',
-    hidePopup = 'hidePopup'
+    hidePopup = 'hidePopup',
+    clear = 'clear'
 }
 
-export enum Getters {
-}
+export enum Getters { }
 
-export const emptyState = defaultWith<PopupState>(() => ({
-    cart: undefined
-}))
+export const emptyState = defaultWith<PopupState>(() => ({}))
