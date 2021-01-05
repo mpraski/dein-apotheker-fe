@@ -66,7 +66,7 @@ export default class PopupManager extends Vue {
   private hideChooser(data: any) {
     if (this.popups.chooser) {
       const f = this.popups.chooser[1]
-      setTimeout(() => f(data), 150)
+      setTimeout(() => f(data), 200)
     }
 
     this.hidePopup('chooser')
