@@ -1,6 +1,5 @@
 <template>
   <Bar>
-    <template v-slot:left><Logo /></template>
     <template v-slot:right>
       <Button @click.native="onRefresh">
         <RefreshIcon title="Start again" />

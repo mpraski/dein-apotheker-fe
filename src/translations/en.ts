@@ -6,13 +6,14 @@ export const messages: LocaleMessageObject = {
     proceed: 'Proceed'
   },
   product: {
+    name: 'Search for a product',
     more: 'More',
     directions: 'Direction',
     explanation: 'Explanation',
     openList: 'Open list'
   },
   cart: {
-    title: 'Cart',
+    title: 'Your cart',
     add: 'Add {items} to Cart',
     added: 'Added to Cart!',
     items: 'Your items',

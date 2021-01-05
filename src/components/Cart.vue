@@ -1,12 +1,6 @@
 <template>
   <div class="cart">
-    <ListItem
-      v-for="item in cart"
-      :key="item.id"
-      v-bind="item"
-      height="7"
-      width="7"
-    />
+    <ListItem v-for="item in cart" :key="item.id" v-bind="item" />
   </div>
 </template>
 

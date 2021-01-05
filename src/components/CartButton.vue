@@ -73,15 +73,6 @@ export default class CartButton extends Vue {
   border-radius: $borderRadius;
   position: relative;
 
-  .icon {
-    @include big-icon;
-
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    z-index: 1;
-  }
-
   .badge {
     position: absolute;
     background-color: red;

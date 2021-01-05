@@ -163,11 +163,11 @@
     margin-right: auto;
 }
 
-@mixin big-icon($size: 1.5rem) {
+@mixin big-icon($size: 2rem) {
     cursor: pointer;
     height: $size;
     width: $size;
-    color: $textColorSecondary;
+    color: $textColor;
 
     & > .material-design-icon__svg {
         height: $size;

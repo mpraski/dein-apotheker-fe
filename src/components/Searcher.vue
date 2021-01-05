@@ -1,6 +1,7 @@
 <template>
   <div class="searcher">
-    <MagnifyIcon class="icon" /><input
+    <MagnifyIcon class="icon" />
+    <input
       class="field"
       type="text"
       placeholder="Search"
@@ -49,10 +50,7 @@ export default class Searcher extends Vue {
 .searcher {
   @extend .padded;
   @include horizontal-list(flex-start, center);
-
-  align-items: center;
-
-  border-bottom: 1px solid $borderColor;
+  @include bordered($borderRadiusHuge, solid, $borderWidthAction, $textColor);
 
   .icon {
     @include big-icon;

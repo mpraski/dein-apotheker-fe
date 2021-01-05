@@ -2,8 +2,10 @@
   <div class="popup-mask">
     <div class="holder">
       <div class="header">
-        <h2 class="title">{{ title }}</h2>
         <CloseIcon class="icon" @click="onClose" />
+      </div>
+      <div class="subheader">
+        <h2 class="title">{{ title }}</h2>
       </div>
       <div class="body">
         <slot></slot>
@@ -59,24 +61,24 @@ export default class Popup extends Vue {
     }
 
     .header {
-      @include horizontal-list;
-
-      justify-content: space-between;
-      margin-bottom: $marginMedium;
-
-      .title {
-        @include responsive-text;
-        margin: 0;
-        padding: 0;
-      }
+      @include horizontal-list(flex-end);
 
       .icon {
         @include big-icon;
       }
     }
 
-    .body {
-      flex: 1;
+    .subheader {
+      @include horizontal-list(center);
+
+      margin-bottom: $marginRegular;
+
+      .title {
+        @include responsive-text(21px, 1.75rem, 'PT Serif');
+        @include hero;
+
+        margin: 0;
+      }
     }
   }
 }

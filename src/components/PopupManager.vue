@@ -7,7 +7,11 @@
     >
       <Cart :cart="popups.cart" />
     </Popup>
-    <Popup v-else-if="popups.chooser" @on-close="hidePopup('chooser')">
+    <Popup
+      v-else-if="popups.chooser"
+      :title="$t('product.name')"
+      @on-close="hidePopup('chooser')"
+    >
       <DesktopChooser :rows="popups.chooser[0]" @on-select="hideChooser" />
     </Popup>
   </FadeIn>

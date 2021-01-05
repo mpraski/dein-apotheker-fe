@@ -68,7 +68,7 @@ export default class Grid extends Vue {
     flex-wrap: wrap;
     width: 100%;
 
-    border-bottom: 1px solid $borderColor;
+    border-bottom: 1px dashed $borderColor;
   }
 
   .column {
@@ -78,7 +78,7 @@ export default class Grid extends Vue {
     flex: 1;
 
     &:not(:last-child) {
-      border-right: 1px solid $borderColor;
+      border-right: 1px dashed $borderColor;
     }
   }
 }

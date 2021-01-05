@@ -1,6 +1,6 @@
 <template>
   <div class="desktop-chooser">
-    <Searcher @on-search="setSearch" ref="searcher" />
+    <Searcher class="searcher" @on-search="setSearch" ref="searcher" />
     <Grid :rows="filtered" :columns="columns" @on-select="onSelect" />
   </div>
 </template>
@@ -59,6 +59,8 @@ export default class DesktopChooser extends Vue {
 @import '@/assets/app.scss';
 
 .desktop-chooser {
-  @extend .bubble;
+  .searcher {
+    margin-bottom: $marginMedium;
+  }
 }
 </style>
