@@ -8,7 +8,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component({})
 export default class Content extends Vue {
   @Prop({ default: () => '' })
-  private content!: string
+  private readonly content!: string
 }
 </script>
 

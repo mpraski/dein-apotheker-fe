@@ -3,7 +3,7 @@ import { Code } from '@/client/code'
 import { ChatService, AnswerRequest, AnswerResponse, SessionService, NewSessionResponse, RevertRequest } from './types'
 
 export class ChatClient implements ChatService {
-  private client: Client;
+  private readonly client: Client;
 
   constructor(client: Client) {
     this.client = client

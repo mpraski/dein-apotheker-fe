@@ -60,37 +60,37 @@ const popup = namespace(popupNamespace)
 })
 export default class Chat extends Vue {
   @State(popupNamespace)
-  popups!: PopupState
+  private readonly popups!: PopupState
 
   @Action
-  requestSession!: () => void
+  private readonly requestSession!: () => void
 
   @chat.Getter
-  question!: Question
+  private readonly question!: Question
 
   @chat.Getter
-  state!: string
+  private readonly state!: string
 
   @chat.State
-  message!: Message
+  private readonly message!: Message
 
   @chat.State
-  cart!: Cart
+  private readonly cart!: Cart
 
   @chat.State
-  showInput!: boolean
+  private readonly showInput!: boolean
 
   @chat.Action
-  addAnswer!: (a: Answer) => void
+  private readonly addAnswer!: (a: Answer) => void
 
   @popup.Action
-  showPopup!: (d: [PopupKey, any]) => void
+  private readonly showPopup!: (d: [PopupKey, any]) => void
 
   @popup.Action
-  hidePopup!: (d: PopupKey) => void
+  private readonly hidePopup!: (d: PopupKey) => void
 
   @popup.Action
-  clear!: () => void
+  private readonly clear!: () => void
 
   private mounted() {
     this.$driver.start()

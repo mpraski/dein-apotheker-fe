@@ -23,7 +23,7 @@ import { QuestionOption } from '@/store/chat/types'
 })
 export default class Options extends Vue {
   @Prop({ default: () => [] })
-  private options!: ReadonlyArray<QuestionOption>
+  private readonly options!: ReadonlyArray<QuestionOption>
 
   @Emit()
   private onSelect(answer: string): string {

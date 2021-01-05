@@ -1,5 +1,5 @@
 import { GetterTree } from 'vuex'
-import { ChatState, Message, Getters, Cart, Question } from './types'
+import { ChatState, Getters, Question } from './types'
 import { RootState, ValueOf } from '@/store/types'
 
 type GetterDefinition = {

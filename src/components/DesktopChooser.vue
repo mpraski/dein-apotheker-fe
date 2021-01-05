@@ -19,10 +19,10 @@ import Grid from '@/components/Grid.vue'
 })
 export default class DesktopChooser extends Vue {
   @Prop({ default: () => [] })
-  private rows!: Row[]
+  private readonly rows!: Row[]
 
   @Prop({ default: () => 1 })
-  private columns!: number
+  private readonly columns!: number
 
   private searchValue = ''
 

@@ -16,8 +16,8 @@ import { Code } from '@/client/code'
 import { Queue } from './queue'
 
 export class Driver {
-  private chat: ChatService;
-  private session: SessionService;
+  private readonly chat: ChatService;
+  private readonly session: SessionService;
   private queue?: Queue<RootState>;
   private store?: Store<RootState>;
 

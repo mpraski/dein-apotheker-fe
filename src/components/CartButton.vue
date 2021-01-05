@@ -26,7 +26,7 @@ import FadeIn from '@/components/FadeIn.vue'
 })
 export default class CartButton extends Vue {
   @Prop({ default: () => 0 })
-  private items!: number
+  private readonly items!: number
 
   private timerID = -1
   private showPopover = false

@@ -12,22 +12,22 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component({})
 export default class ListItem extends Vue {
   @Prop({ default: () => '' })
-  private name!: string
+  private readonly name!: string
 
   @Prop({ default: () => '' })
-  private image!: string
+  private readonly image!: string
 
   @Prop({ default: () => 4 })
-  private height!: number
+  private readonly height!: number
 
   @Prop({ default: () => 4 })
-  private width!: number
+  private readonly width!: number
 
   @Prop({ default: () => false })
-  private selected!: boolean
+  private readonly selected!: boolean
 
   @Prop({ default: () => false })
-  private large!: boolean
+  private readonly large!: boolean
 
   private get styleImage(): object {
     return {

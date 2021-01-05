@@ -26,7 +26,7 @@ import Options from '@/components/Options.vue'
 })
 export default class ProductChooser extends Vue {
   @Prop()
-  private input!: ProductInput
+  private readonly input!: ProductInput
 
   @Emit()
   private onSelect(answer: AnswerValue): AnswerValue {

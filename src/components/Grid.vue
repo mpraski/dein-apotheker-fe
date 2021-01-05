@@ -25,10 +25,10 @@ import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 })
 export default class Grid extends Vue {
   @Prop({ default: () => 2 })
-  private columns!: number
+  private readonly columns!: number
 
   @Prop({ default: () => [] })
-  private rows!: Row[]
+  private readonly rows!: Row[]
 
   @Emit()
   private onSelect(a: string): string {

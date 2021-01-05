@@ -51,10 +51,10 @@ import Check from 'vue-material-design-icons/CheckCircle.vue'
 })
 export default class DesktopBuyer extends Vue {
   @Prop({ default: () => 2 })
-  private columns!: number
+  private readonly columns!: number
 
   @Prop({ default: () => [] })
-  private products!: Product[]
+  private readonly products!: Product[]
 
   private selected: Record<string, boolean>
 

@@ -1,5 +1,5 @@
 export class HTTPError {
-    public code: number;
+    public readonly code: number;
 
     constructor(code: number) {
         this.code = code
@@ -15,7 +15,7 @@ export class HTTPError {
 }
 
 export class APIError {
-    public message: string;
+    public readonly message: string;
 
     constructor(message: string) {
         this.message = message

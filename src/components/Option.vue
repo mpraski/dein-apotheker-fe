@@ -13,6 +13,6 @@ import Content from '@/components/Content.vue'
 })
 export default class Option extends Vue {
   @Prop({ default: () => '' })
-  private content!: string
+  private readonly content!: string
 }
 </script>

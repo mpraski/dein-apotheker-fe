@@ -37,7 +37,7 @@ import FadeIn from '@/components/FadeIn.vue'
 })
 export default class PopupManager extends Vue {
   @Prop({ default: () => emptyState() })
-  private popups!: PopupState
+  private readonly popups!: PopupState
 
   @Emit()
   private hidePopup(a: PopupKey): PopupKey {

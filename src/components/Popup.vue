@@ -25,7 +25,8 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
   }
 })
 export default class Popup extends Vue {
-  @Prop({ default: () => '' }) private title!: string
+  @Prop({ default: () => '' })
+  private readonly title!: string
 
   @Emit()
   private onClose() {

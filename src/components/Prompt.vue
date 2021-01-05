@@ -24,7 +24,7 @@ import SendIcon from 'vue-material-design-icons/Send.vue'
 })
 export default class Prompt extends Vue {
   @Prop({ default: () => '' })
-  private content!: string
+  private readonly content!: string
 
   private get isDisabled(): boolean {
     return this.content === ''

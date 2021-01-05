@@ -21,6 +21,6 @@ import ListItem from '@/components/ListItem.vue'
 })
 export default class Cart extends Vue {
   @Prop({ default: () => [] })
-  private cart!: Cart
+  private readonly cart!: Cart
 }
 </script>
