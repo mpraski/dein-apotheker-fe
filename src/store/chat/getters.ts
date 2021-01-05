@@ -6,15 +6,19 @@ type GetterDefinition = {
   [K in Getters]: ValueOf<GetterTree<ChatState, RootState>>;
 }
 
-export const getters: GetterDefinition = {
-  [Getters.state](state): string | undefined {
-    if (state.states.length) {
-      return state.states[state.states.length - 1]
-    }
+const safeGet = <T>(a: T[]) => {
+  if (a.length) {
+    return a[a.length - 1]
+  }
 
-    return undefined
+  return undefined
+}
+
+export const getters: GetterDefinition = {
+  [Getters.state]({ states }): string | undefined {
+    return safeGet(states)
   },
   [Getters.question]({ questions }): Question | undefined {
-    return questions[questions.length - 1]
+    return safeGet(questions)
   }
 }

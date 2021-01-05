@@ -1,12 +1,7 @@
 import {
   Answer,
-  Database,
-  Product,
-  QuestionOption,
-  Message as APIMessage,
   Actions as ChatActions,
-  Mutations as ChatMutation,
-  ProductInput
+  Mutations as ChatMutation
 } from '@/store/chat/types'
 import {
   RootState,
@@ -64,10 +59,6 @@ export class Driver {
           this.dispatch(chatNamespace, ChatActions.showInput)
           break
         }
-        case this.namespaced(chatNamespace, ChatMutation.revert): {
-          this.revert(mutation.payload as [number, string])
-          break
-        }
       }
     })
   }
@@ -96,23 +87,12 @@ export class Driver {
     }
 
     const payload = [response.id, response.message, response.cart]
-    const dispatcher = this.initialState
-      ? this.dispatch.bind(this)
-      : this.dispatchQueue.bind(this)
 
-    return dispatcher(chatNamespace, ChatActions.addResponse, payload)
-  }
-
-  private async revert([index, state]: [number, string]) {
-    return this.dispatchQueue(chatNamespace, ChatActions.showInput)
+    return this.dispatchQueue(chatNamespace, ChatActions.addResponse, payload)
   }
 
   private get currentToken(): string | undefined {
     return this.store?.state.token
-  }
-
-  private get initialState(): boolean {
-    return (this.store?.state as any).chat.states.length < 2
   }
 
   private get emptyAnswer(): Answer {

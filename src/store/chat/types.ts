@@ -78,8 +78,7 @@ export enum Mutations {
   addAnswer = 'addAnswer',
   addMessage = 'addMessage',
   addState = 'addState',
-  revertMessage = 'revertMessage',
-  revert = 'revert',
+  addQuestion = 'addQuestion',
   clear = 'clear'
 }
 
@@ -88,8 +87,6 @@ export enum Actions {
   hideInput = 'hideInput',
   addAnswer = 'addAnswer',
   addResponse = 'addResponse',
-  revertResponse = 'revertResponse',
-  revert = 'revert',
   clear = 'clear'
 }
 

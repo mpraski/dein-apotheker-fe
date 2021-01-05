@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { Answer, Message, ChatState, emptyState, Mutations, Cart } from './types'
+import { Answer, Message, ChatState, emptyState, Mutations, Cart, Question } from './types'
 import { ValueOf } from '@/store/types'
 
 type MutationDefinition = {
@@ -19,26 +19,14 @@ export const mutations: MutationDefinition = {
   [Mutations.addAnswer](state, answer: Answer) {
     state.answer = answer
   },
+  [Mutations.addQuestion](state, question: Question) {
+    state.questions.push(question)
+  },
   [Mutations.addMessage](state, message: Message) {
     state.message = message
-    state.questions.push(message.text)
   },
   [Mutations.addState](state, stateID: string) {
     state.states.push(stateID)
-  },
-  [Mutations.revertMessage](state, message: Message) {
-    state.message = message
-  },
-  [Mutations.revert](state, [_, prevState]: [number, string]) {
-    const idx = state.states.findIndex((s) => s === prevState)
-
-    if (idx === -1) {
-      return
-    }
-
-    Object.assign(state, emptyState({
-      states: state.states.slice(0, idx)
-    }))
   },
   [Mutations.clear](state) {
     Object.assign(state, emptyState())
