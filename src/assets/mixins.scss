@@ -82,9 +82,10 @@
 }
 
 @mixin hero() {
+    @include responsive-text(21px, 2rem, "Caladea");
     @include respond-to(medium) {
-        font-size: 3.5vmin;
-        line-height: 5vmin;
+        font-size: 4vmin;
+        line-height: 5.5vmin;
     }
 }
 

@@ -74,7 +74,6 @@ export default class Popup extends Vue {
       margin-bottom: $marginRegular;
 
       .title {
-        @include responsive-text(21px, 1.75rem, 'PT Serif');
         @include hero;
 
         margin: 0;

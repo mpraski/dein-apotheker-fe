@@ -142,7 +142,6 @@ main {
   margin-bottom: $marginLarge;
   width: 75%;
 
-  @include responsive-text(21px, 1.75rem, 'PT Serif');
   @include hero;
 }
 </style>
