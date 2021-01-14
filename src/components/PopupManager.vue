@@ -14,6 +14,13 @@
     >
       <DesktopChooser :rows="popups.chooser[0]" @on-select="hideChooser" />
     </Popup>
+    <Popup
+      v-else-if="popups.question"
+      :title="popups.question.hint"
+      @on-close="hidePopup('question')"
+    >
+      <Markdown :content="popups.question.content" />
+    </Popup>
   </FadeIn>
 </template>s
 
@@ -30,13 +37,15 @@ import Popup from '@/components/Popup.vue'
 import Cart from '@/components/Cart.vue'
 import DesktopChooser from '@/components/DesktopChooser.vue'
 import FadeIn from '@/components/FadeIn.vue'
+import Markdown from '@/components/Markdown.vue'
 
 @Component({
   components: {
     Popup,
     Cart,
     DesktopChooser,
-    FadeIn
+    FadeIn,
+    Markdown
   }
 })
 export default class PopupManager extends Vue {

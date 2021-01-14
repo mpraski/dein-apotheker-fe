@@ -1,8 +1,10 @@
-import { Answer, Message, Cart } from '@/store/chat/types'
+import { Answer, Message, Cart, Popup } from '@/store/chat/types'
 
 export type Call<R, S> = (r: R) => Promise<S>
 
 export type Cast<S> = () => Promise<S>
+
+export type Nullable<T> = T | null
 
 export interface ChatService {
   answer: Call<AnswerRequest, AnswerResponse>;

@@ -30,7 +30,7 @@ import DesktopBuyer from '@/components/DesktopBuyer.vue'
 import ProductChooser from '@/components/ProductChooser.vue'
 
 import {
-  Input,
+  Input as InputT,
   QuestionType,
   AnswerValue,
   Database,
@@ -51,9 +51,9 @@ import { VueConstructor } from 'vue'
     ProductChooser
   }
 })
-export default class InputSwitch extends Vue {
+export default class Input extends Vue {
   @Prop() private type!: QuestionType
-  @Prop() private input!: Input
+  @Prop() private input!: InputT
 
   private get isEnd(): boolean {
     return (

@@ -1,5 +1,7 @@
 import { defaultWith } from '../types'
 
+type Nullable<T> = T | null;
+
 export type QuestionType = 'question' | 'product' | 'product_list' | 'list' | 'comment' | 'free'
 
 export type DatabaseType = 'Products' | 'Brands' | 'API'
@@ -46,6 +48,12 @@ export interface Message {
   text: string;
   type: QuestionType;
   input: Input;
+  popup: Nullable<Popup>;
+}
+
+export interface Popup {
+  hint: string;
+  content: string;
 }
 
 export type Cart = Array<Product>;

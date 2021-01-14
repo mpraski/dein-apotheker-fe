@@ -1,4 +1,4 @@
-import { AnswerValue, Cart, Row } from '../chat/types'
+import { AnswerValue, Cart, Popup, Row } from '../chat/types'
 import { defaultWith } from '../types'
 
 type Partial<T> = {
@@ -8,6 +8,7 @@ type Partial<T> = {
 export interface PopupData {
     cart: Cart;
     chooser: [Row[], (a: AnswerValue) => void];
+    question: Popup;
 }
 
 export type PopupState = Partial<PopupData>

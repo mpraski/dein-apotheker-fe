@@ -2,8 +2,8 @@
   <main>
     <FadeIn>
       <section class="main" v-if="showInput">
-        <Content class="output" :content="question" />
-        <InputSwitch
+        <Message :message="message" @on-popup="onPopup" />
+        <Input
           :type="message.type"
           :input="message.input"
           @on-answer="onAnswer"
@@ -27,20 +27,20 @@ import { State, Action, namespace } from 'vuex-class'
 
 import FadeIn from '@/components/FadeIn.vue'
 import PopupManager from '@/components/PopupManager.vue'
-import Content from '@/components/Content.vue'
-import InputSwitch from '@/views/InputSwitch.vue'
+import Message from '@/views/Message.vue'
+import Input from '@/views/Input.vue'
 import TopBar from '@/views/TopBar.vue'
 
 import {
   Answer,
-  Input,
-  Message,
+  Message as MessageT,
   Actions as ChatActions,
   Getters as ChatGetters,
   AnswerValue,
   Cart,
   Question,
-  Row
+  Row,
+  Popup
 } from '@/store/chat/types'
 import { chatNamespace } from '@/store/chat'
 import { popupNamespace } from '@/store/popup'
@@ -52,8 +52,8 @@ const popup = namespace(popupNamespace)
 @Component({
   components: {
     FadeIn,
-    Content,
-    InputSwitch,
+    Message,
+    Input,
     TopBar,
     PopupManager
   }
@@ -72,7 +72,7 @@ export default class Chat extends Vue {
   private readonly state!: string
 
   @chat.State
-  private readonly message!: Message
+  private readonly message!: MessageT
 
   @chat.State
   private readonly cart!: Cart
@@ -102,6 +102,10 @@ export default class Chat extends Vue {
 
   private onChooser(data: [Row[], (a: AnswerValue) => void]) {
     this.showPopup(['chooser', data])
+  }
+
+  private onPopup(popup: Popup) {
+    this.showPopup(['question', popup])
   }
 
   private get cartSize(): number {
