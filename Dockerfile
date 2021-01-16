@@ -13,6 +13,7 @@ COPY ./Makefile .
 COPY ./package.json .
 COPY ./tsconfig.json .
 COPY ./vue.config.js .
+COPY ./vuejs-datepicker.d.ts .
 COPY ./.env .
 COPY ./.env.production .
 
