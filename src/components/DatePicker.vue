@@ -1,30 +1,37 @@
 <template>
-  <div class="prompt">
-    <input v-model="content" @keyup.enter="onSend" type="text" class="input" />
+  <div class="date-picker">
+    <Datepicker
+      @keyup.enter="onSend"
+      v-model="content"
+      name="somedate"
+      class="field"
+    />
     <SendIcon @click="onSend" class="icon" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Emit } from 'vue-property-decorator'
+import Datepicker from 'vuejs-datepicker'
 import SendIcon from 'vue-material-design-icons/Send.vue'
 
 @Component({
   components: {
+    Datepicker,
     SendIcon
   }
 })
-export default class Prompt extends Vue {
-  private readonly content!: string
+export default class DatePicker extends Vue {
+  private readonly content!: Date
 
   constructor() {
     super()
 
-    this.content = ''
+    this.content = new Date()
   }
 
   private onSend() {
-    this.onSubmit(this.content)
+    this.onSubmit(this.content.toISOString())
   }
 
   @Emit()
@@ -37,7 +44,7 @@ export default class Prompt extends Vue {
 <style scoped lang="scss">
 @import '@/assets/app.scss';
 
-.prompt {
+.date-picker {
   @extend .padded;
   @include horizontal-list(flex-start, nowrap);
   @include bordered($borderRadiusHuge, solid, $borderWidthAction, $textColor);

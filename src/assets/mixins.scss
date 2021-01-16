@@ -98,29 +98,6 @@
     transition-delay: $animationDelay;
 }
 
-.alignable {
-    &.right {
-        align-self: flex-end;
-    }
-
-    &.left {
-        align-self: flex-start;
-    }
-}
-
-.bubble {
-    @include bordered;
-    @extend .alignable;
-    @extend .elevated;
-
-    color: $textColor;
-    border-color: $borderColor;
-    background-color: $backgroundColor;
-
-    text-align: left;
-    user-select: none;
-}
-
 .padded {
     padding: $paddingButton;
 
@@ -164,7 +141,7 @@
     margin-right: auto;
 }
 
-@mixin big-icon($size: 2rem) {
+@mixin big-icon($size: 1.75rem) {
     cursor: pointer;
     height: $size;
     width: $size;

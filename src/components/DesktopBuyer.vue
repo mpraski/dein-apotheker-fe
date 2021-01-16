@@ -115,8 +115,6 @@ export default class DesktopBuyer extends Vue {
 @import '@/assets/app.scss';
 
 .desktop-buyer-wrapper {
-  @extend .bubble;
-
   .desktop-buyer {
     height: 25vh;
     max-height: 18rem;

@@ -2,7 +2,7 @@ import { defaultWith } from '../types'
 
 type Nullable<T> = T | null;
 
-export type QuestionType = 'question' | 'product' | 'product_list' | 'list' | 'comment' | 'free'
+export type QuestionType = 'question' | 'product' | 'product_list' | 'list' | 'comment' | 'free' | 'date'
 
 export type DatabaseType = 'Products' | 'Brands' | 'API'
 

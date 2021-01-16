@@ -16,6 +16,7 @@
     :products="input.rows"
     @on-select="onAnswer"
   />
+  <DatePicker v-else-if="isDate" @on-submit="onAnswer" />
   <Prompt v-else-if="isFree" @on-submit="onAnswer" />
 </template>
 
@@ -26,6 +27,7 @@ import Placeholder from '@/components/Placeholder.vue'
 import Option from '@/components/Option.vue'
 import Options from '@/components/Options.vue'
 import Prompt from '@/components/Prompt.vue'
+import DatePicker from '@/components/DatePicker.vue'
 import DesktopBuyer from '@/components/DesktopBuyer.vue'
 import ProductChooser from '@/components/ProductChooser.vue'
 
@@ -46,6 +48,7 @@ import { VueConstructor } from 'vue'
     Option,
     Options,
     Prompt,
+    DatePicker,
     Placeholder,
     DesktopBuyer,
     ProductChooser
@@ -75,6 +78,10 @@ export default class Input extends Vue {
 
   private get isFree(): boolean {
     return this.type === 'free'
+  }
+
+  private get isDate(): boolean {
+    return this.type === 'date'
   }
 
   private get isOptionsInput(): boolean {

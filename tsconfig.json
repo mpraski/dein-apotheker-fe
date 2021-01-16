@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "vuejs-datepicker.ts"  ],
   "exclude": [
     "node_modules"
   ]

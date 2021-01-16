@@ -24,6 +24,6 @@ export const messages: LocaleMessageObject = {
     unknown: 'Unknown',
     hangOn: 'Please hang on',
     thankYou: 'Thank you for the chat',
-    yourAnswer: 'Your answer'
+    yourAnswer: 'Please type here'
   }
 }
