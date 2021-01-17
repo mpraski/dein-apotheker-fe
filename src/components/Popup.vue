@@ -52,6 +52,7 @@ export default class Popup extends Vue {
   .holder {
     @include vertical-list;
 
+    height: 100%;
     padding: $marginMedium;
     margin-left: auto;
     margin-right: auto;
@@ -78,6 +79,10 @@ export default class Popup extends Vue {
 
         margin: 0;
       }
+    }
+
+    .body {
+      overflow: auto;
     }
   }
 }

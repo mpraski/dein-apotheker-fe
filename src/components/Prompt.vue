@@ -1,6 +1,12 @@
 <template>
   <div class="prompt">
-    <input v-model="content" @keyup.enter="onSend" type="text" class="input" />
+    <input
+      ref="input"
+      v-model="content"
+      @keyup.enter="onSend"
+      type="text"
+      class="input"
+    />
     <SendIcon @click="onSend" class="icon" />
   </div>
 </template>
@@ -17,10 +23,19 @@ import SendIcon from 'vue-material-design-icons/Send.vue'
 export default class Prompt extends Vue {
   private readonly content!: string
 
+  // prettier-ignore
+  $refs!: {
+    input: HTMLInputElement;
+  }
+
   constructor() {
     super()
 
     this.content = ''
+  }
+
+  private mounted() {
+    this.$refs.input.focus()
   }
 
   private onSend() {
