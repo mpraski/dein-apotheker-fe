@@ -64,6 +64,8 @@ export default class Popup extends Vue {
     .header {
       @include horizontal-list(flex-end);
 
+      margin-bottom: $marginMedium;
+
       .icon {
         @include big-icon;
       }
